@@ -18,7 +18,6 @@ class ProfileMenu extends React.Component {
 
   render() {
     return (
-
       <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal" style={{textAlign:"center"}}>
         <Menu.Item key="mail" icon={<MailOutlined />}>
           لیست آگهی‌ها

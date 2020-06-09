@@ -42,7 +42,7 @@ return (
         <List.Item.Meta 
           style = {{textAlign:"center"}}
           title = {<a href={`/${item.id}`}><b>{item.title}</b></a>}
-          description = {item.description}
+          description = {item.origin_country}
         />  
       </List.Item>
       

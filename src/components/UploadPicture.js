@@ -5,10 +5,10 @@ import ImgCrop from 'antd-img-crop';
 const UploadFile = () => {
   const [fileList, setFileList] = useState([
     {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+         uid: '-1',
+         name: 'image.png',
+         status: 'done',
+         url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
   ]);
 
@@ -25,6 +25,7 @@ const UploadFile = () => {
         reader.onload = () => resolve(reader.result);
       });
     }
+
     const image = new Image();
     image.src = src;
     const imgWindow = window.open(src);
@@ -33,10 +34,10 @@ const UploadFile = () => {
 
   return (
     <ImgCrop rotate>
-      <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      <Upload 
+        action="http://127.0.0.1:8000/api/v1/advertise/upload/"
+        name="billig"
         listType="picture-card"
-        fileList={fileList}
         onChange={onChange}
         onPreview={onPreview}
       >
