@@ -41,7 +41,7 @@ class PackForm extends React.Component {
                     suggested_price: suggested_price,
                     description: description,
                     owner : owner,
-                    picture : [this.props.id]
+                    picture : [110]
                 })
                 .then(function (res) { if (res.status == 201){ window.location.href = '/'; console.log(values)}})
                 .catch(error => console.error(error));
@@ -167,7 +167,7 @@ class PackForm extends React.Component {
                     با <a>قوانین و مقررات </a>بیلیگ پست موافقم
                     </Checkbox>
                 </Form.Item>
-                <Form.Item name="picture" style={{textAlign:"center"}}   > <UploadFile {...this.props.children} /> </Form.Item>
+                <Form.Item name="picture" style={{textAlign:"center"}}   > <UploadFile /> </Form.Item>
                 <Form.Item style={{ textAlign: 'center' }}>
                     <Button type="primary" htmlType="submit">{this.props.btnText}</Button>
                 </Form.Item> 
