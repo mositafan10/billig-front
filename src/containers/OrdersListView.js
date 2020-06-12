@@ -21,7 +21,7 @@ class OrderList extends React.Component {
 
     render(){
         return(
-            <div>
+            <div style={{fontFamily:"IRANSans"}}>
                 <Orders data={this.state.orders} />
                 <br />
             </div>

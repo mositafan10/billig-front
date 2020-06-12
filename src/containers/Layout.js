@@ -1,9 +1,10 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Row, Col  } from 'antd';
 import { Link, withRouter} from 'react-router-dom';
 import billigpost from '../media/billigpost.png';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
+import Sider from '../components/LandingPageSidebar';
 
 const { Header, Content, Footer } = Layout;
 
@@ -33,13 +34,22 @@ class CustomLayout extends React.Component {
             </Menu>
           </Header>
           <Content style={{ padding: '20px 20px 20px 20px' }}>
-            <Breadcrumb style={{ margin: '25px 0' }}>
-              {/* <Breadcrumb.Item><Link to='/'>Home</Link></Breadcrumb.Item>
-              <Breadcrumb.Item><Link to='/'>List</Link></Breadcrumb.Item> */}
-            </Breadcrumb>
-            <div className="site-layout-content">
-              {this.props.children}
-            </div>
+            <Row>
+            </Row>
+            <Row>
+              <Col span={20}>
+                <Breadcrumb style={{ margin: '25px 0' }}>
+                  {/* <Breadcrumb.Item><Link to='/'>Home</Link></Breadcrumb.Item>
+                  <Breadcrumb.Item><Link to='/'>List</Link></Breadcrumb.Item> */}
+                </Breadcrumb>
+                <div className="site-layout-content">
+                  {this.props.children}
+                </div>
+              </Col>
+              <Col span={8} > 
+                  <Sider/>
+              </Col>
+            </Row>
           </Content>
           <Footer style={{ textAlign: 'center' }}><b>Billigpost</b></Footer>
         </Layout>

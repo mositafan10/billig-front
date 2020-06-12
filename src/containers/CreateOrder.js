@@ -22,7 +22,7 @@ class CreateOrder extends React.Component {
 
     render(){
         return(
-            <div>
+            <div style={{fontFamily:"IRANSans"}}>
                 <Row>
                     <Col span={8}>
                         <Divider style={{fontSize:"x-large"}}> راهنمای ثبت آگهی</Divider>

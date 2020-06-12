@@ -4,6 +4,9 @@ import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import UploadFile from '../components/UploadPicture';
 import TextArea from 'antd/lib/input/TextArea';
+import '../fonts/iransans.ttf'
+
+
 
 
 class PackForm extends React.Component {
