@@ -1,6 +1,6 @@
 import React from 'react'; 
 import Menu from '../components/ProfileMenu';
-import ProfileCard from '../components/ProflieCard';
+import ProfileCard from '../components/ProfileCard';
 
 
 class Profile extends React.Component {
@@ -20,7 +20,7 @@ class Profile extends React.Component {
         </div>
         :
         <div>
-          <p style={{fontFamily:"IRANSans", textAlign:"center"}}>  ابتدا<a href={'/login'}> وارد</a>  حساب کاربری خود شوید  </p>
+          <p style={{fontFamily:"IRANSans", textAlign:"center"}}>  ابتدا<a href={'/login'}> وارد</a>  حساب کاربری خود   شوید  </p>
         </div>
        }
       </div>

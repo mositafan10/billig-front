@@ -24,40 +24,30 @@ class CreateOrder extends React.Component {
     }
     render(){
         return(
+            <Row>
+            <Col span={8}></Col>
+            <Col span={8}>
             <div>
             {
                 this.props.isAuthenticated ?
                 <div style={{fontFamily:"IRANSans"}}>
-                    <Row>
-                        <Col span={8}>
-                            <Divider style={{fontSize:"larger"}}> راهنمای ثبت آگهی</Divider>
-                        </Col >
-                        <Col span={8}>
-                        </Col>
-                        <Col span={8} style={{marginLeft:"-50px"}}>
-                            {/* <Divider style={{fontSize:"x-large"}}>فرم ثبت آگهی </Divider> */}
-                            <h2 align="center"> </h2>
-                            <PackForm
-                                requestType="post"
-                                orderID={null}
-                                btnText="create" />
-                        </Col>
-                    </Row>
+                    {/* <Divider style={{fontSize:"large"}}> فرم ثبت آگهی </Divider> */}
+                    <h2 align="center"> </h2>
+                    <PackForm
+                        requestType="post"
+                        orderID={null}
+                        btnText="create" />
                 </div> 
                 :
                 <p style={{fontFamily:"IRANSans", textAlign:"center"}}> لطفا ابتدا در سایت<a href={'/login'}> وارد</a> شوید </p>
              }
             </div>
+            </Col>
+            <Col span={8}></Col>
+            </Row>
         )
     }
 }
 
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         logout: () => dispatch(actions.logout())
-//     }
-//   }
-  
-// export default withRouter(connect(null, mapDispatchToProps)(CreateOrder));
 export default CreateOrder;

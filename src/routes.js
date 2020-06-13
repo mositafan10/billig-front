@@ -15,8 +15,8 @@ class BaseRouter extends React.Component {
             <Route exact path='/:orderID' component={OrderDetail} />
             <Route exact path='/packet' render={(props) => <CreateOrder {...this.props}/> }/>
             <Route exact path='/profile' render={(props) => <Profile {...this.props}/> }/>
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/signup' component={Signup} />
+            <Route exact path='/login' render={(props) => <Login {...this.props}/> }/>
+            <Route exact path='/signup' render={(props) => <Signup {...this.props}/> }/>
         </div>
         );
     }

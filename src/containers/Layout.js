@@ -13,7 +13,7 @@ class CustomLayout extends React.Component {
     return(
       <div style={{fontFamily:"IRANSans"}}>
         <Layout className="layout" style={{backgroundColor:'white'}}>
-          <Header >
+          <Header style={{backgroundColor:"white"}} >
             <div className="logo">
             <img style={{float:"right"}}
             width={60}
@@ -21,7 +21,7 @@ class CustomLayout extends React.Component {
             src={billigpost}
           />          
             </div>
-            <Menu theme="dark" mode="horizontal" >
+            <Menu theme="light" mode="horizontal" >
             {
             this.props.isAuthenticated ?
               <Menu.Item key="5" onClick={this.props.logout}>خروج</Menu.Item>

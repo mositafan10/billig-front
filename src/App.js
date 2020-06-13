@@ -17,7 +17,7 @@ class App extends Component {
       <div className="App">
       <Router> 
           <CustomLayout {...this.props}>
-            <BaseRouter {...this.props} />
+            <BaseRouter {...this.props}/>
           </CustomLayout>
       </Router>
       </div>

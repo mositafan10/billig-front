@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Input, Button, Spin } from 'antd';
-import  Icon from '@ant-design/icons';
+import  { Icon, LoadingOutlined} from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth';
-const antIcon = <Icon type="loading" style={{fontsize: 24}} spin />;
+const antIcon = <LoadingOutlined type="loading" style={{fontsize: 24}} spin />;
  
 
 class LoginForm extends React.Component {
@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
         {/* {errorMessage} */}
         {
         this.props.loading ?
-        <Spin indicator={antIcon} />
+        <Spin indicator={antIcon}/>
         :
         <Form
             size="middle"

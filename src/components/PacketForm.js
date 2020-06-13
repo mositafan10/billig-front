@@ -92,7 +92,7 @@ class PackForm extends React.Component {
     return (
         <div>
             <div className="col-md-2">
-            <Form onFinish={(values) => this.handleFormSubmit(
+            <Form size="middle" onFinish={(values) => this.handleFormSubmit(
                 values,
                 this.props.requestType,
                 this.props.orderID

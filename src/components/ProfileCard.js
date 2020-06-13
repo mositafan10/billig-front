@@ -27,7 +27,7 @@ class ProfileCard extends React.Component {
           >
             <Meta
               avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-              title="Gasem Soleimani"
+              title="BilligMan"
               description="This is the bio of user"
             />
         </Card>,
