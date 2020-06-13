@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { Link, withRouter} from 'react-router-dom';
+import { Link, withRouter, Redirect} from 'react-router-dom';
 import billigpost from '../media/billigpost.png';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
@@ -9,7 +9,24 @@ import * as actions from '../store/actions/auth';
 const { Header, Content, Footer } = Layout;
 
 class CustomLayout extends React.Component {
+
+  state = {
+    toDashboard : false,
+  }
+  onClick = () => {
+     this.props.logout()
+     this.setState({
+       toDashboard: true
+     })
+  }
+
   render() {
+    if (this.state.toDashboard){
+      this.setState({
+        toDashboard: false,
+      })
+      return <Redirect to='/login'/>
+    }
     return(
       <div style={{fontFamily:"IRANSans"}}>
         <Layout className="layout" style={{backgroundColor:'white'}}>
@@ -24,7 +41,7 @@ class CustomLayout extends React.Component {
             <Menu theme="light" mode="horizontal" >
             {
             this.props.isAuthenticated ?
-              <Menu.Item key="5" onClick={this.props.logout}>خروج</Menu.Item>
+              <Menu.Item key="5" onClick={this.onClick}>خروج</Menu.Item>
               :
               <Menu.Item key="4"><Link to='/login'>ورود / ثبت نام</Link> </Menu.Item>
             }

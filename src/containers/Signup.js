@@ -19,7 +19,7 @@ class SignUpForm extends React.Component {
       password: values.password,
       phone_number: values.phone_number
     })
-    {this.showModal()}
+    {this.showModal()}  
   };
 
   showModal = () => {
@@ -37,7 +37,10 @@ class SignUpForm extends React.Component {
     const phone_number = this.state.phone_number;
     const otp = this.state.otp;
     this.props.onAuth1(phone_number, password, otp)
-    // this.props.history.push('/');
+    console.log("error:",this.props.error)
+    if (this.props.error == null) {
+      // window.location.href = '/';
+    }
   };
 
   handleCancel = e => {
@@ -59,7 +62,7 @@ class SignUpForm extends React.Component {
     >
         <Form.Item
         style={{alignItems:"center"}}
-        name="Phone Number"
+        name="phone_number"
         label="شماره موبایل"
 
         rules={[

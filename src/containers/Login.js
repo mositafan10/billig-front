@@ -1,18 +1,23 @@
 import React from 'react';
 import { Form, Input, Button, Spin } from 'antd';
 import  { Icon, LoadingOutlined} from '@ant-design/icons';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth';
 const antIcon = <LoadingOutlined type="loading" style={{fontsize: 24}} spin />;
  
 
 class LoginForm extends React.Component {
+    state = {
+        toDashboard: false,
+    };
 
   onFinish = values => {
     const otp = "";
     this.props.onAuth(values.phone_number, values.password, otp);
-    console.log("error : ", this.props.error);
+    this.setState({
+        toDashboard: true,
+    });
   }
 
   onFinishFailed = errorInfo => {
@@ -26,6 +31,9 @@ class LoginForm extends React.Component {
               <p>{this.props.error.message}</p>
           );
       }
+      if (this.props.error === null && this.state.toDashboard){
+       return <Redirect to='/profile'/> 
+    }
   return (
     <div>
         {/* {errorMessage} */}
