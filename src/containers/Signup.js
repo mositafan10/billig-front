@@ -56,8 +56,8 @@ class SignUpForm extends React.Component {
       scrollToFirstError
     >
         <Form.Item
-        name="phone_number"
-        label="Phone Number"
+        name="Phone Number"
+        label="شماره موبایل"
         rules={[
           {
             required: true,
@@ -68,8 +68,8 @@ class SignUpForm extends React.Component {
         <Input style={{width: '100%'}}/>
       </Form.Item>
       <Form.Item
-        name="password"
-        label="Password"
+        name="Password"
+        label="رمز عبور"
         rules={[
           {
             required: true,
@@ -81,21 +81,21 @@ class SignUpForm extends React.Component {
         <Input.Password />
       </Form.Item> 
       <Form.Item
-        name="confirm"
-        label="Confirm Password"
+        label="تکرار رمز عبور"
+        name="Confirm Password"
         dependencies={['password']}
         hasFeedback
         rules={[
           {
             required: true,
-            message: 'Please confirm your password!',
+            message: 'تکرار رمز عبور را وارد نمایید',
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject('The two passwords that you entered do not match!');
+              return Promise.reject('تکرار رمز عبور مطابقت ندارد');
             },
           }),
         ]}
@@ -104,12 +104,12 @@ class SignUpForm extends React.Component {
       </Form.Item>
       <Form.Item style={{textAlign:"center"}}>
             <Button type="primary" htmlType="submit" style={{marginRight:'10px'}}>
-            Signup
+            ثبت نام
             </Button>
-            Or
+            / 
             <NavLink 
             style={{marginRight:'20px'}}
-            to='/login/'> Login
+            to='/login/'> ورود
             </NavLink>
         </Form.Item>
         <Modal

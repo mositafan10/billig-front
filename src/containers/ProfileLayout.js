@@ -8,12 +8,21 @@ class Profile extends React.Component {
   render() {
     return (
       <div>
+        {
+        this.props.isAuthenticated ?
         <div>
-          <ProfileCard/>
+          <div>
+              <ProfileCard/>
+          </div>
+          <div>
+              <Menu> </Menu>
+          </div>
         </div>
+        :
         <div>
-          <Menu> </Menu>
+          <p style={{fontFamily:"IRANSans", textAlign:"center"}}>  ابتدا<a href={'/login'}> وارد</a>  حساب کاربری خود شوید  </p>
         </div>
+       }
       </div>
     );
   }

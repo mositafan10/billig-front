@@ -1,6 +1,11 @@
 import React from 'react';
 import Orders from '../components/Orders';
 import Axios from 'axios';
+import { Row, Col, Input } from 'antd';
+import Sider from '../components/LandingPageSidebar';
+
+const {Search} = Input
+
     
 
 class OrderList extends React.Component {
@@ -22,7 +27,23 @@ class OrderList extends React.Component {
     render(){
         return(
             <div style={{fontFamily:"IRANSans"}}>
-                <Orders data={this.state.orders} />
+                <Row style={{display:'flex', justifyContent:'center', marginBottom:"20px"}}>
+                <div>
+                    <Search
+                        placeholder="جستجو در آگهی‌ها"
+                        onSearch={value => console.log(value)}
+                        style={{ width: 600, alignItems:"center" }}
+                        /><br/><br/>
+                </div>
+                </Row>
+                <Row>
+                    <Col span={20}>
+                        <Orders data={this.state.orders} />
+                    </Col>
+                    <Col span={4}  > 
+                        <Sider/>
+                    </Col>
+                </Row>
                 <br />
             </div>
         )

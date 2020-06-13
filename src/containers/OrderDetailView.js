@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { Card } from 'antd';
+import Detail from '../components/OrderDetail';
 
 
 
@@ -23,9 +24,7 @@ class OrderDetail extends React.Component {
     render(){
         return(
             <div>
-            <Card title={this.state.order.title}>
-                {this.state.order.description}
-            </Card>
+            <Detail data={this.state.order} />
             <br></br>
             </div>
         )

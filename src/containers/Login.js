@@ -42,7 +42,7 @@ class LoginForm extends React.Component {
         onFinishFailed={this.onFinishFailed}
         >
         <Form.Item
-            label="Phone Number"
+            label="شماره موبایل"
             name="phone_number"
             rules={[
             {
@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
           <Input />
         </Form.Item>
         <Form.Item
-            label="Password"
+            label="رمز عبور"
             name="password"
             rules={[
             {
@@ -65,14 +65,14 @@ class LoginForm extends React.Component {
         >
         <Input.Password />
         </Form.Item>
-        <Form.Item>
+        <Form.Item style={{textAlign:"center"}}>
             <Button type="primary" htmlType="submit" style={{marginRight:'10px'}}>
-            Login
+            ورود
             </Button>
-            Or
+            / 
             <NavLink 
             style={{marginRight:'20px'}}
-            to='/signup/'> signup
+            to='/signup/'>  ثبت نام
             </NavLink>
         </Form.Item>
         </Form>

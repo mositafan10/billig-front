@@ -1,6 +1,6 @@
 import React, { lazy } from 'react';
 
-import { List, Avatar, Space, Col, Row } from 'antd';
+import { List, Avatar, Space } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import billigpost from '../media/billigpost.png';
 
@@ -11,45 +11,54 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 
+
 const Orders = (props) => {
 return (
   <List
-    // bordered
-    // loading={true}
-    // loadMore={true}
-    size={"small"}
-    grid={{ gutter: 24, xs: 1, sm: 2, md: 2, lg: 3, xl: 4, xxl: 4,}}
-    dataSource={props.data}
-    footer={<div></div>}
-    itemLayout={"vertical"}
-    renderItem={item => (
-      
-        <List.Item style={{border:"solid",borderRadius:"5px",boxShadow:"0 0 5px 1px"}}
-         
-          key={item.title}
-          actions={[
-              // <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-          ]}
-          extra={
-            <div>{item.suggested_price}</div>,
-            <img style={{float:"center"},{marginLeft:"28%"}}
-              width={70}
-              // alt="logo"
-              src={billigpost}
-            />
-          }
-        >
-        <List.Item.Meta 
-          style = {{textAlign:"center"}}
-          title = {<a href={`/${item.id}`}><b>{item.title}</b></a>}
-          description = {item.origin_country}
-        />  
-      </List.Item>
-      
-    )}
+  // grid={{ gutter: 10, column: 1 }}
+  itemLayout="vertical"
+  size="large"
+  pagination={{
+    onChange: page => {
+      console.log(page);
+    },
+    pageSize: 10,
+  }}
+  dataSource={props.data}
+  
+  renderItem={item => (
+    <List.Item style={{textAlign:"right"}}
+      key={item.title}
+      actions={[
+        <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+        <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+        <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+      ]}
+      extra={
+        <img
+          width={100}
+          alt="logo"
+          src={billigpost}
+        />
+      }
+    >
+      <List.Item.Meta
+        avatar={<Avatar src={item.avatar} />}
+        title={<a href={item.id}>{item.title}</a>}
+        description={item.description}
+      />
+      <br/>
+      <h4> مشخصات بسته</h4>
+      {item.origin_country} ({item.origin_city}) <span> به </span>{item.destination_country}  ({item.destination_city})<br/>
+      <span> وزن حدودی </span> 
+      {item.weight}  <span> کیلوگرم </span> <br/>
+      {item.suggested_price}
+      <span> تومان </span>
 
-    />
-    )
+    </List.Item>
+  )}
+/>   
+)
 }
 export default Orders;
 
