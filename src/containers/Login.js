@@ -34,14 +34,17 @@ class LoginForm extends React.Component {
         <Spin indicator={antIcon} />
         :
         <Form
-        name="basic"
-        initialValues={{
-        remember: true,
-        }}
-        onFinish={this.onFinish}
-        onFinishFailed={this.onFinishFailed}
+            size="middle"
+            layout="vertical"
+            name="basic"
+            initialValues={{
+            remember: true,
+            }}
+            onFinish={this.onFinish}
+            onFinishFailed={this.onFinishFailed}
         >
         <Form.Item
+            style={{alignItems:"center"}}
             label="شماره موبایل"
             name="phone_number"
             rules={[
@@ -54,6 +57,7 @@ class LoginForm extends React.Component {
           <Input />
         </Form.Item>
         <Form.Item
+            style={{alignItems:"center"}}
             label="رمز عبور"
             name="password"
             rules={[
@@ -65,7 +69,7 @@ class LoginForm extends React.Component {
         >
         <Input.Password />
         </Form.Item>
-        <Form.Item style={{textAlign:"center"}}>
+        <Form.Item style={{textAlign:"center"}}><br/>
             <Button type="primary" htmlType="submit" style={{marginRight:'10px'}}>
             ورود
             </Button>

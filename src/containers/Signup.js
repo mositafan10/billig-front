@@ -50,14 +50,18 @@ class SignUpForm extends React.Component {
   render() {
   return (
     <Form
+      size="middle"
+      layout="vertical"
       form={this.form}
       name="register"
       onFinish={this.onFinish}
       scrollToFirstError
     >
         <Form.Item
+        style={{alignItems:"center"}}
         name="Phone Number"
         label="شماره موبایل"
+
         rules={[
           {
             required: true,
@@ -68,7 +72,8 @@ class SignUpForm extends React.Component {
         <Input style={{width: '100%'}}/>
       </Form.Item>
       <Form.Item
-        name="Password"
+        style={{alignItems:"center"}}
+        name="password"
         label="رمز عبور"
         rules={[
           {
@@ -78,9 +83,10 @@ class SignUpForm extends React.Component {
         ]}
         hasFeedback
       >
-        <Input.Password />
+      <Input.Password />
       </Form.Item> 
       <Form.Item
+        style={{alignItems:"center"}}
         label="تکرار رمز عبور"
         name="Confirm Password"
         dependencies={['password']}
@@ -95,14 +101,14 @@ class SignUpForm extends React.Component {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject('تکرار رمز عبور مطابقت ندارد');
+              return Promise.reject('تکرار رمز عبور را مجدد وارد ننمایید');
             },
           }),
         ]}
       >
       <Input.Password />
       </Form.Item>
-      <Form.Item style={{textAlign:"center"}}>
+      <Form.Item style={{textAlign:"center"}}><br/>
             <Button type="primary" htmlType="submit" style={{marginRight:'10px'}}>
             ثبت نام
             </Button>
