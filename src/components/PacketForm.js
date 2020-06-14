@@ -14,7 +14,8 @@ class PackForm extends React.Component {
     state = {
         countries : [],
         cities : [], 
-        pic_id : []
+        pic_id : [],
+        
     }
 
     handleFormSubmit = (values, requestType, orderID) => {
@@ -28,12 +29,13 @@ class PackForm extends React.Component {
         const weight = values.weight;
         const suggested_price = values.suggested_price;
         const description = values.description;
-        const owner = '1'
+        const token = localStorage.getItem('token');
 
         switch ( requestType ) {
 
             case 'post':
-                return Axios.post('http://127.0.0.1:8000/api/v1/advertise/packet/', {
+                return Axios.post('http://127.0.0.1:8000/api/v1/advertise/packet/',
+                    { 
                     title: title,
                     origin_country: origin_country,
                     origin_city: origin_city,
@@ -43,9 +45,9 @@ class PackForm extends React.Component {
                     weight: weight,
                     suggested_price: suggested_price,
                     description: description,
-                    owner : owner,
-                    picture : [110]
-                })
+                    picture : [1]
+                    },
+                    { headers: {"Authorization" : `Bearer ${token}`} })
                 .then(function (res) { if (res.status == 201){ window.location.href = '/'; console.log(values)}})
                 .catch(error => console.error(error));
 
@@ -85,9 +87,9 @@ class PackForm extends React.Component {
 
     render(){  
     const PacketCategory = [
-        {value:'1', label:'مدارک'},
-        {value:'2', label:'کتاب'},
-        {value:'3', label:'سایر موارد'}
+        {value:'0', label:'مدارک'},
+        {value:'1', label:'کتاب'},
+        {value:'2', label:'سایر موارد'}
     ];
     return (
         <div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Grid } from 'antd';
+import { Card } from 'antd';
 
 const Detail = (props) => {
  

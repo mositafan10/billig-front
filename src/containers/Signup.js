@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Input, Modal, Button } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { Form, Input, Modal, Button, Space } from 'antd';
+import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
 
@@ -10,7 +10,8 @@ class SignUpForm extends React.Component {
   state = {
     visible: false,
     password: "",
-    phone_number: ""
+    phone_number: "",
+    toDashboard: false
     };
 
   onFinish = values => {
@@ -31,16 +32,16 @@ class SignUpForm extends React.Component {
   handleOk = values => {
     this.setState({
       visible: false,
-      otp: values.otp
+      otp: values.otp,
+      toDashboard: true,
     });
+
     const password = this.state.password;
     const phone_number = this.state.phone_number;
     const otp = this.state.otp;
     this.props.onAuth1(phone_number, password, otp)
-    console.log("error:",this.props.error)
-    if (this.props.error == null) {
-      // window.location.href = '/';
-    }
+    console.log("error:", this.props.error)
+    
   };
 
   handleCancel = e => {
@@ -51,6 +52,9 @@ class SignUpForm extends React.Component {
   };
 
   render() {
+    if (this.props.error === null && this.state.toDashboard) {
+      return <Redirect to='/' />
+    }
   return (
     <Form
       size="middle"
@@ -68,7 +72,7 @@ class SignUpForm extends React.Component {
         rules={[
           {
             required: true,
-            message: 'Please input your phone number!',
+            message: 'شماره موبایل خود را وارد کنید!',
           },
         ]}
       >
@@ -81,7 +85,7 @@ class SignUpForm extends React.Component {
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: 'رمز عبور خود را وارد کنید!',
           },
         ]}
         hasFeedback
@@ -122,28 +126,28 @@ class SignUpForm extends React.Component {
             </NavLink>
         </Form.Item>
         <Modal
-          visible={this.state.visible                                                                                                     }
           onCancel={this.handleCancel}
-          // onOk={this.handleOk}
           okButtonProps={{form:'otpInsert', key: 'submit', htmlType: 'submit'}}
+          visible={this.state.visible}
           >
-            <p style={{textAlign:"center"}}> کد تایید خود را وارد نمایید </p>
+          <p style={{textAlign:"center"}}> کد تایید خود را وارد نمایید </p>
           <Form
           name="otpInsert"
           onFinish={this.handleOk}
           >
-          <Form.Item 
-          name="otp" 
-          rules={[
-            {
-              required: true,
-            },
-          ]}>
-          <Input />
-          </Form.Item>
+            <Form.Item 
+              name="otp" 
+              rules={[
+                {
+                  required: true,
+                },
+              ]}>
+              <Input />
+            </Form.Item>
           </Form>
         </Modal>
-    </Form> 
+        <Space direction="vertical" size="large"/>
+    </Form>
   );
 };
 }

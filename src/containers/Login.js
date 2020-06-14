@@ -1,23 +1,26 @@
 import React from 'react';
-import { Form, Input, Button, Spin } from 'antd';
+import { Form, Input, Button, Spin, Modal } from 'antd';
 import  { Icon, LoadingOutlined} from '@ant-design/icons';
 import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth';
-const antIcon = <LoadingOutlined type="loading" style={{fontsize: 24}} spin />;
+const antIcon = <LoadingOutlined type="loading" style={{fontsize: 24, textAlign:"center"}} spin />; {/*should be place in center*/}
  
 
 class LoginForm extends React.Component {
     state = {
         toDashboard: false,
+        visible: false,
     };
 
   onFinish = values => {
     const otp = "";
     this.props.onAuth(values.phone_number, values.password, otp);
+    if (this.props.error === null){
     this.setState({
         toDashboard: true,
-    });
+     });
+    }
   }
 
   onFinishFailed = errorInfo => {
@@ -31,12 +34,19 @@ class LoginForm extends React.Component {
               <p>{this.props.error.message}</p>
           );
       }
+    //   if (errorMessage != null) {
+    //       this.setState({
+    //           visible: true
+    //       });
+        //  return  <Modal visible={this.state.visible} >{errorMessage}</Modal>
+    //   }
       if (this.props.error === null && this.state.toDashboard){
+          console.log("hi", this.state.toDashboard, this.props.error)
        return <Redirect to='/profile'/> 
     }
   return (
     <div>
-        {/* {errorMessage} */}
+         
         {
         this.props.loading ?
         <Spin indicator={antIcon}/>

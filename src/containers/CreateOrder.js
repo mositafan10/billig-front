@@ -36,7 +36,8 @@ class CreateOrder extends React.Component {
                     <PackForm
                         requestType="post"
                         orderID={null}
-                        btnText="create" />
+                        btnText="create" 
+                        {...this.props}/>
                 </div> 
                 :
                 <p style={{fontFamily:"IRANSans", textAlign:"center"}}> لطفا ابتدا در سایت<a href={'/login'}> وارد</a> شوید </p>

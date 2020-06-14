@@ -32,7 +32,7 @@ class CustomLayout extends React.Component {
         <Layout className="layout" style={{backgroundColor:'white'}}>
           <Header style={{backgroundColor:"white"}} >
             <div className="logo">
-            <img style={{float:"right"}}
+            <img style={{float:"right", marginTop:"5px"}}
             width={60}
             alt="logo"
             src={billigpost}
@@ -57,8 +57,8 @@ class CustomLayout extends React.Component {
           </Header>
           <Content style={{ padding: '20px 20px 20px 20px' }}>
                 <Breadcrumb style={{ margin: '25px 0' }}>
-                  {/* <Breadcrumb.Item><Link to='/'>Home</Link></Breadcrumb.Item>
-                  <Breadcrumb.Item><Link to='/'>List</Link></Breadcrumb.Item> */}
+                  {/* <Breadcrumb.Item><Link to='/'>خانه</Link></Breadcrumb.Item>
+                  <Breadcrumb.Item><Link to='/'>آگهی‌ها</Link></Breadcrumb.Item> */}
                 </Breadcrumb>
                 <div className="site-layout-content">
                   {this.props.children}
