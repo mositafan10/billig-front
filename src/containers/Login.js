@@ -40,13 +40,13 @@ class LoginForm extends React.Component {
     //       });
         //  return  <Modal visible={this.state.visible} >{errorMessage}</Modal>
     //   }
+    
       if (this.props.error === null && this.state.toDashboard){
           console.log("hi", this.state.toDashboard, this.props.error)
        return <Redirect to='/profile'/> 
     }
   return (
     <div>
-         
         {
         this.props.loading ?
         <Spin indicator={antIcon}/>

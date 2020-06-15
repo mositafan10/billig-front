@@ -1,19 +1,19 @@
 import React from 'react';
-import { Card } from 'antd';
+import { Card, Button } from 'antd';
 
-const Detail = (props) => {
- 
+class Detail extends React.Component {
+        render(){
         return(
             <div style={{display:'flex', justifyContent:'center' , textAlign:"center"}}>
-                <Card title={props.data.title} bordered={false} style={{width: 500 }}>
-                    <p style={{textAlign:"center"}}>{props.data.title}</p>
+                <Card title={this.props.data.title} bordered={false} style={{width: 500 }}>
+                    <p style={{textAlign:"center"}}>{this.props.data.title}</p>
                     <div>
-                        {props.data.picture}
+                        {this.props.data.picture}
                     </div>
                 </Card>
             </div>
         );
-    
+    }
 }
 
 export default Detail;
