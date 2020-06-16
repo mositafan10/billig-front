@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Form, Input } from 'antd';
+import { Modal, Button, Form, Input, message } from 'antd';
 import Axios from 'axios';
 import TextArea from 'antd/lib/input/TextArea';
 
@@ -15,8 +15,14 @@ class OfferDetail extends React.Component {
 
     offer = () => {
         {this.showModal()}
-      }
+    }
     
+    success = () => {
+        message.success({content:'پیشنهاد شما با موفقیت ثبت شد.',
+                          style:{fontFamily:"IRANSans"}});
+    };
+      
+
     showModal = () => {
         this.setState({
           visible: true,
@@ -44,7 +50,7 @@ class OfferDetail extends React.Component {
               { headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => { console.log(res); window.location.reload(); })
             .catch(error => console.error(error));
-        this.refresh();
+      
       };
 
     handleCancel = e => {
