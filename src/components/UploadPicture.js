@@ -6,21 +6,16 @@ const UploadFile = (props) => {
 
 
   const [fileList, setFileList] = useState([]);
-  const [id, setid] = useState([]);
 
+  const sendData = (fileList) => { props.parentCallback(fileList); };
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-    // var id = setid(newFileList[0].response.id);
-    console.log(newFileList);
-    // var i = 0;
-    // for(i = 0 ; i <= newFileList.length ; i++ ){
-    //   console.log(newFileList[i].response);
-    
-    // for (x in fileList) {
-    // console.log(fileList[x].response)};
-    // id = setid(fileList[1].response.id)
-    // console.log(id)
+    // for (var i=0; i < newFileList.length; i++){
+    //   console.log(newFileList);
+      // console.log(newFileList);
+    // }
+    sendData(newFileList);
   };
 
   const onPreview = async file => {

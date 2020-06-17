@@ -15,7 +15,17 @@ class PackForm extends React.Component {
         countries : [],
         cities : [], 
         pic_id : [],
-        
+    }
+
+    callbackFunction = (childData) => {
+        this.setState({pic_id: childData});
+        // for (var i=0; i < this.state.pic_id.length; i++){
+        // // console.log(this.state.pic_id[i].response);
+        // this.setState({
+        //     ids: this.state.ids.concat(this.state.pic_id[i])
+        //   })
+        console.log(this.state.pic_id);
+        // }
     }
 
     handleFormSubmit = (values, requestType, orderID) => {
@@ -48,7 +58,7 @@ class PackForm extends React.Component {
                     picture : [1]
                     },
                     { headers: {"Authorization" : `Bearer ${token}`} })
-                .then(function (res) { if (res.status == 201){ window.location.href = '/'; console.log(values)}})
+                .then(function (res) { if (res.status == 201){ window.location.href = '/profile'; console.log(values)}})
                 .catch(error => console.error(error));
 
             case 'put':
@@ -172,7 +182,9 @@ class PackForm extends React.Component {
                     با <a>قوانین و مقررات </a>بیلیگ پست موافقم
                     </Checkbox>
                 </Form.Item>
-                <Form.Item name="picture" style={{textAlign:"center"}}   > <UploadFile /> </Form.Item>
+                <Form.Item name="picture" style={{textAlign:"center"}}> 
+                    <UploadFile parentCallback = {this.callbackFunction} /> </Form.Item>
+                    <p>  </p>
                 <Form.Item style={{ textAlign: 'center' }}>
                     <Button type="primary" htmlType="submit">{this.props.btnText}</Button>
                 </Form.Item> 

@@ -16,16 +16,23 @@ class ProfileMenu extends React.Component {
             <PacketUserList />
           </TabPane>
           <TabPane tab="لیست سفرهای من" key="2">
-            Content of Tab 2
+            لیست سفرها
           </TabPane>
           <TabPane tab="نظرات دیگران" key="3">
-            Content of Tab 3
+            نظرات دیگران
           </TabPane>
           <TabPane tab="صندوق پیام" key="4">
-            Content of Tab 4
+           پیام ها
           </TabPane>
           <TabPane tab="تنظیمات" key="5">
-            Content of Tab 5
+              <Tabs tabPosition="right" style={{textAlign:"center"}} >
+              <TabPane tab="ویرایش پروفایل" key="1">
+                <li>عکس پروفایل</li>
+                <li>ایمیل</li>
+                <li>بیو</li>
+                <li>لینک شبکه‌های اجتماعی</li>
+              </TabPane>
+            </Tabs>
           </TabPane>
         </Tabs>
       </div>

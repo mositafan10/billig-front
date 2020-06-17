@@ -47,6 +47,7 @@ class CustomLayout extends React.Component {
             }
               <Menu.Item key="1"><Link to='/'>لیست آگهی‌ها</Link></Menu.Item>
               <Menu.Item key="3"><Link to='/packet'>ثبت رایگان آگهی</Link> </Menu.Item>
+              <Menu.Item key="6"><Link to='/social'>شبکه اطلاع‌رسانی</Link></Menu.Item>
             {
             this.props.isAuthenticated ?
               <Menu.Item key="2"><Link to='/profile'>پروفایل من</Link></Menu.Item>
