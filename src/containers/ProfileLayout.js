@@ -14,13 +14,14 @@ class Profile extends React.Component {
           <div>
               <ProfileCard/>
           </div>
+          <hr style={{borderColor:"white"}}/><br/>
           <div>
               <Menu> </Menu>
           </div>
         </div>
         :
         <div>
-          <p style={{fontFamily:"IRANSans", textAlign:"center"}}>  ابتدا<a href={'/login'}> وارد</a>  حساب کاربری خود   شوید  </p>
+          <p style={{fontFamily:"IRANSans", textAlign:"center"}}>  ابتدا<a href={'/login'}> وارد</a>  حساب کاربری خود شوید  </p>
         </div>
        }
       </div>

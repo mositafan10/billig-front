@@ -64,7 +64,7 @@ class CustomLayout extends React.Component {
                   {this.props.children}
                 </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}><b>Billigpost</b></Footer>
+          <Footer style={{ textAlign: 'center' }}><b>بیلیگ پست ، پلتفرم ارسال بسته</b></Footer>
         </Layout>
       </div>
     );

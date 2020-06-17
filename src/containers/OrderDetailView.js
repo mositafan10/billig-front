@@ -1,7 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
-import Detail from '../components/OrderDetail';
-import OfferInDetail from '../components/OfferInDetail';
+import PacketOffer from '../components/PacketOffer';
+import { Card } from 'antd';
+
 
 
 
@@ -21,9 +22,17 @@ class OrderDetail extends React.Component {
             })
     }
     render(){
+        const orderID = this.props.match.params.orderID;
         return(
             <div> 
-                <Detail data={this.state.order} />
+                <Card title={this.state.order.title} style={{textAlign:"center"}}>
+                    <p >{this.state.order.description}</p>
+                    <div>
+                        {this.state.order.picture}
+                    </div>      
+                </Card>
+                <br/><h3 style={{textAlign:"center"}}>لیست پیشنهاد‌ها</h3>
+                <PacketOffer data={orderID}/>
             </div>
         )
     }
