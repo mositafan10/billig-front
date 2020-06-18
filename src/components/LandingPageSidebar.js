@@ -52,6 +52,10 @@ class Sider extends React.Component {
             </span>
           }>
           <Menu.Item key="2"><span style={{float:"right"}}> لوازم الکترونیکی </span></Menu.Item>
+          <Menu.Item key="3"><span style={{float:"right"}}> کتاب و مجلات </span></Menu.Item>
+          <Menu.Item key="4"><span style={{float:"right"}}> کفش و پوشاک </span></Menu.Item>
+          <Menu.Item key="5"><span style={{float:"right"}}> دارو </span></Menu.Item>
+          <Menu.Item key="6"><span style={{float:"right"}}> سایر موارد </span></Menu.Item>
           {/* <Menu.Item key="5">Option 5</Menu.Item>
           <Menu.Item key="6">Option 6</Menu.Item> */}
           {/* <SubMenu key="sub3" title="Submenu">

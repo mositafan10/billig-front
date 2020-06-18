@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 import { Link, withRouter, Redirect} from 'react-router-dom';
 import billigpost from '../media/billigpost.png';
 import { connect } from 'react-redux';
@@ -48,6 +48,7 @@ class CustomLayout extends React.Component {
               <Menu.Item key="1"><Link to='/'>لیست آگهی‌ها</Link></Menu.Item>
               <Menu.Item key="3"><Link to='/packet'>ثبت رایگان آگهی</Link> </Menu.Item>
               <Menu.Item key="6"><Link to='/social'>شبکه اطلاع‌رسانی</Link></Menu.Item>
+              <Menu.Item key="7"><Link >درباره ما</Link></Menu.Item>
             {
             this.props.isAuthenticated ?
               <Menu.Item key="2"><Link to='/profile'>پروفایل من</Link></Menu.Item>
@@ -65,7 +66,14 @@ class CustomLayout extends React.Component {
                   {this.props.children}
                 </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}><b>بیلیگ پست ، پلتفرم ارسال بسته</b></Footer>
+          <Footer style={{ textAlign: 'center' }}>
+            <b>بیلیگ پست ، پلتفرم ارسال بسته</b>
+            {/* <Row>
+              <Col >
+                <a style={{display:"flex", justifyContent:"right", float:"right"}}>سوالات متداول</a>
+              </Col>
+            </Row> */}
+            </Footer>
         </Layout>
       </div>
     );
