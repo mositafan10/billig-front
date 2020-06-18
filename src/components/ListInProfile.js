@@ -40,38 +40,38 @@ class PacketUserList extends React.Component {
 
     render (){
     return (
-  <List
-    itemLayout="horizontal"
-    locale={{emptyText:".آگهی وجود ندارد"}}
-    dataSource={this.state.packet_user}
-    renderItem={item => (
-      <List.Item 
-        actions={[
-            <Button style={{borderRadius:"8px"}} > ویرایش </Button>,
-            // <Button onClick={this.confirmdelete(item.id)} style={{borderRadius:"8px"}} > حذف </Button>,
-            <Button style={{borderRadius:"8px"}} > پیشنهادها </Button>,
-            <Popconfirm
-                title="آیا از حدف آگهی مطمئن هستید ؟"
-                onConfirm={this.delete.bind(this, item.id)}
-                onCancel={this.cancel}
-                okText="بله"
-                cancelText="خیر"
-                >
-                <a href="#">حذف</a>
-            </Popconfirm>
-        ]}
-        >
-        
-        <List.Item.Meta
-        //   style={{textAlign:"right"}}
-        //   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-          title={<a href={item.id}>{item.title}</a>}
-        //   description={item.description}
-        
+        <List
+          itemLayout="horizontal"
+          locale={{emptyText:".آگهی وجود ندارد"}}
+          dataSource={this.state.packet_user}
+          renderItem={item => (
+            <List.Item 
+              actions={[
+                  <Button style={{borderRadius:"8px"}} > ویرایش </Button>,
+                  // <Button onClick={this.confirmdelete(item.id)} style={{borderRadius:"8px"}} > حذف </Button>,
+                  <Button style={{borderRadius:"8px"}} > پیشنهادها </Button>,
+                  <Popconfirm
+                      title="آیا از حدف آگهی مطمئن هستید ؟"
+                      onConfirm={this.delete.bind(this, item.id)}
+                      onCancel={this.cancel}
+                      okText="بله"
+                      cancelText="خیر"
+                      >
+                      <a href="#">حذف</a>
+                  </Popconfirm>
+              ]}
+              >
+              
+              <List.Item.Meta
+              //   style={{textAlign:"right"}}
+              //   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                title={<a href={item.id}>{item.title}</a>}
+              //   description={item.description}
+              
+              />
+            </List.Item>
+          )}
         />
-      </List.Item>
-    )}
-  />
     );
     }
 }

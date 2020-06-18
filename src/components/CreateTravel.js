@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, Input, Form} from 'antd'; 
+import { Button, Modal, Input, Form, Select} from 'antd'; 
 import Axios from 'axios';
 import TextArea from 'antd/lib/input/TextArea';
 
@@ -9,7 +9,26 @@ class CreateTravel extends React.Component {
     
     state = {
         createtravelvisible: false,
+        countries : [],
+        cities : [], 
       }
+
+    componentDidMount(){
+        Axios.get('http://127.0.0.1:8000/api/v1/account/countries/')
+            .then(res => {
+                this.setState({
+                    countries: res.data
+                });
+                console.log(res.data);
+            })
+        Axios.get('http://127.0.0.1:8000/api/v1/account/cities/')
+            .then(res => {
+                this.setState({
+                    cities: res.data
+                });
+                console.log(res.data);
+            })
+    }
     
     showcreatetravel = () => {
         this.setState({
@@ -35,7 +54,7 @@ class CreateTravel extends React.Component {
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {console.log(res.data)
             this.setState({
-                createtravelvisible: false,
+                createtravelvisible : false,
                 });
         })
         .catch(error => {console.log(error);
@@ -45,7 +64,7 @@ class CreateTravel extends React.Component {
     render(){
         return(
             <div>
-                <Button onClick={this.showcreatetravel} style={{borderRadius:"8px"}}><b>ثبت سفر</b></Button>
+                <Button onClick={this.showcreatetravel} style={{borderRadius:"8px"}}><b> ثبت سفر جدید</b></Button>
                 <Modal
                 visible={this.state.createtravelvisible}
                 onCancel={this.handleCancel}
@@ -68,7 +87,10 @@ class CreateTravel extends React.Component {
                                 required: true,
                                 },
                         ]}>
-                            <Input />
+                            <Select>
+                                {this.state.countries.map((e, key) => {
+                                return <option key={key} value={e.id}>{e.name}</option>;})}
+                            </Select>
                         </Form.Item>
                         <br/>
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>شهر مبدا</label>
@@ -79,7 +101,10 @@ class CreateTravel extends React.Component {
                                 required: true,
                                 },
                         ]}>
-                            <Input />
+                            <Select>
+                                {this.state.cities.map((e, key) => {
+                                return <option key={key} value={e.id}>{e.name}</option>;})}
+                            </Select>
                         </Form.Item>
                         <br/>
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>کشور مقصد</label>
@@ -90,7 +115,10 @@ class CreateTravel extends React.Component {
                                 required: true,
                                 },
                         ]}>
-                            <Input />
+                            <Select>
+                                {this.state.countries.map((e, key) => {
+                                return <option key={key} value={e.id}>{e.name}</option>;})}
+                            </Select>
                         </Form.Item>
                         <br/>
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>شهر مقصد</label>
@@ -101,7 +129,10 @@ class CreateTravel extends React.Component {
                                 required: true,
                                 },
                         ]}>
-                            <Input />
+                            <Select>
+                                {this.state.cities.map((e, key) => {
+                                return <option key={key} value={e.id}>{e.name}</option>;})}
+                            </Select>
                         </Form.Item>
                         <br/>
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>تاریخ سفر</label>

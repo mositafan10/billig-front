@@ -2,6 +2,7 @@ import React from 'react';
 import { Tabs } from 'antd';
 import PacketUserList from '../components/ListInProfile';
 import CreateTravel from './CreateTravel';
+import TravelList from '../components/TravelUser';
 
 const { TabPane } = Tabs;
 
@@ -18,6 +19,7 @@ class ProfileMenu extends React.Component {
           </TabPane>
           <TabPane tab="لیست سفرهای من" key="2">
             <CreateTravel/>
+            <TravelList/>
           </TabPane>
           <TabPane tab="نظرات دیگران" key="3">
             نظرات دیگران
