@@ -42,6 +42,7 @@ class PacketUserList extends React.Component {
     return (
   <List
     itemLayout="horizontal"
+    locale={{emptyText:".آگهی وجود ندارد"}}
     dataSource={this.state.packet_user}
     renderItem={item => (
       <List.Item 

@@ -3,7 +3,6 @@ import React from 'react';
 import { List, Avatar, Space, Button, Modal, Form, Input } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import billigpost from '../media/billigpost.png';
-import Axios from 'axios';
 import OfferDetail from '../components/OfferInDetail';
 
 const IconText = ({ icon, text }) => (
@@ -29,7 +28,6 @@ class Orders extends React.Component {
         // grid={{ gutter: 10, column: 1 }}
         itemLayout="vertical"
         size="large"
-        
         pagination={{
           onChange: page => {
             console.log(page);
@@ -40,7 +38,6 @@ class Orders extends React.Component {
         renderItem={item => (
           <List.Item style={{textAlign:"right"}}
             key={item.title}
-            
             actions={[
               <OfferDetail data={item.id}></OfferDetail>,
               <IconText1 icon={StarOutlined} onChange text={item.offer_count} key="list-vertical-star-o" />,
