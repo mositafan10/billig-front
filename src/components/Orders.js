@@ -53,7 +53,7 @@ class Orders extends React.Component {
             }
             >
             <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
+              avatar={<a  href={'/users/' + item.owner} > <Avatar src={item.avatar} /></a>}
               title={<a href={item.id}>{item.title}</a>}
               description={item.description}
             />

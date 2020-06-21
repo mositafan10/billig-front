@@ -3,6 +3,8 @@ import { Tabs } from 'antd';
 import PacketUserList from '../components/ListInProfile';
 import CreateTravel from './CreateTravel';
 import TravelList from '../components/TravelUser';
+import UploadProfilePic from './ProfileEdit';
+import FriendList from '../components/FriendList';
 
 const { TabPane } = Tabs;
 
@@ -18,19 +20,21 @@ class ProfileMenu extends React.Component {
             <PacketUserList />
           </TabPane>
           <TabPane tab="لیست سفرهای من" key="2">
-            <CreateTravel/>
             <TravelList/>
+            <CreateTravel/>
           </TabPane>
-          <TabPane tab="نظرات دیگران" key="3">
-            نظرات دیگران
+          <TabPane tab="نظرات" key="3">
+            نظرات
           </TabPane>
           <TabPane tab="صندوق پیام" key="4">
            پیام ها
           </TabPane>
-          <TabPane tab="تنظیمات" key="5">
+          <TabPane tab="دوستان من" key="5">
+           <FriendList />
+          </TabPane>
+          <TabPane tab="تنظیمات" key="6">
               <Tabs tabPosition="right" style={{textAlign:"center"}} >
               <TabPane tab="ویرایش پروفایل" key="1">
-                <li>عکس پروفایل</li>
                 <li>ایمیل</li>
                 <li>بیو</li>
                 <li>لینک شبکه‌های اجتماعی</li>

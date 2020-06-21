@@ -56,7 +56,7 @@ class CreateTravel extends React.Component {
             this.setState({
                 createtravelvisible : false,
                 });
-        })
+        })  
         .catch(error => {console.log(error);
         })
     }

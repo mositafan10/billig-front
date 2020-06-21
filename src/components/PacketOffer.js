@@ -2,18 +2,18 @@ import React from 'react';
 import { List, Avatar, Button } from 'antd';
 import Axios from 'axios';
 
-const token = localStorage.getItem('token');
 
 class PacketOffer extends React.Component { 
-
+  
   state = {
     packet_offer: []
-}
-
-
-componentDidMount(){
-  const orderID = this.props.data;
-  Axios.get(`http://127.0.0.1:8000/api/v1/advertise/offer/${orderID}/`,{ headers: {"Authorization" : `Bearer ${token}`} })
+  }
+  
+  
+  componentDidMount(){
+    const orderID = this.props.data;
+    const token = localStorage.getItem('token');
+    Axios.get(`http://127.0.0.1:8000/api/v1/advertise/offer/${orderID}/`,{ headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
             this.setState({
                 packet_offer: res.data
@@ -27,7 +27,7 @@ componentDidMount(){
     <List
     itemLayout="horizontal"
     dataSource={this.state.packet_offer}
-    
+    locale={{emptyText:".پیشنهادی وجود ندارد"}}
     renderItem={item => (
       <List.Item
       actions={[

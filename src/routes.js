@@ -7,6 +7,7 @@ import Profile from './containers/ProfileLayout';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import ChatLayout from './containers/ChatLayout';
+import UserProfile from './containers/UserDetailView';
 
 
 class BaseRouter extends React.Component {
@@ -20,6 +21,7 @@ class BaseRouter extends React.Component {
             <Route exact path='/packet' render={(props) => <CreateOrder {...this.props}/> }/>
             <Route exact path='/social' component={ChatLayout} />
             <Route exact path='/:orderID' component={OrderDetail} />
+            <Route exact path='/users/:userID' component={UserProfile} />
         </Switch>
         );
     }

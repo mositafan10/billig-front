@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Select, Checkbox, Divider, Row, Col, InputNumber} from 'antd';
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom';
 import UploadFile from '../components/UploadPicture';
 import TextArea from 'antd/lib/input/TextArea';
 import '../fonts/iransans.ttf'
@@ -19,13 +18,6 @@ class PackForm extends React.Component {
 
     callbackFunction = (childData) => {
         this.setState({pic_id: childData});
-        // for (var i=0; i < this.state.pic_id.length; i++){
-        // // console.log(this.state.pic_id[i].response);
-        // this.setState({
-        //     ids: this.state.ids.concat(this.state.pic_id[i])
-        //   })
-        console.log(this.state.pic_id);
-        // }
     }
 
     handleFormSubmit = (values, requestType, orderID) => {
@@ -189,6 +181,16 @@ class PackForm extends React.Component {
                     <Button type="primary" htmlType="submit">{this.props.btnText}</Button>
                 </Form.Item> 
             </Form>
+                                        {/* <List
+                                        dataSource={this.state.pic_id}
+                                        renderItem={item => (
+                                            <List.Item>
+                                                <List.Item.Meta
+                                        description={item}
+                                        />
+                                            </List.Item>
+                                        )}
+                                        /> */}
             </div>
         </div>
         );
