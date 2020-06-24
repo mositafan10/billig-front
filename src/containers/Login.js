@@ -64,11 +64,22 @@ class LoginForm extends React.Component {
 
     onFinish = values => {
     const otp = "";
+    const error = localStorage.getItem('error');
     this.props.onAuth(values.phone_number, values.password, otp);
-    if (this.props.error === null){
+    if (error === null){
     this.setState({
         toDashboard: true,
      });
+    console.log(error);
+    message.success({
+        content:"به بیلیگ پست خوش‌ آمدید",
+        duration:5
+     })
+    }
+    else { message.error({
+        content: "رمز عبور را اشتباه وارد کرده‌اید",
+        duration: 5
+     })
     }
     }
 
@@ -91,7 +102,7 @@ class LoginForm extends React.Component {
     //   }
     
       if (this.props.error === null && this.state.toDashboard){
-          console.log("hi", this.state.toDashboard, this.props.error)
+          console.log("hi", this.state.toDashboard)
        return <Redirect to='/profile'/> 
     }
   return (

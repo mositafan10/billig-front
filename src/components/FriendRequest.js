@@ -8,6 +8,7 @@ class FriendRequest extends React.Component {
     
     handlerequest = () => {
         const userID = this.props.data;
+        console.log(userID);
         Axios.post(`http://127.0.0.1:8000/api/v1/account/friend/`,
         {following: userID},
         { headers: {"Authorization" : `Bearer ${token}`} })

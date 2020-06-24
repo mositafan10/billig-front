@@ -178,7 +178,7 @@ class PackForm extends React.Component {
                     <UploadFile parentCallback = {this.callbackFunction} /> </Form.Item>
                     <p>  </p>
                 <Form.Item style={{ textAlign: 'center' }}>
-                    <Button type="primary" htmlType="submit">{this.props.btnText}</Button>
+                    <Button style={{ borderRadius: '8px' }} type="primary" htmlType="submit">ثبت آگهی</Button>
                 </Form.Item> 
             </Form>
                                         {/* <List

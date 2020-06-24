@@ -42,12 +42,13 @@ class TravelList extends React.Component {
         return(
             <List
             itemLayout="horizontal"
-            locale={{emptyText:".آگهی وجود ندارد"}}
+            locale={{emptyText:".سفری ثبت نکرده‌اید"}}
             dataSource={this.state.travel_user}
             renderItem={item => (
               <List.Item 
                 actions={[
-                    <Button style={{borderRadius:"8px"}} > ویرایش </Button>,
+                    <Button style={{borderRadius:"8px", fontSize:"12px"}} > ویرایش </Button>,
+                    <Button style={{borderRadius:"8px", fontSize:"12px"}} > پیشنهادها </Button>,
                     // <Button onClick={this.confirmdelete(item.id)} style={{borderRadius:"8px"}} > حذف </Button>,
                     <Popconfirm
                         title="آیا از حدف آگهی مطمئن هستید ؟"
@@ -55,6 +56,7 @@ class TravelList extends React.Component {
                         onCancel={this.cancel}
                         okText="بله"
                         cancelText="خیر"
+                        style={{fontSize:"12px"}}
                         >
                         <a href="#">حذف</a>
                     </Popconfirm>
@@ -63,7 +65,7 @@ class TravelList extends React.Component {
                 
                 <List.Item.Meta
                   style={{textAlign:"left"}}
-                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                  // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                   title={<a href={item.id}>{item.title}</a>}
                   description={item.description}
                 

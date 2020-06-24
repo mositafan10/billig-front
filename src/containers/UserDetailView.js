@@ -20,9 +20,6 @@ class UserProfile extends React.Component {
                     user_profile: res.data
                 });
             })
-        
-        // const PicUrl = this.state.user_profile.picture
-        // Axios.get(`http://127.0.0.1:8000/api/v1/`)
     }
     render(){
         return(
@@ -38,7 +35,7 @@ class UserProfile extends React.Component {
                     <div>
                         {/* {this.state.user_profile.picture} */}
                     </div>   
-                <FriendRequest data={this.state.user_profile.user}/>
+                <FriendRequest data={this.state.user_profile.id}/>
                 </Card>
                 <br/>
                 <Tabs  tabPosition="top" style={{textAlign:"center"}}>

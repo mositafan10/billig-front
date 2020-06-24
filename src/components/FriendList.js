@@ -27,6 +27,7 @@ class FriendList extends React.Component {
         // itemLayout="verical"
         size="small"
         dataSource={this.state.friend_list}
+        locale={{emptyText:".دوستی اضافه نکرده‌اید"}}
         renderItem={item => (
           <List.Item 
             key={item.title}

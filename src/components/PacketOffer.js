@@ -31,9 +31,9 @@ class PacketOffer extends React.Component {
     renderItem={item => (
       <List.Item
       actions={[
-        <Button style={{borderRadius:"8px"}}> قبول پیشنهاد</Button>,
-        <Button style={{borderRadius:"8px"}}>رد پیشنهاد</Button>,
-        <Button style={{borderRadius:"8px"}}>حذف پیشنهاد</Button>
+        <Button style={{borderRadius:"8px", fontSize:"12px"}}> قبول </Button>,
+        <Button style={{borderRadius:"8px", fontSize:"12px"}}>رد </Button>,
+        <Button style={{borderRadius:"8px", fontSize:"12px"}}>حذف </Button>
       ]}
       >
         <List.Item.Meta

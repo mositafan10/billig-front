@@ -34,7 +34,6 @@ class OrderDetail extends React.Component {
                     </div>      
                 </Card>
                 <br/><h3 style={{textAlign:"center"}}> پیشنهاد‌ها</h3>
-                <PacketOffer data={orderID}/>
                 <br/>
                 {/* <Button style={{fontSize:"14px",borderRadius:"8px"}}><b> ثبت پیشنهاد</b></Button> */}
                 <OfferDetail data={this.state.order.id}></OfferDetail>

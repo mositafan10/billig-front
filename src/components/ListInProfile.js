@@ -19,7 +19,7 @@ class PacketUserList extends React.Component {
                 console.log(res.data);  
             })
             .catch(error => console.error(error));
-    }
+    }Offer_visible
 
     cancel(e) {
       console.log(e);
@@ -47,9 +47,9 @@ class PacketUserList extends React.Component {
           renderItem={item => (
             <List.Item 
               actions={[
-                  <Button style={{borderRadius:"8px"}} > ویرایش </Button>,
+                  <Button style={{borderRadius:"8px", fontSize:"12px"}} > ویرایش </Button>,
                   // <Button onClick={this.confirmdelete(item.id)} style={{borderRadius:"8px"}} > حذف </Button>,
-                  <Button style={{borderRadius:"8px"}} > پیشنهادها </Button>,
+                  <Button style={{borderRadius:"8px", fontSize:"12px"}} > پیشنهادها </Button>,
                   <Popconfirm
                       title="آیا از حدف آگهی مطمئن هستید ؟"
                       onConfirm={this.delete.bind(this, item.id)}
@@ -61,7 +61,6 @@ class PacketUserList extends React.Component {
                   </Popconfirm>
               ]}
               >
-              
               <List.Item.Meta
               //   style={{textAlign:"right"}}
               //   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}

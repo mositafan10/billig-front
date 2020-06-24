@@ -49,7 +49,7 @@ class OfferDetail extends React.Component {
               },
               { headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => { console.log(res); window.location.reload(); })
-            .catch(error => console.error(error));
+            .catch(error => console.error(error), message.info("ابتدا وارد سایت شوید"));
       
       };
 

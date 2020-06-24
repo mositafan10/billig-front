@@ -12,7 +12,9 @@ class CustomLayout extends React.Component {
 
   state = {
     toDashboard : false,
+    user:""
   }
+  
   onClick = () => {
      this.props.logout()
      this.setState({
@@ -38,6 +40,7 @@ class CustomLayout extends React.Component {
             src={billigpost}
           />          
             </div>
+            <div style={{float:"right", margin:"5px 10px"}}>{}به بیلیگ پست خوش آمدید</div>
             <Menu theme="light" mode="horizontal" >
             {
             this.props.isAuthenticated ?
