@@ -2,4 +2,21 @@
 @font-face {
     font-family: 'IRANSans';
     src: local('IRANSans'), url(./fonts/iransans.ttf) format('truetype');
-  } 
+  }
+  
+
+@font-face {
+    font-family: 'Nazanin';
+    src: local('Nazanin'), url(./fonts/Nazanin.ttf) format('truetype');
+  }
+
+@font-face {
+    font-family: 'Lotus';
+    src: local('Lotus'), url(./fonts/Lotus.ttf) format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Titr';
+    src: local('Titr'), url(./fonts/Titr.ttf) format('truetype');
+  }
+  

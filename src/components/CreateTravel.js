@@ -3,7 +3,6 @@ import { Button, Modal, Input, Form, Select} from 'antd';
 import Axios from 'axios';
 import TextArea from 'antd/lib/input/TextArea';
 
-const token = localStorage.getItem('token');
 
 class CreateTravel extends React.Component {
     
@@ -14,6 +13,7 @@ class CreateTravel extends React.Component {
       }
 
     componentDidMount(){
+        const token = localStorage.getItem('token');
         Axios.get('http://127.0.0.1:8000/api/v1/account/countries/')
             .then(res => {
                 this.setState({
@@ -43,6 +43,7 @@ class CreateTravel extends React.Component {
     };
 
     handleOkTravel = (values) => {
+    const token = localStorage.getItem('token');
     Axios.post('http://127.0.0.1:8000/api/v1/advertise/travel/', {
             departure : values.origin_country, 
             departure_city : values.origin_city, 

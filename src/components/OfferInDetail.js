@@ -7,7 +7,7 @@ class OfferDetail extends React.Component {
 
     state = {
         visible:false,
-        id : "",
+        slug : "",
         price: "",
         flight_date: "",
         description:""
@@ -36,7 +36,7 @@ class OfferDetail extends React.Component {
           price: values.price,
           flight_date: values.flight_date,
           description: values.description,
-          id : this.props.data,
+          slug : this.props.data,
         });
 
         const token = localStorage.getItem('token');
@@ -45,7 +45,7 @@ class OfferDetail extends React.Component {
                 price: this.state.price,
                 flight_date: this.state.flight_date,
                 description: this.state.description,
-                packet : this.state.id
+                packet : this.state.slug
               },
               { headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => { console.log(res); window.location.reload(); })
@@ -62,7 +62,7 @@ class OfferDetail extends React.Component {
     render(){
     return(
           <div style={{display:'flex', justifyContent:'center' , textAlign:"center"}}>
-              <Button style={{borderRadius:"10px"}} onClick={this.offer}> ثبت پیشنهاد </Button>
+              <Button style={{borderRadius:"10px", fontSize:"12px"}} onClick={this.offer}> ثبت پیشنهاد </Button>
                 <Modal
                   onCancel={this.handleCancel}
                   okButtonProps={{form:'offering', key: 'submit', htmlType: 'submit'}}
@@ -82,7 +82,7 @@ class OfferDetail extends React.Component {
                           required: true,
                         },
                       ]}>
-                      <Input />
+                      <Input style={{textAlign:"right"}} placeholder="به تومان وارد کنید"/>
                     </Form.Item >
                     <br/>
                     <label style={{float:"right" ,textAlign:"right", marginTop:"-30px"}} >تاریخ پرواز</label>

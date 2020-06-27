@@ -1,16 +1,16 @@
 import React from 'react';
 import Axios from 'axios';
 import { List , Button , Popconfirm , message, Avatar } from 'antd';
-
-const token = localStorage.getItem('token');
+import Modal from 'antd/lib/modal/Modal';
 
 class TravelList extends React.Component {
 
     state = {
-        travel_user: []
+        travel_user: [],
     }
 
     componentDidMount(){
+        const token = localStorage.getItem('token');
         Axios.get('http://127.0.0.1:8000/api/v1/advertise/travellist/',{ headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => {
                 this.setState({
@@ -28,6 +28,7 @@ class TravelList extends React.Component {
 
     delete = (id) => {
       const current_packet = this.state.travel_user;
+      const token = localStorage.getItem('token');
       Axios.delete(`http://127.0.0.1:8000/api/v1/advertise/travel/${id}/`,{ headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => {
               this.setState({
@@ -37,7 +38,6 @@ class TravelList extends React.Component {
           })
           .catch(error => console.error(error));
     }
-
     render(){
         return(
             <List
@@ -62,13 +62,11 @@ class TravelList extends React.Component {
                     </Popconfirm>
                 ]}
                 >
-                
                 <List.Item.Meta
                   style={{textAlign:"left"}}
                   // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                   title={<a href={item.id}>{item.title}</a>}
                   description={item.description}
-                
                 />
               </List.Item>
             )}

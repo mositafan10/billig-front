@@ -33,15 +33,17 @@ class OrderList extends React.Component {
                     <Search
                         placeholder="جستجو در آگهی‌ها"
                         onSearch={value => console.log(value)}
-                        style={{ width: 600, alignItems:"center" }}
-                        /><br/><br/>
+                        style={{ width: 600, alignItems:"center", fontSize:"12px" }}
+                        size="large"
+                        />
+                    <br/><br/>
                 </div>
                 </Row>
-                <Row>
-                    <Col span={20}>
+                <Row >
+                    <Col span={21}>
                         <Orders data={this.state.orders} />
                     </Col>
-                    <Col span={4}  > 
+                    <Col span={2}  > 
                         <Sider/>
                     </Col>
                 </Row>
