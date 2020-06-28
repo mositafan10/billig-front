@@ -1,9 +1,12 @@
 import React from 'react';
 
 import { List, Avatar, Space, Button, Modal, Form, Input, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import billigpost from '../media/billigpost.png';
+import OfferListModal from '../components/OfferListModal';
 import OfferDetail from '../components/OfferInDetail';
+import PacketOfferPublic from '../components/PacketOfferPublic';
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -21,6 +24,23 @@ const IconText1 = ({ icon, text }) => (
 
 
 class Orders extends React.Component {
+
+  state = {
+    offerModal: false
+  }
+
+  showOffer = () => {
+    this.setState({
+      offerModal: true
+    })
+  }
+
+
+  handleCancel = () => {
+    this.setState({
+      offerModal: false,
+    });
+    };
 
   render(){
     return (
@@ -63,7 +83,24 @@ class Orders extends React.Component {
                 key={item.title}
                 actions={[
                   <OfferDetail data={item.slug}></OfferDetail>,
-                  <IconText1 icon={StarOutlined} onChange text={item.offer_count} key="list-vertical-star-o" />,
+                  <Button 
+                  onClick={this.showOffer}
+                  style={{border:"hidden"}}
+                  >{item.offer_count}
+                  </Button>,
+                  <IconText1 icon={LikeOutlined}  key="list-vertical-like-o" />,
+                  <Modal
+                    visible={this.state.offerModal}
+                    width='80%'
+                    onOk={this.handleCancel}
+                    onCancel={this.handleCancel}
+                    okText="بازگشت"
+                    okButtonProps={{textAlign:"center",}}
+                    cancelButtonProps={{hidden:"true"}}
+                    style={{fontFamily:"IRANSans", overflow:"hidden", borderRadius:"20px"}}
+                    >
+                    <PacketOfferPublic data={item.slug} />
+                  </Modal>,
                   // <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
                   // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
                 ]}
@@ -84,7 +121,8 @@ class Orders extends React.Component {
                 {item.origin_country} ({item.origin_city}) <span> به </span>{item.destination_country}  ({item.destination_city})<br/>
                 <span> وزن حدودی </span> 
                 {item.weight}  <span> کیلوگرم </span> <br/>
-                {item.suggested_price}
+                <span> قیمت پیشنهادی </span>
+                {item.suggested_price} 
                 <span> تومان </span>  
               </List.Item>
               </Col>

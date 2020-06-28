@@ -18,15 +18,16 @@ class PacketUserList extends React.Component {
         dataIndex: 'slug',
         key: 'x',
         width:30,
-        render: (dataIndex) => <Popconfirm
-                        title="آیا از حذف آگهی مطمئن هستید ؟"
-                        onConfirm={this.delete.bind(this,dataIndex)}
-                        onCancel={this.cancel}
-                        okText="بله"
-                        cancelText="خیر"
-                        >
-                        <a href="#">حذف</a>
-                      </Popconfirm> ,
+        render: (dataIndex) => 
+          <Popconfirm
+            title="آیا از حذف آگهی مطمئن هستید ؟"
+            onConfirm={this.delete.bind(this,dataIndex)}
+            onCancel={this.cancel}
+            okText="بله"
+            cancelText="خیر"
+            >
+            <a href="#">حذف</a>
+          </Popconfirm> ,
       },
       {
         title: '',
@@ -43,19 +44,27 @@ class PacketUserList extends React.Component {
         render: (dataIndex) => <OfferListModal data={dataIndex}/>,
       },
       { 
-        title: 'تعداد پیشنهاد',
+        title: 'وضعیت',
+        dataIndex: 'status',
+        key: 'status',
+        // colSpan:10
+        width:80,
+        align:"center",
+      },
+      { 
+        title: 'پیشنهاد',
         dataIndex: 'offer_count',
         key: 'offer_count',
         // colSpan:10
         width:50,
-        align:"center"
+        align:"center",
       },
       { 
         title: ' قیمت (تومان)',
         dataIndex: 'suggested_price',
         key: 'suggested_price',
         align:"center",
-        width:80,
+        width:150,
       },
       { 
         title: ' عنوان آگهی',
@@ -66,7 +75,6 @@ class PacketUserList extends React.Component {
       },
     ];
     
-
 
     componentDidMount(){
       const token = localStorage.getItem('token');

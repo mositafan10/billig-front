@@ -22,7 +22,7 @@ class OfferListModal extends React.Component {
   
     render(){
         return(
-            <div style={{fontFamily:"IRANSans"}}>
+            <div>
                 <Button style={{border:"hidden", fontSize:"12px"}} onClick={this.offerlistmodal}> پیشنهادها </Button>
                 <Modal
                     visible={this.state.offer_visible}
@@ -31,11 +31,11 @@ class OfferListModal extends React.Component {
                     onCancel={this.handleCancel}
                     okText="بازگشت"
                     okButtonProps={{textAlign:"center",}}
-                    cancelButtonProps={{hidden:"true", style:{
-                        borderRadius:"10px"
-                    }}}
-                    style={{fontFamily:"IRANSans", textAlign:"center"}}
+                    cancelButtonProps={{hidden:"true"}}
+                    style={{fontFamily:"IRANSans"}}
                     width="80%"
+                    bodyStyle={{borderRadius:"20px"}}
+                    maskStyle={{borderRadius:"20px"}}
                     >
                     <PacketOffer data={this.props.data}/>
                 </Modal>
