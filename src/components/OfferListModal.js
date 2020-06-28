@@ -32,7 +32,7 @@ class OfferListModal extends React.Component {
                     okText="بازگشت"
                     okButtonProps={{textAlign:"center",}}
                     cancelButtonProps={{hidden:"true"}}
-                    style={{fontFamily:"IRANSans"}}
+                    style={{fontFamily:"IRANSans", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
                     width="80%"
                     bodyStyle={{borderRadius:"20px"}}
                     maskStyle={{borderRadius:"20px"}}

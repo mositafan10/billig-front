@@ -46,16 +46,17 @@ class Orders extends React.Component {
     return (
       <List
       grid={{
-        gutter: 10,
+        gutter: 8,
         xs: 1,
         sm: 2,
-        md: 3,
+        md: 2,
         lg: 3,
-        xl: 4,
+        xl: 3,
         xxl: 4,
       }}
         itemLayout="vertical"
-        size="large"
+        size="small"
+        
         locale={{emptyText:"آگهی وجود ندارد"}}
         pagination={{
           onChange: page => {
@@ -67,7 +68,7 @@ class Orders extends React.Component {
         renderItem={item => (
           <Row style={{
             boxShadow:"0 0 10px 1px",
-            margin:"6px 6px 6px 6px", 
+            margin:"15px 15px 15px 15px", 
             paddingTop:"10px",
             borderRadius:"10px"
             }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Button, Popconfirm, message, Table, Modal } from 'antd';
+import { Button, Popconfirm, message, Table } from 'antd';
 import Axios from 'axios';
 import PacketOffer from './PacketOffer';
 import OfferListModal from '../components/OfferListModal';
@@ -74,7 +74,6 @@ class PacketUserList extends React.Component {
         align:"right"
       },
     ];
-    
 
     componentDidMount(){
       const token = localStorage.getItem('token');
@@ -109,44 +108,7 @@ class PacketUserList extends React.Component {
     render (){
     return (
         <div>
-        {/* <List
-          itemLayout="horizontal"
-          locale={{emptyText:".آگهی وجود ندارد"}}
-          dataSource={this.state.packet_user}
-          renderItem={item => (
-            <List.Item 
-              actions={[
-                // <Button style={{border:"hidden", fontSize:"12px"}} > پیشنهادها </Button>,
-                  <OfferListModal data={item.slug}/>,
-                  <Button style={{border:"hidden", fontSize:"12px"}} > ویرایش </Button>,
-                  // <Button onClick={this.confirmdelete(item.id)} style={{borderRadius:"8px"}} > حذف </Button>,
-                  <Popconfirm
-                      title="آیا از حذف آگهی مطمئن هستید ؟"
-                      onConfirm={this.delete.bind(this, item.slug)}
-                      onCancel={this.cancel}
-                      okText="بله"
-                      cancelText="خیر"
-                      >
-                      <a href="#">حذف</a>
-                  </Popconfirm>
-              ]}
-              >
-              <List.Item.Meta
-              //   style={{textAlign:"right"}}
-              //   avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-              title={<a href={item.slug}>{item.title}</a>}
-              description = {item.offer_count}
-              // description = {item.offer_count}
-              //   description={item.description}
-              
-              >
-              </List.Item.Meta>
-            </List.Item>
-          )}
-        /> */}
           <Table 
-          // bordered
-          // tableLayout="unset"
           style={{padding:"30px 30px 30px 30px"}}
           columns={this.columns}
           dataSource={this.state.packet_user} />

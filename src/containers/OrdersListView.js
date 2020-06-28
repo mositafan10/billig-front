@@ -40,10 +40,10 @@ class OrderList extends React.Component {
                 </div>
                 </Row>
                 <Row >
-                    <Col span={21}>
+                    <Col span={20}>
                         <Orders data={this.state.orders} />
                     </Col>
-                    <Col span={2}  > 
+                    <Col span={4}  > 
                         <Sider/>
                     </Col>
                 </Row>

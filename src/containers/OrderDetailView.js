@@ -33,10 +33,6 @@ class OrderDetail extends React.Component {
                         {this.state.order.picture}
                     </div>      
                 </Card>
-                <br/><h3 style={{textAlign:"center"}}> پیشنهاد‌ها</h3>
-                <br/>
-                {/* <Button style={{fontSize:"14px",borderRadius:"8px"}}><b> ثبت پیشنهاد</b></Button> */}
-                <OfferDetail data={this.state.order.id}></OfferDetail>
             </div>
         )
     }

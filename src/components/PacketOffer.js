@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Avatar, Button, Popconfirm, Table, message } from 'antd';
 import Axios from 'axios';
 import OfferDetailView from '../components/OfferDetailView';
+import SendMessage from './SendMessage';
 
 
 class PacketOffer extends React.Component { 
@@ -9,29 +10,28 @@ class PacketOffer extends React.Component {
   state = {
     packet_offer: []
   }
-  
-  columns = [
 
+  columns = [
     {
       title: '',
       dataIndex: '',
       key: 'y',
       width:20,
-      render: () => <Button style={{fontSize:"12px", border:"hidden"}}>رد</Button>,
+      render: (dataIndex) => <Button onClick={this.reject.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", backgroundColor:"red", color:"white", borderRadius:"10px"}}><b>رد</b></Button>,
     },
     {
       title: '',
       dataIndex: '',
       key: 'x',
       width:20,
-      render: (dataIndex) => <Button onClick={this.accept.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden"}}>قبول</Button>,
+      render: (dataIndex) => <Button onClick={this.accept.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", backgroundColor:"green", color:"white", borderRadius:"10px"}}><a>قبول</a></Button>,
     },
     {
       title: '',
-      dataIndex: '',
+      dataIndex: 'owner',
       key: 'z',
       width:30,
-      render: () => <Button style={{fontSize:"12px", border:"hidden"}}>پیام به کاربر</Button>,
+      render: (dataIndex) => <SendMessage data={dataIndex} />
     },
     { 
       title: 'توضیحات',
@@ -43,7 +43,7 @@ class PacketOffer extends React.Component {
       title: 'قیمت (تومان)',
       dataIndex: 'price',
       key: 'y',
-      width:120,
+      width:150,
       align:"center"
     },
     { 
@@ -53,6 +53,13 @@ class PacketOffer extends React.Component {
       width:150,
       align:"center",
     render: (dataIndex) => <a href={'/users/' + dataIndex}>{dataIndex}</a>
+    },
+    { 
+      title: 'وضعیت',
+      dataIndex: 'status', 
+      key: 'status',
+      width:50,
+      align:"center",
     },
   ];
 
@@ -71,6 +78,21 @@ class PacketOffer extends React.Component {
         .catch(error => console.error(error));
   }
 
+  reject(dataIndex){
+    const token = localStorage.getItem('token');
+    Axios.put(`http://127.0.0.1:8000/api/v1/advertise/offer/`,
+        {
+          type: "REJECT",
+          slug: dataIndex.slug
+        },
+        { headers: {"Authorization" : `Bearer ${token}`} })
+        .then(res => {
+            message.success("پیشنهاد توسط شما لغو شد")
+            console.log(res.data);  
+        })
+        .catch(error => console.error(error));
+  }
+
   componentDidMount(){
     const token = localStorage.getItem('token');
     const orderID = this.props.data;
@@ -83,7 +105,6 @@ class PacketOffer extends React.Component {
             console.log(res.data);  
         })
         .catch(error => console.error(error));
-
   }
 
     render(){
