@@ -31,7 +31,11 @@ class SendMessage extends React.Component {
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
-            console.log(res.data);  
+            console.log(res.data); 
+            this.setState({
+                messageModal: false
+            });
+            message.success("ارسال شد")
         })
         .catch(error => console.error(error));
     }
@@ -43,7 +47,6 @@ class SendMessage extends React.Component {
             <Modal
                 visible={this.state.messageModal}
                 title=" ارسال پیام"
-                onOk={this.handleOk}
                 onCancel={this.handleCancel}
                 okText="ارسال"
                 cancelText="انصراف"
@@ -61,7 +64,7 @@ class SendMessage extends React.Component {
                             required: true,
                             },
                         ]}>
-                        <TextArea />
+                        <TextArea style={{boxSizing:"border-box", textAlign:"right"}} />
                     </Form.Item>
                 </Form>
             </Modal>

@@ -34,7 +34,7 @@ class PacketUserList extends React.Component {
         dataIndex: '',
         key: 'y',
         width:30,
-        render: () => <Button style={{fontSize:"12px", border:"hidden"}}>ویرایش</Button>,
+        render: () => <Button style={{fontSize:"12px", border:"hidden", borderRadius:"5px"}}>ویرایش</Button>,
       },
       {
         title: '',

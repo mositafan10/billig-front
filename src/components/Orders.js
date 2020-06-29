@@ -1,26 +1,9 @@
 import React from 'react';
 
-import { List, Avatar, Space, Button, Modal, Form, Input, Row, Col } from 'antd';
-import { Link } from 'react-router-dom';
-import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+import { List,  Space, Row, Col } from 'antd';
 import billigpost from '../media/billigpost.png';
 import OfferListModal from '../components/OfferListModal';
-import OfferDetail from '../components/OfferInDetail';
-import PacketOfferPublic from '../components/PacketOfferPublic';
-
-const IconText = ({ icon, text }) => (
-  <Space>
-    {React.createElement(icon)}
-    {text}
-  </Space>
-);
-
-const IconText1 = ({ icon, text }) => (
-  <Space>
-    {/* {React.createElement(icon)} */}
-    {text}: تعداد پیشنهاد
-  </Space>
-);
+import OfferInListView from '../components/OfferInListView';
 
 
 class Orders extends React.Component {
@@ -35,7 +18,6 @@ class Orders extends React.Component {
     })
   }
 
-
   handleCancel = () => {
     this.setState({
       offerModal: false,
@@ -46,17 +28,17 @@ class Orders extends React.Component {
     return (
       <List
       grid={{
-        gutter: 8,
+        gutter: 12,
         xs: 1,
         sm: 2,
-        md: 2,
+        md: 3,
         lg: 3,
         xl: 3,
         xxl: 4,
       }}
         itemLayout="vertical"
         size="small"
-        
+        style={{fontSize:"13px"}}
         locale={{emptyText:"آگهی وجود ندارد"}}
         pagination={{
           onChange: page => {
@@ -69,54 +51,27 @@ class Orders extends React.Component {
           <Row style={{
             boxShadow:"0 0 10px 1px",
             margin:"15px 15px 15px 15px", 
-            paddingTop:"10px",
-            borderRadius:"10px"
+            borderRadius:"10px",
+            paddingTop:"8px",
             }}>
-            <Col span={24} border="true" style={{textAlign:"center"}}><img
-                    width={90}
-                    alt="logo"
-                    src={billigpost}
+            <Col width="60%" border="true" style={{textAlign:"right"}}>
+              <img
+                    width={150}
+                    // alt="عکس آگهی"
+                    // src={billigpost}
+                    style={{verticalAlign:"middle"}}
                   />
             </Col>
-            <hr width={100} style={{borderWidth:"10"}}/><br/>
-            <Col span={24}>
-              <List.Item style={{textAlign:"center"}}
+            <Col width="40%" >
+              <List.Item style={{textAlign:"right"}}
                 key={item.title}
                 actions={[
-                  <OfferDetail data={item.slug}></OfferDetail>,
-                  <Button 
-                  onClick={this.showOffer}
-                  style={{border:"hidden"}}
-                  >{item.offer_count}
-                  </Button>,
-                  <IconText1 icon={LikeOutlined}  key="list-vertical-like-o" />,
-                  <Modal
-                    visible={this.state.offerModal}
-                    width='80%'
-                    onOk={this.handleCancel}
-                    onCancel={this.handleCancel}
-                    okText="بازگشت"
-                    okButtonProps={{textAlign:"center",}}
-                    cancelButtonProps={{hidden:"true"}}
-                    style={{fontFamily:"IRANSans", overflow:"hidden", borderRadius:"20px"}}
-                    >
-                    <PacketOfferPublic data={item.slug} />
-                  </Modal>,
-                  // <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                  // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                  <OfferInListView data={item}/>
                 ]}
-                // extra={
-                //   <img
-                //     width={100}
-                //     alt="logo"
-                //     src={billigpost}
-                //   />
-                // }
                 >
                 <List.Item.Meta
                   // avatar={<a  href={'/users/' + item.owner} > <Avatar src={item.avatar} /></a>}
                   title={<a href={item.slug}>{item.title}</a>}
-                  description={item.description}
                 />
                 <h4> مشخصات بسته</h4>
                 {item.origin_country} ({item.origin_city}) <span> به </span>{item.destination_country}  ({item.destination_city})<br/>

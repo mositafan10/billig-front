@@ -65,6 +65,7 @@ class PacketOffer extends React.Component {
 
   accept(dataIndex){
     const token = localStorage.getItem('token');
+    const current_packet = this.state.packet_offer;
     Axios.put(`http://127.0.0.1:8000/api/v1/advertise/offer/`,
         {
           type: "ACCEPT",
@@ -73,13 +74,15 @@ class PacketOffer extends React.Component {
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
             message.success("شما پیشنهادی را قبول کرده‌اید. الان برو پرداخت کن")
-            console.log(res.data);  
+            console.log(dataIndex.slug);  
+            this.componentDidMount(); //: i dont know this is the 
         })
         .catch(error => console.error(error));
   }
 
   reject(dataIndex){
     const token = localStorage.getItem('token');
+    const current_packet = this.state.packet_offer;
     Axios.put(`http://127.0.0.1:8000/api/v1/advertise/offer/`,
         {
           type: "REJECT",
@@ -88,7 +91,8 @@ class PacketOffer extends React.Component {
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
             message.success("پیشنهاد توسط شما لغو شد")
-            console.log(res.data);  
+            console.log(dataIndex.slug);
+            this.componentDidMount();
         })
         .catch(error => console.error(error));
   }

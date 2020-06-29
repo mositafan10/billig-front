@@ -32,7 +32,7 @@ class CustomLayout extends React.Component {
     return(
       <div style={{fontFamily:"IRANSans"}}>
         <Layout className="layout" style={{backgroundColor:'white'}}>
-          <Header style={{backgroundColor:"white"}} >
+          <Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor:"white" }} >
             <div className="logo">
             <img style={{float:"right", marginTop:"5px"}}
             width={60}
@@ -60,7 +60,7 @@ class CustomLayout extends React.Component {
             }
             </Menu>
           </Header>
-          <Content style={{ padding: '20px 20px 20px 20px' }}>
+          <Content style={{ padding:"100px 200px 200px 200px" }}>
                 <Breadcrumb style={{ margin: '25px 0' }}>
                   {/* <Breadcrumb.Item><Link to='/'>خانه</Link></Breadcrumb.Item>
                   <Breadcrumb.Item><Link to='/'>آگهی‌ها</Link></Breadcrumb.Item> */}
