@@ -76,7 +76,7 @@ class SignUpForm extends React.Component {
           },
         ]}
       >
-        <Input style={{width: '100%'}}/>
+        <Input style={{width: '100%', borderRadius:"10px"}}/>
       </Form.Item>
       <Form.Item
         style={{alignItems:"center"}}
@@ -90,7 +90,7 @@ class SignUpForm extends React.Component {
         ]}
         hasFeedback
       >
-      <Input.Password />
+      <Input.Password style={{borderRadius:"10px"}}/>
       </Form.Item> 
       <Form.Item
         style={{alignItems:"center"}}
@@ -113,16 +113,16 @@ class SignUpForm extends React.Component {
           }),
         ]}
       >
-      <Input.Password />
+      <Input.Password style={{borderRadius:"10px"}} />
       </Form.Item>
       <Form.Item style={{textAlign:"center"}}><br/>
-            <Button type="primary" htmlType="submit" style={{marginRight:'10px'}}>
+            <Button type="primary" htmlType="submit" style={{marginRight:'10px', borderRadius:"15px"}}>
             ثبت نام
             </Button>
             / 
             <NavLink 
             style={{marginRight:'20px'}}
-            to='/login/'> ورود
+            to='/login/'>  ورود 
             </NavLink>
         </Form.Item>
         <Modal

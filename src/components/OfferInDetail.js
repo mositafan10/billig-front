@@ -62,7 +62,7 @@ class OfferDetail extends React.Component {
     render(){
     return(
           <div style={{display:'flex', justifyContent:'center' , textAlign:"center"}}>
-              <Button style={{borderRadius:"10px", fontSize:"13px"}} onClick={this.offer}><b> ثبت پیشنهاد جدید </b></Button>
+              <Button style={{borderRadius:"10px", fontSize:"12px"}} onClick={this.offer}><b> ثبت پیشنهاد جدید </b></Button>
                 <Modal
                   onCancel={this.handleCancel}
                   okButtonProps={{form:'offering', key: 'submit', htmlType: 'submit'}}

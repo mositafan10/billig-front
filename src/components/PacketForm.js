@@ -113,13 +113,13 @@ class PackForm extends React.Component {
                 this.props.orderID
             )}>
                 <Divider plain orientation="center">عنوان آگهی</Divider>
-                <Form.Item  name="title" rules={[{required: true}]}>
+                <Form.Item  name="title" style={{textAlign:"right"}} rules={[{required: true, message:"عنوان آگهی را وارد نمایید"}]}>
                     <Input />
                 </Form.Item>
                 <Row>
                     <Col span={12}>
                     <Divider plain orientation="center">شهر مبدا</Divider>
-                        <Form.Item name="origin_city" rules={[{required: true}]}>
+                        <Form.Item name="origin_city" style={{textAlign:"right"}} rules={[{required: true, message:"شهر مبدا را انتخاب کنید"}]}>
                         <Select>
                                 {this.state.cities.map((e, key) => {
                                 return <option key={key} value={e.id}>{e.name}</option>;})}
@@ -128,7 +128,7 @@ class PackForm extends React.Component {
                     </Col>
                     <Col span={12}>
                     <Divider plain orientation="center">کشور مبدا</Divider>
-                        <Form.Item  name="origin_country">
+                        <Form.Item  name="origin_country" style={{textAlign:"right"}} rules={[{required: true, message:"کشور مبدا را انتخاب کنید"}]}>
                             <Select>
                                 {this.state.countries.map((e, key) => {
                                 return <option key={key} value={e.id}>{e.name}</option>;})}
@@ -139,7 +139,7 @@ class PackForm extends React.Component {
                 <Row>
                     <Col span={12}>
                     <Divider plain orientation="center">شهر مقصد</Divider>
-                        <Form.Item name="destination_city" rules={[{required: true}]}>
+                        <Form.Item name="destination_city" style={{textAlign:"right"}} rules={[{required: true, message:"شهر مقصد را انتخاب کنید"}]}>
                         <Select>
                                 {this.state.cities.map((e, key) => {
                                 return <option key={key} value={e.id}>{e.name}</option>;})}
@@ -148,7 +148,7 @@ class PackForm extends React.Component {
                     </Col>
                     <Col span={12}>
                     <Divider plain orientation="center">کشور مقصد</Divider>
-                        <Form.Item  name="destination_country">
+                        <Form.Item  name="destination_country" style={{textAlign:"right"}} rules={[{required: true, message:"کشور مقصد را انتخاب کنید"}]}>
                             <Select>
                                 {this.state.countries.map((e, key) => {
                                 return <option key={key} value={e.id}>{e.name}</option>;})}
@@ -157,15 +157,15 @@ class PackForm extends React.Component {
                     </Col>
                 </Row>
                 <Divider plain orientation="center">نوع بسته</Divider>
-                <Form.Item name="category" rules={[{required: true}]}>
+                <Form.Item name="category" style={{textAlign:"right"}} rules={[{required: true, message:"نوع بسته را انتخاب کنید"}]}>
                 <Select options={PacketCategory}/>  
                 </Form.Item>
                 <Divider plain orientation="center">وزن بسته</Divider>  
-                <Form.Item  name="weight" rules={[{required: true}]}>
+                <Form.Item  name="weight" style={{textAlign:"right"}} rules={[{required: true, message: "وزن بسته را وارد کنید"}]}>
                     <Input style={{textAlign:"right"}} placeholder="به کیلوگرم وارد کنید" ></Input>
                 </Form.Item>
                 <Divider plain orientation="center" >مبلغ پیشنهادی</Divider>
-                <Form.Item  name="suggested_price" style={{textAlign:"center"}} rules={[{required: true}]}>
+                <Form.Item  name="suggested_price" style={{textAlign:"right"}} rules={[{required: true, message:"مبلغ پیشنهادی خود را وارد کنید"}]}>
                     <Input style={{textAlign:"right"}} placeholder="به تومان وارد کنید"/>
                 </Form.Item>
                 <Form.Item name="buy" style={{textAlign:"center"}}>
@@ -174,11 +174,11 @@ class PackForm extends React.Component {
                     </Checkbox>
                 </Form.Item>
                 <Divider plain orientation="center">توضیحات</Divider>
-                <Form.Item name="description" rules={[{required: true}]}>
+                <Form.Item name="description">
                     <TextArea />
                 </Form.Item> 
                 <Form.Item rules={[{required: true}]} style={{textAlign:"center"}}>
-                    <Checkbox rules={[{required: true}]}>
+                    <Checkbox style={{textAlign:"right"}} rules={[{required: true, message:"قوانین را مطالعه بفرمایید"}]}>
                     با <a>قوانین و مقررات </a>بیلیگ پست موافقم
                     </Checkbox>
                 </Form.Item>

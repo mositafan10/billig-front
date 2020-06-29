@@ -9,7 +9,7 @@ class Sider extends React.Component {
   rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
 
   state = {
-    openKeys: ['sub1'],
+    openKeys: ['sub2'],
   };
 
   onOpenChange = openKeys => {
@@ -31,20 +31,6 @@ class Sider extends React.Component {
         onOpenChange={this.onOpenChange}
         style={{ width: 256}}
       >
-        
-        <SubMenu
-          key="sub1"
-          title={
-            <span>
-              {/* <MailOutlined /> */}
-              <span style={{float:"right"}}>آگهی‌های پستی</span>
-            </span>
-          }
-        >
-          <Menu.Item key="1"><span style={{float:"right"}}> مدارک - </span></Menu.Item>
-          <Menu.Item key="2"><span style={{float:"right"}}> کتاب -</span></Menu.Item>
-          {/* <Menu.Item key="3"> کتاب</Menu.Item> */}
-        </SubMenu>
         <SubMenu key="sub2" title={
             <span>
               {/* <MailOutlined /> */}
@@ -63,12 +49,18 @@ class Sider extends React.Component {
             <Menu.Item key="8">Option 8</Menu.Item>
           </SubMenu> */}
         </SubMenu>
-        {/* <SubMenu key="sub4" icon={<SettingOutlined />} title="Navigation Three">
-          <Menu.Item key="9">Option 9</Menu.Item>
-          <Menu.Item key="10">Option 10</Menu.Item>
-          <Menu.Item key="11">Option 11</Menu.Item>
-          <Menu.Item key="12">Option 12</Menu.Item>
-        </SubMenu> */}
+        <SubMenu
+          key="sub1"
+          title={
+            <span>
+              {/* <MailOutlined /> */}
+              <span style={{float:"right"}}>آگهی‌های پستی</span>
+            </span>
+          }
+        >
+          <Menu.Item key="1"><span style={{float:"right"}}> مدارک - </span></Menu.Item>
+          <Menu.Item key="2"><span style={{float:"right"}}> کتاب -</span></Menu.Item>
+        </SubMenu>
       </Menu>
     );
   }

@@ -4,7 +4,7 @@ import OfferDetail from '../components/OfferInDetail';
 import PacketOfferPublic from '../components/PacketOfferPublic';
 
 const IconText1 = ({ text }) => (
-    <Space style={{fontSize:"12px"}}>
+    <Space style={{fontSize:"12px", marginRight:"-30px"}}>
       {text}: تعداد پیشنهاد
     </Space>
   );
