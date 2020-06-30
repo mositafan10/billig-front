@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { Card, Row, Col, Button, Table } from 'antd';
+import { Card, Row, Col, Button, Space } from 'antd';
 import billigpost from '../media/billigpost.png';
 import OfferDetail from '../components/OfferInDetail';
 
@@ -39,7 +39,7 @@ class OrderDetail extends React.Component {
                   <Button style={{fontSize:"13px", borderRadius:"10px"}}>نشان کردن آگهی</Button>
                     </Col>
                     <Col span={10}>
-                        <Card title={this.state.order.title}>
+                        <Card style={{borderRadius:"20px"}} title={this.state.order.title}>
                             <Row style={{display:"flex", justifyContent:"right" }}>
                                     <Col style={{display:"flex"}} span={19}>
                                          {/* {this.state.order.category} */}
@@ -67,16 +67,16 @@ class OrderDetail extends React.Component {
                                         <h4>مقصد</h4>
                                     </Col>
                             </Row>
-                            <hr style={{color:"aliceblue"}}/>
+                            {/* <hr style={{color:"aliceblue"}}/>
                             <Row style={{display:"flex", justifyContent:"right" }}>
                                     <Col style={{display:"flex"}} span={16}>
-                                        {/* {this.state.order.suggested_price} */}
+                                        {this.state.order.suggested_price}
                                         ۱۰۰/۰۰۰
                                     </Col>
                                     <Col style={{display:"flex", justifyContent:"right"}} span={8} >
                                         <h4>قیمت پیشنهادی</h4>
                                     </Col>
-                            </Row>
+                            </Row> */}
                             <hr style={{color:"aliceblue"}}/>
                             <Row style={{display:"flex", justifyContent:"right" }}>
                                     <Col style={{display:"flex"}} span={16}>
@@ -101,7 +101,7 @@ class OrderDetail extends React.Component {
                                 <hr style={{color:"aliceblue"}}/>
                                 <Row style={{display:"flex", justifyContent:"right" }}>
                                     <Col style={{display:"flex"}} span={16}>
-                                            ۱۰/۰۰۰/۰۰۰ 
+                                    <span> تومان </span> <span style={{marginLeft:"5px"}}> ۱/۰۰۰/۰۰۰ </span> 
                                     </Col>
                                     <Col style={{display:"flex", justifyContent:"right"}} span={8} >
                                         <h4>قیمت کالا</h4>
@@ -129,8 +129,27 @@ class OrderDetail extends React.Component {
                              }
                             <hr style={{color:"aliceblue"}}/><br/>
                             <p style={{textAlign:"right"}}>{this.state.order.description}</p>
-                            <br/>   
+                            <br/>
+                            <hr style={{color:"aliceblue"}}/><br/>
+                            <Row style={{display:"flex", justifyContent:"right", border:"1px" }}>
+                                    <Col style={{display:"flex"}} span={16}>
+                                    <h3> تومان </h3> <h3 style={{marginLeft:"5px"}}> ۲۰۰/۰۰۰ </h3> 
+                                    </Col>
+                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
+                                        درآمد شما
+                                    </Col>
+                            </Row> 
+                            {/* <hr style={{color:"aliceblue"}}/><br/> */}
                             <OfferDetail style data={this.state.order.slug}></OfferDetail>
+
+                            {/* <Row style={{display:"flex", justifyContent:"right" }}>
+                                    <Col style={{display:"flex"}} span={16}>
+                                    <OfferDetail style data={this.state.order.slug}></OfferDetail>
+                                    </Col>
+                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
+                                    </Col>
+                            </Row>   */}
+                            
                         </Card>
                     </Col>
                 </Row>

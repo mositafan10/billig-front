@@ -111,7 +111,7 @@ class LoginForm extends React.Component {
             / 
             <NavLink 
             style={{marginRight:'20px'}}
-            to='/signup/'>  ثبت نام
+            to='/signup/'>    ثبت نام
             </NavLink>
         </Form.Item>  
         <Form.Item>

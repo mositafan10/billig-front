@@ -18,13 +18,18 @@ class PackForm extends React.Component {
     }
 
     callbackFunction = (childData) => {
-        this.setState({pic_id: childData});
+
+        const pic = childData.map((pi) => this.setState((state) => {
+           return {pic_id: state.pic_id.concat(pi.response) };
+          }) ) 
+        console.log(this.state.pic_id);
     }
+
 
     handleChange = () => {
         this.setState({buy:true})
     }
-
+    
     handleFormSubmit = (values, requestType, orderID) => {
         
         const title = values.title;
@@ -38,7 +43,8 @@ class PackForm extends React.Component {
         const description = values.description;
         const buy = this.state.buy;
         const token = localStorage.getItem('token');
-        console.log("buy", buy)
+        const pic_id = this.state.pic_id[2].id;
+        // console.log("pic_id", this.state.pic_id)
 
         switch ( requestType ) {
 
@@ -55,10 +61,10 @@ class PackForm extends React.Component {
                     suggested_price: suggested_price,
                     description: description,
                     buy: buy,
-                    picture : [1]
+                    picture : [pic_id]
                     },
                     { headers: {"Authorization" : `Bearer ${token}`} })
-                .then(function (res) { if (res.status == 201){ window.location.reload(); console.log(values)}})
+                .then(function (res) { if (res.status == 201){ console.log(values)}})
                 .catch(error => console.error(error));
 
             case 'put':
@@ -114,7 +120,7 @@ class PackForm extends React.Component {
             )}>
                 <Divider plain orientation="center">عنوان آگهی</Divider>
                 <Form.Item  name="title" style={{textAlign:"right"}} rules={[{required: true, message:"عنوان آگهی را وارد نمایید"}]}>
-                    <Input />
+                    <Input style={{textAlign:"right"}} />
                 </Form.Item>
                 <Row>
                     <Col span={12}>
@@ -175,7 +181,7 @@ class PackForm extends React.Component {
                 </Form.Item>
                 <Divider plain orientation="center">توضیحات</Divider>
                 <Form.Item name="description">
-                    <TextArea />
+                    <TextArea style={{textAlign:"right"}} />
                 </Form.Item> 
                 <Form.Item rules={[{required: true}]} style={{textAlign:"center"}}>
                     <Checkbox style={{textAlign:"right"}} rules={[{required: true, message:"قوانین را مطالعه بفرمایید"}]}>
@@ -183,8 +189,13 @@ class PackForm extends React.Component {
                     </Checkbox>
                 </Form.Item>
                 <Form.Item name="picture" style={{textAlign:"center"}}> 
-                    <UploadFile parentCallback = {this.callbackFunction} /> </Form.Item>
-                    <p>  </p>
+                    <UploadFile parentCallback = {this.callbackFunction} />
+                    <p>   </p>
+                    {/* <Input
+                    type="file"
+                    id="picture"
+                    accept="image/png, image/jpeg"  onChange={this.handleImageChange} required/> */}
+                </Form.Item>
                 <Form.Item style={{ textAlign: 'center' }}>
                     <Button style={{ borderRadius: '8px' }} type="primary" htmlType="submit">ثبت آگهی</Button>
                 </Form.Item> 

@@ -9,12 +9,9 @@ const UploadFile = (props) => {
 
   const sendData = (fileList) => { props.parentCallback(fileList); };
 
-  const onChange = ({ fileList: newFileList }) => {
+  const onChange = async ({ fileList: newFileList }) => {
+    // console.log(newFileList);
     setFileList(newFileList);
-    // for (var i=0; i < newFileList.length; i++){
-    //   console.log(newFileList);
-      // console.log(newFileList);
-    // }
     sendData(newFileList);
   };
 
@@ -45,7 +42,7 @@ const UploadFile = (props) => {
         onPreview={onPreview}
         fileList={fileList}
       >
-        {fileList.length < 5 && '+ Upload'}
+        {fileList.length < 1 && '+ Upload'}
       </Upload>
     </ImgCrop>
   );

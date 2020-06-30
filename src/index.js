@@ -27,3 +27,7 @@ const app = (
 
 ReactDOM.render(app, document.getElementById('root'));
 serviceWorker.unregister();
+
+if (module.hot) {
+  module.hot.accept();
+  }

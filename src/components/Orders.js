@@ -28,7 +28,7 @@ class Orders extends React.Component {
     return (
       <List
       grid={{
-        gutter: 12,
+        gutter: 15,
         xs: 1,
         sm: 2,
         md: 3,
@@ -48,21 +48,24 @@ class Orders extends React.Component {
         }}
         dataSource={this.props.data}
         renderItem={item => (
-          <Row style={{
+            <Row
+            style={{
             boxShadow:"0 0 10px 1px",
             margin:"15px 15px 15px 15px", 
-            borderRadius:"10px",
+            borderRadius:"10px", 
             paddingTop:"8px",
+            paddingLeft:"80px"
             }}>
-            <Col width="60%" border="true" style={{textAlign:"right"}}>
-              <img
-                    width={150}
-                    // alt="عکس آگهی"
-                    // src={billigpost}
-                    style={{verticalAlign:"middle"}}
-                  />
-            </Col>
-            <Col width="40%" >
+            <Row>
+              <Col span={8} border="true" style={{textAlign:"right"}}>
+                <img
+                      width={120}
+                      // alt="عکس آگهی"
+                      // src={billigpost}
+                      style={{margin:"10px 30px 10px -50px"}}
+                    />
+              </Col>
+            <Col span={16} >
               <List.Item style={{textAlign:"right"}}
                 key={item.title}
                 actions={[
@@ -73,15 +76,19 @@ class Orders extends React.Component {
                   // avatar={<a  href={'/users/' + item.owner} > <Avatar src={item.avatar} /></a>}
                   title={<a href={item.slug}>{item.title}</a>}
                 />
-                <h4> مشخصات بسته</h4>
+                {/* <h4> مشخصات بسته</h4>
                 {item.origin_country} ({item.origin_city}) <span> به </span>{item.destination_country}  ({item.destination_city})<br/>
                 <span> وزن حدودی </span> 
                 {item.weight}  <span> کیلوگرم </span> <br/>
-                <span> قیمت پیشنهادی </span>
-                {item.suggested_price} 
-                <span> تومان </span>  
+                <span> تومان </span>   */}
+                <Row style={{display:"flex", justifyContent:"right" }}>
+                    <Col style={{display:"flex", justifyContent:"right"}} span={5} >
+                    <span>تومان</span><span style={{marginLeft:"5px"}}>{item.suggested_price}</span>
+                    </Col>
+                </Row>
               </List.Item>
-              </Col>
+            </Col>
+            </Row>
           </Row>
         )}
       />   

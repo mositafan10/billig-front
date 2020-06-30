@@ -64,7 +64,10 @@ class OfferDetail extends React.Component {
           <div style={{display:'flex', justifyContent:'center' , textAlign:"center"}}>
               <Button style={{borderRadius:"10px", fontSize:"12px"}} onClick={this.offer}><b> ثبت پیشنهاد جدید </b></Button>
                 <Modal
+                  style={{fontFamily:"IRANSans"}}
                   onCancel={this.handleCancel}
+                  cancelText="بازگشت"
+                  okText="ارسال"
                   okButtonProps={{form:'offering', key: 'submit', htmlType: 'submit'}}
                   visible={this.state.visible}
                   >
@@ -82,17 +85,17 @@ class OfferDetail extends React.Component {
                           required: true,
                         },
                       ]}>
-                      <Input style={{textAlign:"right"}} placeholder="به تومان وارد کنید"/>
+                      <Input style={{textAlign:"right", borderRadius:"10px"}} placeholder="به تومان وارد کنید"/>
                     </Form.Item >
                     <br/>
                     <label style={{float:"right" ,textAlign:"right", marginTop:"-30px"}} >تاریخ پرواز</label>
                     <Form.Item name="flight_date">
-                        <Input type='date'/>
+                        <Input style={{borderRadius:"10px"}} type='date'/>
                     </Form.Item>
                     <br/>
-                    <label style={{float:"right" ,textAlign:"right", marginTop:"-30px"}} >توضیحات بیشتر </label>
+                    <label style={{float:"right" ,textAlign:"right", marginTop:"-30px"}} >توضیحات </label>
                     <Form.Item name="description">
-                        <TextArea />
+                        <TextArea style={{borderRadius:"10px"}}/>
                     </Form.Item>
                   </Form>
                 </Modal>
