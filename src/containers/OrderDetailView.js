@@ -9,6 +9,7 @@ class OrderDetail extends React.Component {
 
     state = {
         order : [],
+        pic: ""
     }
     
     componentDidMount(){
@@ -18,11 +19,25 @@ class OrderDetail extends React.Component {
                 this.setState({
                     order: res.data
                 });
+                this.getPicture(res.data.pictures);
+            })
+        
+    }
+
+    getPicture = (ID) => {
+        const picID = this.state.order.picture;
+        console.log(picID)
+        Axios.get(`http://127.0.0.1:8000/api/v1/advertise/get_picture/${picID}`)
+            .then(res => {
+                this.setState({
+                    pic: res.data
+                });
             })
     }
 
     render(){
         const orderID = this.props.match.params.orderID;
+        
         return(
             <div style={{textAlign:"center", padding:"0 50px 0 50px"}}> 
                 <Row width="500">
@@ -30,7 +45,7 @@ class OrderDetail extends React.Component {
                     <img
                     width={150}
                     // alt="عکس آگهی"
-                    src={billigpost}
+                    src={this.state.pic}
                     style={{verticalAlign:"middle"}}
                   />
                   <br/><br/><hr width="200" style={{color:"aliceblue"}}/>
