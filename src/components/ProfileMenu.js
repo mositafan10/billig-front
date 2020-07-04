@@ -36,6 +36,9 @@ class ProfileMenu extends React.Component {
           <TabPane tab="پرداخت‌های من" key="6">
               پرداخت‌ها
           </TabPane>
+          <TabPane tab="پشتیبانی" key="8">
+              پشتیبانی
+          </TabPane>
           <TabPane tab=" تنظیمات پروفایل" key="7">
               <Tabs tabPosition="right" style={{textAlign:"center"}} >
               <TabPane tab="ویرایش پروفایل" key="1">

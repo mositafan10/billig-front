@@ -63,7 +63,7 @@ class LoginForm extends React.Component {
        return <Redirect to='/profile'/> 
     }
   return (
-    <div>
+    <div style={{ display:"content", alignContent:"center" }}>
         {
         this.props.loading ?
         <Spin indicator={antIcon}/>

@@ -15,18 +15,6 @@ class OrderType extends React.Component {
 
     render(){
         return (
-        //     <div style={{height:"200px", margin:"100px 0 -50px 0"}}> 
-        //     <Row> 
-        //         <Col style={{display:"flex", justifyContent:"center"}} span={12}> 
-        //             <Button onClick={this.buy.bind(this)} style={{borderRadius:"10px", fontSize:"14px"}} >
-        //                 <b>خرید</b>
-        //             </Button>
-        //         </Col>
-        //         <Col style={{display:"flex", justifyContent:"center"}} span={12}> 
-        //             <Button  style={{borderRadius:"10px", fontSize:"14px"}}><b>پست</b></Button> 
-        //         </Col>
-        //     </Row>
-        // </div>
         <div>
             <br/>
             <div style={{display:"flex", justifyContent:"center" ,margin:"20px"}}>

@@ -9,7 +9,7 @@ import OfferInListView from '../components/OfferInListView';
 class Orders extends React.Component {
 
   state = {
-    offerModal: false
+    offerModal: false,
   }
 
   showOffer = () => {
@@ -38,14 +38,21 @@ class Orders extends React.Component {
       }}
         itemLayout="vertical"
         size="small"
-        style={{fontSize:"13px"}}
+        style={{fontSize:"13px", 
+        // paddingLeft:"130px"
+      }}
         locale={{emptyText:"آگهی وجود ندارد"}}
         pagination={{
           onChange: page => {
             console.log(page);
           },
-          pageSize: 21,
+          total: this.props.page,
+          pageSize: this.props.pagesize,
+          hideOnSinglePage:true,
+          simple:true,
+          hide:true
         }}
+        
         dataSource={this.props.data}
         renderItem={item => (
             <Row
@@ -53,16 +60,15 @@ class Orders extends React.Component {
             boxShadow:"0 0 10px 1px",
             margin:"15px 15px 15px 15px", 
             borderRadius:"10px", 
-            paddingTop:"8px",
-            paddingLeft:"80px"
+            padding:"0 20px 0 100px",
             }}>
             <Row>
               <Col span={8} border="true" style={{textAlign:"right"}}>
                 <img
                       width={120}
                       // alt="عکس آگهی"
-                      // src={billigpost}
-                      style={{margin:"10px 30px 10px -50px"}}
+                      src={item.picture}
+                      style={{margin:"5px 30px 10px -50px"}}
                     />
               </Col>
             <Col span={16} >

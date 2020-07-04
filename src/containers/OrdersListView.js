@@ -28,25 +28,34 @@ class OrderList extends React.Component {
     render(){
         return(
             <div style={{fontFamily:"IRANSans"}}>
-                <Row style={{display:'flex', justifyContent:'center', marginBottom:"20px"}}>
                 <div>
-                    <Search
-                        placeholder="جستجو در آگهی‌ها"
-                        onSearch={value => console.log(value)}
-                        style={{ width: 600, alignItems:"center", fontSize:"12px" }}
-                        size="large"
-                        />
-                    <br/><br/>
-                </div>
-                </Row>
                 <Row >
                     <Col span={20}>
-                        <Orders data={this.state.orders} />
+                        <br/>
+                        <div style={{display:'flex', justifyContent:'center'}}>
+                            <Search
+                                placeholder="جستجو در آگهی‌ها"
+                                onSearch={value => console.log(value)}
+                                style={{ width: 600, alignItems:"center", fontSize:"12px" }}
+                                size="large"
+                                />
+                            <br/><br/>
+                         </div>
+                        <div style={{alignItems:"center", display:'flex',justifyContent:'center', border:"solid", borderRadius:"30px"}}>
+                            <Orders data={this.state.orders} page={2000} pagesize={12} />
+                        </div>
                     </Col>
-                    <Col span={4}  > 
+                    <Col span={4}  >
+                        <div style={{alignItems:"center", display:'flex',justifyContent:'center', border:"solid", borderRadius:"30px"}}> 
                         <Sider/>
+                        </div>
+                        <br/>
+                        <div style={{height:"600px", border:"solid", borderRadius:"30px"}}>
+
+                        </div>
                     </Col>
                 </Row>
+                </div>
                 <br />
             </div>
         )
