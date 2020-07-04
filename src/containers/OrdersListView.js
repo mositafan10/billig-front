@@ -41,18 +41,16 @@ class OrderList extends React.Component {
                                 />
                             <br/><br/>
                          </div>
-                        <div style={{alignItems:"center", display:'flex',justifyContent:'center', border:"solid", borderRadius:"30px"}}>
+                        <div>
                             <Orders data={this.state.orders} page={2000} pagesize={12} />
                         </div>
                     </Col>
                     <Col span={4}  >
-                        <div style={{alignItems:"center", display:'flex',justifyContent:'center', border:"solid", borderRadius:"30px"}}> 
+                        <div> 
                         <Sider/>
                         </div>
                         <br/>
-                        <div style={{height:"600px", border:"solid", borderRadius:"30px"}}>
-
-                        </div>
+                        
                     </Col>
                 </Row>
                 </div>

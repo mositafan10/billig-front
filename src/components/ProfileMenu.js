@@ -19,6 +19,9 @@ class ProfileMenu extends React.Component {
         <Tabs tabPosition="top" style={{textAlign:"center"}} >
           <TabPane style={{textAlign:"left"}} tab=" آگهی‌های من" key="1">
             <PacketUserList />
+            <div style={{textAlign:"center"}}>
+              <Button href={'/packet'} style={{borderRadius:"10px"}}>ثبت آگهی جدید</Button>
+            </div>
           </TabPane>
           <TabPane tab=" سفرهای من" key="2">
             <TravelList/>

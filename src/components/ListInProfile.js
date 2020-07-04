@@ -111,7 +111,9 @@ class PacketUserList extends React.Component {
           <Table 
           style={{padding:"30px 30px 30px 30px"}}
           columns={this.columns}
-          dataSource={this.state.packet_user} />
+          dataSource={this.state.packet_user}
+          locale={{emptyText:"آگهی وجود ندارد"}}
+          />
         </div>
     );
     }

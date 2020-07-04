@@ -10,7 +10,7 @@ import ChatLayout from './containers/ChatLayout';
 import UserProfile from './containers/UserDetailView';
 import OrderForm from './containers/OrderForm';
 import LandingPage from './containers/LandingPage';
-
+import TravelDetail from './containers/TravelDetailView';
 
 class BaseRouter extends React.Component {
     render(){
@@ -24,6 +24,7 @@ class BaseRouter extends React.Component {
             <Route exact path='/packet' render={(props) => <OrderForm {...this.props}/> }/>
             <Route exact path='/social' component={ChatLayout} />
             <Route exact path='/:orderID' component={OrderDetail} />
+            <Route exact path='/travel/:travelID' component={TravelDetail} />
             <Route exact path='/users/:userID' component={UserProfile} />
         </Switch>
         );

@@ -5,14 +5,17 @@ import UploadFile from '../components/UploadPicture';
 import TextArea from 'antd/lib/input/TextArea';
 import '../fonts/iransans.ttf'
 
-
+const { Option } = Select;
 
 
 class PackForm extends React.Component {
     
     state = {
         countries : [],
-        cities : [], 
+        cities_origin : [],
+        cities_destination : [],
+        city_origin_dis: true,
+        city_destination_dis: true,
         pic_id : [],
         buy: false,
     }
@@ -25,6 +28,29 @@ class PackForm extends React.Component {
         console.log(this.state.pic_id);
     }
 
+    get_city_origin = (e) => {
+        console.log('country', e);
+        Axios.get(`http://127.0.0.1:8000/api/v1/account/cities/${e}`)
+        .then(res => {
+            this.setState({
+                cities_origin: res.data,
+                city_origin_dis : false
+            });
+            console.log(res.data);
+        })
+    }
+    
+    get_city_destination = (e) => {
+        console.log('country', e);
+        Axios.get(`http://127.0.0.1:8000/api/v1/account/cities/${e}`)
+        .then(res => {
+            this.setState({
+                cities_destination: res.data,
+                city_destination_dis : false
+            });
+            console.log(res.data);
+        })
+    }
 
     handleChange = () => {
         this.setState({buy:true})
@@ -92,13 +118,6 @@ class PackForm extends React.Component {
                 });
                 console.log(res.data);
             })
-        Axios.get('http://127.0.0.1:8000/api/v1/account/cities/')
-            .then(res => {
-                this.setState({
-                    cities: res.data
-                });
-                console.log(res.data);
-            })
     }
 
     render(){  
@@ -126,18 +145,18 @@ class PackForm extends React.Component {
                     <Col span={12}>
                     <Divider plain orientation="center">شهر مبدا</Divider>
                         <Form.Item name="origin_city" style={{textAlign:"right"}} rules={[{required: true, message:"شهر مبدا را انتخاب کنید"}]}>
-                        <Select>
-                                {this.state.cities.map((e, key) => {
-                                return <option key={key} value={e.id}>{e.name}</option>;})}
+                        <Select disabled={this.state.city_origin_dis} >
+                                {this.state.cities_origin.map((e, key) => {
+                                return <Option key={key} value={e.id}>{e.name}</Option>;})}
                             </Select>   
                         </Form.Item>
                     </Col>
                     <Col span={12}>
                     <Divider plain orientation="center">کشور مبدا</Divider>
                         <Form.Item  name="origin_country" style={{textAlign:"right"}} rules={[{required: true, message:"کشور مبدا را انتخاب کنید"}]}>
-                            <Select>
+                            <Select onChange={this.get_city_origin.bind()}>
                                 {this.state.countries.map((e, key) => {
-                                return <option key={key} value={e.id}>{e.name}</option>;})}
+                                return <Option key={key} value={e.id}>{e.name}</Option>;})}
                             </Select>
                         </Form.Item>
                     </Col>
@@ -146,16 +165,16 @@ class PackForm extends React.Component {
                     <Col span={12}>
                     <Divider plain orientation="center">شهر مقصد</Divider>
                         <Form.Item name="destination_city" style={{textAlign:"right"}} rules={[{required: true, message:"شهر مقصد را انتخاب کنید"}]}>
-                        <Select>
-                                {this.state.cities.map((e, key) => {
-                                return <option key={key} value={e.id}>{e.name}</option>;})}
+                        <Select disabled={this.state.city_destination_dis}>
+                                {this.state.cities_destination.map((e, key) => {
+                                return <Option key={key} value={e.id}>{e.name}</Option>;})}
                             </Select>   
                         </Form.Item>
                     </Col>
                     <Col span={12}>
                     <Divider plain orientation="center">کشور مقصد</Divider>
                         <Form.Item  name="destination_country" style={{textAlign:"right"}} rules={[{required: true, message:"کشور مقصد را انتخاب کنید"}]}>
-                            <Select>
+                            <Select onChange={this.get_city_destination.bind()}>
                                 {this.state.countries.map((e, key) => {
                                 return <option key={key} value={e.id}>{e.name}</option>;})}
                             </Select>

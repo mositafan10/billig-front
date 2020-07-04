@@ -13,7 +13,7 @@ class TravelList extends React.Component {
         title: '',
         dataIndex: 'slug',
         key: 'x',
-        width:30,
+        width:10,
         render: (dataIndex) => 
           <Popconfirm
             title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -29,13 +29,28 @@ class TravelList extends React.Component {
         title: '',
         dataIndex: '',
         key: 'y',
-        width:30,
+        width:10,
         render: () => <Button style={{fontSize:"12px", border:"hidden", borderRadius:"5px"}}>ویرایش</Button>,
+      },
+      {
+        title: '',
+        dataIndex: 'slug',
+        key: 'y',
+        width:10,
+        render: (dataIndex) => <Button href={'travel/' + `${dataIndex}`} style={{fontSize:"12px", border:"hidden", borderRadius:"5px"}}>جزئیات</Button>,
       },
       { 
         title: 'تاریخ پرواز',
         dataIndex: 'flight_date',
         key: 'flight_date',
+        // colSpan:10 ,
+        // width:80,
+        align:"center",
+      },
+      { 
+        title: '',
+        dataIndex: 'destination_city',
+        key: 'destination_city',
         // colSpan:10
         width:80,
         align:"center",
@@ -44,16 +59,25 @@ class TravelList extends React.Component {
         title: 'مقصد',
         dataIndex: 'destination',
         key: 'destination',
-        // colSpan:10
+        rowSpan:2,
         width:80,
         align:"center",
+      },
+      { 
+        title: '',
+        dataIndex: 'departure_city', 
+        key: 'departure_city',
+        align:"center",
+        width:80,
       },
       { 
         title: ' مبدا',
         dataIndex: 'departure', 
         key: 'departure',
-        align:"right",
+        align:"center",
         width:80,
+        rowSpan:2,
+
       },
     ];
 
@@ -88,39 +112,9 @@ class TravelList extends React.Component {
     }
     render(){
         return(
-          //   <List
-          //   itemLayout="horizontal"
-          //   locale={{emptyText:".سفری ثبت نکرده‌اید"}}
-          //   dataSource={this.state.travel_user}
-          //   renderItem={item => (
-          //     <List.Item 
-          //       actions={[
-          //           <Button style={{borderRadius:"8px", fontSize:"12px"}} > ویرایش </Button>,
-          //           <Button style={{borderRadius:"8px", fontSize:"12px"}} > پیشنهادها </Button>,
-          //           // <Button onClick={this.confirmdelete(item.id)} style={{borderRadius:"8px"}} > حذف </Button>,
-          //           <Popconfirm
-          //               title="آیا از حدف آگهی مطمئن هستید ؟"
-          //               onConfirm={this.delete.bind(this, item.id)}
-          //               onCancel={this.cancel}
-          //               okText="بله"
-          //               cancelText="خیر"
-          //               style={{fontSize:"12px"}}
-          //               >
-          //               <a href="#">حذف</a>
-          //           </Popconfirm>
-          //       ]}
-          //       >
-          //       <List.Item.Meta
-          //         style={{textAlign:"left"}}
-          //         // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-          //         title={<a href={item.id}>{item.title}</a>}
-          //         description={item.description}
-          //       />
-          //     </List.Item>
-          //   )}
-          // />
           <div>
           <Table 
+            locale={{emptyText:"سفری وجود ندارد"}}
             style={{padding:"30px 30px 30px 30px"}}
             columns={this.columns}
             dataSource={this.state.travel_user} />
