@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import Axios from 'axios';
+import { message } from 'antd';
 
 export const authStart = () => {
     return {
@@ -52,10 +53,18 @@ export const authLogin = (phone_number, password, otp) => {
             localStorage.setItem('expirationDate', expirationDate);
             dispatch(authSuccess(token));
             dispatch(checkAuthTimeout(3600));
+            window.location.assign('/profile')
+            .then(()=> message.success("به بیلیگ پست خوش آمدید",2));
         })
         .catch(error => {
-            dispatch(authFail(error))
-        })
+            dispatch(authFail(error));
+            message.error(
+                {
+                    content:error.response.data.detail,
+                    duration:'4'
+                }
+            )}
+        )
     }
 } 
 
@@ -75,7 +84,14 @@ export const authSignup = (phone_number, password) => {
             dispatch(checkAuthTimeout(3600));
         })
         .catch(error => {
-            dispatch(authFail(error))
+            dispatch(authFail(error));
+            message.loading("... صبر کنید",0.5)
+            .then(() => message.error(
+                {
+                    content:error.response.data.detail,
+                    duration:'4'
+                }
+              ))
         })
     }
 }   

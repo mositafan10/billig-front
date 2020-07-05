@@ -43,8 +43,8 @@ class CustomLayout extends React.Component {
             </a>      
             </div>
             {/* <div style={{float:"right", margin:"5px 10px"}}>{}به بیلیگ پست خوش آمدید</div> */}
-            <div style={{float:"right", margin:"5px 10px"}}><Button style={{border:"hidden",}}><b>از سفرت درآمد داشته باش</b></Button></div>
-            <div style={{float:"right", margin:"5px 10px"}}><Button href={'/packet'} style={{border:"hidden"}}><b>ثبت رایگان آگهی</b></Button></div>
+            <div style={{float:"right", margin:"5px 10px"}}><Link to='/packet'><Button style={{border:"hidden",}}><b>از سفرت درآمد داشته باش</b></Button></Link></div>
+            <div style={{float:"right", margin:"5px 10px"}}><Link to='/packet'><Button style={{border:"hidden",}}><b>ثبت رایگان آگهی</b></Button></Link></div>
             <Menu theme="light" mode="horizontal" >
             {
             this.props.isAuthenticated ?
@@ -105,7 +105,7 @@ class CustomLayout extends React.Component {
             <div>
             <Row style={{justifyContent:"center", display:"flex",}}>
                   <br/>
-                  <h5 style={{textAlign:"center"}}>کلیه حقوق این سایت متعلق به شرکت ... است.</h5>
+                  <h5 style={{textAlign:"center"}}>.کلیه حقوق این سایت متعلق به شرکت ... است</h5>
             </Row>
             </div>
             </Footer>

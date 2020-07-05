@@ -52,9 +52,6 @@ class SignUpForm extends React.Component {
   };
 
   render() {
-    if (this.props.error === null && this.state.toDashboard) {
-      return <Redirect to='/' />
-    }
   return (
     <Form
       size="middle"
@@ -108,7 +105,7 @@ class SignUpForm extends React.Component {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject('تکرار رمز عبور را مجدد وارد ننمایید');
+              return Promise.reject('تکرار رمز عبور را مجدد وارد نمایید');
             },
           }),
         ]}
@@ -130,7 +127,7 @@ class SignUpForm extends React.Component {
           okButtonProps={{form:'otpInsert', key: 'submit', htmlType: 'submit'}}
           visible={this.state.visible}
           >
-          <p style={{textAlign:"center"}}> کد تایید خود را وارد نمایید </p>
+          <p style={{textAlign:"center", fontFamily:"IRANSans"}}> :کد تایید خود را وارد نمایید </p>
           <Form
           name="otpInsert"
           onFinish={this.handleOk}
