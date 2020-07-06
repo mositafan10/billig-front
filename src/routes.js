@@ -11,6 +11,7 @@ import UserProfile from './containers/UserDetailView';
 import OrderForm from './containers/OrderForm';
 import LandingPage from './containers/LandingPage';
 import TravelDetail from './containers/TravelDetailView';
+import PackForm from './components/PacketForm';
 
 class BaseRouter extends React.Component {
     render(){
@@ -21,7 +22,7 @@ class BaseRouter extends React.Component {
             <Route exact path='/profile' render={(props) => <Profile {...this.props}/> }/>
             <Route exact path='/login' render={(props) => <Login {...this.props}/> }/>
             <Route exact path='/signup' render={(props) => <Signup {...this.props}/> }/>
-            <Route exact path='/packet' render={(props) => <OrderForm {...this.props}/> }/>
+            <Route exact path='/packet' render={(props) => <PackForm {...this.props}/> }/>
             <Route exact path='/social' component={ChatLayout} />
             <Route exact path='/:orderID' component={OrderDetail} />
             <Route exact path='/travel/:travelID' component={TravelDetail} />

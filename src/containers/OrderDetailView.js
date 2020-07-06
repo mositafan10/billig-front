@@ -3,13 +3,13 @@ import Axios from 'axios';
 import { Card, Row, Col, Button, Space } from 'antd';
 import billigpost from '../media/billigpost.png';
 import OfferDetail from '../components/OfferInDetail';
+import DownloadPic from '../components/DownloadPic';
 
 
 class OrderDetail extends React.Component {
 
     state = {
         order : [],
-        pic: ""
     }
     
     componentDidMount(){
@@ -17,37 +17,18 @@ class OrderDetail extends React.Component {
         Axios.get(`http://127.0.0.1:8000/api/v1/advertise/packet/${orderID}`)
             .then(res => {
                 this.setState({
-                    order: res.data
-                });
-                this.getPicture(res.data.pictures);
-            })
-        
-    }
-
-    getPicture = (ID) => {
-        const picID = this.state.order.picture;
-        console.log(picID)
-        Axios.get(`http://127.0.0.1:8000/api/v1/advertise/get_picture/${picID}`)
-            .then(res => {
-                this.setState({
-                    pic: res.data
+                    order: res.data,
                 });
             })
     }
 
     render(){
-        const orderID = this.props.match.params.orderID;
-        
+        const picID = this.state.order.picture;
         return(
             <div style={{textAlign:"center", padding:"0 50px 0 50px"}}> 
                 <Row width="500">
                     <Col span={14}>
-                    <img
-                    width={150}
-                    // alt="عکس آگهی"
-                    src={this.state.pic}
-                    style={{verticalAlign:"middle"}}
-                  />
+                    <DownloadPic data={picID} size={300}/>
                   <br/><br/><hr width="200" style={{color:"aliceblue"}}/>
 
                   <p>با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید</p>
@@ -96,7 +77,6 @@ class OrderDetail extends React.Component {
                             <Row style={{display:"flex", justifyContent:"right" }}>
                                     <Col style={{display:"flex"}} span={16}>
                                       {/* {this.state.order.owner} */}
-                                      حسین ناصری
                                     </Col>
                                     <Col style={{display:"flex", justifyContent:"right"}} span={8} >
                                         <h4>آگهی دهنده</h4>

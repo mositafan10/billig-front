@@ -15,16 +15,16 @@ class OrderForm extends React.Component {
     buy: true
   }
 
-  async post(){
-      await this.setState({
+  post(){
+    this.setState({
           buy: false 
         });
         this.next();
         console.log(this.state.buy)
   }
 
-  async buy(){
-    await this.setState({
+  buy(){
+    this.setState({
         buy: true 
       })     
       this.next();
@@ -36,9 +36,9 @@ class OrderForm extends React.Component {
       this.setState({ current });
     };
 
-  async next() {
+  next() {
       const current = this.state.current + 1;
-      await this.setState({ current });
+       this.setState({ current });
     }
 
   prev() {
@@ -58,7 +58,7 @@ steps = [
             <div style={{display:"flex", justifyContent:"center" ,margin:"20px"}}>
                <p>چنانچه کالا مورد نظر قابلیت خریداری دارد.</p>
             </div>
-            {/* <div style={{border:"solid", borderRadius:"20px", height:"200px",  }}></div> */}
+            <div style={{border:"solid", borderRadius:"20px", height:"200px",  }}></div>
             <hr width="50%"/>
 
             <div style={{display:"flex", justifyContent:"center" ,margin:"20px"}}>
@@ -67,7 +67,7 @@ steps = [
             <div style={{display:"flex", justifyContent:"center" ,margin:"20px"}}>
                <p>چنانچه کالا مورد نظر در مبدا موجود است  و صرفا نیاز به جابه‌جایی دارد</p>
             </div>
-            {/* <div style={{border:"solid", borderRadius:"20px", height:"200px",  }}></div> */}
+            <div style={{border:"solid", borderRadius:"20px", height:"200px",  }}></div>
         </div>
     },
     {
@@ -90,7 +90,7 @@ steps = [
     const { current } = this.state;
     return (
       <div>
-        <Steps current={current} onChange={this.onChange}>
+        {/* <Steps current={current} onChange={this.onChange}>
           {this.steps.map(item => (
             <Step key={item.title} title={item.title} />
           ))}
@@ -112,7 +112,8 @@ steps = [
               بازگشت
             </Button>
           )}
-        </div>
+        </div> */}
+        {/* <PacketForm/> */}
       </div>
     );
   }

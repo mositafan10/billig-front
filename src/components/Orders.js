@@ -4,12 +4,15 @@ import { List,  Space, Row, Col } from 'antd';
 import billigpost from '../media/billigpost.png';
 import OfferListModal from '../components/OfferListModal';
 import OfferInListView from '../components/OfferInListView';
+import Axios from 'axios';
+import DownloadPic from './DownloadPic';
 
 
 class Orders extends React.Component {
 
   state = {
     offerModal: false,
+    url: ""
   }
 
   showOffer = () => {
@@ -23,7 +26,7 @@ class Orders extends React.Component {
       offerModal: false,
     });
     };
-
+  
   render(){
     return (
       <List
@@ -52,7 +55,6 @@ class Orders extends React.Component {
           simple:true,
           hide:true
         }}
-        
         dataSource={this.props.data}
         renderItem={item => (
             <Row
@@ -64,12 +66,7 @@ class Orders extends React.Component {
             }}>
             <Row>
               <Col span={8} border="true" style={{textAlign:"right"}}>
-                <img
-                      width={120}
-                      // alt="عکس آگهی"
-                      src={item.picture}
-                      style={{margin:"5px 30px 10px -50px"}}
-                    />
+                <DownloadPic data={item.picture} size={120}/>
               </Col>
             <Col span={16} >
               <List.Item style={{textAlign:"right"}}

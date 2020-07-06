@@ -47,7 +47,7 @@ class CreateTravel extends React.Component {
             departure_city : values.origin_city, 
             destination : values.destination_country, 
             destination_city : values.destination_city, 
-            flight_date : values.flight_date, 
+            flight_date_start : values.flight_date_start, 
             description : values.description, 
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
@@ -181,7 +181,7 @@ class CreateTravel extends React.Component {
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>تاریخ سفر</label>
                         {this.state.radio_value ?
                         <Form.Item 
-                            name="flight_date"
+                            name="flight_date_start"
                             
                             rules={[
                                 {
@@ -192,7 +192,7 @@ class CreateTravel extends React.Component {
                         </Form.Item> 
                         :
                         <Form.Item 
-                            name="flight_date" 
+                            name="flight_date_start" 
                             rules={[
                                 {
                                 required: true,

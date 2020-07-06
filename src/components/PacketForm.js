@@ -20,8 +20,16 @@ class PackForm extends React.Component {
         buy: false,
     }
 
-    callbackFunction = (childData) => {
+    PacketCategory = [
+        {value:'0', label:'مدارک و مستندات'},
+        {value:'1', label:'کتاب و مجله'},
+        {value:'2', label:'لوازم الکترونیکی'},
+        {value:'3', label:'کفش و پوشاک'},
+        {value:'4', label:'لوازم آرایشی و بهداشتی'},
+        {value:'5', label:'سایر موارد'},
+    ];
 
+    callbackFunction = (childData) => {
         const pic = childData.map((pi) => this.setState((state) => {
            return {pic_id: state.pic_id.concat(pi.response) };
           }) ) 
@@ -56,8 +64,8 @@ class PackForm extends React.Component {
         this.setState({buy:true})
     }
     
-    handleFormSubmit = (values, requestType, orderID) => {
-        
+    handleFormSubmit = (values) => {
+        console.log("Hi ");
         const title = values.title;
         const origin_country = values.origin_country;
         const origin_city = values.origin_city;
@@ -70,44 +78,25 @@ class PackForm extends React.Component {
         const buy = this.state.buy;
         const token = localStorage.getItem('token');
         const pic_id = this.state.pic_id[2].id;
-        // console.log("pic_id", this.state.pic_id)
 
-        switch ( requestType ) {
+        Axios.post('http://127.0.0.1:8000/api/v1/advertise/packet/',
+            { 
+            title: title,
+            origin_country: origin_country,
+            origin_city: origin_city,
+            destination_country: destination_country,
+            destination_city: destination_city,
+            category: category,
+            weight: weight,
+            suggested_price: suggested_price,
+            description: description,
+            buy: buy,
+            picture : [pic_id]
+            },
+            { headers: {"Authorization" : `Bearer ${token}`} })
+        .then(function (res) { if (res.status == 201){ console.log(values)}})
+        .catch(error => console.error(error));
 
-            case 'post':
-                return Axios.post('http://127.0.0.1:8000/api/v1/advertise/packet/',
-                    { 
-                    title: title,
-                    origin_country: origin_country,
-                    origin_city: origin_city,
-                    destination_country: destination_country,
-                    destination_city: destination_city,
-                    category: category,
-                    weight: weight,
-                    suggested_price: suggested_price,
-                    description: description,
-                    buy: buy,
-                    picture : [pic_id]
-                    },
-                    { headers: {"Authorization" : `Bearer ${token}`} })
-                .then(function (res) { if (res.status == 201){ console.log(values)}})
-                .catch(error => console.error(error));
-
-            case 'put':
-                return Axios.put(`http://127.0.0.1:8000/api/v1/advertise/packet/update/${orderID}/`, {
-                    title: title,
-                    origin_country: origin_country,
-                    origin_city: origin_city,
-                    destination_country: destination_country,
-                    destination_city: destination_city,
-                    category: category,
-                    weight: weight,
-                    suggested_price: suggested_price,
-                    description: description,
-                })
-                .then(res => console.log(res))
-                .catch(error => console.error(error));
-        }
     }
     
     componentDidMount(){
@@ -121,24 +110,11 @@ class PackForm extends React.Component {
     }
 
     render(){  
-    const PacketCategory = [
-        {value:'0', label:'مدارک و مستندات'},
-        {value:'1', label:'کتاب و مجله'},
-        {value:'2', label:'لوازم الکترونیکی'},
-        {value:'3', label:'کفش و پوشاک'},
-        {value:'4', label:'لوازم آرایشی و بهداشتی'},
-        {value:'5', label:'سایر موارد'},
-    ];
     return (
         <div>
-            <div className="col-md-2">
-            <Form size="middle" onFinish={(values) => this.handleFormSubmit(
-                values,
-                this.props.requestType,
-                this.props.orderID
-            )}>
+            <Form onFinish={(values) => this.handleFormSubmit(values)}>
                 <Divider plain orientation="center">عنوان آگهی</Divider>
-                <Form.Item  name="title" style={{textAlign:"right"}} rules={[{required: true, message:"عنوان آگهی را وارد نمایید"}]}>
+                <Form.Item name="title" style={{textAlign:"right"}} rules={[{required: true, message:"عنوان آگهی را وارد نمایید"}]}>
                     <Input style={{textAlign:"right"}} />
                 </Form.Item>
                 <Row>
@@ -183,7 +159,7 @@ class PackForm extends React.Component {
                 </Row>
                 <Divider plain orientation="center">نوع بسته</Divider>
                 <Form.Item name="category" style={{textAlign:"right"}} rules={[{required: true, message:"نوع بسته را انتخاب کنید"}]}>
-                <Select options={PacketCategory}/>  
+                <Select options={this.PacketCategory}/>  
                 </Form.Item>
                 <Divider plain orientation="center">وزن بسته</Divider>  
                 <Form.Item  name="weight" style={{textAlign:"right"}} rules={[{required: true, message: "وزن بسته را وارد کنید"}]}>
@@ -209,17 +185,11 @@ class PackForm extends React.Component {
                 </Form.Item>
                 <Form.Item name="picture" style={{textAlign:"center"}}> 
                     <UploadFile parentCallback = {this.callbackFunction} />
-                    <p>   </p>
-                    {/* <Input
-                    type="file"
-                    id="picture"
-                    accept="image/png, image/jpeg"  onChange={this.handleImageChange} required/> */}
                 </Form.Item>
                 <Form.Item style={{ textAlign: 'center' }}>
-                    <Button style={{ borderRadius: '8px' }} type="primary" htmlType="submit">ثبت آگهی</Button>
+                    <Button style={{borderRadius:'8px'}} type="primary" htmlType="submit">ثبت آگهی</Button>
                 </Form.Item> 
             </Form>
-            </div>
         </div>
         );
     }

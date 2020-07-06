@@ -42,7 +42,7 @@ class OrderList extends React.Component {
                             <br/><br/>
                          </div>
                         <div>
-                            <Orders data={this.state.orders} page={2000} pagesize={12} />
+                            <Orders data={this.state.orders} page={2000} pagesize={21} />
                         </div>
                     </Col>
                     <Col span={4}  >
