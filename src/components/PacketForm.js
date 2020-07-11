@@ -96,7 +96,6 @@ class PackForm extends React.Component {
             { headers: {"Authorization" : `Bearer ${token}`} })
         .then(function (res) { if (res.status == 201){ console.log(values)}})
         .catch(error => console.error(error));
-
     }
     
     componentDidMount(){
@@ -178,8 +177,8 @@ class PackForm extends React.Component {
                 <Form.Item name="description">
                     <TextArea style={{textAlign:"right"}} />
                 </Form.Item> 
-                <Form.Item rules={[{required: true}]} style={{textAlign:"center"}}>
-                    <Checkbox style={{textAlign:"right"}} rules={[{required: true, message:"قوانین را مطالعه بفرمایید"}]}>
+                <Form.Item rules={[{required: true, message:"قوانین را مطالعه بفرمایید"}]} style={{textAlign:"center"}}>
+                    <Checkbox style={{textAlign:"right"}}>
                     با <a>قوانین و مقررات </a>بیلیگ پست موافقم
                     </Checkbox>
                 </Form.Item>

@@ -4,13 +4,11 @@ import ImgCrop from 'antd-img-crop';
 
 const UploadFile = (props) => {
 
-
   const [fileList, setFileList] = useState([]);
 
   const sendData = (fileList) => { props.parentCallback(fileList); };
 
   const onChange = async ({ fileList: newFileList }) => {
-    // console.log(newFileList);
     setFileList(newFileList);
     sendData(newFileList);
   };

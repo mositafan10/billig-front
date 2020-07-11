@@ -47,15 +47,14 @@ class PacketUserList extends React.Component {
         title: 'وضعیت',
         dataIndex: 'status',
         key: 'status',
-        // colSpan:10
-        width:80,
+        width:150,
         align:"center",
+        render: (dataIndex) => <span style={{fontSize:"12px"}}>{dataIndex}</span>,
       },
       { 
         title: 'پیشنهاد',
         dataIndex: 'offer_count',
         key: 'offer_count',
-        // colSpan:10
         width:50,
         align:"center",
       },
@@ -70,8 +69,7 @@ class PacketUserList extends React.Component {
         title: ' عنوان آگهی',
         dataIndex: 'title', 
         key: 'title',
-    
-        align:"right"
+        align:"right",
       },
     ];
 

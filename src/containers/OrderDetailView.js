@@ -1,7 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
 import { Card, Row, Col, Button, Space } from 'antd';
-import billigpost from '../media/billigpost.png';
 import OfferDetail from '../components/OfferInDetail';
 import DownloadPic from '../components/DownloadPic';
 
@@ -21,64 +20,54 @@ class OrderDetail extends React.Component {
                 });
             })
     }
-
     render(){
         const picID = this.state.order.picture;
         return(
             <div style={{textAlign:"center", padding:"0 50px 0 50px"}}> 
                 <Row width="500">
-                    <Col span={14}>
-                    <DownloadPic data={picID} size={300}/>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={14} xxl={14}>
+                        <div style={{marginLeft:"100px"}}>
+                            <DownloadPic data={picID} size={300}/>
+                        </div>
                   <br/><br/><hr width="200" style={{color:"aliceblue"}}/>
-
                   <p>با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید</p>
-                  <Button style={{fontSize:"13px", borderRadius:"10px"}}>نشان کردن آگهی</Button>
+                  <Button style={{fontSize:"13px", borderRadius:"10px"}}>نشان کردن آگهی</Button><br/><br/>
                     </Col>
-                    <Col span={10}>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={10} xxl={10}>
                         <Card style={{borderRadius:"20px"}} title={this.state.order.title}>
                             <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={19}>
-                                         {/* {this.state.order.category} */}
-                                         کتاب
+                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                         {this.state.order.category}
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={5} >
+                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14} >
                                         <h4>دسته بندی</h4>
                                     </Col>
                             </Row>
                             <hr style={{color:"aliceblue"}}/>
                             <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={19}>
+                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
                                         {this.state.order.origin_country}
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={5} >
+                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14} >
                                         <h4>مبدا</h4>
                                     </Col>
                             </Row>
                             <hr style={{color:"aliceblue"}}/>
                             <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={19}>
+                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
                                         {this.state.order.destination_country}
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={5} >
+                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>مقصد</h4>
                                     </Col>
                             </Row>
-                            {/* <hr style={{color:"aliceblue"}}/>
-                            <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={16}>
-                                        {this.state.order.suggested_price}
-                                        ۱۰۰/۰۰۰
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
-                                        <h4>قیمت پیشنهادی</h4>
-                                    </Col>
-                            </Row> */}
+
                             <hr style={{color:"aliceblue"}}/>
                             <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={16}>
-                                      {/* {this.state.order.owner} */}
+                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                      {this.state.order.owner}
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
+                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>آگهی دهنده</h4>
                                     </Col>
                             </Row>
@@ -86,38 +75,38 @@ class OrderDetail extends React.Component {
                             {this.state.order.buy ?
                                 <div>
                                 <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={16}>
+                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
                                         دارد
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
+                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>قابلیت خریداری</h4>
                                     </Col>
                                 </Row>
                                 <hr style={{color:"aliceblue"}}/>
                                 <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={16}>
+                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
                                     <span> تومان </span> <span style={{marginLeft:"5px"}}> ۱/۰۰۰/۰۰۰ </span> 
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
+                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>قیمت کالا</h4>
                                     </Col>
                                 </Row> 
                                 <hr style={{color:"aliceblue"}}/>
                                 <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={16}>
+                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
                                         <a href='https://www.amazon.com'>www.amazon.com</a>
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
+                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>لینک خرید</h4>
                                     </Col>
                                 </Row> 
                                 </div>
                             :
                                 <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={16}>
+                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
                                     ندارد
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
+                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>قابلیت خریداری</h4>
                                     </Col>
                                 </Row>  
@@ -127,24 +116,14 @@ class OrderDetail extends React.Component {
                             <br/>
                             <hr style={{color:"aliceblue"}}/><br/>
                             <Row style={{display:"flex", justifyContent:"right", border:"1px" }}>
-                                    <Col style={{display:"flex"}} span={16}>
+                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
                                     <h3> تومان </h3> <h3 style={{marginLeft:"5px"}}> ۲۰۰/۰۰۰ </h3> 
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
+                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         درآمد شما
                                     </Col>
-                            </Row> 
-                            {/* <hr style={{color:"aliceblue"}}/><br/> */}
-                            <OfferDetail style data={this.state.order.slug}></OfferDetail>
-
-                            {/* <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} span={16}>
-                                    <OfferDetail style data={this.state.order.slug}></OfferDetail>
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} span={8} >
-                                    </Col>
-                            </Row>   */}
-                            
+                            </Row>
+                            <OfferDetail style data={this.state.order.slug} {...this.props}></OfferDetail>
                         </Card>
                     </Col>
                 </Row>

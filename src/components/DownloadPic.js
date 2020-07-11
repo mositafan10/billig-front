@@ -16,17 +16,17 @@ class DownloadPic extends React.Component {
         }))
     }
 
-    componentDidUpdate () {
-        if (this.state.loading == true) {
-        Axios.get(`http://127.0.0.1:8000/api/v1/advertise/get_picture/${this.props.data}`)
-        .then((res) => this.setState({
-            url: res.data.image_file
-        }))
-        this.setState({
-            loading: false
-        })
-        }
-    }
+    // componentDidUpdate () {
+    //     if (this.state.loading == true) {
+    //     Axios.get(`http://127.0.0.1:8000/api/v1/advertise/get_picture/${this.props.data}`)
+    //     .then((res) => this.setState({
+    //         url: res.data.image_file
+    //     }))
+    //     this.setState({
+    //         loading: false
+    //     })
+    //     }
+    // }
 
     render(){
         return(
