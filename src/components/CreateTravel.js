@@ -42,12 +42,15 @@ class CreateTravel extends React.Component {
 
     handleOkTravel = (values) => {
     const token = localStorage.getItem('token');
+
+    { this.state.radio_value ?
     Axios.post('http://127.0.0.1:8000/api/v1/advertise/travel/', {
             departure : values.origin_country, 
             departure_city : values.origin_city, 
             destination : values.destination_country, 
             destination_city : values.destination_city, 
-            flight_date_start : values.flight_date_start, 
+            flight_date_start : values.flight_date[0], 
+            flight_date_end : values.flight_date[1], 
             description : values.description, 
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
@@ -58,6 +61,26 @@ class CreateTravel extends React.Component {
         })  
         .catch(error => {console.log(error);
         })
+
+    :
+
+    Axios.post('http://127.0.0.1:8000/api/v1/advertise/travel/', {
+            departure : values.origin_country, 
+            departure_city : values.origin_city, 
+            destination : values.destination_country, 
+            destination_city : values.destination_city, 
+            flight_date_start : values.flight_date, 
+            description : values.description, 
+        },
+        { headers: {"Authorization" : `Bearer ${token}`} })
+        .then(res => {console.log(res.data)
+            this.setState({
+                createtravelvisible : false,
+                });
+        })  
+        .catch(error => {console.log(error);
+        })
+    }
     }
     
     get_city_origin = (e) => {
@@ -132,6 +155,7 @@ class CreateTravel extends React.Component {
                             locale={{emptyText:"سفری وجود ندارد"}}
                             rules={[
                                 {
+
                                 required: true,
                                 
                                 },
@@ -181,8 +205,7 @@ class CreateTravel extends React.Component {
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>تاریخ سفر</label>
                         {this.state.radio_value ?
                         <Form.Item 
-                            name="flight_date_start"
-                            
+                            name="flight_date"
                             rules={[
                                 {
                                 required: true,
@@ -192,7 +215,7 @@ class CreateTravel extends React.Component {
                         </Form.Item> 
                         :
                         <Form.Item 
-                            name="flight_date_start" 
+                            name="flight_date" 
                             rules={[
                                 {
                                 required: true,

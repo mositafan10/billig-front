@@ -6,7 +6,8 @@ import Axios from 'axios';
 class SendMessage extends React.Component {
 
     state = {
-        messageModal:false
+        messageModal:false,
+        chatID: ""
     }
 
     show_modal = () => {
@@ -20,6 +21,23 @@ class SendMessage extends React.Component {
             messageModal: false,
         });
     };
+
+    componentDidMount(){
+        const token = localStorage.getItem('token');
+        const receiver = this.props.data;
+        Axios.post(`http://127.0.0.1:8000/api/v1/chat/getid/`,
+        {
+          receiver : receiver,
+        },
+        { headers: {"Authorization" : `Bearer ${token}`} })
+        .then(res => {
+            console.log(res.data); 
+            this.setState({
+                chatID: res.data.id
+            });
+        })
+        .catch(error => console.error(error));
+    }
 
     handleOk = (values) => {
         const token = localStorage.getItem('token');
@@ -39,6 +57,7 @@ class SendMessage extends React.Component {
         })
         .catch(error => console.error(error));
     }
+
 
     render(){
         return(

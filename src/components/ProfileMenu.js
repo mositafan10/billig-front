@@ -7,6 +7,7 @@ import UploadProfilePic from './ProfileEdit';
 import FriendList from '../components/FriendList';
 import EditProfile from '../components/EditProfile';
 import UserOffer from '../components/Useroffer';
+import InboxLayout from '../containers/InboxLayout';
 
 const { TabPane } = Tabs;
 
@@ -41,14 +42,7 @@ class ProfileMenu extends React.Component {
             <UserOffer />
           </TabPane>
           <TabPane tab="صندوق پیام" key="4">
-            <Row>
-              <Col>
-                
-              </Col>
-              <Col>
-
-              </Col>
-            </Row>
+            <InboxLayout />
           </TabPane>
           <TabPane tab="پشتیبانی" key="8">
               پشتیبانی

@@ -41,10 +41,8 @@ class TravelList extends React.Component {
       },
       { 
         title: 'تاریخ پرواز',
-        dataIndex: 'flight_date',
-        key: 'flight_date',
-        // colSpan:10 ,
-        // width:80,
+        dataIndex: 'flight_date_start',
+        key: 'flight_date_start',
         align:"center",
       },
       { 
@@ -81,7 +79,7 @@ class TravelList extends React.Component {
       },
     ];
 
-    componentDidMount(){
+    componentWillMount(){
         const token = localStorage.getItem('token');
         Axios.get('http://127.0.0.1:8000/api/v1/advertise/travellist/',{ headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => {

@@ -58,12 +58,13 @@ export const authLogin = (phone_number, password, otp) => {
         })
         .catch(error => {
             dispatch(authFail(error));
-            message.error(
-                {
-                    content:error.response.data.detail,
-                    duration:'4'
-                }
-            )}
+            // message.error(
+            //     {
+            //         content:error.response.data.detail,
+            //         duration:'4'
+            //     }
+            // )
+        }
         )
     }
 } 

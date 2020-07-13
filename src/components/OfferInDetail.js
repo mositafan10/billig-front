@@ -12,7 +12,7 @@ class OfferDetail extends React.Component {
         visible:false,
         slug : "",
         price: "",
-        travel: "",
+        travel: 0,
         description:"",
         travellist: [],
     }
