@@ -6,7 +6,7 @@ class ChatDetail extends Component {
     render() {
         return (
             <div>
-                ssklksjflkdsf
+                نمایش متن پیام ها
             </div>
         );
     }

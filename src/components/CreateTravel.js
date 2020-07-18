@@ -3,8 +3,10 @@ import { Button, Modal, Input, Form, Select, DatePicker, Radio} from 'antd';
 import Axios from 'axios';
 import TextArea from 'antd/lib/input/TextArea';
 
+
 const { RangePicker } = DatePicker;
 const { Option } = Select;
+
 
 class CreateTravel extends React.Component {
     
@@ -42,7 +44,7 @@ class CreateTravel extends React.Component {
 
     handleOkTravel = (values) => {
     const token = localStorage.getItem('token');
-
+    const flight_date_start = values.flight_date_start.toLocaleDateString()
     { this.state.radio_value ?
     Axios.post('http://127.0.0.1:8000/api/v1/advertise/travel/', {
             departure : values.origin_country, 
@@ -137,15 +139,16 @@ class CreateTravel extends React.Component {
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>کشور مبدا</label>
                         <Form.Item 
                             name="origin_country" 
+                            style={{textAlign:"right"}}
                             rules={[
                                 {
                                 required: true,
+                                message:"کشور مبدا را انتخاب کنید"
                                 },
                         ]}>
                             <Select onChange={this.get_city_origin.bind()}>
                                 {this.state.countries.map((e, key) => {
                                 return <Option key={e.id}  value={e.id}>{e.name}</Option>;})}
-                                
                             </Select>
                         </Form.Item>
                         <br/>
@@ -153,11 +156,11 @@ class CreateTravel extends React.Component {
                         <Form.Item
                             name="origin_city"
                             locale={{emptyText:"سفری وجود ندارد"}}
+                            style={{textAlign:"right"}}
                             rules={[
                                 {
-
                                 required: true,
-                                
+                                message:"شهر مبدا را انتخاب کنید"
                                 },
                         ]}>
                             <Select disabled={this.state.city_origin_dis}>
@@ -168,10 +171,12 @@ class CreateTravel extends React.Component {
                         <br/>
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>کشور مقصد</label>
                         <Form.Item 
-                            name="destination_country" 
+                            name="destination_country"
+                            style={{textAlign:"right"}}
                             rules={[
                                 {
                                 required: true,
+                                message:"کشور مقصد را انتخاب کنید"
                                 },
                         ]}>
                             <Select onChange={this.get_city_destination.bind()}>
@@ -183,10 +188,11 @@ class CreateTravel extends React.Component {
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>شهر مقصد</label>
                         <Form.Item 
                             name="destination_city" 
-                            
+                            style={{textAlign:"right"}}
                             rules={[
                                 {
                                 required: true,
+                                message:"شهر مقصد را انتخاب کنید"
                                 },
                         ]}>
                             <Select disabled={this.state.city_destination_dis}>
@@ -206,33 +212,33 @@ class CreateTravel extends React.Component {
                         {this.state.radio_value ?
                         <Form.Item 
                             name="flight_date"
+                            style={{textAlign:"center"}}
                             rules={[
                                 {
                                 required: true,
+                                message:"تاریخ پرواز خود را انتخاب کنید"
                                 },
                         ]}>
-                            <RangePicker style={{display:"flex"}}/>
+                            <RangePicker placeholder="" style={{display:"flex"}}/>
                         </Form.Item> 
                         :
                         <Form.Item 
-                            name="flight_date" 
+                            name="flight_date"
+                            style={{textAlign:"center"}}
                             rules={[
                                 {
                                 required: true,
+                                message:"تاریخ پرواز خود را انتخاب کنید"
                                 },
                         ]}>
-                            <DatePicker style={{display:"flex"}}/>
+                            <DatePicker placeholder="" style={{display:"flex"}}/>
                         </Form.Item> 
                         }
                         <br/>
                         <label style={{fontFamily:"IRANSans", float:"right" ,textAlign:"right", marginTop:"-30px"}}>توضیحات بیشتر</label>
                         <Form.Item 
                             name="description" 
-                            rules={[
-                                {
-                                required: true,
-                                },
-                        ]}>
+                            >
                             <TextArea/>
                         </Form.Item>
                     </Form>

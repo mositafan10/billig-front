@@ -61,28 +61,29 @@ class SignUpForm extends React.Component {
       onFinish={this.onFinish}
       scrollToFirstError
     >
+        <h3 style={{textAlign:"center"}}>ایجاد حساب کاربری</h3><br/>
         <Form.Item
-        style={{alignItems:"center"}}
+        style={{alignItems:"center", textAlign:"center"}}
         name="phone_number"
         label="شماره موبایل"
 
         rules={[
           {
             required: true,
-            message: 'شماره موبایل خود را وارد کنید!',
+            message: '.شماره موبایل خود را وارد کنید',
           },
         ]}
       >
         <Input style={{width: '100%', borderRadius:"10px"}}/>
       </Form.Item>
       <Form.Item
-        style={{alignItems:"center"}}
+        style={{alignItems:"center", textAlign:"center"}}
         name="password"
         label="رمز عبور"
         rules={[
           {
             required: true,
-            message: 'رمز عبور خود را وارد کنید!',
+            message: '.رمز عبور خود را وارد کنید',
           },
         ]}
         hasFeedback
@@ -90,7 +91,7 @@ class SignUpForm extends React.Component {
       <Input.Password style={{borderRadius:"10px"}}/>
       </Form.Item> 
       <Form.Item
-        style={{alignItems:"center"}}
+        style={{alignItems:"center", textAlign:"center"}}
         label="تکرار رمز عبور"
         name="Confirm Password"
         dependencies={['password']}
@@ -98,7 +99,7 @@ class SignUpForm extends React.Component {
         rules={[
           {
             required: true,
-            message: 'تکرار رمز عبور را وارد نمایید',
+            message: '.تکرار رمز عبور را وارد نمایید',
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
@@ -124,7 +125,9 @@ class SignUpForm extends React.Component {
         </Form.Item>
         <Modal
           onCancel={this.handleCancel}
-          okButtonProps={{form:'otpInsert', key: 'submit', htmlType: 'submit'}}
+          cancelText="انصراف"
+          okText="ارسال"
+          okButtonProps={{form:'otpInsert', key: 'submit', htmlType: 'submit',}}
           visible={this.state.visible}
           >
           <p style={{textAlign:"center", fontFamily:"IRANSans"}}> :کد تایید خود را وارد نمایید </p>
@@ -134,12 +137,14 @@ class SignUpForm extends React.Component {
           >
             <Form.Item 
               name="otp" 
+              style={{textAlign:"right"}}
               rules={[
                 {
                   required: true,
+                  message: "کد تایید را وارد کنید"
                 },
               ]}>
-              <Input />
+              <Input style={{borderRadius:"10px"}} autoFocus="true"/>
             </Form.Item>
           </Form>
         </Modal>

@@ -18,7 +18,7 @@ class ProfileMenu extends React.Component {
       <div>
         {/* <Space style={{ marginBottom: 16 }}>
         </Space> */}
-        <Tabs tabPosition="top" style={{textAlign:"center"}} >
+        <Tabs tabPosition="right" style={{textAlign:"center"}} >
           <TabPane style={{textAlign:"left"}} tab=" آگهی‌های من" key="1">
             <PacketUserList />
             <div style={{textAlign:"center"}}>

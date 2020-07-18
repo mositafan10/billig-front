@@ -4,7 +4,6 @@ import  { LoadingOutlined } from '@ant-design/icons';
 import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth';
-import Axios from 'axios';
 import ResetPassword from '../components/ResetPassword';
 const antIcon = <LoadingOutlined type="loading" style={{fontsize: 24, textAlign:"center"}} spin />; {/*should be place in center*/}
  
@@ -45,6 +44,7 @@ class LoginForm extends React.Component {
             onFinish={this.onFinish}
             onFinishFailed={this.onFinishFailed}
         >
+        <h3 style={{textAlign:"center"}}>ورود به حساب کاربری</h3><br/>
         <Form.Item
             style={{alignItems:"center"}}
             label="شماره موبایل"

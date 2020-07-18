@@ -12,7 +12,7 @@ class OfferDetail extends React.Component {
         visible:false,
         slug : "",
         price: "",
-        travel: 0,
+        travel: "",
         description:"",
         travellist: [],
     }
@@ -134,7 +134,7 @@ class OfferDetail extends React.Component {
                   </Form>
                   </div>
                   :
-                  <p style={{textAlign:"center"}}>ابتدا <Link> وارد </Link>سایت شوید </p>}
+                  <p style={{textAlign:"center"}}>ابتدا <Link to='/login'> وارد </Link>سایت شوید </p>}
                 </Modal>
           </div>
         );

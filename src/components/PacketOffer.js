@@ -113,27 +113,6 @@ class PacketOffer extends React.Component {
 
     render(){
     return (
-  //   <List
-  //   itemLayout="horizontal"
-  //   dataSource={this.state.packet_offer}
-  //   locale={{emptyText:".پیشنهادی وجود ندارد"}}
-  //   renderItem={item => (
-  //     <List.Item
-  //     actions={[
-  //       // <Button style={{borderRadius:"8px", fontSize:"10px"}}> قبول </Button>,
-  //       // <Button style={{borderRadius:"8px", fontSize:"10px"}}>رد </Button>,
-  //       // <Button style={{borderRadius:"8px", fontSize:"10px"}}>جزئیات پیشنهاد </Button>,
-  //       <OfferDetailView />
-  //     ]}  
-  //     >
-  //       <List.Item.Meta
-  //         avatar={<a  href={'/users/' + item.owner} > <Avatar src={item.avatar} /></a>}
-  //         title={<a href="https://ant.design">{item.price}</a>}
-  //         description={item.description}
-  //       />
-  //     </List.Item>
-  //   )}
-  // />
       <Table 
       pagination={{
         onChange: page => {
@@ -143,8 +122,6 @@ class PacketOffer extends React.Component {
         size:"small",
       }}   
       locale={{emptyText:"پیشنهادی وجود ندارد"}}
-      // tableLayout="unset"
-      // style={{padding:"30px 30px 30px 30px"}}
       columns={this.columns}
       dataSource={this.state.packet_offer} />
     );
