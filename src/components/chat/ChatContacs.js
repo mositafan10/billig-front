@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { List , Avatar } from 'antd';
+import { List , Avatar, message, Button } from 'antd';
 import Axios from 'axios';
 
+
 class ChatContacs extends Component {
+
     state = {
         contacs:[]
     }
@@ -17,19 +19,30 @@ class ChatContacs extends Component {
         .catch((error) => console.log(error))
     }
 
+    sendData = (chatid, offer) => { 
+        this.props.parentCallback(chatid, offer); 
+    }
+
     render() {
+        const user = localStorage.getItem('user');
         return (
             <div>
+                <br/><br/>
                 <List
                     itemLayout="horizontal"
                     dataSource={this.state.contacs}
                     renderItem={item => (
-                    <List.Item>
+                    <List.Item style={{borderRight:"solid", borderRightColor:"aliceblue",margin:"0 20px 0 0"}}>
                         <List.Item.Meta
                         avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                        title={<a>{item.receiver}</a>}
+                        title={
+                        (user == item.sender) ? 
+                        <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state)}>{item.receiver_name}</Button>
+                            :
+                        <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state)}>{item.sender_name}</Button>
+                        }
                         />
-                </List.Item>
+                    </List.Item>
                     )}
                 />
             </div>

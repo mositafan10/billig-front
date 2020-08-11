@@ -9,7 +9,7 @@ class UserOffer extends React.Component {
 
     columns = [
         { 
-          title: 'توضیحات',
+          title: 'متن پیشنهاد',
           dataIndex: 'description',
           key: 'offer_count',
           align:"center"
@@ -22,12 +22,11 @@ class UserOffer extends React.Component {
           align:"center"
         },
         { 
-          title: 'گیرنده پیشنهاد',
-          dataIndex: 'owner', 
-          key: 'owner',
+          title: ' پیشنهاد به',
+          dataIndex: 'receiver', 
+          key: 'receiver',
           width:150,
           align:"center",
-        render: (dataIndex) => <a href={'/users/' + dataIndex}>{dataIndex}</a>
         },
         { 
           title: 'وضعیت',

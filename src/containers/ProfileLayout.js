@@ -56,7 +56,7 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{backgroundColor:"white" ,minHeight: '100vh' }}>
        <Menu></Menu>
       </Layout>
     );

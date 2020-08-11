@@ -5,7 +5,7 @@ const initialState = {
     token: null,
     error: null,
     loading: false,
-    user: ""
+    user: null
 }
 
 const authStart = (state, action) => {
@@ -16,10 +16,12 @@ const authStart = (state, action) => {
 }   
 
 const authSuccess = (state, action) => {
+    console.log(action);
     return updateObject(state, {
         token: action.token,
+        user: action.user,
         error: null,
-        loading: false
+        loading: false,
     });
 }
 
@@ -37,6 +39,7 @@ const authLoguot = (state, action) => {
 }
 
 const reducer = (state=initialState, action) => {
+    console.log(action);
     switch (action.type) {
         case actionTypes.AUTH_START: return authStart(state, action);
         case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);

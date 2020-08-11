@@ -1,6 +1,7 @@
 import React from 'react'; 
 import { Table } from 'antd';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 class PacketOffer extends React.Component { 
@@ -25,11 +26,11 @@ class PacketOffer extends React.Component {
     },
     { 
       title: 'پیشنهاد دهنده',
-      dataIndex: 'owner', 
-      key: 'owner',
+      dataIndex: 'sender', 
+      key: 'sender_id',
       width:150,
       align:"center",
-    render: (dataIndex) => <a href={'/users/' + dataIndex}>{dataIndex}</a>
+      render: (dataIndex, key) => <Link to={'/users/' +`${key}`}>{dataIndex}</Link>,
     },
   ];
 

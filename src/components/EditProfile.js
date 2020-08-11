@@ -29,8 +29,6 @@ class EditProfile extends React.Component {
 
         Axios.put('http://127.0.0.1:8000/api/v1/account/users/update/',
                     {
-                    first_name: values.first_name,
-                    last_name : values.last_name,
                     facebook_id: values.facebook_id,
                     twitter_id: values.twitter_id,
                     instagram_id: values.instagram_id,
@@ -52,22 +50,6 @@ class EditProfile extends React.Component {
                 <Form.Item  name="bio">
                     <TextArea style={{borderRadius:"8px"}} />
                 </Form.Item>
-                <Row>
-                    <Col span={24}>
-                    <Divider plain orientation="center">نام</Divider>
-                        <Form.Item name="first_name">
-                            <Input style={{borderRadius:"8px"}} />
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={24}>
-                    <Divider plain orientation="center">نام خانوادگی</Divider>
-                        <Form.Item name="last_name">
-                            <Input style={{borderRadius:"8px"}} />
-                        </Form.Item>
-                    </Col>
-                </Row>
                 <Row>
                     <Col span={24}>
                     <Divider plain orientation="center">آیدی لینکدین</Divider>

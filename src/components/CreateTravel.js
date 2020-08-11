@@ -44,7 +44,6 @@ class CreateTravel extends React.Component {
 
     handleOkTravel = (values) => {
     const token = localStorage.getItem('token');
-    const flight_date_start = values.flight_date_start.toLocaleDateString()
     { this.state.radio_value ?
     Axios.post('http://127.0.0.1:8000/api/v1/advertise/travel/', {
             departure : values.origin_country, 
@@ -124,7 +123,7 @@ class CreateTravel extends React.Component {
                 <Modal
                 visible={this.state.createtravelvisible}
                 onCancel={this.handleCancel}
-                okButtonProps={{form:'create_travel', key: 'submit', htmlType: 'submit'}}
+                okButtonProps={{form:'create_travel', key:'submit', htmlType:'submit'}}
                 okText="ثبت"
                 cancelText="انصراف"
                 style={{borderRadius:"10px",fontFamily:"IRANSans", overflow:"hidden"}}

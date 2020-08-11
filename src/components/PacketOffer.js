@@ -3,6 +3,7 @@ import { List, Avatar, Button, Popconfirm, Table, message } from 'antd';
 import Axios from 'axios';
 import OfferDetailView from '../components/OfferDetailView';
 import SendMessage from './SendMessage';
+import { Link } from 'react-router-dom';
 
 
 class PacketOffer extends React.Component { 
@@ -28,10 +29,11 @@ class PacketOffer extends React.Component {
     },
     {
       title: '',
-      dataIndex: 'owner',
-      key: 'z',
+      dataIndex: 'sender_id',
+      data: 'slug',
+      key: 'sender_id',
       width:30,
-      render: (dataIndex) => <SendMessage data={dataIndex} />
+      render: (dataIndex, data) => <SendMessage data={dataIndex} slug={data} />
     },
     { 
       title: 'توضیحات',
@@ -48,17 +50,17 @@ class PacketOffer extends React.Component {
     },
     { 
       title: 'پیشنهاد دهنده',
-      dataIndex: 'owner', 
-      key: 'owner',
+      dataIndex: 'sender', 
+      key: 'sender',
       width:150,
       align:"center",
-    render: (dataIndex) => <a href={'/users/' + dataIndex}>{dataIndex}</a>
+      render: (key) => <Link to={'/users/' + key}>{key}</Link>
     },
     { 
       title: 'وضعیت',
       dataIndex: 'status', 
       key: 'status',
-      width:50,
+      width:150,
       align:"center",
     },
   ];

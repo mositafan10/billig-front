@@ -8,10 +8,11 @@ export const authStart = () => {
     }
 }
 
-export const authSuccess = token => {
+export const authSuccess = (token,user) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        token: token
+        token: token,
+        user: user
     }
 }
 
@@ -48,22 +49,18 @@ export const authLogin = (phone_number, password, otp) => {
         })  
         .then(res => {
             const token = res.data.token;
+            const user = res.data.user;
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+            localStorage.setItem('user', user);
             localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);
-            dispatch(authSuccess(token));
-            dispatch(checkAuthTimeout(3600));
-            window.location.assign('/profile')
+            dispatch(authSuccess(token,user));
+            dispatch(checkAuthTimeout(3600))
+            // window.location.assign('/profile')
             .then(()=> message.success("به بیلیگ پست خوش آمدید",2));
         })
         .catch(error => {
             dispatch(authFail(error));
-            // message.error(
-            //     {
-            //         content:error.response.data.detail,
-            //         duration:'4'
-            //     }
-            // )
         }
         )
     }
@@ -100,6 +97,7 @@ export const authSignup = (phone_number, password) => {
 export const authCheckState = () => {
     return dispatch => {
         const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
         if (token === undefined) {
             dispatch(logout());
         } else {
@@ -107,7 +105,7 @@ export const authCheckState = () => {
             if ( expirationDate <= new Date() ) {
                 dispatch(logout());
             } else {
-                dispatch(authSuccess(token));
+                dispatch(authSuccess(token,user));
                 dispatch(checkAuthTimeout( (expirationDate.getTime() - new Date().getTime()) / 1000));
             }
         }
