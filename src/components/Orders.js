@@ -62,7 +62,7 @@ class Orders extends React.Component {
             boxShadow:"0 0 10px 1px",
             margin:"15px 15px 15px 15px", 
             borderRadius:"10px", 
-            padding:"0 20px 0 100px",
+            padding:"10px 5px 0 100px",
             }}>
             <Row>
               <Col span={8} border="true" style={{textAlign:"right"}}>

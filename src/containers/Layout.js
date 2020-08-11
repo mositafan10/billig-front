@@ -33,18 +33,19 @@ class CustomLayout extends React.Component {
       <div style={{fontFamily:"IRANSans"}}>
         <Layout className="layout" style={{backgroundColor:'white'}}>
           <Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor:"white" }} >
+          
             <div className="logo">
-            <a href={'/'}>
+            <Link to="/">
             <img style={{float:"right", marginTop:"5px"}}
             width={60}
             alt="logo"
             src={billigpost}
           />    
-            </a>      
+            </Link>
             </div>
             {/* <div style={{float:"right", margin:"5px 10px"}}>{}به بیلیگ پست خوش آمدید</div> */}
-            <div style={{float:"right", margin:"5px 10px"}}><Link to='/packet'><Button style={{border:"hidden",}}><b>از سفرت درآمد داشته باش</b></Button></Link></div>
-            <div style={{float:"right", margin:"5px 10px"}}><Link to='/packet'><Button style={{border:"hidden",}}><b>ثبت رایگان آگهی</b></Button></Link></div>
+            {/* <div style={{float:"right", margin:"5px 10px"}}><Link to='/create'><Button style={{border:"hidden",}}><b>از سفرت درآمد داشته باش</b></Button></Link></div> */}
+            {/* <div style={{float:"right", margin:"5px 10px"}}><Link to='/createpacket'><Button style={{border:"hidden",}}><b>ثبت رایگان آگهی</b></Button></Link></div> */}
             <Menu theme="light" mode="horizontal" >
             {
             this.props.isAuthenticated ?
@@ -53,7 +54,7 @@ class CustomLayout extends React.Component {
               <Menu.Item key="4"><Link to='/login'>ورود / ثبت نام</Link> </Menu.Item>
             }
               {/* <Menu.Item key="1"><Link to='/orders'>لیست آگهی‌ها</Link></Menu.Item> */}
-              {/* <Menu.Item key="3"><Link to='/packet'>ثبت رایگان آگهی</Link> </Menu.Item> */}
+              <Menu.Item key="3"><Link to='/createpacket'>ثبت رایگان آگهی</Link> </Menu.Item>
               {/* <Menu.Item key="6"><Link to='/social'>شبکه اطلاع‌رسانی</Link></Menu.Item> */}
               {/* <Menu.Item key="7"><Link >کسب درآمد از سفر</Link></Menu.Item> */}
             {

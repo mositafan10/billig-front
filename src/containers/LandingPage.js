@@ -38,7 +38,7 @@ class LandingPage extends React.Component {
                         <div style={{alignItems:"center", display:'flex',justifyContent:'center', border:"solid", borderRadius:"30px", height:"300px"}}>
                         </div>
                         <Divider plain orientation="center"><b>آخرین آگهی‌ها</b></Divider>
-                        <div style={{alignItems:"center", display:'flex',justifyContent:'center', paddingLeft:"120px"}}>
+                        <div style={{alignItems:"center", display:'flex',justifyContent:'center', paddingLeft:"180px"}}>
                             <Orders data={this.state.orders} page={6} pagesize={6} />
                         </div>
                         <div style={{textAlign:"center"}}>

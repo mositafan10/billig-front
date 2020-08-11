@@ -33,7 +33,7 @@ class DownloadPic extends React.Component {
             <div>
                 <img
                 src = {`http://127.0.0.1/dstatic/${this.state.url}`}
-                style = { {margin:"10px 30px 10px -90px", borderRadius:"8px"}}
+                style = { {margin:"10px 50px 10px -90px", borderRadius:"8px"}}
                 width = {this.props.size}
                 >
                 </img>
