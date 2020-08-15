@@ -73,6 +73,7 @@ class PackForm extends React.Component {
         const destination_country = values.destination_country;
         const destination_city = values.destination_city;
         const category = values.category;
+        const dimension = values.dimension;
         const weight = values.weight;
         const suggested_price = values.suggested_price;
         const description = values.description;
@@ -88,6 +89,7 @@ class PackForm extends React.Component {
             destination_country: destination_country,
             destination_city: destination_city,
             category: category,
+            dimension: dimension,
             weight: weight,
             suggested_price: suggested_price,
             description: description,
@@ -122,7 +124,7 @@ class PackForm extends React.Component {
                         <Input style={{textAlign:"right"}} />
                     </Form.Item>
                     <Row>
-                        <Col span={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">شهر مبدا</Divider>
                             <Form.Item name="origin_city" style={{textAlign:"right"}} rules={[{required: true, message:"شهر مبدا را انتخاب کنید"}]}>
                             <Select disabled={this.state.city_origin_dis} >
@@ -131,7 +133,7 @@ class PackForm extends React.Component {
                                 </Select>   
                             </Form.Item>
                         </Col>
-                        <Col span={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">کشور مبدا</Divider>
                             <Form.Item  name="origin_country" style={{textAlign:"right"}} rules={[{required: true, message:"کشور مبدا را انتخاب کنید"}]}>
                                 <Select onChange={this.get_city_origin.bind()}>
@@ -142,7 +144,7 @@ class PackForm extends React.Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col span={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">شهر مقصد</Divider>
                             <Form.Item name="destination_city" style={{textAlign:"right"}} rules={[{required: true, message:"شهر مقصد را انتخاب کنید"}]}>
                             <Select disabled={this.state.city_destination_dis}>
@@ -151,7 +153,7 @@ class PackForm extends React.Component {
                                 </Select>   
                             </Form.Item>
                         </Col>
-                        <Col span={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">کشور مقصد</Divider>
                             <Form.Item  name="destination_country" style={{textAlign:"right"}} rules={[{required: true, message:"کشور مقصد را انتخاب کنید"}]}>
                                 <Select onChange={this.get_city_destination.bind()}>
@@ -162,9 +164,9 @@ class PackForm extends React.Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col span={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                             <Divider plain orientation="center">ابعاد بسته</Divider>  
-                            <Form.Item name="dimension" style={{textAlign:"right"}} rules={[{required: true, message: "وزن بسته را وارد کنید"}]}>
+                            <Form.Item name="dimension" style={{textAlign:"right"}} rules={[{required: true, message: "ابعاد بسته را انتخاب کنید"}]}>
                                 <Select>
                                     <Option value="بزرگ">بزرگ</Option>
                                     <Option value="متوسط">متوسط</Option>
@@ -172,7 +174,7 @@ class PackForm extends React.Component {
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col span={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                             <Divider plain orientation="center">نوع بسته</Divider>
                             <Form.Item name="category" style={{textAlign:"right"}} rules={[{required: true, message:"نوع بسته را انتخاب کنید"}]}>
                             <Select options={this.PacketCategory}/>  
@@ -180,13 +182,13 @@ class PackForm extends React.Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col span={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center" >مبلغ پیشنهادی</Divider>
                         <Form.Item  name="suggested_price" style={{textAlign:"right"}} rules={[{required: true, message:"مبلغ پیشنهادی خود را وارد کنید"}]}>
                             <Input style={{textAlign:"right"}} placeholder="به تومان وارد کنید"/>
                         </Form.Item>
                         </Col>
-                        <Col span={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">وزن بسته</Divider>  
                         <Form.Item  name="weight" style={{textAlign:"right"}} rules={[{required: true, message: "وزن بسته را وارد کنید"}]}>
                             <Input style={{textAlign:"right"}} placeholder="به کیلوگرم وارد کنید" ></Input>

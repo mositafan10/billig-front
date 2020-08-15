@@ -3,6 +3,7 @@ import { Button, Popconfirm, message, Table } from 'antd';
 import Axios from 'axios';
 import PacketOffer from './PacketOffer';
 import OfferListModal from '../components/OfferListModal';
+import EditPacket from '../components/Order/EditPacket';
 
 
 
@@ -31,10 +32,10 @@ class PacketUserList extends React.Component {
       },
       {
         title: '',
-        dataIndex: '',
+        dataIndex: 'slug',
         key: 'y',
         width:30,
-        render: () => <Button style={{fontSize:"12px", border:"hidden", borderRadius:"5px"}}>ویرایش</Button>,
+        render: (dataIndex) => <EditPacket data={dataIndex}/>,
       },
       {
         title: '',
