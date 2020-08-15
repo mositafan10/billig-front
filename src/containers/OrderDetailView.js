@@ -65,7 +65,7 @@ class OrderDetail extends React.Component {
                             <hr style={{color:"aliceblue"}}/>
                             <Row style={{display:"flex", justifyContent:"right" }}>
                                     <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                      {this.state.order.owner}
+                                      {this.state.order.owner_name}
                                     </Col>
                                     <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>آگهی دهنده</h4>
