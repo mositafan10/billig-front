@@ -17,7 +17,7 @@ class Bookmark extends React.Component {
             })
     }
 
-    setbookmark = () => {
+    setbookmark = () => {   
         const token = localStorage.getItem('token');
         const slug = this.props.data;
         Axios.post(`http://127.0.0.1:8000/api/v1/advertise/packet/bookmark/${slug}/`,{},

@@ -8,6 +8,7 @@ import FriendList from '../components/FriendList';
 import EditProfile from '../components/EditProfile';
 import UserOffer from '../components/Useroffer';
 import InboxLayout from '../containers/InboxLayout';
+import Bookmark_packet from './Bookmark_packet';
 
 const { TabPane } = Tabs;
 
@@ -37,6 +38,9 @@ class ProfileMenu extends React.Component {
           </TabPane> */}
           <TabPane tab="پرداخت‌های من" key="6">
               پرداخت‌ها
+          </TabPane>
+          <TabPane tab="آگهی‌های نشان‌شده" key="10">
+              <Bookmark_packet />
           </TabPane>
           <TabPane tab="پیشنهادهای من" key="9">
             <UserOffer />
