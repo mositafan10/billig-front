@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { Card, Row, Col, Button, Space } from 'antd';
 import OfferDetail from '../components/OfferInDetail';
 import DownloadPic from '../components/DownloadPic';
+import Bookmark from '../components/‌BookmarkPacket';
 
 
 class OrderDetail extends React.Component {
@@ -22,6 +23,7 @@ class OrderDetail extends React.Component {
     }
     render(){
         const picID = this.state.order.picture;
+        const Slug = this.state.order.slug;
         return(
             <div style={{textAlign:"center", padding:"0 50px 0 50px"}}> 
                 <Row width="500">
@@ -29,9 +31,9 @@ class OrderDetail extends React.Component {
                         <div style={{marginLeft:"100px"}}>
                             <DownloadPic data={picID} size={300}/>
                         </div>
-                  <br/><br/><hr width="200" style={{color:"aliceblue"}}/>
-                  <p>با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید</p>
-                  <Button style={{fontSize:"13px", borderRadius:"10px"}}>نشان کردن آگهی</Button><br/><br/>
+                    <br/><br/><hr width="200" style={{color:"aliceblue"}}/>
+                    <p>با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید</p>
+                    <Bookmark data={Slug}  /> 
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={24} xl={10} xxl={10}>
                         <Card style={{borderRadius:"20px"}} title={this.state.order.title}>
