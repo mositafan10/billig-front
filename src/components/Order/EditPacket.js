@@ -12,18 +12,6 @@ class EditPacket extends Component {
     }
 
     offerlistmodal = () => {
-        this.setState({
-          offer_visible: true
-        });
-    }
-  
-    handleCancel = () => {
-        this.setState({
-          offer_visible: false,
-        });
-    };
-
-    componentDidMount = () => {
         const token = localStorage.getItem('token');
         const packet_id = this.props.data;
 
@@ -31,12 +19,20 @@ class EditPacket extends Component {
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
             this.setState({
-                packet: res.data
+                packet: res.data,
+                offer_visible: true
             });
             console.log(res.data);  
         })
         .catch(error => console.error(error));
     }
+  
+    handleCancel = () => {
+        
+        this.setState({
+          offer_visible: false,
+        });
+    };
   
     render() {
         return (

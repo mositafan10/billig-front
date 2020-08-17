@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import { Table, Popconfirm } from 'antd';
+import { Link } from 'react-router-dom';
 
 
 class Bookmark_packet extends Component {
@@ -26,16 +27,11 @@ class Bookmark_packet extends Component {
             </Popconfirm> ,
         },
         { 
-            title: '',
-            dataIndex: 'id', 
-            key: 'id',
-            render: () => <p></p>
-        },
-        { 
             title: 'آگهی',
             dataIndex: 'packet_title', 
             key: 'departure',
             align:"right",
+        render: (dataIndex, row) => <Link to={row.packet_slug}>{dataIndex}</Link>
         },
       ];
 

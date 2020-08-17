@@ -21,21 +21,22 @@ class UserProfile extends React.Component {
                 });
             })
     }
+
     render(){
         return(
             <div style={{textAlign:"center"}}> 
-                <Card 
-                    title={this.state.user_profile.first_name + ' ' + this.state.user_profile.last_name} style={{textAlign:"center"}}>
                     <img
-                        width={100}
+                        width={300}
                         // alt="profile pic"
-                        src={this.state.user_profile.picture}
-                    /><br/><br/>
+                        src = {`http://127.0.0.1/dstatic/${this.state.user_profile.picture}`}
+                    /><br/>
+                <Card title={this.state.user_profile.name} style={{textAlign:"center"}}>
+                    
                     <p >{this.state.user_profile.bio}</p>
                     <div>
                         {/* {this.state.user_profile.picture} */}
                     </div>   
-                <FriendRequest data={this.state.user_profile.id}/>
+                {/* <FriendRequest data={this.state.user_profile.id}/> */}
                 </Card>
                 <br/>
                 <Tabs  tabPosition="top" style={{textAlign:"center"}}>

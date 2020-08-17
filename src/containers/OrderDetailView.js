@@ -4,6 +4,7 @@ import { Card, Row, Col, Button, Space } from 'antd';
 import OfferDetail from '../components/OfferInDetail';
 import DownloadPic from '../components/DownloadPic';
 import Bookmark from '../components/‌BookmarkPacket';
+import { Link } from 'react-router-dom';
 
 
 class OrderDetail extends React.Component {
@@ -24,6 +25,7 @@ class OrderDetail extends React.Component {
     render(){
         const picID = this.state.order.picture;
         const Slug = this.state.order.slug;
+        const user = localStorage.getItem('user');
         return(
             <div style={{textAlign:"center", padding:"0 50px 0 50px"}}> 
                 <Row width="500">
@@ -67,7 +69,7 @@ class OrderDetail extends React.Component {
                             <hr style={{color:"aliceblue"}}/>
                             <Row style={{display:"flex", justifyContent:"right" }}>
                                     <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                      {this.state.order.owner_name}
+                                    <Link to={'users/' + user }> {this.state.order.owner_name} </Link>
                                     </Col>
                                     <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>آگهی دهنده</h4>

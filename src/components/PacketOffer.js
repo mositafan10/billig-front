@@ -54,7 +54,7 @@ class PacketOffer extends React.Component {
       key: 'sender',
       width:150,
       align:"center",
-      render: (key) => <Link to={'/users/' + key}>{key}</Link>
+      render: (key, row) => <Link to={'/users/' + row.sender_id}>{key}</Link>
     },
     { 
       title: 'وضعیت',
