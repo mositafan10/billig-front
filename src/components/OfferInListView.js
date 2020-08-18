@@ -4,8 +4,8 @@ import OfferDetail from '../components/OfferInDetail';
 import PacketOfferPublic from '../components/PacketOfferPublic';
 
 const IconText1 = ({ text }) => (
-    <Space style={{fontSize:"12px", marginRight:"-30px"}}>
-      {text}: تعداد پیشنهاد
+    <Space style={{fontSize:"12px"}}>
+      تعداد پیشنهاد : {text} 
     </Space>
   );
 
@@ -20,8 +20,7 @@ class OfferInListView extends React.Component {
           offerModal: true
         })
     }
-    
-    
+  
       handleCancel = () => {
         this.setState({
           offerModal: false,

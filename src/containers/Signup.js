@@ -115,12 +115,12 @@ class SignUpForm extends React.Component {
       </Form.Item>
       <Form.Item style={{textAlign:"center"}}><br/>
             <Button type="primary" htmlType="submit" style={{marginRight:'10px', borderRadius:"15px"}}>
-            ثبت نام
+              ثبت نام  
             </Button>
-            / 
+              /    
             <NavLink 
             style={{marginRight:'20px'}}
-            to='/login/'>  ورود 
+            to='/login/'>ورود 
             </NavLink>
         </Form.Item>
         <Modal

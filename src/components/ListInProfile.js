@@ -14,35 +14,18 @@ class PacketUserList extends React.Component {
     }
 
     columns = [
-      {
-        title: '',
-        dataIndex: 'slug',
-        key: 'x',
-        width:30,
-        render: (dataIndex) => 
-          <Popconfirm
-            title="آیا از حذف آگهی مطمئن هستید ؟"
-            onConfirm={this.delete.bind(this,dataIndex)}
-            onCancel={this.cancel}
-            okText="بله"
-            cancelText="خیر"
-            >
-            <a href="#">حذف</a>
-          </Popconfirm> ,
+      { 
+        title: ' عنوان آگهی',
+        dataIndex: 'title', 
+        key: 'title',
+        align:"right",
       },
-      {
-        title: '',
-        dataIndex: 'slug',
-        key: 'y',
-        width:30,
-        render: (dataIndex) => <EditPacket data={dataIndex}/>,
-      },
-      {
-        title: '',
-        dataIndex: 'slug',
-        key: 'y',
-        width:30,
-        render: (dataIndex) => <OfferListModal data={dataIndex}/>,
+      { 
+        title: ' قیمت (تومان)',
+        dataIndex: 'suggested_price',
+        key: 'suggested_price',
+        align:"center",
+        width:150,
       },
       { 
         title: 'وضعیت',
@@ -59,18 +42,35 @@ class PacketUserList extends React.Component {
         width:50,
         align:"center",
       },
-      { 
-        title: ' قیمت (تومان)',
-        dataIndex: 'suggested_price',
-        key: 'suggested_price',
-        align:"center",
-        width:150,
+      {
+        title: '',
+        dataIndex: 'slug',
+        key: 'y',
+        width:30,
+        render: (dataIndex) => <OfferListModal data={dataIndex}/>,
       },
-      { 
-        title: ' عنوان آگهی',
-        dataIndex: 'title', 
-        key: 'title',
-        align:"right",
+      {
+        title: '',
+        dataIndex: 'slug',
+        key: 'y',
+        width:30,
+        render: (dataIndex) => <EditPacket data={dataIndex}/>,
+      },
+      {
+        title: '',
+        dataIndex: 'slug',
+        key: 'x',
+        width:30,
+        render: (dataIndex) => 
+          <Popconfirm
+            title="آیا از حذف آگهی مطمئن هستید ؟"
+            onConfirm={this.delete.bind(this,dataIndex)}
+            onCancel={this.cancel}
+            okText="بله"
+            cancelText="خیر"
+            >
+            <a href="#">حذف</a>
+          </Popconfirm> ,
       },
     ];
 

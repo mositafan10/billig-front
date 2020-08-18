@@ -13,12 +13,41 @@ class PacketOffer extends React.Component {
   }
 
   columns = [
+    { 
+      title: 'وضعیت',
+      dataIndex: 'status', 
+      key: 'status',
+      width:150,
+      align:"center",
+    },
+    { 
+      title: 'پیشنهاد دهنده',
+      dataIndex: 'sender', 
+      key: 'sender',
+      width:150,
+      align:"center",
+      render: (key, row) => <Link to={'/users/' + row.sender_id}>{key}</Link>
+    },
+    {
+      title: 'قیمت (تومان)',
+      dataIndex: 'price',
+      key: 'y',
+      width:150,
+      align:"center"
+    },
+    { 
+      title: 'توضیحات',
+      dataIndex: 'description',
+      key: 'offer_count',
+      align:"center"
+    },
     {
       title: '',
-      dataIndex: '',
-      key: 'y',
-      width:20,
-      render: (dataIndex) => <Button onClick={this.reject.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", backgroundColor:"red", color:"white", borderRadius:"10px"}}><b>رد</b></Button>,
+      dataIndex: 'sender_id',
+      data: 'slug',
+      key: 'sender_id',
+      width:30,
+      render: (dataIndex, data) => <SendMessage data={dataIndex} slug={data} />
     },
     {
       title: '',
@@ -29,39 +58,10 @@ class PacketOffer extends React.Component {
     },
     {
       title: '',
-      dataIndex: 'sender_id',
-      data: 'slug',
-      key: 'sender_id',
-      width:30,
-      render: (dataIndex, data) => <SendMessage data={dataIndex} slug={data} />
-    },
-    { 
-      title: 'توضیحات',
-      dataIndex: 'description',
-      key: 'offer_count',
-      align:"center"
-    },
-    {
-      title: 'قیمت (تومان)',
-      dataIndex: 'price',
+      dataIndex: '',
       key: 'y',
-      width:150,
-      align:"center"
-    },
-    { 
-      title: 'پیشنهاد دهنده',
-      dataIndex: 'sender', 
-      key: 'sender',
-      width:150,
-      align:"center",
-      render: (key, row) => <Link to={'/users/' + row.sender_id}>{key}</Link>
-    },
-    { 
-      title: 'وضعیت',
-      dataIndex: 'status', 
-      key: 'status',
-      width:150,
-      align:"center",
+      width:20,
+      render: (dataIndex) => <Button onClick={this.reject.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", backgroundColor:"red", color:"white", borderRadius:"10px"}}><b>رد</b></Button>,
     },
   ];
 

@@ -11,10 +11,18 @@ class Bookmark_packet extends Component {
     }
 
     columns = [
-        {
+      { 
+        title: 'آگهی',
+        dataIndex: 'packet_title', 
+        key: 'departure',
+        align:"right",
+        render: (dataIndex, row) => <Link to={row.packet_slug}>{dataIndex}</Link>
+      },
+      {
           title: '',
           dataIndex: 'packet_slug',
           key: 'packet_slug',
+          width:20,
           render: (dataIndex, row) => 
             <Popconfirm
               title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -25,15 +33,8 @@ class Bookmark_packet extends Component {
               >
               <a href="#">حذف</a>
             </Popconfirm> ,
-        },
-        { 
-            title: 'آگهی',
-            dataIndex: 'packet_title', 
-            key: 'departure',
-            align:"right",
-        render: (dataIndex, row) => <Link to={row.packet_slug}>{dataIndex}</Link>
-        },
-      ];
+      },
+    ];
 
     delete = (dataIndex, id) => {
         const current_packet = this.state.bookmarks;

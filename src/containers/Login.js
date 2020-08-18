@@ -72,13 +72,13 @@ class LoginForm extends React.Component {
         <Input.Password style={{borderRadius:"10px"}} />
         </Form.Item>
         <Form.Item style={{textAlign:"center"}}><br/>
-            <Button type="primary" htmlType="submit" style={{marginRight:'10px', borderRadius:"15px"}}>
-            ورود
-            </Button>
-            / 
+            <Button type="primary" htmlType="submit" style={{borderRadius:"15px",}}>
+             ورود
+            </Button> 
+            /
             <NavLink 
             style={{marginRight:'20px'}}
-            to='/signup/'>    ثبت نام
+            to='/signup/'>ثبت نام
             </NavLink>
         </Form.Item>  
         <Form.Item>

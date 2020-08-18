@@ -55,11 +55,13 @@ export const authLogin = (phone_number, password, otp) => {
             localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);
             dispatch(authSuccess(token,user));
-            dispatch(checkAuthTimeout(3600))
-            // window.location.assign('/profile')
-            .then(()=> message.success("به بیلیگ پست خوش آمدید",2));
+            dispatch(checkAuthTimeout(3600));
+            window.location = '/';
+
         })
         .catch(error => {
+            console.log(error);
+            message.error(error.response.data.detail);
             dispatch(authFail(error));
         }
         )

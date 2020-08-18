@@ -28,7 +28,6 @@ class ChatDetail extends Component {
         .catch((error) => console.log(error))
     }
 
-    
     handler = () => {
         this.componentWillReceiveProps();
         console.log("Hi");
@@ -67,14 +66,7 @@ class ChatDetail extends Component {
                 :
                 "چت را انتخاب کنید"
                 }
-                <div><hr/>
-                <InfiniteScroll
-                    initialLoad={false}
-                    pageStart={0}
-                    loadMore={this.handleInfiniteOnLoad}
-                    hasMore={!this.state.loading && this.state.hasMore}
-                    useWindow={false}
-                >
+                <div>
                 <List
                     itemLayout="horizontal"
                     dataSource={this.state.massages}
@@ -83,7 +75,6 @@ class ChatDetail extends Component {
                     <List.Item style={{fontSize:"10px"}}>
                         { (user == item.ownerid)
                         ?
-                        
                         <div style={{width:"-moz-available",textAlign:"right"}}>
                             <List.Item.Meta
                             style={{fontSize:"8px"}}
@@ -107,14 +98,10 @@ class ChatDetail extends Component {
                             {item.create_at}
                         </div>
                         }
-                       
                     </List.Item>
                     )
-                    
                     }
-                    
                 />
-                </InfiniteScroll>
                 <br/>
                     { this.state.offer ? 
                     <TextInput data={chatid} handler = {this.handler} />

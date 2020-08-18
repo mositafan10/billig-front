@@ -1,12 +1,14 @@
 import React from 'react';
-
-import { List,  Space, Row, Col } from 'antd';
+import { List, Row, Col, Card } from 'antd';
+import { Link } from 'react-router-dom';
 import billigpost from '../media/billigpost.png';
 import OfferListModal from '../components/OfferListModal';
 import OfferInListView from '../components/OfferInListView';
-import Axios from 'axios';
 import DownloadPic from './DownloadPic';
 
+const style_right = {display:"flex", justifyContent:"right"};
+const style_left = {display:"flex", justifyContent:"left"};
+const style_center = {display:"flex", justifyContent:"center"};
 
 class Orders extends React.Component {
 
@@ -31,18 +33,13 @@ class Orders extends React.Component {
     return (
       <List
       grid={{
-        gutter: 15,
+        gutter: 20,
         xs: 1,
-        sm: 2,
-        md: 3,
+        sm: 1,
+        md: 2,
         lg: 3,
         xl: 3,
-        xxl: 4,
-      }}
-        itemLayout="vertical"
-        size="small"
-        style={{fontSize:"13px", 
-        // paddingLeft:"130px"
+        xxl: 3,
       }}
         locale={{emptyText:"آگهی وجود ندارد"}}
         pagination={{
@@ -60,38 +57,39 @@ class Orders extends React.Component {
             <Row
             style={{
             boxShadow:"0 0 10px 1px",
-            margin:"15px 15px 15px 15px", 
             borderRadius:"10px", 
-            padding:"10px 5px 0 100px",
+            margin:"15px 15px 15px 15px", 
+            padding:"10px 10px 10px 30px",
             }}>
-            <Row>
-              <Col span={8} border="true" style={{textAlign:"right"}}>
-                <DownloadPic data={item.picture} size={120}/>
+             
+              <Col xs={22} sm={22} md={22} lg={22} xl={14} xxl={14} >
+                {/* <List.Item
+                  key={item.title}
+                  >
+                  <List.Item.Meta
+                    title={<Link to={'/' + item.slug}><h4>{item.title}</h4></Link>}
+                  />
+                    <OfferInListView data={item}/>
+                </List.Item> */}
+                <List.Item>
+                  <Card bordered={false} title={item.title}>
+                  <Row style={style_right}>
+                                <Col style={style_right} xs={24} sm={24} md={24} lg={24} xl={24} >
+                                    <h4></h4>
+                                </Col>
+                                <Col style={style_left} xs={24} sm={24} md={24} lg={24} xl={24}>
+                                    
+                                </Col>
+                            </Row>
+                  </Card>
+                </List.Item>
               </Col>
-            <Col span={16} >
-              <List.Item style={{textAlign:"right"}}
-                key={item.title}
-                actions={[
-                  <OfferInListView data={item}/>
-                ]}
-                >
-                <List.Item.Meta
-                  // avatar={<a  href={'/users/' + item.owner} > <Avatar src={item.avatar} /></a>}
-                  title={<a href={item.slug}>{item.title}</a>}
-                />
-                {/* <h4> مشخصات بسته</h4>
-                {item.origin_country} ({item.origin_city}) <span> به </span>{item.destination_country}  ({item.destination_city})<br/>
-                <span> وزن حدودی </span> 
-                {item.weight}  <span> کیلوگرم </span> <br/>
-                <span> تومان </span>   */}
-                <Row style={{display:"flex", justifyContent:"right" }}>
-                    <Col style={{display:"flex", justifyContent:"right"}} span={5} >
-                    <span>تومان</span><span style={{marginLeft:"5px"}}>{item.suggested_price}</span>
-                    </Col>
-                </Row>
-              </List.Item>
-            </Col>
-            </Row>
+              <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}></Col>
+              <Col xs={22} sm={22} md={22} lg={22} xl={8} xxl={8} >
+                <div style={style_center}>
+                  <DownloadPic data={item.picture} size={120}/>
+                </div>
+              </Col>
           </Row>
         )}
       />   

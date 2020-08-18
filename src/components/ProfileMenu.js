@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, Button, Row, Col } from 'antd';
+import { Tabs, Button, Row, Col, Layout } from 'antd';
 import PacketUserList from '../components/ListInProfile';
 import CreateTravel from './CreateTravel';
 import TravelList from '../components/TravelUser';
@@ -13,8 +13,12 @@ import { MailOutlined, BookOutlined, DollarOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { TabPane } = Tabs;
+const { Sider } = Layout;
+ 
+
 
 class ProfileMenu extends React.Component {
+
 
   render() {
     return (

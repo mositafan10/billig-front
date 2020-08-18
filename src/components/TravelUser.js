@@ -9,6 +9,58 @@ class TravelList extends React.Component {
     }
 
     columns = [
+      { 
+        title: ' مبدا',
+        dataIndex: 'departure', 
+        key: 'departure',
+        align:"center",
+        width:80,
+        rowSpan:2,
+
+      },
+      { 
+        title: '',
+        dataIndex: 'departure_city', 
+        key: 'departure_city',
+        align:"center",
+        width:80,
+      },
+      { 
+        title: 'مقصد',
+        dataIndex: 'destination',
+        key: 'destination',
+        rowSpan:2,
+        width:80,
+        align:"center",
+      },
+      { 
+        title: '',
+        dataIndex: 'destination_city',
+        key: 'destination_city',
+        // colSpan:10
+        width:80,
+        align:"center",
+      },
+      { 
+        title: 'تاریخ پرواز',
+        dataIndex: 'flight_date_start',
+        key: 'flight_date_start',
+        align:"center",
+      },
+      {
+        title: '',
+        dataIndex: 'slug',
+        key: 'y',
+        width:10,
+        render: (dataIndex) => <Button href={'travel/' + `${dataIndex}`} style={{fontSize:"12px", border:"hidden", borderRadius:"5px"}}>جزئیات</Button>,
+      },
+      {
+        title: '',
+        dataIndex: '',
+        key: 'y',
+        width:10,
+        render: () => <Button style={{fontSize:"12px", border:"hidden", borderRadius:"5px"}}>ویرایش</Button>,
+      },
       {
         title: '',
         dataIndex: 'slug',
@@ -24,58 +76,6 @@ class TravelList extends React.Component {
             >
             <a href="#">حذف</a>
           </Popconfirm> ,
-      },
-      {
-        title: '',
-        dataIndex: '',
-        key: 'y',
-        width:10,
-        render: () => <Button style={{fontSize:"12px", border:"hidden", borderRadius:"5px"}}>ویرایش</Button>,
-      },
-      {
-        title: '',
-        dataIndex: 'slug',
-        key: 'y',
-        width:10,
-        render: (dataIndex) => <Button href={'travel/' + `${dataIndex}`} style={{fontSize:"12px", border:"hidden", borderRadius:"5px"}}>جزئیات</Button>,
-      },
-      { 
-        title: 'تاریخ پرواز',
-        dataIndex: 'flight_date_start',
-        key: 'flight_date_start',
-        align:"center",
-      },
-      { 
-        title: '',
-        dataIndex: 'destination_city',
-        key: 'destination_city',
-        // colSpan:10
-        width:80,
-        align:"center",
-      },
-      { 
-        title: 'مقصد',
-        dataIndex: 'destination',
-        key: 'destination',
-        rowSpan:2,
-        width:80,
-        align:"center",
-      },
-      { 
-        title: '',
-        dataIndex: 'departure_city', 
-        key: 'departure_city',
-        align:"center",
-        width:80,
-      },
-      { 
-        title: ' مبدا',
-        dataIndex: 'departure', 
-        key: 'departure',
-        align:"center",
-        width:80,
-        rowSpan:2,
-
       },
     ];
 

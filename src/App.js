@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import BaseRouter from './routes';
 import 'antd/dist/antd.css';
 import * as actions from './store/actions/auth';
+import { ConfigProvider } from 'antd';
 
 class App extends Component {
 
@@ -17,7 +18,9 @@ class App extends Component {
       <div className="App">
       <Router> 
           <CustomLayout {...this.props}>
-            <BaseRouter {...this.props}/>
+            <ConfigProvider direction="rtl">
+              <BaseRouter {...this.props}/>
+            </ConfigProvider>
           </CustomLayout>
       </Router>
       </div>

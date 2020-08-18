@@ -12,10 +12,12 @@ class PacketOffer extends React.Component {
   
   columns = [
     { 
-      title: 'توضیحات',
-      dataIndex: 'description',
-      key: 'offer_count',
-      align:"center"
+      title: 'پیشنهاد دهنده',
+      dataIndex: 'sender', 
+      key: 'sender_id',
+      width:150,
+      align:"center",
+      render: (dataIndex, key) => <Link to={'/users/' +`${key}`}>{dataIndex}</Link>,
     },
     {
       title: 'قیمت (تومان)',
@@ -25,12 +27,10 @@ class PacketOffer extends React.Component {
       align:"center"
     },
     { 
-      title: 'پیشنهاد دهنده',
-      dataIndex: 'sender', 
-      key: 'sender_id',
-      width:150,
-      align:"center",
-      render: (dataIndex, key) => <Link to={'/users/' +`${key}`}>{dataIndex}</Link>,
+      title: 'توضیحات',
+      dataIndex: 'description',
+      key: 'offer_count',
+      align:"center"
     },
   ];
 

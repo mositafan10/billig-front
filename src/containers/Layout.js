@@ -15,6 +15,8 @@ class CustomLayout extends React.Component {
     user:""
   }
   
+  user = localStorage.getItem('user');
+  
   onClick = () => {
      this.props.logout()
      this.setState({
@@ -33,11 +35,10 @@ class CustomLayout extends React.Component {
       <div style={{fontFamily:"IRANSans"}}>
         <Layout className="layout" style={{backgroundColor:'white'}}>
           <Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor:"white" }} >
-          
             <div className="logo">
             <Link to="/">
             <img style={{float:"right", marginTop:"5px"}}
-            width={60}
+            width={60}  
             alt="logo"
             src={billigpost}
           />    
@@ -59,20 +60,24 @@ class CustomLayout extends React.Component {
               {/* <Menu.Item key="7"><Link >کسب درآمد از سفر</Link></Menu.Item> */}
             {
             this.props.isAuthenticated ?
-              <Menu.Item key="2"><Link to='/profile'>پروفایل من</Link></Menu.Item>
+            <Menu.Item key="2"><Link to='/profile'>پروفایل من</Link></Menu.Item>
               :
               <Menu.Item key="2"><Link></Link></Menu.Item>
             }
             </Menu>
           </Header>
-          <Content style={{ padding:"100px 200px 200px 200px" }}>
-                <Breadcrumb style={{ margin: '25px 0' }}>
-                  {/* <Breadcrumb.Item><Link to='/'>خانه</Link></Breadcrumb.Item>
-                  <Breadcrumb.Item><Link to='/'>آگهی‌ها</Link></Breadcrumb.Item> */}
-                </Breadcrumb>
-                <div className="site-layout-content">
-                  {this.props.children}
-                </div>
+          <Content>
+            <div style={{marginTop:"100px"}}>
+              <Row>
+                <Col xs={1} sm={1} md={1} lg={2} xl={2} xxl={4}></Col>
+                <Col xs={22} sm={22} md={22} lg={20} xl={20} xxl={16}>
+                  <div className="site-layout-content">
+                    {this.props.children}
+                  </div>
+                </Col>
+                <Col xs={1} sm={1} md={1} lg={2} xl={2} xxl={4}></Col>
+              </Row>
+            </div>
           </Content>
           <Footer style={{ textAlign: 'right', backgroundColor:"aliceblue" }}>
             <h4 style={{textAlign:"center"}}><b>بیلیگ پست ، پلتفرم ارسال بسته</b></h4>

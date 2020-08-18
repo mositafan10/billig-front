@@ -123,15 +123,6 @@ class PacketForEdit extends Component {
                     </Form.Item>
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-                        <Divider plain orientation="center">شهر مبدا</Divider>
-                            <Form.Item name="origin_city" style={{textAlign:"right"}}>
-                            <Select defaultValue={this.props.data.origin_city}>
-                                    {this.state.cities_origin.map((e, key) => {
-                                    return <Option key={key} value={e.id}>{e.name}</Option>;})}
-                                </Select>   
-                            </Form.Item>
-                        </Col>
-                        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">کشور مبدا</Divider>
                             <Form.Item name="origin_country" style={{textAlign:"right"}} >
                                 <Select defaultValue={this.props.data.origin_country} onChange={this.get_city_origin.bind()}>
@@ -140,17 +131,17 @@ class PacketForEdit extends Component {
                                 </Select>
                             </Form.Item>
                         </Col>
-                    </Row>
-                    <Row>
                         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-                        <Divider plain orientation="center">شهر مقصد</Divider>
-                            <Form.Item name="destination_city" style={{textAlign:"right"}} >
-                            <Select defaultValue={this.props.data.destination_city}>
-                                    {this.state.cities_destination.map((e, key) => {
+                        <Divider plain orientation="center">شهر مبدا</Divider>
+                            <Form.Item name="origin_city" style={{textAlign:"right"}}>
+                            <Select defaultValue={this.props.data.origin_city}>
+                                    {this.state.cities_origin.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>   
                             </Form.Item>
                         </Col>
+                    </Row>
+                    <Row>
                         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">کشور مقصد</Divider>
                             <Form.Item  name="destination_country" style={{textAlign:"right"}} >
@@ -158,6 +149,15 @@ class PacketForEdit extends Component {
                                     {this.state.countries.map((e, key) => {
                                     return <option key={key} value={e.id}>{e.name}</option>;})}
                                 </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+                        <Divider plain orientation="center">شهر مقصد</Divider>
+                            <Form.Item name="destination_city" style={{textAlign:"right"}} >
+                            <Select defaultValue={this.props.data.destination_city}>
+                                    {this.state.cities_destination.map((e, key) => {
+                                    return <Option key={key} value={e.id}>{e.name}</Option>;})}
+                                </Select>   
                             </Form.Item>
                         </Col>
                     </Row>

@@ -6,6 +6,8 @@ import DownloadPic from '../components/DownloadPic';
 import Bookmark from '../components/‌BookmarkPacket';
 import { Link } from 'react-router-dom';
 
+const style_left = {display:"flex", justifyContent:"left"};
+const style_right = {display:"flex", justifyContent:"right"};
 
 class OrderDetail extends React.Component {
 
@@ -29,89 +31,80 @@ class OrderDetail extends React.Component {
         return(
             <div style={{textAlign:"center", padding:"0 50px 0 50px"}}> 
                 <Row width="500">
-                    <Col xs={24} sm={24} md={24} lg={24} xl={14} xxl={14}>
-                        <div style={{marginLeft:"100px"}}>
-                            <DownloadPic data={picID} size={300}/>
-                        </div>
-                    <br/><br/><hr width="200" style={{color:"aliceblue"}}/>
-                    <p>با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید</p>
-                    <Bookmark data={Slug}  /> 
-                    </Col>
-                    <Col xs={24} sm={24} md={24} lg={24} xl={10} xxl={10}>
+                    <Col xs={24} sm={24} md={24} lg={10} xl={10} xxl={10}>
                         <Card style={{borderRadius:"20px"}} title={this.state.order.title}>
-                            <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                         {this.state.order.category}
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14} >
-                                        <h4>دسته بندی</h4>
-                                    </Col>
+                            <Row style={style_right}>
+                                <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14} >
+                                    <h4>دسته بندی</h4>
+                                </Col>
+                                <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                    {this.state.order.category}
+                                </Col>
                             </Row>
                             <hr style={{color:"aliceblue"}}/>
-                            <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                        {this.state.order.origin_country}
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14} >
-                                        <h4>مبدا</h4>
-                                    </Col>
+                            <Row style={style_right}>
+                                <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14} >
+                                    <h4>مبدا</h4>
+                                </Col>
+                                <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                    {this.state.order.origin_country}
+                                </Col>
                             </Row>
                             <hr style={{color:"aliceblue"}}/>
-                            <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                        {this.state.order.destination_country}
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
-                                        <h4>مقصد</h4>
-                                    </Col>
+                            <Row style={style_right}>
+                                <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                    <h4>مقصد</h4>
+                                </Col>
+                                <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                    {this.state.order.destination_country}
+                                </Col>
                             </Row>
-
                             <hr style={{color:"aliceblue"}}/>
-                            <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
+                            <Row style={style_right}>
+                                <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                    <h4>آگهی دهنده</h4>
+                                </Col>
+                                <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
                                     <Link to={'users/' + user }> {this.state.order.owner_name} </Link>
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
-                                        <h4>آگهی دهنده</h4>
-                                    </Col>
+                                </Col>
                             </Row>
                             <hr style={{color:"aliceblue"}}/>
                             {this.state.order.buy ?
                                 <div>
-                                <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                        دارد
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                <Row style={style_right}>
+                                    <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>قابلیت خریداری</h4>
+                                    </Col>
+                                    <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                        دارد
                                     </Col>
                                 </Row>
                                 <hr style={{color:"aliceblue"}}/>
-                                <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                    <span> تومان </span> <span style={{marginLeft:"5px"}}> ۱/۰۰۰/۰۰۰ </span> 
-                                    </Col>
+                                <Row style={style_right}>
                                     <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>قیمت کالا</h4>
                                     </Col>
+                                    <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                    <span style={{marginLeft:"5px"}}> ۱/۰۰۰/۰۰۰ </span><span> تومان </span>  
+                                    </Col>
                                 </Row> 
                                 <hr style={{color:"aliceblue"}}/>
-                                <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                        <a href='https://www.amazon.com'>www.amazon.com</a>
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                <Row style={style_right}>
+                                    <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>لینک خرید</h4>
+                                    </Col>
+                                    <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                        <a href='https://www.amazon.com'>www.amazon.com</a>
                                     </Col>
                                 </Row> 
                                 </div>
                             :
-                                <Row style={{display:"flex", justifyContent:"right" }}>
-                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                    ندارد
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                <Row style={style_right}>
+                                    <Col style={style_left} xs={14} sm={14} md={14} lg={14} xl={14}>
                                         <h4>قابلیت خریداری</h4>
+                                    </Col>
+                                    <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                    ندارد
                                     </Col>
                                 </Row>  
                              }
@@ -120,15 +113,23 @@ class OrderDetail extends React.Component {
                             <br/>
                             <hr style={{color:"aliceblue"}}/><br/>
                             <Row style={{display:"flex", justifyContent:"right", border:"1px" }}>
-                                    <Col style={{display:"flex"}} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                    <h3> تومان </h3> <h3 style={{marginLeft:"5px"}}> ۲۰۰/۰۰۰ </h3> 
-                                    </Col>
-                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
-                                        درآمد شما
-                                    </Col>
+                                <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                    درآمد شما
+                                </Col>
+                                <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                   <h3 style={{marginLeft:"5px"}}> ۲۰۰/۰۰۰ </h3><h3> تومان </h3> 
+                                </Col>
                             </Row>
                             <OfferDetail style data={this.state.order.slug} {...this.props}></OfferDetail>
                         </Card>
+                        <br/>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={14} xl={14} xxl={14}>
+                        <br/><br/>
+                        <DownloadPic data={picID} size={300}/>
+                    <br/><br/>
+                    <p s>با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید</p>
+                    <Bookmark data={Slug}  /> 
                     </Col>
                 </Row>
             </div>
