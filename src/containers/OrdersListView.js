@@ -30,7 +30,13 @@ class OrderList extends React.Component {
             <div style={{fontFamily:"IRANSans"}}>
                 <div>
                 <Row >
-                    <Col span={20}>
+                    <Col xs={0} sm={0} md={0} lg={4} xl={4} xxl={4} >
+                        <div> 
+                         <Sider/>
+                        </div>
+                        <br/>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={20} xl={20} xxl={20}>
                         <br/>
                         <div style={{display:'flex', justifyContent:'center'}}>
                             <Search
@@ -44,13 +50,6 @@ class OrderList extends React.Component {
                         <div>
                             <Orders data={this.state.orders} page={2000} pagesize={21} />
                         </div>
-                    </Col>
-                    <Col span={4}  >
-                        <div> 
-                        <Sider/>
-                        </div>
-                        <br/>
-                        
                     </Col>
                 </Row>
                 </div>

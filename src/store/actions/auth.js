@@ -24,8 +24,11 @@ export const authFail = error => {
 }
 
 export const logout = () => {
+    const token = localStorage.getItem('token');
     localStorage.removeItem('token'); 
     localStorage.removeItem('expirationDate'); 
+    Axios.get('http://127.0.0.1:8000/api/v1/account/logout/', 
+    { headers: {"Authorization" : `Bearer ${token}`} }) 
     return {
         type: actionTypes.AUTH_LOGOUT
     }

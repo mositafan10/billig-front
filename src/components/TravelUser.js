@@ -112,6 +112,7 @@ class TravelList extends React.Component {
         return(
           <div>
           <Table 
+            scroll={{ x: 900 }} 
             locale={{emptyText:"سفری وجود ندارد"}}
             style={{padding:"30px 30px 30px 30px"}}
             columns={this.columns}

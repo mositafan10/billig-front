@@ -1,11 +1,13 @@
 import React from 'react';
 import Axios from 'axios';
-// import PacketOffer from '../components/PacketOffer';
-import { Card , Tabs, Button } from 'antd';
+import { Card , Tabs, Rate } from 'antd';
 import CommentUser from '../components/Comment';
-import FriendRequest from '../components/FriendRequest';
+
+// import PacketOffer from '../components/PacketOffer';
+// import FriendRequest from '../components/FriendRequest';
 
 const { TabPane } = Tabs;
+
 class UserProfile extends React.Component {
 
     state = {
@@ -30,21 +32,20 @@ class UserProfile extends React.Component {
                         // alt="profile pic"
                         src = {`http://127.0.0.1/dstatic/${this.state.user_profile.picture}`}
                     /><br/>
-                <Card title={this.state.user_profile.name} style={{textAlign:"center"}}>
-                    
+                <Card bordered={false}>
+                    <h3>{this.state.user_profile.name}</h3>
+                <Rate allowHalf value={this.state.user_profile.score} disabled={true} />
+                <br/><br/>
                     <p >{this.state.user_profile.bio}</p>
                     <div>
                         {/* {this.state.user_profile.picture} */}
-                    </div>   
+                    </div>
+                    
                 {/* <FriendRequest data={this.state.user_profile.id}/> */}
                 </Card>
                 <br/>
                 <Tabs  tabPosition="top" style={{textAlign:"center"}}>
-                    <TabPane tab="لیست آگهی‌ها" key="1">
-                        لیست آگهی‌ها
-                    </TabPane>
-                    <TabPane tab="لیست سفرها " key="2">
-                        لیست سفرها
+                    <TabPane tab="لیست سفرهای کاربر " key="2">
                     </TabPane>
                     <TabPane tab="نظرات دیگران " key="3">
                         نظرات دیگران

@@ -67,6 +67,7 @@ class Bookmark_packet extends Component {
         return (
             <div>
           <Table 
+            scroll={{ x:300}}
             locale={{emptyText:"نشانی وجود ندارد"}}
             style={{padding:"30px 30px 30px 30px"}}
             columns={this.columns}

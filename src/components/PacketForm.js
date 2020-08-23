@@ -28,7 +28,13 @@ class PackForm extends React.Component {
         {value:'3', label:'کفش و پوشاک'},
         {value:'4', label:'لوازم آرایشی و بهداشتی'},
         {value:'5', label:'سایر موارد'},
-    ];
+    ]
+
+    DIMENSION = [
+        {value:'0', label:'کوچک'},
+        {value:'1', label:'متوسط'},
+        {value:'2', label:'بزرگ'},
+    ]
 
     callbackFunction = (childData) => {
         const pic = childData.map((pi) => this.setState((state) => {
@@ -173,11 +179,7 @@ class PackForm extends React.Component {
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                             <Divider plain orientation="center">ابعاد بسته</Divider>  
                             <Form.Item name="dimension" style={{textAlign:"right"}} rules={[{required: true, message: "ابعاد بسته را انتخاب کنید"}]}>
-                                <Select>
-                                    <Option value="بزرگ">بزرگ</Option>
-                                    <Option value="متوسط">متوسط</Option>
-                                    <Option value="کوچک">کوچک</Option>
-                                </Select>
+                                <Select options={this.DIMENSION} />
                             </Form.Item>
                         </Col>
                     </Row>

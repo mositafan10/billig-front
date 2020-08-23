@@ -107,7 +107,8 @@ class PacketUserList extends React.Component {
     render (){
     return (
         <div>
-          <Table 
+          <Table
+          scroll={{ x: 900 }} 
           style={{padding:"30px 30px 30px 30px"}}
           columns={this.columns}
           dataSource={this.state.packet_user}

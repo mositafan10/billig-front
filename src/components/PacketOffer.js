@@ -116,6 +116,7 @@ class PacketOffer extends React.Component {
     render(){
     return (
       <Table 
+      scroll={{ x:900}}
       pagination={{
         onChange: page => {
           console.log(page);

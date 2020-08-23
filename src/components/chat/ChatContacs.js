@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { List , Avatar, message, Button } from 'antd';
+import { List , Avatar, message, Button, Badge } from 'antd';
 import Axios from 'axios';
 
-
-class ChatContacs extends Component {
+class  ChatContacs extends Component {
 
     state = {
         contacs:[]
@@ -32,14 +31,20 @@ class ChatContacs extends Component {
                     itemLayout="horizontal"
                     dataSource={this.state.contacs}
                     renderItem={item => (
-                    <List.Item style={{borderRight:"solid", borderRightColor:"aliceblue",margin:"0 20px 0 0"}}>
+                    <List.Item style={{borderRight:"solid", borderRightColor:"aliceblue", margin:"0 20px 0 0"}}>
                         <List.Item.Meta
-                        avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                        title={
-                        (user == item.sender) ? 
-                        <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state)}>{item.receiver_name}</Button>
+                        avatar={
+                            (user == item.sender) ? 
+                            // /be caraful , maybe should be edit addres
+                            <Badge count={item.new_massage_sender} ><Avatar src = {`http://127.0.0.1/dstatic/media/${item.receiver_avatar}`} /></Badge>
                             :
-                        <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state)}>{item.sender_name}</Button>
+                            <Badge count={item.new_massage_receiver} ><Avatar src = {`http://127.0.0.1/dstatic/media/${item.sender_avatar}`} /></Badge>
+                        }
+                        title={
+                            (user == item.sender) ? 
+                            <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state)}>{item.receiver_name}</Button>
+                                :
+                            <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state)}>{item.sender_name}</Button>
                         }
                         />
                     </List.Item>

@@ -5,6 +5,8 @@ import billigpost from '../media/billigpost.png';
 import OfferListModal from '../components/OfferListModal';
 import OfferInListView from '../components/OfferInListView';
 import DownloadPic from './DownloadPic';
+import moment from 'moment';
+
 
 const style_right = {display:"flex", justifyContent:"right"};
 const style_left = {display:"flex", justifyContent:"left"};
@@ -72,10 +74,10 @@ class Orders extends React.Component {
                     <OfferInListView data={item}/>
                 </List.Item> */}
                 <List.Item>
-                  <Card bordered={false} title={item.title}>
+                  <Card bordered={false} title={<Link style={{color:"currentcolor"}} to={'/' + item.slug}>{item.title}</Link>}>
                   <Row style={style_right}>
                                 <Col style={style_right} xs={24} sm={24} md={24} lg={24} xl={24} >
-                                    <h4></h4>
+                                    {/* <h4><span>{moment().fromNow()}</span></h4> */}
                                 </Col>
                                 <Col style={style_left} xs={24} sm={24} md={24} lg={24} xl={24}>
                                     

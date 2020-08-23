@@ -12,6 +12,7 @@ import OrderForm from './containers/OrderForm';
 import LandingPage from './containers/LandingPage';
 import TravelDetail from './containers/TravelDetailView';
 import PackForm from './components/PacketForm';
+import ChatwithWebsocket from './components/ChatwithWebsocket';
 
 class BaseRouter extends React.Component {
     render(){
@@ -27,6 +28,7 @@ class BaseRouter extends React.Component {
             <Route exact path='/:orderID' component={OrderDetail} />
             <Route exact path='/travel/:travelID' component={TravelDetail} />
             <Route exact path='/users/:userID' component={UserProfile} />
+            <Route exact path='/chat/test' component={ChatwithWebsocket} />
         </Switch>
         );
     }
