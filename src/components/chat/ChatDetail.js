@@ -1,57 +1,40 @@
 import React, { Component } from 'react';
-import { List, Avatar, Row, Col, Form, Spin, message } from 'antd';
+import { List, Avatar, Row, Col, Form, Spin, message, Drawer } from 'antd';
 import Axios from 'axios';
 import TextInput from './TextInput';
 import InfiniteScroll from 'react-infinite-scroller';
+import moment from 'moment';
+import { LeftOutlined } from '@ant-design/icons';
+
 
 class ChatDetail extends Component {
 
     state = {
         massages : [],
         offer: "",
-        loading: false,
-        hasMore: true,
+        visible: false,
     }
 
-    handleInfiniteOnLoad = () => {
+    showDrawer = () => {
         this.setState({
-          loading: true,
+          visible: true,
         });
-        if (this.state.massages.length > 5) {
-          message.warning('Infinite List loaded all');
-          this.setState({
-            hasMore: false,
-            loading: false,
-          });
-          return;
-        }
-        this.componentDidUpdate(res => {
-            this.state.massages = this.state.massages.concat(res.results);
-          this.setState({
-            loading: false,
-          });
+      };
+    
+      onClose = () => {
+        this.setState({
+          visible: false,
         });
       };
 
-    
-    // fetchData = callback => {
-    //     reqwest({
-    //     url: fakeDataUrl,
-    //     type: 'json',
-    //     method: 'get',
-    //     contentType: 'application/json',
-    //     success: res => {
-    //         callback(res);
-    //     },
-    //     });
-    // };
 
     componentDidUpdate = (prevProps, callback) => {
         const token = localStorage.getItem('token');
         const chatid = this.props.data;
         if (this.props.data !== prevProps.data) {
             this.setState({
-                offer: this.props.offer
+                offer: this.props.offer,
+                visible: true
             })
             Axios.get(`http://127.0.0.1:8000/api/v1/chat/massagelist/${chatid}`,
             { headers: {"Authorization" : `Bearer ${token}`} })
@@ -91,88 +74,86 @@ class ChatDetail extends Component {
         console.log("Hi");
     }
 
-    // handleInfiniteOnLoad = () => {
-    //     let { massages } = this.state;
-    //     this.setState({
-    //       loading: true,
-    //     });
-    //     if (massages.length > 5) {
-    //       message.warning('Infinite List loaded all');
-    //       this.setState({
-    //         hasMore: false,
-    //         loading: false,
-    //       });
-    //       return;
-    //     }
-    //     this.componentWillReceiveProps(res => {
-    //     massages = massages.concat(res.results);
-    //       this.setState({
-    //         massages,
-    //         loading: false,
-    //       });
-    //     });
-    //   };
-
     render() {
         const user = localStorage.getItem('user');
         const chatid = this.props.data;
             return (
             <div>
                 <br/>
-                { this.state.offer ? 
-                <div>وضعیت مذاکره : {this.state.offer} </div>
-                :
-                "چت را انتخاب کنید"
-                }
+                <span>
+               چت را انتخاب کنید
+                </span>
                 <div>
-                <InfiniteScroll
-                    initialLoad={false}
-                    pageStart={0}
-                    loadMore={this.handleInfiniteOnLoad}
-                    hasMore={!this.state.loading && this.state.hasMore}
-                    useWindow={false}
+                <Drawer
+                    title={
+                        <Row>
+                            <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
+                            <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12}> 
+                            <p>وضعیت پیشنهاد : {this.state.offer} </p>
+                            </Col>
+                            <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
+                        </Row>
+                    
+                    }
+                    placement="left"
+                    width={"100%"}
+                    closeIcon={<LeftOutlined/>}
+                    closable={true}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                    getContainer={false}
+                    headerStyle={{marginTop: 20}}
+                    bodyStyle={{ marginBottom: 30, }}
+                    footer={
+                        <Row>
+                            <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
+                            <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12}> 
+                                <TextInput  data={chatid} handler = {this.handler} />
+                            </Col>
+                            <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
+                        </Row>
+                    }
                     >
                     <List
                         itemLayout="horizontal"
                         dataSource={this.state.massages}
                         locale={{emptyText:" "}}
                         renderItem={item => (
-                        <List.Item style={{fontSize:"10px"}}>
-                            { (user == item.ownerid)
-                            ?
-                            <div style={{width:"-moz-available",textAlign:"right"}}>
-                                <List.Item.Meta
-                                style={{fontSize:"8px"}}
-                                description={item.text}
-                                title={<a href="https://ant.design"></a>}
-                                // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                />
-                                {item.create_at}
-                            </div>
-                            :
-                            <div style={{width:"-moz-available",textAlign:"left"}}>
+                        <Row>
+                            <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
+                            <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12}>
+                            <List.Item style={{fontSize:"10px"}}>
+                                { (user == item.ownerid) ?
+                                    <div style={{width:"-moz-available",textAlign:"right"}}>
+                                        <List.Item.Meta
+                                        style={{fontSize:"8px"}}
+                                        description={item.text}
+                                        title={<a href="https://ant.design"></a>}
+                                        // avatar={<div class="float-left"><Avatar src = {`http://127.0.0.1/dstatic/media/${item.owner_avatar}`} /></div>}
+                                        />
+                                        {moment(item.create_at).format('HH:mm')}
+                                    </div>
+                                    :
+                                    <div style={{width:"-moz-available",textAlign:"left"}}>
 
-                                <List.Item.Meta
-                                style={{fontSize:"8px"}}
-                                title={<a href="https://ant.design"></a>}
-                                description={item.text}
-                                // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                />
-                                {item.create_at}
-                            </div>
-                            }
-                        </List.Item>
+                                        <List.Item.Meta
+                                        style={{fontSize:"8px"}}
+                                        title={<a href="https://ant.design"></a>}
+                                        description={item.text}
+                                        // avatar={<Avatar src = {`http://127.0.0.1/dstatic/media/${item.owner_avatar}`} />}
+                                        />
+                                        {moment(item.create_at).format('HH:mm')}
+                                    </div>
+                                }
+                            </List.Item>
+                            </Col>
+                            <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
+                        </Row>
                         )
                         }
                     />
-                    
-                </InfiniteScroll>
+                </Drawer>
                 <br/>
-                    { this.state.offer ? 
-                    <TextInput data={chatid} handler = {this.handler} />
-                    :
-                    " "
-                        }
                 </div>
             </div>
         );

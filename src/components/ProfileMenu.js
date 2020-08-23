@@ -1,9 +1,8 @@
 import React from 'react';
-import { Tabs, Button, Row, Col, Layout } from 'antd';
+import { Tabs, Button } from 'antd';
 import PacketUserList from '../components/ListInProfile';
 import CreateTravel from './CreateTravel';
 import TravelList from '../components/TravelUser';
-import UploadProfilePic from './ProfileEdit';
 import FriendList from '../components/FriendList';
 import EditProfile from '../components/EditProfile';
 import UserOffer from '../components/Useroffer';
@@ -11,11 +10,9 @@ import InboxLayout from '../containers/InboxLayout';
 import Bookmark_packet from './Bookmark_packet';
 import { MailOutlined, BookOutlined, DollarOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import ChangePassword from './ChangePassword';
 
 const { TabPane } = Tabs;
-const { Sider } = Layout;
- 
-
 
 class ProfileMenu extends React.Component {
 
@@ -37,32 +34,23 @@ class ProfileMenu extends React.Component {
           <TabPane tab="نظرات دیگران" key="3">
             نظرات
           </TabPane>
-          {/* <TabPane tab="دوستان من" key="5">
-            <FriendList />
-          </TabPane> */}
-          <TabPane tab={<span><DollarOutlined style={{fontSize:"16px"}} />پرداخت‌های من</span>} key="6">
+          <TabPane tab={<span><DollarOutlined style={{fontSize:"16px"}} />پرداخت‌های من</span>} key="4">
               پرداخت‌ها
           </TabPane>
-          <TabPane tab={<span><BookOutlined style={{fontSize:"16px"}} />آگهی‌های نشان‌شده</span>} key="10">
+          <TabPane tab={<span><BookOutlined style={{fontSize:"16px"}} />آگهی‌های نشان‌شده</span>} key="5">
               <Bookmark_packet />
           </TabPane>
-          <TabPane tab="پیشنهادهای من" key="9">
+          <TabPane tab="پیشنهادهای من" key="6">
             <UserOffer />
           </TabPane>
-          <TabPane key="4" tab={ <span><MailOutlined style={{fontSize:"16px"}}/> صندوق پیام</span>}>
+          <TabPane key="7" tab={ <span><MailOutlined style={{fontSize:"16px"}}/> صندوق پیام</span>}>
             <InboxLayout />
           </TabPane>
-          {/* <TabPane tab="پشتیبانی" key="8">
-              پشتیبانی
-          </TabPane> */}
-          <TabPane tab=" تنظیمات پروفایل" key="7">
-              <Tabs  style={{textAlign:"center"}} >
-              <TabPane tab="ویرایش پروفایل" key="1">
+          <TabPane tab="ویرایش پروفایل" key="10">
                 <EditProfile />
-              </TabPane>
-              <TabPane tab=" تغییر رمز عبور" key="2">
-              </TabPane>
-            </Tabs>
+          </TabPane>
+          <TabPane tab="تغییر رمز عبور" key="9">
+                <ChangePassword />
           </TabPane>
         </Tabs>
       </div>

@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { Input } from 'antd';
 import Axios from 'axios';
+import {SendOutlined, LeftOutlined } from '@ant-design/icons';
 
 const { Search } = Input;
 
+const suffix = (
+    <LeftOutlined
+      style={{
+        fontSize: 16,
+        // color: '#1890ff',
+      }}
+    />
+  );
+
+  
 class TextInput extends Component {
 
         state = {
@@ -44,7 +55,15 @@ class TextInput extends Component {
     render() {
         return (
             <div>
-                <Search id="search" name="search" value={this.state.search} onChange={this.handleFields} placeholder="پیام خود را وارد کنید" onSearch={ (value) => this.send(value)} enterButton />
+                <Search 
+                id="search" 
+                name="search" 
+                value={this.state.search} 
+                onChange={this.handleFields} 
+                placeholder="پیام خود را وارد کنید" 
+                onSearch={ (value) => this.send(value)} 
+                enterButton={"ارسال"} 
+                suffix={suffix} />
             </div>
         );
     }
