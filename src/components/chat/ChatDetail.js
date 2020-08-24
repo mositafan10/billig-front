@@ -4,26 +4,29 @@ import Axios from 'axios';
 import TextInput from './TextInput';
 import moment from 'moment';
 import { LeftOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const right_test_style = {
     display:"inline",
     border:"solid",
-    // color:"white",
-    borderRadius:"10px",
+    borderRadius:"15px 10px 15px 10px ",
     backgroundColor:"deepskyblue",
     borderColor:"deepskyblue",
-    padding:"10px 10px 10px 10px"
+    padding:"10px 10px 10px 10px",
+    width:"auto",
+    maxWidth:"50%"
     }
 
 const left_test_style = {
     marginBottom:"15px",
     float:"inline-end",
-    // color:"white",
     border:"solid",
-    borderRadius:"10px",
-    backgroundColor:"deepskyblue",
+    borderRadius:"10px 15px 10px 15px ",
+    backgroundColor:"aliceblue",
     borderColor:"deepskyblue",
     padding:"10px 10px 10px 10px",
+    width:"auto",
+    maxWidth:"50%"
     }
     
 
@@ -114,9 +117,9 @@ class ChatDetail extends Component {
                                 <Row>
                                     <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
                                         {(user == this.props.sender) ? 
-                                        <Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar2}`} />
+                                        <Link to={'/users/' + this.props.sender}><Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar2}`} /></Link>
                                         :
-                                        <Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar1}`} />
+                                        <Link to={'/users/' + this.props.receiver}><Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar1}`} /></Link>
                                         }
                                     </Col>
                                     <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
@@ -125,9 +128,9 @@ class ChatDetail extends Component {
                                     </Col>
                                     <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
                                         {(user == this.props.sender) ? 
-                                        <Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar1}`} />
+                                        <Link to={'/users/' + this.props.receiver}><Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar1}`} /></Link>
                                         :
-                                        <Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar2}`} />
+                                        <Link to={'/users/' + this.props.sender}><Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar2}`} /></Link>
                                         }  
                                     </Col>
                                 </Row>
@@ -177,7 +180,6 @@ class ChatDetail extends Component {
                                         <List.Item.Meta
                                         style={{fontSize:"8px"}}
                                         description={item.text}
-                                        // avatar={<div class="float-left"><Avatar src = {`http://127.0.0.1/dstatic/media/${item.owner_avatar}`} /></div>}
                                         />
                                         {moment(item.create_at).format('HH:mm')}
                                     </div>
@@ -188,7 +190,6 @@ class ChatDetail extends Component {
                                         <List.Item.Meta
                                         style={{fontSize:"8px"}}
                                         description={item.text}
-                                        // avatar={<Avatar src = {`http://127.0.0.1/dstatic/media/${item.owner_avatar}`} />}
                                         />
                                         {moment(item.create_at).format('HH:mm')}
                                     </div>
