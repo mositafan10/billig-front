@@ -2,9 +2,31 @@ import React, { Component } from 'react';
 import { List, Avatar, Row, Col, Form, Spin, message, Drawer } from 'antd';
 import Axios from 'axios';
 import TextInput from './TextInput';
-import InfiniteScroll from 'react-infinite-scroller';
 import moment from 'moment';
 import { LeftOutlined } from '@ant-design/icons';
+
+const right_test_style = {
+    display:"inline",
+    border:"solid",
+    // color:"white",
+    borderRadius:"10px",
+    backgroundColor:"deepskyblue",
+    borderColor:"deepskyblue",
+    padding:"10px 10px 10px 10px"
+    }
+
+const left_test_style = {
+    marginBottom:"15px",
+    float:"inline-end",
+    // color:"white",
+    border:"solid",
+    borderRadius:"10px",
+    backgroundColor:"deepskyblue",
+    borderColor:"deepskyblue",
+    padding:"10px 10px 10px 10px",
+    }
+    
+
 
 
 class ChatDetail extends Component {
@@ -87,13 +109,40 @@ class ChatDetail extends Component {
                 <Drawer
                     title={
                         <Row>
+                            <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}></Col>
+                            <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}> 
+                                <Row>
+                                    <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
+                                        {(user == this.props.sender) ? 
+                                        <Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar2}`} />
+                                        :
+                                        <Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar1}`} />
+                                        }
+                                    </Col>
+                                    <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
+                                        {/* <p style={{fontSize:"14px"}}>وضعیت پیشنهاد : </p> */}
+                                        <p style={{fontSize:"14px"}}>{this.state.offer}</p>
+                                    </Col>
+                                    <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
+                                        {(user == this.props.sender) ? 
+                                        <Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar1}`} />
+                                        :
+                                        <Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar2}`} />
+                                        }  
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}></Col>
+                        </Row>
+                    }
+                    footer={
+                        <Row>
                             <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
                             <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12}> 
-                            <p>وضعیت پیشنهاد : {this.state.offer} </p>
+                                <TextInput data={chatid} handler = {this.handler} />
                             </Col>
                             <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
                         </Row>
-                    
                     }
                     placement="left"
                     width={"100%"}
@@ -104,51 +153,51 @@ class ChatDetail extends Component {
                     getContainer={false}
                     headerStyle={{marginTop: 20}}
                     bodyStyle={{ marginBottom: 30, }}
-                    footer={
-                        <Row>
-                            <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
-                            <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12}> 
-                                <TextInput  data={chatid} handler = {this.handler} />
-                            </Col>
-                            <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
-                        </Row>
-                    }
                     >
                     <List
                         itemLayout="horizontal"
                         dataSource={this.state.massages}
                         locale={{emptyText:" "}}
                         renderItem={item => (
-                        <Row>
+                         
+                        <Row >
                             <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
-                            <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12}>
-                            <List.Item style={{fontSize:"10px"}}>
-                                { (user == item.ownerid) ?
-                                    <div style={{width:"-moz-available",textAlign:"right"}}>
+                            <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12} 
+                            style={{borderRight:"solid",borderLeft:"solid",borderColor:"#9cd3ee",padding:"0 10px 0 10px"}} >
+                            <div style={{textAlign:"center"}}>
+                            { item.first_day ? 
+                            moment(item.create_at).format('dddd Do MMM')
+                            :
+                            ""
+                            }
+                            </div>
+                            { (user == item.ownerid) ?
+                                <List.Item >
+                                    <div style={right_test_style} >
                                         <List.Item.Meta
                                         style={{fontSize:"8px"}}
                                         description={item.text}
-                                        title={<a href="https://ant.design"></a>}
                                         // avatar={<div class="float-left"><Avatar src = {`http://127.0.0.1/dstatic/media/${item.owner_avatar}`} /></div>}
                                         />
                                         {moment(item.create_at).format('HH:mm')}
                                     </div>
-                                    :
-                                    <div style={{width:"-moz-available",textAlign:"left"}}>
-
+                                </List.Item>
+                                :
+                                <List.Item style={left_test_style}>
+                                    <div >
                                         <List.Item.Meta
                                         style={{fontSize:"8px"}}
-                                        title={<a href="https://ant.design"></a>}
                                         description={item.text}
                                         // avatar={<Avatar src = {`http://127.0.0.1/dstatic/media/${item.owner_avatar}`} />}
                                         />
                                         {moment(item.create_at).format('HH:mm')}
                                     </div>
-                                }
-                            </List.Item>
+                                </List.Item>
+                            }
                             </Col>
                             <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
                         </Row>
+
                         )
                         }
                     />

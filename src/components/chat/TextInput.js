@@ -63,7 +63,9 @@ class TextInput extends Component {
                 placeholder="پیام خود را وارد کنید" 
                 onSearch={ (value) => this.send(value)} 
                 enterButton={"ارسال"} 
-                suffix={suffix} />
+                suffix={suffix} 
+                autoFocus
+                />
             </div>
         );
     }

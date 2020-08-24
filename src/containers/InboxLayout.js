@@ -7,13 +7,18 @@ class InboxLayout extends React.Component {
 
     state = {
         chatid : "",
-        offer: "",
+        offer : "",
+        avatar1 : "",
+        avatar2 : "",
     }
 
-    callbackFunction = (chatid, offer) => {
+    callbackFunction = (chatid, offer, avatar1, avatar2, sender) => {
         this.setState({
             chatid: chatid,
-            offer: offer
+            offer: offer,
+            avatar1: avatar1,
+            avatar2: avatar2,
+            sender: sender
         })
     }
 
@@ -27,7 +32,12 @@ class InboxLayout extends React.Component {
                     </Col>
                     <Col xs={0} sm={0} md={1} lg={1} xl={1} xxl={1} ></Col>
                     <Col xs={24} sm={24} md={18} lg={18} xl={18} xxl={18} >
-                        <ChatDetail data={this.state.chatid} offer={this.state.offer} />
+                        <ChatDetail 
+                        data={this.state.chatid} 
+                        offer={this.state.offer} 
+                        avatar1={this.state.avatar1}
+                        avatar2={this.state.avatar2}
+                        sender={this.state.sender} />
                     </Col>
                 </Row>
             </div>

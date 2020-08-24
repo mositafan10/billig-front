@@ -18,8 +18,8 @@ class  ChatContacs extends Component {
         .catch((error) => console.log(error))
     }
 
-    sendData = (chatid, offer) => { 
-        this.props.parentCallback(chatid, offer); 
+    sendData = (chatid, offer, avatar1, avatar2, sender ) => { 
+        this.props.parentCallback(chatid, offer, avatar1, avatar2, sender); 
     }
 
     render() {
@@ -42,9 +42,9 @@ class  ChatContacs extends Component {
                         }
                         title={
                             (user == item.sender) ? 
-                            <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state)}>{item.receiver_name}</Button>
+                            <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state, item.receiver_avatar, item.sender_avatar, item.sender )}>{item.receiver_name}</Button>
                                 :
-                            <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state)}>{item.sender_name}</Button>
+                            <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state, item.receiver_avatar, item.sender_avatar)}>{item.sender_name}</Button>
                         }
                         />
                     </List.Item>
