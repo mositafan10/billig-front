@@ -6,10 +6,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import './fonts/iransans.ttf';
-import './fonts/Nazanin.ttf';
-import './fonts/Titr.ttf';
-import './fonts/Lotus.ttf';
-
+import './fonts/vazir.ttf';
 
 import reducer from './store/reducers/auth';
 

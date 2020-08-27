@@ -23,6 +23,7 @@ class OrderDetail extends React.Component {
                     order: res.data,
                 });
             })
+            .catch( error => { console.log(error.response.data)})
     }
     render(){
         const picID = this.state.order.picture;
@@ -47,7 +48,7 @@ class OrderDetail extends React.Component {
                                     <h4>مبدا</h4>
                                 </Col>
                                 <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                    {this.state.order.origin_country}
+                                    {this.state.order.origin_country ? this.state.order.origin_country.name : ""}
                                 </Col>
                             </Row>
                             <hr style={{color:"aliceblue"}}/>
@@ -56,7 +57,7 @@ class OrderDetail extends React.Component {
                                     <h4>مقصد</h4>
                                 </Col>
                                 <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                    {this.state.order.destination_country}
+                                    {this.state.order.destination_country ? this.state.order.destination_country.name : ""}
                                 </Col>
                             </Row>
                             <hr style={{color:"aliceblue"}}/>

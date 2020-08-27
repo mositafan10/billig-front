@@ -4,7 +4,6 @@
     src: local('IRANSans'), url(./fonts/iransans.ttf) format('truetype');
   }
   
-
 @font-face {
     font-family: 'Nazanin';
     src: local('Nazanin'), url(./fonts/Nazanin.ttf) format('truetype');
@@ -18,5 +17,10 @@
   @font-face {
     font-family: 'Titr';
     src: local('Titr'), url(./fonts/Titr.ttf) format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Vazir';
+    src: local('Vazir'), url(./fonts/vazir.ttf) format('truetype');
   }
   

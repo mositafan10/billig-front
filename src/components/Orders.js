@@ -1,11 +1,13 @@
 import React from 'react';
-import { List, Row, Col, Card } from 'antd';
+import { List, Row, Col, Card, Divider } from 'antd';
 import { Link } from 'react-router-dom';
-import billigpost from '../media/billigpost.png';
+import airplane from '../media/airplane.png';
+import germany from '../media/Flag-icon/germany.png';
 import OfferListModal from '../components/OfferListModal';
 import OfferInListView from '../components/OfferInListView';
 import DownloadPic from './DownloadPic';
-import moment from 'moment';
+import TimeDiff from './TimeDiff';
+
 
 
 const style_right = {display:"flex", justifyContent:"right"};
@@ -35,7 +37,7 @@ class Orders extends React.Component {
     return (
       <List
       grid={{
-        gutter: 20,
+        // gutter: 50,
         xs: 1,
         sm: 1,
         md: 2,
@@ -57,42 +59,48 @@ class Orders extends React.Component {
         dataSource={this.props.data}
         renderItem={item => (
             <Row
-            style={{
-            boxShadow:"0 0 10px 1px",
-            borderRadius:"10px", 
-            margin:"15px 15px 15px 15px", 
-            padding:"10px 10px 10px 30px",
-            }}>
-             
-              <Col xs={22} sm={22} md={22} lg={22} xl={14} xxl={14} >
-                {/* <List.Item
-                  key={item.title}
-                  >
-                  <List.Item.Meta
-                    title={<Link to={'/' + item.slug}><h4>{item.title}</h4></Link>}
-                  />
-                    <OfferInListView data={item}/>
-                </List.Item> */}
-                <List.Item>
-                  <Card bordered={false} title={<Link style={{color:"currentcolor"}} to={'/' + item.slug}>{item.title}</Link>}>
-                  <Row style={style_right}>
-                                <Col style={style_right} xs={24} sm={24} md={24} lg={24} xl={24} >
-                                    {/* <h4><span>{moment().fromNow()}</span></h4> */}
-                                </Col>
-                                <Col style={style_left} xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    
-                                </Col>
-                            </Row>
-                  </Card>
-                </List.Item>
+              style={{
+              boxShadow:"0 0 10px 1px",
+              borderRadius:"10px", 
+              margin:"15px 15px 15px 15px", 
+              padding:"15px 20px 10px 5px",
+              width:"350px",
+              height:"170px",
+              display:"flex",
+              justifyContent:"center",
+              }}>
+              <Col xs={11} sm={11} md={11} lg={11} xl={11} xxl={11}>
+                <Row>
+                  <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
+                    <img src={`http://127.0.0.1/dstatic/${item.origin_country.icon}`} width={50} style={{borderRadius:"5px"}} />
+                  </Col>
+                  <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
+                    <img src={airplane} width={40} style={{marginRight:"5px"}} />
+                  </Col>
+                  <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
+                  <img src={`http://127.0.0.1/dstatic/${item.destination_country.icon}`} width={50} style={{borderRadius:"5px"}}  />
+                  </Col>
+                </Row>
+                <br/>
+                <Row style={{height:"80px"}}>
+                  <Col>
+                    <Link to={'/packet/' + item.slug}><h4>{item.title}</h4></Link>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <TimeDiff data={item.create_at} />
+                  </Col>
+                </Row>
               </Col>
-              <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}></Col>
-              <Col xs={22} sm={22} md={22} lg={22} xl={8} xxl={8} >
+              <Divider type="vertical"/>
+              {/* <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col> */}
+              <Col xs={11} sm={11} md={11} lg={11} xl={11} xxl={11}>
                 <div style={style_center}>
-                  <DownloadPic data={item.picture} size={120}/>
+                  <DownloadPic data={item.picture} size={140}/>
                 </div>
               </Col>
-          </Row>
+            </Row>
         )}
       />   
     )

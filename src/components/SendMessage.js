@@ -21,7 +21,6 @@ class SendMessage extends React.Component {
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
-            
             this.setState({
                 chatID: res.data.id
             });
@@ -49,7 +48,7 @@ class SendMessage extends React.Component {
         Axios.post(`http://127.0.0.1:8000/api/v1/chat/message/add/`,
         {
           text: values.text,
-          chatID: this.state.chatID,
+          chat_id: this.state.chatID,
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
@@ -57,7 +56,7 @@ class SendMessage extends React.Component {
             this.setState({
                 messageModal: false
             });
-            message.success("ارسال شد")
+            message.success("پیام ارسال شد. پیام‌ها را در صندوق پیام خود مشاهده کنید")
         })
         .catch(error => console.error(error));
     }
@@ -84,6 +83,7 @@ class SendMessage extends React.Component {
                         rules={[
                             {
                             required: true,
+                            message:"پیام خود را وارد کنید"
                             },
                         ]}>
                         <TextArea style={{boxSizing:"border-box", textAlign:"right"}} />

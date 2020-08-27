@@ -15,6 +15,7 @@ class DownloadPic extends React.Component {
 
 
     componentDidUpdate = (prevProps) => {
+        console.log(this.props.data);
         if (this.props.data !== prevProps.data) {
         Axios.get(`http://127.0.0.1:8000/api/v1/advertise/get_picture/${this.props.data}`)
         .then((res) => this.setState({

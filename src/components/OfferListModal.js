@@ -23,7 +23,7 @@ class OfferListModal extends React.Component {
     render(){
         return(
             <div>
-                <Button style={{border:"hidden", fontSize:"12px", borderRadius:"10px"}} onClick={this.offerlistmodal}> پیشنهادها </Button>
+                <Button style={{border:"hidden", fontSize:"12px", borderRadius:"10px"}} onClick={this.offerlistmodal}> پیشنهادها </Button> <span>{this.props.count}</span>
                 <Modal
                     visible={this.state.offer_visible}
                     title=" پیشنهادها"

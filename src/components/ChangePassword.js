@@ -16,7 +16,7 @@ class ChangePassword extends Component {
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
         .then(function (res) { if (res.status == 200){ message.success("رمز عبور با موفقیت تغییر کرد") }})
-        .catch(error => console.error(error));
+        .catch(error => message.error(error.response.data.detail));
     }
 
     render() {
@@ -35,6 +35,7 @@ class ChangePassword extends Component {
                         rules={[
                             {
                             required: true,
+                            message:".رمز عبور فعلی خود را وارد کنید"
                             },
                         ]}>
                             <Input.Password style={{borderRadius:"10px"}} />
@@ -46,7 +47,7 @@ class ChangePassword extends Component {
                             rules={[
                             {
                                 required: true,
-                                message: '.رمز عبور خود را وارد کنید',
+                                message: '.رمز عبور جدید را وارد کنید',
                             },
                             ]}
                             hasFeedback
@@ -62,7 +63,7 @@ class ChangePassword extends Component {
                             rules={[
                             {
                                 required: true,
-                                message: '.تکرار رمز عبور را وارد نمایید',
+                                message: '.تکرار رمز عبور جدید را وارد نمایید',
                             },
                             ({ getFieldValue }) => ({
                                 validator(rule, value) {

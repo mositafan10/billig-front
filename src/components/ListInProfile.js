@@ -1,9 +1,12 @@
 import React from 'react';
-import { Button, Popconfirm, message, Table } from 'antd';
+import { Button, Popconfirm, message, Table, Avatar, List, } from 'antd';
 import Axios from 'axios';
 import PacketOffer from './PacketOffer';
 import OfferListModal from '../components/OfferListModal';
 import EditPacket from '../components/Order/EditPacket';
+import DownloadPic from '../components/DownloadPic';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 
 
@@ -19,14 +22,15 @@ class PacketUserList extends React.Component {
         dataIndex: 'title', 
         key: 'title',
         align:"right",
+        width:20
       },
-      { 
-        title: ' قیمت (تومان)',
-        dataIndex: 'suggested_price',
-        key: 'suggested_price',
-        align:"center",
-        width:150,
-      },
+      // { 
+      //   title: ' قیمت (تومان)',
+      //   dataIndex: 'suggested_price',
+      //   key: 'suggested_price',
+      //   align:"center",
+      //   width:150,
+      // },
       { 
         title: 'وضعیت',
         dataIndex: 'status',
@@ -35,32 +39,32 @@ class PacketUserList extends React.Component {
         align:"center",
         render: (dataIndex) => <span style={{fontSize:"12px"}}>{dataIndex}</span>,
       },
-      { 
-        title: 'پیشنهاد',
-        dataIndex: 'offer_count',
-        key: 'offer_count',
-        width:50,
-        align:"center",
-      },
+      // { 
+      //   title: 'پیشنهاد',
+      //   dataIndex: 'offer_count',
+      //   key: 'offer_count',
+      //   width:50,
+      //   align:"center",
+      // },
       {
         title: '',
         dataIndex: 'slug',
         key: 'y',
-        width:30,
+        width:10,
         render: (dataIndex) => <OfferListModal data={dataIndex}/>,
       },
       {
         title: '',
         dataIndex: 'slug',
         key: 'y',
-        width:30,
+        width:10,
         render: (dataIndex) => <EditPacket data={dataIndex}/>,
       },
       {
         title: '',
         dataIndex: 'slug',
         key: 'x',
-        width:30,
+        width:10,
         render: (dataIndex) => 
           <Popconfirm
             title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -107,15 +111,51 @@ class PacketUserList extends React.Component {
     render (){
     return (
         <div>
-          <Table
+          {/* <Table
           scroll={{ x: 900 }} 
           style={{padding:"30px 30px 30px 30px"}}
           columns={this.columns}
           dataSource={this.state.packet_user}
           locale={{emptyText:"آگهی وجود ندارد"}}
-          />
+          /> */}
+            <List
+              itemLayout="vertical"
+              size="large"
+              dataSource={this.state.packet_user}
+              renderItem={item => (
+                <List.Item
+                  key={item.title}
+                  actions={[
+                    <EditPacket data={item.slug}/>,
+                    <Popconfirm
+                    title="آیا از حذف آگهی مطمئن هستید ؟"
+                    onConfirm={this.delete.bind(this,item.slug)}
+                    onCancel={this.cancel}
+                    okText="بله"
+                    cancelText="خیر"
+                    >
+                          حذف  
+                    </Popconfirm> ,
+                    <OfferListModal data={item.slug} count={item.offer_count}/>,
+                  ]}
+                  extra={[
+                    <DownloadPic data={item.picture} size={100}/>,
+                    // moment(item.create_at, "YYYYMMDD").fromNow()
+                  ]
+                  }
+                >
+                  <List.Item.Meta
+                    title={<Link to={'/' + item.slug}>{item.title}</Link>}
+                    description={item.description}
+                  />
+                  {item.content}
+                  
+                  
+                </List.Item>
+              )}
+            />
         </div>
-    );
+      );
     }
 }
 

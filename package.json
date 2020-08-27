@@ -23,7 +23,8 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "reqwest": "^2.0.5"
+    "reqwest": "^2.0.5",
+    "vazir-font": "^26.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

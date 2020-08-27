@@ -1,9 +1,11 @@
 import React from 'react';
 import Axios from 'axios';
-import { Row, Col, Divider, Button } from 'antd';
+import { Row, Col, Divider, Button, Card, Space } from 'antd';
+import bag from '../media/Icon/022-bag.svg';
 
 import Orders from '../components/Orders';
-
+import main_banner from '../media/main_banner.svg';
+const { Meta } = Card;
 const style = {
     alignItems:"center",
     display:'flex',
@@ -13,11 +15,41 @@ const style = {
     height:"300px"
 }
 
+const style_text = {
+    alignContent:"center",
+    textAlign:"center",
+    display:"flex",
+    alignItems:"center",
+    // paddingRight: 200
+    width:"100px",
+    paddingRight:"200px"
+}
+
+const style_center = {
+    display:"flex",
+    justifyContent:"center",
+    color:"black",
+}
+
+const card_style = {
+    borderRadius:"20px 10px 20px 10px",
+    border:"solid",
+    borderWidth:"0.5px",
+    borderColor:"#707070",
+    padding:"20px 20px 20px 20px",
+    backgroundColor:"white"
+}
+
+const style_icon = {width:"50px", display:"inline"}
+
+
 class LandingPage extends React.Component {
 
     state = {
         orders : []
     }
+
+
 
     componentDidMount(){
         Axios.get('http://127.0.0.1:8000/api/v1/advertise/packet/')
@@ -32,38 +64,155 @@ class LandingPage extends React.Component {
     render(){
         return(
             <div>
-                <div>
-                    <Row >
-                        <Col span={24}>
-                            <div style={{display:'flex', justifyContent:'center', height:"450px", alignItems:"center", border:"solid", borderRadius:"30px"}} > بنر برای معرفی بیلیگ پست </div>
-                            <br/>
-                            <Divider plain orientation="center"><b>بیلیگ چگونه کار می‌کند؟</b></Divider>
-                            <div style={{alignItems:"center", display:'flex',justifyContent:'center', border:"solid", borderRadius:"30px", height:"300px"}}>
-                            </div>
-                            <Divider plain orientation="center"><b>آخرین آگهی‌ها</b></Divider>
-                            <div style={{alignItems:"center", display:'flex',justifyContent:'center', paddingLeft:"180px"}}>
-                                <Orders data={this.state.orders} page={6} pagesize={6} />
-                            </div>
-                            <div style={{textAlign:"center"}}>
-                                <Button href={'/orders'} style={{borderRadius:"15px"}} >نمایش همه آگهی‌ها</Button>
-                            </div><br/>
-                            <Divider plain orientation="center"><b>! ما فروشگاه آنلاین نیستیم</b></Divider>
-                            <div style={style}>
-                            </div>
-                            <Divider plain orientation="center"><b>چرا با بیلیگ خرید کنیم؟</b></Divider>
-                            <div style={style}>
-                            </div>
-                            <Divider plain orientation="center"><b>نظرات کاربران در مورد بیلیگ</b> </Divider>
-                            <div style={style}>
-                            </div>
-                            <Divider plain orientation="center"><b>فروشگاه‌های آنلاین</b></Divider>
-                            <div style={style}>
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
-                <br />
-            </div>
+                <Row >
+                    <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
+                    <img
+                        src = {main_banner}
+                        width={1000}
+                        />
+                    </Col>
+                    {/* <Col xs={24} sm={24} md={24} lg={24} xl={0} xxl={0}>
+                    <img
+                        src = {main_banner}
+                        width={600}
+                        />
+                    </Col> */}
+                    <Col style={style_text} xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
+                        <h1 style={{fontSize:30}}><span style={{color:'#46a0ae'}}> هر چیزی</span> در<span style={{color:'#46a0ae'}}>  هر جایی</span> در دسترس شماست</h1>
+                    </Col>
+                </Row>
+                <br/>
+                <Row>
+                    <Divider><h1 style={{display:"flex", justifyContent:"center", fontSize:"25px", fontFamily:"IRANSans"}}>آخرین آگهی‌ها</h1></Divider>
+                    <br/>
+                    <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}></Col>
+                    <Col xs={24} sm={24} md={24} lg={22} xl={22} xxl={22}>
+                        <Orders data={this.state.orders} page={8} pagesize={8}/>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}></Col>
+                </Row>
+                <Row gutter={[20, 20]} style={{backgroundColor:"aliceblue", textAlign:"center"}}>
+                <Divider><h1 style={{display:"flex", justifyContent:"center", fontSize:"25px", fontFamily:"IRANSans"}}>مزیت‌های بیلیگ برای شما</h1></Divider>
+                <br/>
+                    <Col xs={24} sm={24} md={24} lg={3} xl={3} xxl={3}>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} style={style_center}>
+                        <Card
+                            style={{backgroundColor:"aliceblue"}}
+                            bordered={false}
+                            cover={<img alt="example" src={bag} style={style_icon} />}
+                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
+                            >
+                            <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
+                            <Meta  
+                            style={card_style}
+                            description="بسیاری از کلکسیونرها و افرادی که به دنبال کالا خاص
+                            هستند، باید به بازارهای جهانی دسترسی داشته باشند.
+                            از طرفی هزینه حمل‌ونقل برای آوردن کالا به ایران صرفه
+                            اقتصادی ندارد، بستر  بیلیگ به شما کمک می‌کند در هر 
+                            لحظه در هرجا جهان قصد خرید کالایی را داشتید با هزینه
+                            حمل‌ونقل پایین آن راخریداری کنید" />                        
+                        </Card>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} style={style_center}>
+                    <Card
+                            style={{backgroundColor:"aliceblue"}}
+                            bordered={false}
+                            cover={<img alt="example" src={bag} style={style_icon} />}
+                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
+                            >
+                            <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
+                            <Meta  
+                            style={card_style}
+                            description="بسیاری از کلکسیونرها و افرادی که به دنبال کالا خاص
+                            هستند، باید به بازارهای جهانی دسترسی داشته باشند.
+                            از طرفی هزینه حمل‌ونقل برای آوردن کالا به ایران صرفه
+                            اقتصادی ندارد، بستر  بیلیگ به شما کمک می‌کند در هر 
+                            لحظه در هرجا جهان قصد خرید کالایی را داشتید با هزینه
+                            حمل‌ونقل پایین آن راخریداری کنید" />                        
+                        </Card>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} style={style_center}>
+                    <Card
+                            style={{backgroundColor:"aliceblue"}}
+                            bordered={false}
+                            cover={<img alt="example" src={bag} style={style_icon} />}
+                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
+                            >
+                            <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
+                            <Meta  
+                            style={card_style}
+                            description="بسیاری از کلکسیونرها و افرادی که به دنبال کالا خاص
+                            هستند، باید به بازارهای جهانی دسترسی داشته باشند.
+                            از طرفی هزینه حمل‌ونقل برای آوردن کالا به ایران صرفه
+                            اقتصادی ندارد، بستر  بیلیگ به شما کمک می‌کند در هر 
+                            لحظه در هرجا جهان قصد خرید کالایی را داشتید با هزینه
+                            حمل‌ونقل پایین آن راخریداری کنید" />                        
+                        </Card>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={3} xl={3} xxl={3}></Col>
+                </Row>
+                <Row gutter={[20, 20]} style={{backgroundColor:"aliceblue", textAlign:"center"}}>
+                    <Divider/>
+                    <Col xs={24} sm={24} md={24} lg={3} xl={3} xxl={3}>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} style={style_center}>
+                        <Card
+                            style={{backgroundColor:"aliceblue"}}
+                            bordered={false}
+                            cover={<img alt="example" src={bag} style={style_icon} />}
+                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
+                            >
+                            <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
+                            <Meta  
+                            style={card_style}
+                            description="بسیاری از کلکسیونرها و افرادی که به دنبال کالا خاص
+                            هستند، باید به بازارهای جهانی دسترسی داشته باشند.
+                            از طرفی هزینه حمل‌ونقل برای آوردن کالا به ایران صرفه
+                            اقتصادی ندارد، بستر  بیلیگ به شما کمک می‌کند در هر 
+                            لحظه در هرجا جهان قصد خرید کالایی را داشتید با هزینه
+                            حمل‌ونقل پایین آن راخریداری کنید" />                        
+                        </Card>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} style={style_center}>
+                    <Card
+                            style={{backgroundColor:"aliceblue"}}
+                            bordered={false}
+                            cover={<img alt="example" src={bag} style={style_icon} />}
+                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
+                            >
+                            <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
+                            <Meta  
+                            style={card_style}
+                            description="بسیاری از کلکسیونرها و افرادی که به دنبال کالا خاص
+                            هستند، باید به بازارهای جهانی دسترسی داشته باشند.
+                            از طرفی هزینه حمل‌ونقل برای آوردن کالا به ایران صرفه
+                            اقتصادی ندارد، بستر  بیلیگ به شما کمک می‌کند در هر 
+                            لحظه در هرجا جهان قصد خرید کالایی را داشتید با هزینه
+                            حمل‌ونقل پایین آن راخریداری کنید" />                        
+                        </Card>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} style={style_center}>
+                    <Card
+                            style={{backgroundColor:"aliceblue"}}
+                            bordered={false}
+                            cover={<img alt="example" src={bag} style={style_icon} />}
+                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
+                            >
+                            <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
+                            <Meta  
+                            style={card_style}
+                            description="بسیاری از کلکسیونرها و افرادی که به دنبال کالا خاص
+                            هستند، باید به بازارهای جهانی دسترسی داشته باشند.
+                            از طرفی هزینه حمل‌ونقل برای آوردن کالا به ایران صرفه
+                            اقتصادی ندارد، بستر  بیلیگ به شما کمک می‌کند در هر 
+                            لحظه در هرجا جهان قصد خرید کالایی را داشتید با هزینه
+                            حمل‌ونقل پایین آن راخریداری کنید" />                        
+                        </Card>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={3} xl={3} xxl={3}></Col>
+                </Row>
+          </div>
         )
     }
 }
