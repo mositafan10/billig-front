@@ -26,7 +26,7 @@ class BaseRouter extends React.Component {
             <Route exact path='/signup' render={(props) => <Signup {...this.props}/> }/>
             <Route exact path='/createpacket' render={(props) =>
                 this.props.isAuthenticated ? <PackForm {...this.props}/>:<AuthorizationFail/>}/>
-            <Route exact path='/travel/:travelID' component={TravelDetail} />
+            <Route exact path='/travel/:travelID' component={this.props.isAuthenticated ? TravelDetail:AuthorizationFail} />
             <Route exact path='/users/:userID' component={UserProfile} />
             <Route exact path='/chat/test' component={ChatwithWebsocket} />
             <Route exact path='/packet/:orderID' component={OrderDetail} />

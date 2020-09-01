@@ -162,7 +162,6 @@ class ChatDetail extends Component {
                         dataSource={this.state.massages}
                         locale={{emptyText:" "}}
                         renderItem={item => (
-                         
                         <Row >
                             <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
                             <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12} 
@@ -198,7 +197,6 @@ class ChatDetail extends Component {
                             </Col>
                             <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
                         </Row>
-
                         )
                         }
                     />

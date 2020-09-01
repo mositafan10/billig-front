@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { Row, Col, Divider, Button, Card, Space } from 'antd';
+import { Link } from 'react-router-dom';
 import bag from '../media/Icon/022-bag.svg';
 
 import Orders from '../components/Orders';
@@ -21,8 +22,8 @@ const style_text = {
     display:"flex",
     alignItems:"center",
     // paddingRight: 200
-    width:"100px",
-    paddingRight:"200px"
+    // width:"100px",
+    // paddingRight:"200px"
 }
 
 const style_center = {
@@ -78,19 +79,45 @@ class LandingPage extends React.Component {
                         />
                     </Col> */}
                     <Col style={style_text} xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
-                        <h1 style={{fontSize:30}}><span style={{color:'#46a0ae'}}> هر چیزی</span> در<span style={{color:'#46a0ae'}}>  هر جایی</span> در دسترس شماست</h1>
+                        <Row>
+                            <Row style={{display:"contents"}} >
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                {/* <Divider plain orientation="center"> */}
+                                    <h1 style={{fontSize:30}}><span style={{color:'#46a0ae'}}> هر چیزی</span> در<span style={{color:'#46a0ae'}}>  هر جایی</span> در دسترس شماست</h1>
+                                    {/* </Divider> */}
+                                </Col>
+                            </Row>
+                            <Row style={{display:"contents"}}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                    <h3>با بیلیگ پست می‌توانید از هر فروشگاهی در دنیا به وسیله مسافران خرید نمایید</h3>
+                                </Col>
+                            </Row>
+                            <Row style={{display:"contents"}}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                <Divider plain orientation="center">
+                                    <Link>بیلیگ‌پست چگونه کار می‌کند؟</Link>
+                                    </Divider>
+                                </Col>
+                            </Row>
+                        </Row>
                     </Col>
                 </Row>
                 <br/>
-                <Row>
+                <Row >
                     <Divider><h1 style={{display:"flex", justifyContent:"center", fontSize:"25px", fontFamily:"IRANSans"}}>آخرین آگهی‌ها</h1></Divider>
                     <br/>
-                    <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}></Col>
+                    <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1}></Col>
                     <Col xs={24} sm={24} md={24} lg={22} xl={22} xxl={22}>
                         <Orders data={this.state.orders} page={8} pagesize={8}/>
                     </Col>
-                    <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}></Col>
+                    <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1}></Col>
                 </Row>
+                <Row style={{display:"flex", justifyContent:"center"}}>
+                    <Col>
+                    <Link to='/orders'><Button style={{borderRadius:"8px"}}>نمایش همه آگهی</Button></Link>
+                    </Col>
+                </Row>
+                <Divider     />
                 <Row gutter={[20, 20]} style={{backgroundColor:"aliceblue", textAlign:"center"}}>
                 <Divider><h1 style={{display:"flex", justifyContent:"center", fontSize:"25px", fontFamily:"IRANSans"}}>مزیت‌های بیلیگ برای شما</h1></Divider>
                 <br/>
@@ -115,7 +142,7 @@ class LandingPage extends React.Component {
                         </Card>
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} style={style_center}>
-                    <Card
+                        <Card
                             style={{backgroundColor:"aliceblue"}}
                             bordered={false}
                             cover={<img alt="example" src={bag} style={style_icon} />}

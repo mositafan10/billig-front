@@ -73,7 +73,9 @@ class EditProfile extends React.Component {
                     email: values.email,
                     bio: values.bio,
                     country: values.living_country,
-                    city : values.living_city
+                    city : values.living_city,
+                    first_name: values.first_name,
+                    last_name: values.last_name
                     },
                     { headers: {"Authorization" : `Bearer ${token}`} })
         .then(function (res) { if (res.status == 200){ window.location = '/profile'}})
@@ -86,7 +88,6 @@ class EditProfile extends React.Component {
                 <Row>
                     <Col xs={0} sm={0} md={0} lg={4} xl={4} xxl={4}></Col>
                     <Col xs={24} sm={24} md={24} lg={16} xl={16} xxl={16}>
-                        
                         <Row>
                             <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                 {/* <img
@@ -99,14 +100,28 @@ class EditProfile extends React.Component {
                             </Col>
                         </Row>
                         <br/>
-                        <Form size="middle" onFinish={(values) => this.handleFormSubmit(
-                        values)}>
+                        <Form size="middle" onFinish={(values) => this.handleFormSubmit(values)}>
                         <Row>
                             <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                 <UserOutlined style={{fontSize:"30px"}} />
                                 <Divider plain orientation="center">بیوگرافی</Divider>
                                 <Form.Item  name="bio">
                                     <TextArea placeholder="... آنچه دوست دارید دیگران در مورد شما بدانند" style={{borderRadius:"8px", textAlign:"right"}} />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24} sm={24} md={24} lg={24} xl={11} xxl={11}>
+                                <Divider plain orientation="center"> نام</Divider>
+                                <Form.Item name="first_name">
+                                    <Input defaultValue={this.state.user_profile ? this.state.user_profile.first_name : ""} style={{borderRadius:"8px"}} />
+                                </Form.Item>
+                            </Col>
+                            <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
+                            <Col xs={24} sm={24} md={24} lg={24} xl={11} xxl={11}>
+                                <Divider plain orientation="center"> نام خانوادگی</Divider>
+                                <Form.Item name="last_name">
+                                    <Input style={{borderRadius:"8px"}} />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -159,22 +174,22 @@ class EditProfile extends React.Component {
                         <Divider plain orientation="center"> محل اقامت</Divider>
                         <Row>
                             <Col xs={24} sm={24} md={24} lg={24} xl={11} xxl={11}>
-                            <Divider plain orientation="center"> شهر</Divider>
-                                <Form.Item name="living_city">
-                                    <Select disabled={this.state.city_dis}>
-                                        {this.state.cities.map((e, key) => {
-                                        return <Option key={key} value={e.id}>{e.name}</Option>;})}
-                                    </Select>   
-                                </Form.Item>
-                            </Col>
-                            <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={11} xxl={11}>
                                 <Divider plain orientation="center"> کشور</Divider>
                                 <Form.Item name="living_country">
                                 <Select onChange={this.get_city.bind()}>
                                     {this.state.countries.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>
+                                </Form.Item>
+                            </Col>
+                            <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
+                            <Col xs={24} sm={24} md={24} lg={24} xl={11} xxl={11}>
+                            <Divider plain orientation="center"> شهر</Divider>
+                                <Form.Item name="living_city">
+                                    <Select disabled={this.state.city_dis}>
+                                        {this.state.cities.map((e, key) => {
+                                        return <Option key={key} value={e.id}>{e.name}</Option>;})}
+                                    </Select>   
                                 </Form.Item>
                             </Col>
                         </Row>

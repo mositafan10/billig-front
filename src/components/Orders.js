@@ -2,7 +2,6 @@ import React from 'react';
 import { List, Row, Col, Card, Divider } from 'antd';
 import { Link } from 'react-router-dom';
 import airplane from '../media/airplane.png';
-import germany from '../media/Flag-icon/germany.png';
 import OfferListModal from '../components/OfferListModal';
 import OfferInListView from '../components/OfferInListView';
 import DownloadPic from './DownloadPic';
@@ -35,9 +34,9 @@ class Orders extends React.Component {
   
   render(){
     return (
+      <div style={{display:"flex", justifyContent:"center"}}>
       <List
       grid={{
-        // gutter: 50,
         xs: 1,
         sm: 1,
         md: 2,
@@ -66,8 +65,6 @@ class Orders extends React.Component {
               padding:"15px 20px 10px 5px",
               width:"350px",
               height:"170px",
-              display:"flex",
-              justifyContent:"center",
               }}>
               <Col xs={11} sm={11} md={11} lg={11} xl={11} xxl={11}>
                 <Row>
@@ -94,7 +91,6 @@ class Orders extends React.Component {
                 </Row>
               </Col>
               <Divider type="vertical"/>
-              {/* <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col> */}
               <Col xs={11} sm={11} md={11} lg={11} xl={11} xxl={11}>
                 <div style={style_center}>
                   <DownloadPic data={item.picture} size={140}/>
@@ -102,7 +98,8 @@ class Orders extends React.Component {
               </Col>
             </Row>
         )}
-      />   
+      />  
+      </div> 
     )
   }
 }

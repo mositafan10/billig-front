@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button, Modal, Input, Form, Select, DatePicker, Radio} from 'antd'; 
+import { PlusOutlined } from '@ant-design/icons';
 import Axios from 'axios';
 import TextArea from 'antd/lib/input/TextArea';
+import moment from 'moment';
 
 
 const { RangePicker } = DatePicker;
@@ -37,51 +39,54 @@ class CreateTravel extends React.Component {
     }
 
     handleCancel = () => {
-    this.setState({
-    createtravelvisible: false,
-    });
+        this.setState({
+        createtravelvisible: false,
+        });
     };
 
     handleOkTravel = (values) => {
-    const token = localStorage.getItem('token');
-    { this.state.radio_value ?
-    Axios.post('http://127.0.0.1:8000/api/v1/advertise/travel/', {
-            departure : values.origin_country, 
-            departure_city : values.origin_city, 
-            destination : values.destination_country, 
-            destination_city : values.destination_city, 
-            flight_date_start : values.flight_date[0], 
-            flight_date_end : values.flight_date[1], 
-            description : values.description, 
-        },
-        { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(res => {console.log(res.data)
-            this.setState({
-                createtravelvisible : false,
-                });
-        })  
-        .catch(error => {console.log(error);
-        })
-
-    :
-
-    Axios.post('http://127.0.0.1:8000/api/v1/advertise/travel/', {
-            departure : values.origin_country, 
-            departure_city : values.origin_city, 
-            destination : values.destination_country, 
-            destination_city : values.destination_city, 
-            flight_date_start : values.flight_date, 
-            description : values.description, 
-        },
-        { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(res => {console.log(res.data)
-            this.setState({
-                createtravelvisible : false,
-                });
-        })  
-        .catch(error => {console.log(error);
-        })
-    }
+        const token = localStorage.getItem('token');
+        const flight_date_start = moment(values.flight_date[0]).format('YYYY-MM-DD');
+        const flight_date_end = moment(values.flight_date[1]).format('YYYY-MM-DD');
+        { this.state.radio_value
+            ?
+        Axios.post('http://127.0.0.1:8000/api/v1/advertise/travel/', {
+                departure : values.origin_country, 
+                departure_city : values.origin_city, 
+                destination : values.destination_country, 
+                destination_city : values.destination_city, 
+                flight_date_start : flight_date_start, 
+                flight_date_end : flight_date_end,
+                description : values.description, 
+            },
+            { headers: {"Authorization" : `Bearer ${token}`} })
+            .then(res => {
+                this.setState({
+                    createtravelvisible : false,
+                    });
+                    this.props.parentCallback(); 
+            })  
+            .catch(error => {console.log(error);
+            })
+            :
+            Axios.post('http://127.0.0.1:8000/api/v1/advertise/travel/', {
+                    departure : values.origin_country, 
+                    departure_city : values.origin_city, 
+                    destination : values.destination_country, 
+                    destination_city : values.destination_city, 
+                    flight_date_start : flight_date_start, 
+                    description : values.description, 
+                },
+                { headers: {"Authorization" : `Bearer ${token}`} })
+                .then(res => {console.log(res.data)
+                    this.setState({
+                        createtravelvisible : false,
+                        });
+                    this.props.parentCallback(); 
+                })  
+                .catch(error => {console.log(error);
+                })
+            }
     }
     
     get_city_origin = (e) => {
@@ -119,7 +124,7 @@ class CreateTravel extends React.Component {
     render(){
         return(
             <div>
-                <Button onClick={this.showcreatetravel} style={{borderRadius:"8px"}}><b> ثبت سفر جدید</b></Button>
+                <Button icon={<PlusOutlined/>} onClick={this.showcreatetravel} style={{borderRadius:"8px"}}><b> ثبت سفر جدید</b></Button>
                 <Modal
                 visible={this.state.createtravelvisible}
                 onCancel={this.handleCancel}

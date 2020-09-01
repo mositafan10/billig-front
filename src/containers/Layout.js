@@ -34,11 +34,13 @@ class CustomLayout extends React.Component {
           </Header>
           <Content>
               <Row style={{marginTop:"100px"}}>
-                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
+                <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>
                   <div className="site-layout-content">
                     {this.props.children}
                   </div>
                 </Col>
+                <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
               </Row>
           </Content>
           <Footer style={{ textAlign: 'right', backgroundColor:"aliceblue" }}>

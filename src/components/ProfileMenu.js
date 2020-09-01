@@ -1,32 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PacketUserList from '../components/ListInProfile';
 import ChangePassword_mobile from './ChangePassword_mobile';
-import CreateTravel from './CreateTravel';
-import TravelList from '../components/TravelUser';
-import FriendList from '../components/FriendList';
 import EditProfile from '../components/EditProfile';
 import UserOffer from '../components/Useroffer';
 import InboxLayout from '../containers/InboxLayout';
 import Bookmark_packet from './Bookmark_packet';
 import ChangePassword from './ChangePassword';
-import { Tabs, Button, Menu, Row, Col, Popover, Dropdown, message, Drawer } from 'antd';
-import { 
-  BookOutlined, 
-  DollarOutlined, 
-  AppstoreOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
-  EllipsisOutlined,
-  UserOutlined,
-  MailOutlined, } 
-  from '@ant-design/icons';
+import { Tabs, Row, Col } from 'antd';
+import { BookOutlined, DollarOutlined, MailOutlined, } from '@ant-design/icons';
+import TravelProfile from '../containers/TravelProfile';
 
 const { TabPane } = Tabs;
-
 
 class ProfileMenu extends React.Component {
 
@@ -58,8 +42,7 @@ class ProfileMenu extends React.Component {
                 <PacketUserList />
               </TabPane>
               <TabPane tab=" سفرهای من" key="2" >
-                <TravelList/>
-                <CreateTravel/>
+                <TravelProfile />
               </TabPane>
               <TabPane tab="نظرات دیگران" key="3">
                 نظرات

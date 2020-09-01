@@ -66,9 +66,9 @@ class PacketForEdit extends Component {
     handleFormSubmit = (values) => {
         const packet_id = this.props.data.slug;
         const title = (values.title ? values.title : this.props.data.title);
-        const origin_country = (values.origin_country ? values.origin_country : this.props.data.origin_country );
+        const origin_country = (values.origin_country ? values.origin_country : this.props.data.origin_country.id );
         const origin_city = (values.origin_city ? values.origin_city : this.props.data.origin_city );
-        const destination_country = (values.destination_country ? values.destination_country : this.props.data.destination_country );
+        const destination_country = (values.destination_country ? values.destination_country : this.props.data.destination_country.id );
         const destination_city = (values.destination_city ? values.destination_city : this.props.data.destination_city );
         const category = (values.category ? values.category : this.props.data.category );
         const weight = (values.weight ? values.weight : this.props.data.weight );
@@ -125,7 +125,7 @@ class PacketForEdit extends Component {
                         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">کشور مبدا</Divider>
                             <Form.Item name="origin_country" style={{textAlign:"right"}} >
-                                <Select defaultValue={this.props.data.origin_country} onChange={this.get_city_origin.bind()}>
+                                <Select defaultValue={this.props.data.origin_country ? this.props.data.origin_country.name : ""} onChange={this.get_city_origin.bind()}>
                                     {this.state.countries.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>
@@ -134,7 +134,7 @@ class PacketForEdit extends Component {
                         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">شهر مبدا</Divider>
                             <Form.Item name="origin_city" style={{textAlign:"right"}}>
-                            <Select defaultValue={this.props.data.origin_city}>
+                            <Select disabled={this.state.city_origin_dis} defaultValue={this.props.data.origin_city}>
                                     {this.state.cities_origin.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>   
@@ -145,7 +145,7 @@ class PacketForEdit extends Component {
                         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">کشور مقصد</Divider>
                             <Form.Item  name="destination_country" style={{textAlign:"right"}} >
-                                <Select defaultValue={this.props.data.destination_country} onChange={this.get_city_destination.bind()}>
+                                <Select defaultValue={this.props.data.destination_country ? this.props.data.destination_country.name : "" } onChange={this.get_city_destination.bind()}>
                                     {this.state.countries.map((e, key) => {
                                     return <option key={key} value={e.id}>{e.name}</option>;})}
                                 </Select>
@@ -154,7 +154,7 @@ class PacketForEdit extends Component {
                         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">شهر مقصد</Divider>
                             <Form.Item name="destination_city" style={{textAlign:"right"}} >
-                            <Select defaultValue={this.props.data.destination_city}>
+                            <Select disabled={this.state.city_destination_dis} defaultValue={this.props.data.destination_city}>
                                     {this.state.cities_destination.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>   
