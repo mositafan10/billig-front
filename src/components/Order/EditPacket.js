@@ -14,7 +14,6 @@ class EditPacket extends Component {
     offerlistmodal = () => {
         const token = localStorage.getItem('token');
         const packet_id = this.props.data;
-
         Axios.get(`http://127.0.0.1:8000/api/v1/advertise/packet/${packet_id}/`,
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
@@ -28,11 +27,14 @@ class EditPacket extends Component {
     }
   
     handleCancel = () => {
-        
         this.setState({
           offer_visible: false,
         });
     };
+
+    update = () => {
+        this.props.update();
+    }
   
     render() {
         return (
@@ -51,7 +53,7 @@ class EditPacket extends Component {
                     bodyStyle={{borderRadius:"20px"}}
                     maskStyle={{borderRadius:"20px"}}
                     >
-                <PacketForEdit data={this.state.packet}/>
+                <PacketForEdit updatelist={this.update} cancle={this.handleCancel} data={this.state.packet}/>
                 </Modal>
             </div>
         );

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Form , Col, Button, Row, Divider, Select, Input, Checkbox } from 'antd';
-import TextArea from 'antd/lib/input/TextArea';
 import Axios from 'axios';
-import { Link } from 'react-router-dom';
-import UploadFile from '../UploadPicture';
+
 const { Option } = Select;
 
 class PacketForEdit extends Component {
@@ -20,13 +18,27 @@ class PacketForEdit extends Component {
     }
 
     PacketCategory = [
-        {value:'0', label:'مدارک و مستندات'},
-        {value:'1', label:'کتاب و مجله'},
-        {value:'2', label:'لوازم الکترونیکی'},
-        {value:'3', label:'کفش و پوشاک'},
-        {value:'4', label:'لوازم آرایشی و بهداشتی'},
-        {value:'5', label:'سایر موارد'},
+        {value:'0', name:'مدارک و مستندات'},
+        {value:'1', name:'کتاب و مجله'},
+        {value:'2', name:'لوازم الکترونیکی'},
+        {value:'3', name:'کفش و پوشاک'},
+        {value:'4', name:'لوازم آرایشی و بهداشتی'},
+        {value:'5', name:'سایر موارد'},
     ];
+    
+    Dimension = [
+        {value:'0', name:'کوچک'},
+        {value:'1', name:'متوسط'},
+        {value:'2', name:'بزرگ'},
+    ];
+
+    search(nameKey, myArray){
+        for (var i=0; i < myArray.length; i++) {
+            if (myArray[i].name === nameKey) {
+                return myArray[i].value;
+            }
+        }
+    }
 
     get_city_destination = (e) => {
         console.log('country', e);
@@ -36,7 +48,6 @@ class PacketForEdit extends Component {
                 cities_destination: res.data,
                 city_destination_dis : false
             });
-            console.log(res.data);
         })
     }
 
@@ -67,12 +78,12 @@ class PacketForEdit extends Component {
         const packet_id = this.props.data.slug;
         const title = (values.title ? values.title : this.props.data.title);
         const origin_country = (values.origin_country ? values.origin_country : this.props.data.origin_country.id );
-        const origin_city = (values.origin_city ? values.origin_city : this.props.data.origin_city );
+        const origin_city = (values.origin_city ? values.origin_city : (this.props.data.origin_city ? this.props.data.origin_city.id : "" ) );
         const destination_country = (values.destination_country ? values.destination_country : this.props.data.destination_country.id );
-        const destination_city = (values.destination_city ? values.destination_city : this.props.data.destination_city );
-        const category = (values.category ? values.category : this.props.data.category );
+        const destination_city = (values.destination_city ? values.destination_city : (this.props.data.destination_city ? this.props.data.destination_city.id : "" ) );
+        const category = (values.category ? values.category : this.search(this.props.data.category, this.PacketCategory) );
         const weight = (values.weight ? values.weight : this.props.data.weight );
-        const dimension = (values.dimension ? values.dimension : this.props.data.dimension );
+        const dimension = (values.dimension ? values.dimension : this.search(this.props.data.dimension, this.Dimension)  );
         const suggested_price = (values.suggested_price ? values.suggested_price : this.props.data.suggested_price );
         const description = (values.description ? values.description : this.props.data.description );
         const buy = this.state.buy;
@@ -95,7 +106,7 @@ class PacketForEdit extends Component {
             status: status
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(function (res) { if (res.status == 201){ window.location = "/profile" }})
+        .then( res => { if (res.status == 200){ this.props.cancle(); this.props.updatelist()}})
         .catch(error => console.error(error));
     }
     
@@ -134,7 +145,7 @@ class PacketForEdit extends Component {
                         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">شهر مبدا</Divider>
                             <Form.Item name="origin_city" style={{textAlign:"right"}}>
-                            <Select disabled={this.state.city_origin_dis} defaultValue={this.props.data.origin_city}>
+                            <Select disabled={this.state.city_origin_dis} defaultValue={this.props.data.origin_city.name}>
                                     {this.state.cities_origin.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>   
@@ -154,7 +165,7 @@ class PacketForEdit extends Component {
                         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">شهر مقصد</Divider>
                             <Form.Item name="destination_city" style={{textAlign:"right"}} >
-                            <Select disabled={this.state.city_destination_dis} defaultValue={this.props.data.destination_city}>
+                            <Select disabled={this.state.city_destination_dis} defaultValue={this.props.data.destination_city.name}>
                                     {this.state.cities_destination.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>   
@@ -200,7 +211,7 @@ class PacketForEdit extends Component {
                     </Form.Item>
                     <Divider plain orientation="center"> توضیحات تکمیلی</Divider>
                     <Form.Item name="description">
-                        <textarea defaultValue={this.props.data.description} style={{textAlign:"right"}} rows="4" cols="54" />
+                        <textarea defaultValue={this.props.data.description} style={{textAlign:"right", padding:"10px"}} rows="4" cols="54" />
                     </Form.Item> 
                     <Form.Item style={{ textAlign: 'center' }}>
                         <Button style={{borderRadius:'8px'}} type="primary" htmlType="submit">ویرایش آگهی</Button>

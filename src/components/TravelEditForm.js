@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Form , Col, Button, Row, Divider, Select, Input, Checkbox, DatePicker } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import Axios from 'axios';
 import moment from 'moment';
 

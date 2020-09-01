@@ -9,7 +9,6 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 
-
 class PacketUserList extends React.Component {
 
     state = {
@@ -108,6 +107,9 @@ class PacketUserList extends React.Component {
           .catch(error => console.error(error));
     }
 
+    callbackFunction = () => {
+      this.componentDidMount()
+    }
     render (){
     return (
         <div>
@@ -126,13 +128,13 @@ class PacketUserList extends React.Component {
                 <List.Item
                   key={item.title}
                   actions={[
-                    <EditPacket data={item.slug}/>,
+                    <EditPacket update={this.callbackFunction} data={item.slug}/>,
                     <Popconfirm
-                    title="آیا از حذف آگهی مطمئن هستید ؟"
-                    onConfirm={this.delete.bind(this,item.slug)}
-                    onCancel={this.cancel}
-                    okText="بله"
-                    cancelText="خیر"
+                      title="آیا از حذف آگهی مطمئن هستید ؟"
+                      onConfirm={this.delete.bind(this,item.slug)}
+                      onCancel={this.cancel}
+                      okText="بله"
+                      cancelText="خیر"
                     >
                           حذف  
                     </Popconfirm> ,
@@ -145,12 +147,10 @@ class PacketUserList extends React.Component {
                   }
                 >
                   <List.Item.Meta
-                    title={<Link to={'/' + item.slug}>{item.title}</Link>}
+                    title={<Link to={'/packet/' + item.slug}>{item.title}</Link>}
                     description={item.description}
                   />
                   {item.content}
-                  
-                  
                 </List.Item>
               )}
             />
