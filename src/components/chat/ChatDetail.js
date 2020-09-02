@@ -14,7 +14,7 @@ const right_test_style = {
     borderColor:"deepskyblue",
     padding:"10px 10px 10px 10px",
     width:"auto",
-    maxWidth:"50%"
+    maxWidth:"70%"
     }
 
 const left_test_style = {
@@ -26,11 +26,9 @@ const left_test_style = {
     borderColor:"deepskyblue",
     padding:"10px 10px 10px 10px",
     width:"auto",
-    maxWidth:"50%"
+    maxWidth:"70%"
     }
     
-
-
 
 class ChatDetail extends Component {
 

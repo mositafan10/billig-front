@@ -1,6 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
+import { Link } from 'react-router-dom';
+import ConfirmPrice from './ConfirmPrice';
 
 class UserOffer extends React.Component {
     state = {
@@ -8,34 +10,49 @@ class UserOffer extends React.Component {
     }
 
     columns = [
-        { 
-          title: 'متن پیشنهاد',
-          dataIndex: 'description',
-          key: 'offer_count',
-          align:"center"
-        },
-        {
-          title: 'قیمت (تومان)',
-          dataIndex: 'price',
-          key: 'y',
-          width:150,
-          align:"center"
-        },
-        { 
-          title: ' پیشنهاد به',
-          dataIndex: 'receiver', 
-          key: 'receiver',
-          width:150,
-          align:"center",
-        },
-        { 
-          title: 'وضعیت',
-          dataIndex: 'status', 
-          key: 'status',
-          width:150,
-          align:"center",
-        },
-      ];
+      { 
+        title: 'آگهی',
+        dataIndex: 'packet_title', 
+        key: 'packet_title',
+        width:300,
+        align:"right",
+      },
+      { 
+        title: ' پیشنهاد به',
+        dataIndex: 'receiver', 
+        key: 'receiver',
+        width:150,
+        align:"center",
+      render : (dataIndex, row) => <Link to={'users/' + row.receiver_id}>{dataIndex}</Link>
+      },
+      {
+        title: 'قیمت (تومان)',
+        dataIndex: 'price',
+        key: 'y',
+        width:150,
+        align:"center"
+      },
+      { 
+        title: 'متن پیشنهاد',
+        dataIndex: 'description',
+        key: 'offer_count',
+        align:"center"
+      },
+      { 
+        title: 'وضعیت',
+        dataIndex: 'status', 
+        key: 'status',
+        width:150,
+        align:"center",
+      },
+      { 
+        title: ' ',
+        dataIndex: 'slug',
+        key: '',
+        align:"center",
+        render: (dataIndex, row) => {if( row.status == "نهایی‌کردن مبلغ"){ return <ConfirmPrice data={dataIndex} />}},
+      },
+    ];
 
     componentDidMount(){
         const token = localStorage.getItem('token');

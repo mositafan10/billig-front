@@ -44,6 +44,9 @@ class ProfileMenu extends React.Component {
               <TabPane tab=" سفرهای من" key="2" >
                 <TravelProfile />
               </TabPane>
+              <TabPane tab="پیشنهادهای من" key="6">
+                <UserOffer />
+              </TabPane>
               <TabPane tab="نظرات دیگران" key="3">
                 نظرات
               </TabPane>
@@ -52,9 +55,6 @@ class ProfileMenu extends React.Component {
               </TabPane>
               <TabPane tab={<span><BookOutlined style={{fontSize:"16px"}} />آگهی‌های نشان‌شده</span>} key="5">
                   <Bookmark_packet />
-              </TabPane>
-              <TabPane tab="پیشنهادهای من" key="6">
-                <UserOffer />
               </TabPane>
               <TabPane key="7" tab={ <span><MailOutlined style={{fontSize:"16px"}}/> صندوق پیام</span>}>
                 <InboxLayout />

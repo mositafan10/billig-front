@@ -64,7 +64,7 @@ class SendMessage extends React.Component {
     render(){
         return(
             <div>
-            <Button onClick={this.show_modal} style={{fontSize:"12px", backgroundColor:"white", color:"black", borderRadius:"10px"}}>پیام به کاربر</Button>
+            <Button onClick={this.show_modal} style={{fontSize:"12px", backgroundColor:"white", color:"black", borderRadius:"10px"}}>چت</Button>
             <Modal
                 visible={this.state.messageModal}
                 title=" ارسال پیام"

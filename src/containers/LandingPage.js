@@ -69,31 +69,40 @@ class LandingPage extends React.Component {
                     <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
                     <img
                         src = {main_banner}
-                        width={1000}
+                        style={{width:"100%", height:"auto"}}
                         />
                     </Col>
-                    {/* <Col xs={24} sm={24} md={24} lg={24} xl={0} xxl={0}>
-                    <img
-                        src = {main_banner}
-                        width={600}
-                        />
-                    </Col> */}
                     <Col style={style_text} xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
                         <Row>
-                            <Row style={{display:"contents"}} >
-                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                            <Row>
+                                <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24} style={{padding:"0 100px"}}>
                                 {/* <Divider plain orientation="center"> */}
-                                    <h1 style={{fontSize:30}}><span style={{color:'#46a0ae'}}> هر چیزی</span> در<span style={{color:'#46a0ae'}}>  هر جایی</span> در دسترس شماست</h1>
+                                    <h1 style={{fontSize:33, textAlign:"right"}}>از هر جا می‌خوای<span style={{color:'#46a0ae'}}> خرید</span> کن<br/>به هر جا می‌خوای<span style={{color:'#46a0ae'}}> سفر</span> کن</h1>
+                                    {/* </Divider> */}
+                                </Col>
+                                <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0} style={{textAlign:"center"}}>
+                                {/* <Divider plain orientation="center"> */}
+                                <Divider />
+                                <h1 style={{fontSize:20}}>از هر جا می‌خوای<span style={{color:'#46a0ae'}}> خرید</span> کن<br/>به هر جا می‌خوای<span style={{color:'#46a0ae'}}> سفر</span> کن</h1>
                                     {/* </Divider> */}
                                 </Col>
                             </Row>
-                            <Row style={{display:"contents"}}>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                    <h3>با بیلیگ پست می‌توانید از هر فروشگاهی در دنیا به وسیله مسافران خرید نمایید</h3>
+                            <br/>
+                            <Row >
+                                <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0} >
+                                    <h3 style={{fontSize:"14px",textAlign:"right"}}>بیلیگ مسافرانی که فضای اضافی در چمدان دارند رو به کسانی که به خرید و یا پست از خارج از کشور دارند متصل می‌کند</h3>
+                                </Col>
+                                <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24} style={{padding:"0 100px"}}>
+                                    <h3 style={{fontSize:"18px",textAlign:"right"}}>بیلیگ مسافرانی که فضای اضافی در چمدان دارند رو به کسانی که به خرید و یا پست از خارج از کشور دارند متصل می‌کند.   </h3>
                                 </Col>
                             </Row>
-                            <Row style={{display:"contents"}}>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                            <Row >
+                                <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0} >
+                                <Divider plain orientation="center">
+                                    <Link><span>بیلیگ‌پست چگونه کار می‌کند؟</span></Link>
+                                    </Divider>
+                                </Col>
+                                <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24} style={{padding:"0 85px"}}>
                                 <Divider plain orientation="center">
                                     <Link>بیلیگ‌پست چگونه کار می‌کند؟</Link>
                                     </Divider>
@@ -102,7 +111,6 @@ class LandingPage extends React.Component {
                         </Row>
                     </Col>
                 </Row>
-                <br/>
                 <Row >
                     <Divider><h1 style={{display:"flex", justifyContent:"center", fontSize:"25px", fontFamily:"IRANSans"}}>آخرین آگهی‌ها</h1></Divider>
                     <br/>

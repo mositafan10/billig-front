@@ -21,15 +21,15 @@ class PacketUserList extends React.Component {
         dataIndex: 'title', 
         key: 'title',
         align:"right",
-        width:20
+        render : (dataIndex, row) => <Link to={"packet/" + row.slug}>{dataIndex}</Link>
       },
-      // { 
-      //   title: ' قیمت (تومان)',
-      //   dataIndex: 'suggested_price',
-      //   key: 'suggested_price',
-      //   align:"center",
-      //   width:150,
-      // },
+      { 
+        title: ' قیمت (تومان)',
+        dataIndex: 'suggested_price',
+        key: 'suggested_price',
+        align:"center",
+        width:150,
+      },
       { 
         title: 'وضعیت',
         dataIndex: 'status',
@@ -38,13 +38,13 @@ class PacketUserList extends React.Component {
         align:"center",
         render: (dataIndex) => <span style={{fontSize:"12px"}}>{dataIndex}</span>,
       },
-      // { 
-      //   title: 'پیشنهاد',
-      //   dataIndex: 'offer_count',
-      //   key: 'offer_count',
-      //   width:50,
-      //   align:"center",
-      // },
+      { 
+        title: 'پیشنهاد',
+        dataIndex: 'offer_count',
+        key: 'offer_count',
+        width:50,
+        align:"center",
+      },
       {
         title: '',
         dataIndex: 'slug',
@@ -110,17 +110,18 @@ class PacketUserList extends React.Component {
     callbackFunction = () => {
       this.componentDidMount()
     }
+    
     render (){
     return (
         <div>
-          {/* <Table
+          <Table
           scroll={{ x: 900 }} 
           style={{padding:"30px 30px 30px 30px"}}
           columns={this.columns}
           dataSource={this.state.packet_user}
           locale={{emptyText:"آگهی وجود ندارد"}}
-          /> */}
-            <List
+          />
+            {/* <List
               itemLayout="vertical"
               size="large"
               dataSource={this.state.packet_user}
@@ -153,7 +154,7 @@ class PacketUserList extends React.Component {
                   {item.content}
                 </List.Item>
               )}
-            />
+            /> */}
         </div>
       );
     }

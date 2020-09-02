@@ -60,7 +60,6 @@ export const authLogin = (phone_number, password, otp) => {
             dispatch(authSuccess(token,user));
             dispatch(checkAuthTimeout(3600));
             window.location = '/';
-
         })
         .catch(error => {
             console.log(error);

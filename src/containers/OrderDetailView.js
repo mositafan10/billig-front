@@ -62,7 +62,7 @@ class OrderDetail extends React.Component {
                             </Row>
                             <hr style={{color:"aliceblue"}}/>
                             <Row style={style_right}>
-                                <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14}>
                                     <h4>آگهی دهنده</h4>
                                 </Col>
                                 <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
@@ -72,32 +72,32 @@ class OrderDetail extends React.Component {
                             <hr style={{color:"aliceblue"}}/>
                             {this.state.order.buy ?
                                 <div>
-                                <Row style={style_right}>
-                                    <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14}>
-                                        <h4>قابلیت خریداری</h4>
-                                    </Col>
-                                    <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                        دارد
-                                    </Col>
-                                </Row>
-                                <hr style={{color:"aliceblue"}}/>
-                                <Row style={style_right}>
-                                    <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
-                                        <h4>قیمت کالا</h4>
-                                    </Col>
-                                    <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                    <span style={{marginLeft:"5px"}}> ۱/۰۰۰/۰۰۰ </span><span> تومان </span>  
-                                    </Col>
-                                </Row> 
-                                <hr style={{color:"aliceblue"}}/>
-                                <Row style={style_right}>
-                                    <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14}>
-                                        <h4>لینک خرید</h4>
-                                    </Col>
-                                    <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
-                                        <a href='https://www.amazon.com'>www.amazon.com</a>
-                                    </Col>
-                                </Row> 
+                                    <Row style={style_right}>
+                                        <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                            <h4>قابلیت خریداری</h4>
+                                        </Col>
+                                        <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                            دارد
+                                        </Col>
+                                    </Row>
+                                    <hr style={{color:"aliceblue"}}/>
+                                    <Row style={style_right}>
+                                        <Col style={{display:"flex", justifyContent:"right"}} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                            <h4>قیمت کالا</h4>
+                                        </Col>
+                                        <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                        <span style={{marginLeft:"5px"}}> ۱/۰۰۰/۰۰۰ </span><span> تومان </span>  
+                                        </Col>
+                                    </Row> 
+                                    <hr style={{color:"aliceblue"}}/>
+                                    <Row style={style_right}>
+                                        <Col style={style_right} xs={14} sm={14} md={14} lg={14} xl={14}>
+                                            <h4>لینک خرید</h4>
+                                        </Col>
+                                        <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                                            <a href='https://www.amazon.com'>www.amazon.com</a>
+                                        </Col>
+                                    </Row> 
                                 </div>
                             :
                                 <Row style={style_right}>

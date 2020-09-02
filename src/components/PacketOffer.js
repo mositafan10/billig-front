@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { List, Avatar, Button, Popconfirm, Table, message } from 'antd';
+import { Button, Popconfirm, Table, message, Tooltip } from 'antd';
 import Axios from 'axios';
 import OfferDetailView from '../components/OfferDetailView';
 import SendMessage from './SendMessage';
@@ -41,59 +41,92 @@ class PacketOffer extends React.Component {
       key: 'offer_count',
       align:"center"
     },
+    // { 
+    //   title: '',
+    //   dataIndex: 'slug',
+    //   key: '',
+    //   align:"center",
+    //   render: () => <Button>چت</Button>
+    // },
     {
       title: '',
       dataIndex: 'sender_id',
       data: 'slug',
       key: 'sender_id',
+      align:"center",
       width:30,
-      render: (dataIndex, data) => <SendMessage data={dataIndex} slug={data} />
+    render: (dataIndex, row, data) => { if(row.status == "عدم تایید") { return <Tooltip title="شما این پیشنهاد را رد کرده‌اید"><Button disabled={true} style={{fontSize:"12px", border:"hidden", borderRadius:"10px", color: "transparent", textShadow:"0 0 5px rgba(0,0,0,0.5)"}}><b>چت</b></Button></Tooltip> }
+                                      else if (row.status == "تایید") {return <Popconfirm  onConfirm={this.cancle.bind(this, row.slug, row.packet_slug)} title="از بازگشت پیشنهاد مطمئن هستید؟" okText="بله" cancelText="خیر"><Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>انصراف</Button></Popconfirm>}
+                                      else { return <SendMessage data={dataIndex} slug={data} /> }}
     },
     {
       title: '',
       dataIndex: '',
       key: 'x',
       width:20,
-      render: (dataIndex) => <Button onClick={this.accept.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", backgroundColor:"green", color:"white", borderRadius:"10px"}}><a>قبول</a></Button>,
+      align:"center",
+      render: (dataIndex, row) => { if(row.status == "عدم تایید") {return <Tooltip title="شما این پیشنهاد را رد کرده‌اید"><Button disabled={true} onClick={this.accept.bind(this, dataIndex, row.packet_slug)} style={{fontSize:"12px", border:"hidden", backgroundColor:"green", borderRadius:"10px", color: "transparent", textShadow:"0 0 5px rgba(0,0,0,0.5)"}}><b>قبول</b></Button></Tooltip>} 
+                                    else if (row.status == "نهایی‌کردن مبلغ") {return <Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>در انتظار تایید مبلغ توسط مسافر</Button>}
+                                    else if (row.status == "تایید مبلغ") {return <Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>تایید و پرداخت</Button>}
+                                    else { return <Popconfirm  onConfirm={this.accept.bind(this, dataIndex, row.packet_slug)} title=" از قبول پیشنهاد مطمئن هستید؟ در صورت قبول پیشنهاد، دیگر پیشنهاد‌ها غیرفعال خواهند شد" okText="بله" cancelText="خیر"><Button style={{fontSize:"12px", border:"hidden", backgroundColor:"green", color:"white", borderRadius:"10px"}}><b>قبول</b></Button></Popconfirm>}}
     },
-    {
-      title: '',
-      dataIndex: '',
-      key: 'y',
-      width:20,
-      render: (dataIndex) => <Button onClick={this.reject.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", backgroundColor:"red", color:"white", borderRadius:"10px"}}><b>رد</b></Button>,
-    },
+    // {
+    //   title: '',
+    //   dataIndex: '',
+    //   key: 'y',
+    //   width:20,
+    //   render: (dataIndex, row) => { if(row.status == "عدم تایید") { return <Tooltip title="شما این پیشنهاد را رد کرده‌اید"><Button disabled={true} onClick={this.reject.bind(this, dataIndex, row.packet_slug)} style={{fontSize:"12px", border:"hidden", backgroundColor:"red", borderRadius:"10px", color: "transparent", textShadow:"0 0 5px rgba(0,0,0,0.5)"}}><b>رد</b></Button></Tooltip>}
+    //                                 else if (row.status == "تایید") {return <Popconfirm  onConfirm={this.reject.bind(this, dataIndex, row.packet_slug)} title="از حذف پیشنهاد مطمئن هستید؟" okText="بله" cancelText="خیر"><Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>انصراف</Button></Popconfirm>}
+    //                                 else { return <Popconfirm  onConfirm={this.reject.bind(this, dataIndex, row.packet_slug)} title="از حذف پیشنهاد مطمئن هستید؟" okText="بله" cancelText="خیر"><Button style={{fontSize:"12px", border:"hidden", backgroundColor:"red", color:"white", borderRadius:"10px"}}><b>رد</b></Button></Popconfirm> }}
+    // },
   ];
 
-  accept(dataIndex){
+  accept(dataIndex, slug){
     const token = localStorage.getItem('token');
     const current_packet = this.state.packet_offer;
     Axios.put(`http://127.0.0.1:8000/api/v1/advertise/offer/`,
         {
           type: "ACCEPT",
-          slug: dataIndex.slug
+          slug: dataIndex.slug,
+          packet: slug
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
             message.success("شما پیشنهادی را قبول کرده‌اید. الان برو پرداخت کن")
-            console.log(dataIndex.slug);  
             this.componentDidMount(); //: i dont know this is the 
         })
         .catch(error => console.error(error));
   }
 
-  reject(dataIndex){
+  reject(dataIndex, slug){
     const token = localStorage.getItem('token');
     const current_packet = this.state.packet_offer;
     Axios.put(`http://127.0.0.1:8000/api/v1/advertise/offer/`,
         {
           type: "REJECT",
-          slug: dataIndex.slug
+          slug: dataIndex.slug,
+          packet: slug
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
             message.success("پیشنهاد توسط شما لغو شد")
-            console.log(dataIndex.slug);
+            this.componentDidMount();
+        })
+        .catch(error => console.error(error));
+  }
+
+  cancle(slug, packet_slug){
+    const token = localStorage.getItem('token');
+    const current_packet = this.state.packet_offer;
+    Axios.put(`http://127.0.0.1:8000/api/v1/advertise/offer/`,
+        {
+          type: "CANCLE",
+          slug: slug,
+          packet: packet_slug
+        },
+        { headers: {"Authorization" : `Bearer ${token}`} })
+        .then(res => {
+            message.success("پیشنهاد توسط شما لغو شد")
             this.componentDidMount();
         })
         .catch(error => console.error(error));

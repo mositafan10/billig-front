@@ -3,6 +3,7 @@ import { Modal, Button, Form, Input, message, Select } from 'antd';
 import Axios from 'axios';
 import TextArea from 'antd/lib/input/TextArea';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const { Option } = Select;
 
@@ -82,7 +83,6 @@ class OfferDetail extends React.Component {
                   okButtonProps={{form:'offering', key: 'submit', htmlType: 'submit'}}
                   visible={this.state.visible}
                   >
-                  
                   { token ? 
                   <div>
                   <br/><br/>
@@ -105,7 +105,7 @@ class OfferDetail extends React.Component {
                       ]}>
                       <Select style={{textAlign:"right", borderRadius:"10px"}}>
                       {this.state.travellist.map((e, key) => {
-                                return <option key={key} value={e.slug}>{e.destination} به {e.departure} در {e.flight_date_start} </option>;})}
+                                return <option key={key} value={e.slug}>{e.destination.name} به {e.departure.name} در {moment(e.flight_date_start).format('MMM Do YYYY')} </option>;})}
                       </Select>
                     </Form.Item>
                     <br/>

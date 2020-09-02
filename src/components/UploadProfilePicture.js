@@ -75,12 +75,11 @@ handleChange = info => {
       return;
     }
     if (info.file.status === 'done') {
-        console.log(info.file);
         this.setState({
           imageUrl: info.file.response,
           loading: false,
         });
-
+        this.props.update();
     }
 };
 
@@ -106,6 +105,7 @@ render() {
                     headers={{"Authorization":`Bearer ${token}`}}
                     beforeUpload={beforeUpload}
                     onChange={this.handleChange}
+                    
                 >
                 {this.props.data ? <img src = {`http://127.0.0.1/dstatic/${this.props.data}`} alt="avatar" width={300} style={{borderRadius:"15px"}} /> : "بارگذاری تصویر"}
                 </Upload>

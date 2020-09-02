@@ -14,7 +14,6 @@ class PacketForEdit extends Component {
         city_destination_dis: true,
         pic_id : [],
         buy: false,
-        packet: {},
     }
 
     PacketCategory = [

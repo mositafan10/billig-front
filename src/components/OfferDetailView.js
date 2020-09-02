@@ -31,7 +31,6 @@ class OfferDetailView extends React.Component {
                 onCancel={this.onCancel}
                 title="جزئیات"
                 >
-                
                 </Modal>
             </div>
         )
