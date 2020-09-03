@@ -1,8 +1,6 @@
 import React from 'react';
-import { Layout, Menu, Row, Col, Button, Dropdown } from 'antd';
-import { Link, withRouter, Redirect} from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as actions from '../store/actions/auth';
+import { Layout, Row, Col } from 'antd';
+import { Redirect } from 'react-router-dom';
 import FooterSection from './FooterSection';
 import HeaderSection from './HeaderSection';
 
@@ -51,14 +49,6 @@ class CustomLayout extends React.Component {
     );
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//       logout: () => dispatch(actions.logout())
-//   }
-// }
-
-// export default withRouter(connect(null, mapDispatchToProps)(CustomLayout));
 
 export default CustomLayout;
 

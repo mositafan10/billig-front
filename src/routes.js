@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route , Switch } from 'react-router-dom';
+import { Route , Switch, Redirect } from 'react-router-dom';
 import OrderList from './containers/OrdersListView';
 import OrderDetail from './containers/OrderDetailView';
 import Profile from './containers/ProfileLayout';
@@ -19,9 +19,12 @@ class BaseRouter extends React.Component {
     return(
         <Switch>
             <Route exact path='/' render={(props) => <LandingPage/>} />
+            <Redirect from='/home' to='/'/>
             <Route exact path='/orders' render={(props) => <OrderList/> }/>
             <Route exact path='/profile' render={(props) =>
                 this.props.isAuthenticated ? <Profile {...this.props}/>:<AuthorizationFail {...this.props}/>}/>
+            <Route exact path='/profile/2' render={(props) =>
+                this.props.isAuthenticated ? <Profile tab="2" {...this.props}/>:<AuthorizationFail {...this.props}/>}/>
             <Route exact path='/login' render={(props) => <Login {...this.props}/> }/>
             <Route exact path='/signup' render={(props) => <Signup {...this.props}/> }/>
             <Route exact path='/createpacket' render={(props) =>

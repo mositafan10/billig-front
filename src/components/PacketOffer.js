@@ -55,9 +55,9 @@ class PacketOffer extends React.Component {
       key: 'sender_id',
       align:"center",
       width:30,
-    render: (dataIndex, row, data) => { if(row.status == "عدم تایید") { return <Tooltip title="شما این پیشنهاد را رد کرده‌اید"><Button disabled={true} style={{fontSize:"12px", border:"hidden", borderRadius:"10px", color: "transparent", textShadow:"0 0 5px rgba(0,0,0,0.5)"}}><b>چت</b></Button></Tooltip> }
+    render: (dataIndex, row) => { if(row.status == "عدم تایید") { return <Tooltip title="شما این پیشنهاد را رد کرده‌اید"><Button disabled={true} style={{fontSize:"12px", border:"hidden", borderRadius:"10px", color: "transparent", textShadow:"0 0 5px rgba(0,0,0,0.5)"}}><b>چت</b></Button></Tooltip> }
                                       else if (row.status == "تایید") {return <Popconfirm  onConfirm={this.cancle.bind(this, row.slug, row.packet_slug)} title="از بازگشت پیشنهاد مطمئن هستید؟" okText="بله" cancelText="خیر"><Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>انصراف</Button></Popconfirm>}
-                                      else { return <SendMessage data={dataIndex} slug={data} /> }}
+                                      else { return <SendMessage data={dataIndex} slug={row.slug} /> }}
     },
     {
       title: '',

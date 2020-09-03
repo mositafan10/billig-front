@@ -66,13 +66,13 @@ class PacketUserList extends React.Component {
         width:10,
         render: (dataIndex) => 
           <Popconfirm
-            title="آیا از حذف آگهی مطمئن هستید ؟"
-            onConfirm={this.delete.bind(this,dataIndex)}
-            onCancel={this.cancel}
-            okText="بله"
-            cancelText="خیر"
-            >
-            <a href="#">حذف</a>
+              title="آیا از حذف آگهی مطمئن هستید ؟"
+              onConfirm={this.delete.bind(this,dataIndex)}
+              onCancel={this.cancel}
+              okText="بله"
+              cancelText="خیر"
+              >
+              <a href="#">حذف</a>
           </Popconfirm> ,
       },
     ];
@@ -102,7 +102,6 @@ class PacketUserList extends React.Component {
               this.setState({
                 packet_user: current_packet.filter(packet_user => packet_user.slug !== slug),
               });
-              console.log(res.data);  
           })
           .catch(error => console.error(error));
     }

@@ -12,6 +12,7 @@ class InboxLayout extends React.Component {
         avatar2 : "",
     }
 
+
     callbackFunction = (chatid, offer, avatar1, avatar2, sender, receiver) => {
         this.setState({
             chatid: chatid,

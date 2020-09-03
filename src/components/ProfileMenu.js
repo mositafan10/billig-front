@@ -9,6 +9,7 @@ import ChangePassword from './ChangePassword';
 import { Tabs, Row, Col } from 'antd';
 import { BookOutlined, DollarOutlined, MailOutlined, } from '@ant-design/icons';
 import TravelProfile from '../containers/TravelProfile';
+import { Link, Route } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
@@ -17,6 +18,7 @@ class ProfileMenu extends React.Component {
   state = {
     visible: true,
   }
+
 
   showDrawer = () => {
     this.setState({
@@ -41,11 +43,11 @@ class ProfileMenu extends React.Component {
               <TabPane style={{textAlign:"left"}} tab=" آگهی‌های من" key="1">
                 <PacketUserList />
               </TabPane>
-              <TabPane tab=" سفرهای من" key="2" >
-                <TravelProfile />
-              </TabPane>
+                <TabPane tab=" سفرهای من" key="2" >
+                  <TravelProfile />
+                </TabPane>
               <TabPane tab="پیشنهادهای من" key="6">
-                <UserOffer />
+                <Route path='/profile/3' render={(props) => <UserOffer/> }></Route>
               </TabPane>
               <TabPane tab="نظرات دیگران" key="3">
                 نظرات

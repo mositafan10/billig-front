@@ -11,25 +11,21 @@ class SendMessage extends React.Component {
     }
 
     show_modal = () => {
-        // create a chat conversation :
         const token = localStorage.getItem('token');
         const receiver = this.props.data;
         Axios.post(`http://127.0.0.1:8000/api/v1/chat/conversation/`,
         {
           receiver : receiver,
-          offer: this.props.slug.slug,
+          offer: this.props.slug,
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
             this.setState({
-                chatID: res.data.id
+                chatID: res.data.id,
+                messageModal: true
             });
-            console.log(res.data.id); 
         })
         .catch(error => console.error(error));
-        this.setState({
-            messageModal: true
-        })
     }
 
     handleCancel = () => {
@@ -37,10 +33,6 @@ class SendMessage extends React.Component {
             messageModal: false,
         });
     };
-
-    componentDidMount(){
-
-    }
 
     handleOk = (values) => {
         const token = localStorage.getItem('token');

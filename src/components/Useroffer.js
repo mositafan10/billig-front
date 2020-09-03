@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { Table, Button } from 'antd';
+import { Table, Button, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom';
 import ConfirmPrice from './ConfirmPrice';
 
@@ -52,7 +52,40 @@ class UserOffer extends React.Component {
         align:"center",
         render: (dataIndex, row) => {if( row.status == "نهایی‌کردن مبلغ"){ return <ConfirmPrice data={dataIndex} />}},
       },
+      { 
+        title: ' ',
+        dataIndex: 'slug',
+        key: '',
+        align:"center",
+        render: (dataIndex) => 
+          <Popconfirm
+            title="آیا از حذف آگهی مطمئن هستید ؟"
+            onConfirm={this.delete.bind(this, dataIndex)}
+            onCancel={this.cancel}
+            okText="بله"
+            cancelText="خیر"
+            >
+            <a href="#">حذف</a>
+          </Popconfirm> ,
+      },
     ];
+
+    delete = (slug) => {
+      const token = localStorage.getItem('token');
+      const current_offer = this.state.offer;
+      Axios.delete(`http://127.0.0.1:8000/api/v1/advertise/offer/delete/${slug}`,
+      { 
+        headers: {"Authorization" : `Bearer ${token}`}
+      }
+      )
+      .then(res => {
+        this.setState({
+          offer: current_offer.filter(offer => offer.slug !== slug),
+        });
+        console.log(res.data);  
+      })
+        .catch(error => console.error(error));
+    }
 
     componentDidMount(){
         const token = localStorage.getItem('token');
