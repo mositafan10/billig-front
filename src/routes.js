@@ -12,6 +12,7 @@ import PackForm from './components/PacketForm';
 import ChatwithWebsocket from './components/ChatwithWebsocket';
 import PageNotFound from './components/PageNotFound';
 import AuthorizationFail from './components/AuthorizationFail';
+import LoadingIPG from './components/payment/LoadingIPG';
 
 
 class BaseRouter extends React.Component {
@@ -33,6 +34,7 @@ class BaseRouter extends React.Component {
             <Route exact path='/users/:userID' component={UserProfile} />
             <Route exact path='/chat/test' component={ChatwithWebsocket} />
             <Route exact path='/packet/:orderID' component={OrderDetail} />
+            <Route exact path='/ipgloading' component={LoadingIPG} />
             <Route component={PageNotFound  } />
         </Switch>
         );

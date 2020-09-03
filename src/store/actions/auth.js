@@ -45,7 +45,7 @@ export const checkAuthTimeout = expirationTime => {
 export const authLogin = (phone_number, password, otp) => {
     return dispatch => {
         dispatch(authStart());
-        Axios.post('http://127.0.0.1:8000/api/v1/account/login/', {
+        Axios.post('http://193.141.64.9/api/v1/account/login/', {
             phone_number: phone_number,
             password: password,
             otp: otp

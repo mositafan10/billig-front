@@ -47,7 +47,7 @@ class ProfileMenu extends React.Component {
                   <TravelProfile />
                 </TabPane>
               <TabPane tab="پیشنهادهای من" key="6">
-                <Route path='/profile/3' render={(props) => <UserOffer/> }></Route>
+                <UserOffer/>
               </TabPane>
               <TabPane tab="نظرات دیگران" key="3">
                 نظرات
