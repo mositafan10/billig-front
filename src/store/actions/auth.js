@@ -1,6 +1,11 @@
-import * as actionTypes from './actionTypes';
-import Axios from 'axios';
-import { message } from 'antd';
+import * as actionTypes from './actionTypes'
+import Axios from 'axios'
+import { message } from 'antd'
+import { config } from '../../Constant'
+
+var url = config.url.API_URL
+// const url = "http://193.141.64.9/"
+// const url = "http://127.0.0.1:8000/"
 
 export const authStart = () => {
     return {
@@ -27,7 +32,7 @@ export const logout = () => {
     const token = localStorage.getItem('token');
     localStorage.removeItem('token'); 
     localStorage.removeItem('expirationDate'); 
-    Axios.get('http://127.0.0.1:8000/api/v1/account/logout/', 
+    Axios.get(`${url}/api/v1/account/logout/`, 
     { headers: {"Authorization" : `Bearer ${token}`} }) 
     return {
         type: actionTypes.AUTH_LOGOUT
@@ -42,13 +47,14 @@ export const checkAuthTimeout = expirationTime => {
     }
 }
 
-export const authLogin = (phone_number, password, otp) => {
+export const authLogin = (phone_number, password, otp, name) => {
     return dispatch => {
         dispatch(authStart());
-        Axios.post('http://193.141.64.9/api/v1/account/login/', {
+        Axios.post(`${url}api/v1/account/login/`, {
             phone_number: phone_number,
             password: password,
-            otp: otp
+            otp: otp,
+            name: name
         })  
         .then(res => {
             const token = res.data.token;
@@ -70,19 +76,17 @@ export const authLogin = (phone_number, password, otp) => {
     }
 } 
 
-export const authSignup = (phone_number, password) => {
+export const authSignup = (phone_number, password, name) => {
     return dispatch => {
         dispatch(authStart());
-        Axios.post('http://127.0.0.1:8000/api/v1/account/signup/', {
+        Axios.post(`${url}api/v1/account/signup/`, {
             phone_number: phone_number,
-            password: password
+            password: password,
+            name: name
         })
         .then(res => {
-            // const token = res.data.token;
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-            // localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);
-            // dispatch(authSuccess(token));
             dispatch(checkAuthTimeout(3600));
         })
         .catch(error => {
@@ -90,7 +94,7 @@ export const authSignup = (phone_number, password) => {
             message.loading("... صبر کنید",0.5)
             .then(() => message.error(
                 {
-                    content:error.response.data.detail,
+                    content: error.response ? error.response.data.detail : "" ,  
                     duration:'4'
                 }
               ))

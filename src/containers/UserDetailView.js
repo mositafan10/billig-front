@@ -3,6 +3,9 @@ import Axios from 'axios';
 import { Card , Tabs, Rate } from 'antd';
 import CommentUser from '../components/Comment';
 
+const root_url = "http://193.141.64.9/"
+
+
 // import PacketOffer from '../components/PacketOffer';
 // import FriendRequest from '../components/FriendRequest';
 
@@ -16,7 +19,7 @@ class UserProfile extends React.Component {
     
     componentDidMount(){
         const userID = this.props.match.params.userID;
-        Axios.get(`http://127.0.0.1:8000/api/v1/account/users/profile/${userID}`, )
+        Axios.get(`${root_url}api/v1/account/users/profile/${userID}`, )
             .then(res => {
                 this.setState({
                     user_profile: res.data
@@ -30,7 +33,7 @@ class UserProfile extends React.Component {
                     <img
                         width={300}
                         // alt="profile pic"
-                        src = {`http://127.0.0.1/dstatic/${this.state.user_profile.picture}`}
+                        src = {`${root_url}dstatic/${this.state.user_profile.picture}`}
                     /><br/>
                 <Card bordered={false}>
                     <h3>{this.state.user_profile.name}</h3>

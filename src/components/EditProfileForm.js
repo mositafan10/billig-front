@@ -83,7 +83,7 @@ class EditProfileForm extends React.Component {
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={11} xxl={11}>
                             <Divider plain orientation="center"> نام</Divider>
                             <Form.Item name="first_name">
@@ -97,7 +97,7 @@ class EditProfileForm extends React.Component {
                                 <Input defaultValue={this.props.data.picture} style={{borderRadius:"8px"}} />
                             </Form.Item>
                         </Col>
-                    </Row>
+                    </Row> */}
                     <Row>
                         <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}></Col>
                         <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}>

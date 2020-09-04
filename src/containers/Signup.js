@@ -11,14 +11,16 @@ class SignUpForm extends React.Component {
     visible: false,
     password: "",
     phone_number: "",
+    name: "",
     toDashboard: false
     };
 
   onFinish = values => {
-    this.props.onAuth(values.phone_number, values.password)
+    this.props.onAuth(values.phone_number, values.password, values.name)
     this.setState({
       password: values.password,
-      phone_number: values.phone_number
+      phone_number: values.phone_number,
+      name: values.name
     })
     {this.showModal()}  
   };
@@ -35,17 +37,14 @@ class SignUpForm extends React.Component {
       otp: values.otp,
       toDashboard: true,
     });
-
-    const password = this.state.password;
-    const phone_number = this.state.phone_number;
-    const otp = this.state.otp;
-    this.props.onAuth1(phone_number, password, otp)
-    console.log("error:", this.props.error)
-    
+    const password = this.state.password
+    const phone_number = this.state.phone_number
+    const name = this.state.name
+    const otp = this.state.otp
+    this.props.onAuth1(phone_number, password, otp, name)
   };
 
   handleCancel = e => {
-    console.log(e);
     this.setState({
       visible: false,
     });
@@ -64,9 +63,21 @@ class SignUpForm extends React.Component {
         <h3 style={{textAlign:"center"}}>ایجاد حساب کاربری</h3><br/>
         <Form.Item
         style={{alignItems:"center", textAlign:"center"}}
+        name="name"
+        label="نام‌ و نام ‌خانوادگی"
+        rules={[
+          {
+            required: true,
+            message: '.نام خود را وارد کنید',
+          },
+        ]}
+      >
+        <Input style={{width: '100%', borderRadius:"10px"}}/>
+      </Form.Item>
+      <Form.Item
+        style={{alignItems:"center", textAlign:"center"}}
         name="phone_number"
         label="شماره موبایل"
-
         rules={[
           {
             required: true,
@@ -164,8 +175,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
   
     return {
-        onAuth: (phone_number, password) => dispatch(actions.authSignup(phone_number, password)),
-        onAuth1: (phone_number, password, otp) => dispatch(actions.authLogin(phone_number, password, otp))
+        onAuth: (phone_number, password, name) => dispatch(actions.authSignup(phone_number, password, name)),
+        onAuth1: (phone_number, password, otp, name) => dispatch(actions.authLogin(phone_number, password, otp, name))
     }
 }
 
