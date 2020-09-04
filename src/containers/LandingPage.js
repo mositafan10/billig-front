@@ -3,9 +3,11 @@ import Axios from 'axios';
 import { Row, Col, Divider, Button, Card, Space } from 'antd';
 import { Link } from 'react-router-dom';
 import bag from '../media/Icon/022-bag.svg';
-
-import Orders from '../components/Orders';
+import Orders from '../components/packet/Orders';
 import main_banner from '../media/main_banner.svg';
+import { config } from '../Constant';
+
+var url = config.url.API_URL
 const { Meta } = Card;
 const style = {
     alignItems:"center",
@@ -15,23 +17,17 @@ const style = {
     borderRadius:"30px",
     height:"300px"
 }
-
 const style_text = {
     alignContent:"center",
     textAlign:"center",
     display:"flex",
     alignItems:"center",
-    // paddingRight: 200
-    // width:"100px",
-    // paddingRight:"200px"
 }
-
 const style_center = {
     display:"flex",
     justifyContent:"center",
     color:"black",
 }
-
 const card_style = {
     borderRadius:"20px 10px 20px 10px",
     border:"solid",
@@ -40,7 +36,6 @@ const card_style = {
     padding:"20px 20px 20px 20px",
     backgroundColor:"white"
 }
-
 const style_icon = {width:"50px", display:"inline"}
 
 
@@ -50,10 +45,8 @@ class LandingPage extends React.Component {
         orders : []
     }
 
-
-
     componentDidMount(){
-        Axios.get('http://127.0.0.1:8000/api/v1/advertise/packet/')
+        Axios.get(`${url}api/v1/advertise/packet/`)
             .then(res => {
                 this.setState({
                     orders: res.data
@@ -76,15 +69,11 @@ class LandingPage extends React.Component {
                         <Row>
                             <Row>
                                 <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24} style={{padding:"0 100px"}}>
-                                {/* <Divider plain orientation="center"> */}
                                     <h1 style={{fontSize:33, textAlign:"right"}}>از هر جا می‌خوای<span style={{color:'#46a0ae'}}> خرید</span> کن<br/>به هر جا می‌خوای<span style={{color:'#46a0ae'}}> سفر</span> کن</h1>
-                                    {/* </Divider> */}
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0} style={{textAlign:"center"}}>
-                                {/* <Divider plain orientation="center"> */}
                                 <Divider />
                                 <h1 style={{fontSize:20}}>از هر جا می‌خوای<span style={{color:'#46a0ae'}}> خرید</span> کن<br/>به هر جا می‌خوای<span style={{color:'#46a0ae'}}> سفر</span> کن</h1>
-                                    {/* </Divider> */}
                                 </Col>
                             </Row>
                             <br/>
@@ -136,7 +125,6 @@ class LandingPage extends React.Component {
                             style={{backgroundColor:"aliceblue"}}
                             bordered={false}
                             cover={<img alt="example" src={bag} style={style_icon} />}
-                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
                             >
                             <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
                             <Meta  
@@ -154,7 +142,6 @@ class LandingPage extends React.Component {
                             style={{backgroundColor:"aliceblue"}}
                             bordered={false}
                             cover={<img alt="example" src={bag} style={style_icon} />}
-                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
                             >
                             <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
                             <Meta  
@@ -172,7 +159,6 @@ class LandingPage extends React.Component {
                             style={{backgroundColor:"aliceblue"}}
                             bordered={false}
                             cover={<img alt="example" src={bag} style={style_icon} />}
-                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
                             >
                             <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
                             <Meta  
@@ -196,7 +182,6 @@ class LandingPage extends React.Component {
                             style={{backgroundColor:"aliceblue"}}
                             bordered={false}
                             cover={<img alt="example" src={bag} style={style_icon} />}
-                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
                             >
                             <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
                             <Meta  
@@ -214,7 +199,6 @@ class LandingPage extends React.Component {
                             style={{backgroundColor:"aliceblue"}}
                             bordered={false}
                             cover={<img alt="example" src={bag} style={style_icon} />}
-                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
                             >
                             <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
                             <Meta  
@@ -232,7 +216,6 @@ class LandingPage extends React.Component {
                             style={{backgroundColor:"aliceblue"}}
                             bordered={false}
                             cover={<img alt="example" src={bag} style={style_icon} />}
-                            // title="خرید کالاهای خاص و غیر قابل دسترس" 
                             >
                             <h3 style={{paddingBottom:"5px"}}>خرید کالاهای خاص و غیر قابل دسترس</h3>
                             <Meta  

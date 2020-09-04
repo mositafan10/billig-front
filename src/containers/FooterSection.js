@@ -26,7 +26,6 @@ class FooterSection extends Component {
                 <p>قوانین و مقررات</p>
                 </Col>
                 <Col xs={24} sm={16} md={8} lg={8} xl={4} >
-                {/* <Divider plain orientation="right"><b>بیلیگ</b></Divider> */}
                 <h4><b>بیلیگ</b></h4><hr width="150" style={{float:"right"}}/><br/>
                 <p>درباره بیلیگ</p>
                 <p>شبکه جامع اطلاعات سفر</p>

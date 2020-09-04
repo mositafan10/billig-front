@@ -4,8 +4,6 @@ import { message } from 'antd'
 import { config } from '../../Constant'
 
 var url = config.url.API_URL
-// const url = "http://193.141.64.9/"
-// const url = "http://127.0.0.1:8000/"
 
 export const authStart = () => {
     return {
@@ -32,7 +30,7 @@ export const logout = () => {
     const token = localStorage.getItem('token');
     localStorage.removeItem('token'); 
     localStorage.removeItem('expirationDate'); 
-    Axios.get(`${url}/api/v1/account/logout/`, 
+    Axios.get(`${url}api/v1/account/logout/`, 
     { headers: {"Authorization" : `Bearer ${token}`} }) 
     return {
         type: actionTypes.AUTH_LOGOUT

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Form, Input, Button, Spin, Modal, message } from 'antd';
+import { Form, Input, Button, Spin } from 'antd';
 import  { LoadingOutlined } from '@ant-design/icons';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth';
-import ResetPassword from '../components/ResetPassword';
+import ResetPassword from '../components/profile/ResetPassword';
 const antIcon = <LoadingOutlined type="loading" style={{fontsize: 24, textAlign:"center"}} spin />; {/*should be place in center*/}
  
 

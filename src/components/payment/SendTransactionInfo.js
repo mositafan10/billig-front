@@ -15,9 +15,8 @@ class SendTransactionInfo extends Component {
              callback_url: this.callback_url,
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
-        .then( res => {if (res.status == 200) {return <Redirect to='/login' />}})
+        .then( res => {if (res.status == 200) {return <Redirect to='/loadingIPG' />}})
         .catch(error => console.error(error));
-        
     }
 
     render() {

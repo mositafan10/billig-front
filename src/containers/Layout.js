@@ -6,7 +6,6 @@ import HeaderSection from './HeaderSection';
 
 const { Header, Content, Footer } = Layout;
 
-
 class CustomLayout extends React.Component {
 
   state = {

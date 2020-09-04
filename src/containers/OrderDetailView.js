@@ -1,10 +1,13 @@
 import React from 'react';
 import Axios from 'axios';
-import { Card, Row, Col, Button, Space } from 'antd';
-import OfferDetail from '../components/OfferInDetail';
-import DownloadPic from '../components/DownloadPic';
-import Bookmark from '../components/‌BookmarkPacket';
+import { Card, Row, Col } from 'antd';
+import OfferDetail from '../components/offer/OfferInDetail';
+import DownloadPic from '../components/utils/DownloadPic';
+import Bookmark from '../components/packet/‌BookmarkPacket';
 import { Link } from 'react-router-dom';
+import { config } from '../Constant';
+
+var url = config.url.API_URL
 
 const style_left = {display:"flex", justifyContent:"left"};
 const style_right = {display:"flex", justifyContent:"right"};
@@ -17,7 +20,7 @@ class OrderDetail extends React.Component {
     
     componentDidMount(){
         const orderID = this.props.match.params.orderID;
-        Axios.get(`http://127.0.0.1:8000/api/v1/advertise/packet/${orderID}`)
+        Axios.get(`${url}api/v1/advertise/packet/${orderID}`)
             .then(res => {
                 this.setState({
                     order: res.data,

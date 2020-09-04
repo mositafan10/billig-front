@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { List , Avatar, message, Button, Badge } from 'antd';
+import { List , Avatar, Button, Badge } from 'antd';
 import Axios from 'axios';
+import { config } from '../../Constant';
+
+var url = config.url.API_URL
 
 class  ChatContacs extends Component {
 
@@ -10,7 +13,7 @@ class  ChatContacs extends Component {
 
     componentDidMount(){
         const token = localStorage.getItem('token');
-        Axios.get('http://127.0.0.1:8000/api/v1/chat/chatlist/',
+        Axios.get(`${url}api/v1/chat/chatlist/`,
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then((res) => this.setState({
             contacs: res.data,
@@ -36,9 +39,9 @@ class  ChatContacs extends Component {
                         avatar={
                             (user == item.sender) ? 
                             // /be caraful , maybe should be edit addres
-                            <Badge count={item.new_massage_sender} ><Avatar src = {`http://127.0.0.1/dstatic/media/${item.receiver_avatar}`} /></Badge>
+                            <Badge count={item.new_massage_sender} ><Avatar src = {`${url}dstatic/media/${item.receiver_avatar}`} /></Badge>
                             :
-                            <Badge count={item.new_massage_receiver} ><Avatar src = {`http://127.0.0.1/dstatic/media/${item.sender_avatar}`} /></Badge>
+                            <Badge count={item.new_massage_receiver} ><Avatar src = {`${url}dstatic/media/${item.sender_avatar}`} /></Badge>
                         }
                         title={
                             (user == item.sender) ? 

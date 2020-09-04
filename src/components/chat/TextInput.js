@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Input } from 'antd';
 import Axios from 'axios';
-import {SendOutlined, LeftOutlined } from '@ant-design/icons';
-import TextArea from 'antd/lib/input/TextArea';
+import { LeftOutlined } from '@ant-design/icons';
+import { config } from '../../Constant';
+
+var url = config.url.API_URL
 
 const { Search } = Input;
 
@@ -10,7 +12,6 @@ const suffix = (
     <LeftOutlined
       style={{
         fontSize: 16,
-        // color: '#1890ff',
       }}
     />
   );
@@ -34,7 +35,7 @@ class TextInput extends Component {
     send = (value) => {
         const token = localStorage.getItem('token');
         const owner = localStorage.getItem('user');
-        Axios.post(`http://127.0.0.1:8000/api/v1/chat/message/add/`,
+        Axios.post(`${url}api/v1/chat/message/add/`,
         {
             chat_id: this.props.data,
             owner: owner,

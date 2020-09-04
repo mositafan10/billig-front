@@ -1,12 +1,12 @@
 import React from 'react';
-import Orders from '../components/Orders';
 import Axios from 'axios';
 import { Row, Col, Input, Divider } from 'antd';
+import Orders from '../components/packet/Orders';
 import Sider from '../components/LandingPageSidebar';
+import { config } from '../Constant';
 
+var url = config.url.API_URL
 const {Search} = Input
-
-    
 
 class OrderList extends React.Component {
 
@@ -15,12 +15,11 @@ class OrderList extends React.Component {
     }
 
     componentDidMount(){
-        Axios.get('http://127.0.0.1:8000/api/v1/advertise/packet/')
+        Axios.get(`${url}api/v1/advertise/packet/`)
             .then(res => {
                 this.setState({
                     orders: res.data
                 });
-                console.log(res.data);  
             })
             .catch(error => console.error(error));
     }

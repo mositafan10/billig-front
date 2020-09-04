@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { List, Avatar, Row, Col, Form, Spin, message, Drawer } from 'antd';
+import { List, Avatar, Row, Col, Drawer } from 'antd';
 import Axios from 'axios';
 import TextInput from './TextInput';
 import moment from 'moment';
 import { LeftOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { config } from '../../Constant'
+
+var url = config.url.API_URL
 
 const right_test_style = {
     display:"inline",
@@ -59,35 +62,20 @@ class ChatDetail extends Component {
                 offer: this.props.offer,
                 visible: true
             })
-            Axios.get(`http://127.0.0.1:8000/api/v1/chat/massagelist/${chatid}`,
+            Axios.get(`${url}api/v1/chat/massagelist/${chatid}`,
             { headers: {"Authorization" : `Bearer ${token}`} })
             .then((res) => (this.setState({
                 massages: res.data
             }), callback(res) )      
             )
             .catch((error) => console.log(error))
+        }
     }
-    }
-
-    // componentWillReceiveProps = callback => {
-    //     const token = localStorage.getItem('token');
-    //     const chatid = this.props.data;
-    //     this.setState({
-    //         offer: this.props.offer
-    //     })
-    //     Axios.get(`http://127.0.0.1:8000/api/v1/chat/massagelist/${chatid}`,
-    //     { headers: {"Authorization" : `Bearer ${token}`} })
-    //     .then((res) => (this.setState({
-    //         massages: res.data
-    //     }), callback(res) )      
-    //     )
-    //     .catch((error) => console.log(error))
-    // }
 
     handler = (callback) => {
         const token = localStorage.getItem('token');
         const chatid = this.props.data;
-        Axios.get(`http://127.0.0.1:8000/api/v1/chat/massagelist/${chatid}`,
+        Axios.get(`${url}api/v1/chat/massagelist/${chatid}`,
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then((res) => (this.setState({
             massages: res.data
@@ -115,20 +103,19 @@ class ChatDetail extends Component {
                                 <Row>
                                     <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
                                         {(user == this.props.sender) ? 
-                                        <Link to={'/users/' + this.props.sender}><Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar2}`} /></Link>
+                                        <Link to={'/users/' + this.props.sender}><Avatar src = {`${url}dstatic/media/${this.props.avatar2}`} /></Link>
                                         :
-                                        <Link to={'/users/' + this.props.receiver}><Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar1}`} /></Link>
+                                        <Link to={'/users/' + this.props.receiver}><Avatar src = {`${url}dstatic/media/${this.props.avatar1}`} /></Link>
                                         }
                                     </Col>
                                     <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
-                                        {/* <p style={{fontSize:"14px"}}>وضعیت پیشنهاد : </p> */}
                                         <p style={{fontSize:"14px"}}>{this.state.offer}</p>
                                     </Col>
                                     <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
                                         {(user == this.props.sender) ? 
-                                        <Link to={'/users/' + this.props.receiver}><Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar1}`} /></Link>
+                                        <Link to={'/users/' + this.props.receiver}><Avatar src = {`${url}dstatic/media/${this.props.avatar1}`} /></Link>
                                         :
-                                        <Link to={'/users/' + this.props.sender}><Avatar src = {`http://127.0.0.1/dstatic/media/${this.props.avatar2}`} /></Link>
+                                        <Link to={'/users/' + this.props.sender}><Avatar src = {`${url}dstatic/media/${this.props.avatar2}`} /></Link>
                                         }  
                                     </Col>
                                 </Row>

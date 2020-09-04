@@ -1,8 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
-import { Card, Row, Col, Button, Space, Divider } from 'antd';
-import OfferDetail from '../components/OfferInDetail';
+import { Card, Row, Col, Divider } from 'antd';
 import moment from 'moment';
+import { config } from '../Constant';
+
+var url = config.url.API_URL
 const style_left = {display:"flex", justifyContent:"left"}
 const style_right = {display:"flex", justifyContent:"right"}
 
@@ -15,13 +17,12 @@ class TravelDetail extends React.Component {
     
     componentDidMount(){
         const travelID = this.props.match.params.travelID;
-        Axios.get(`http://127.0.0.1:8000/api/v1/advertise/travel/${travelID}`)
+        Axios.get(`${url}api/v1/advertise/travel/${travelID}`)
             .then(res => {
                 this.setState({
                     order: res.data
                 });
             })
-        
     }
 
     render(){
@@ -34,10 +35,10 @@ class TravelDetail extends React.Component {
                         <Card style={{borderRadius:"20px"}} title={this.state.order.title}>
                             <Row style={style_right}>
                                 <Col style={style_right} span={5} >
-                                    <img src={`http://127.0.0.1/dstatic/${this.state.order.departure ? this.state.order.departure.icon : ""}`} width={80} style={{borderRadius:"5px"}} />
+                                    <img src={`${url}dstatic/${this.state.order.departure ? this.state.order.departure.icon : ""}`} width={80} style={{borderRadius:"5px"}} />
                                 </Col>
                                 <Col style={style_left} span={19}>
-                                <img src={`http://127.0.0.1/dstatic/${this.state.order.destination ? this.state.order.departure.icon : ""}`} width={80} style={{borderRadius:"5px"}} />
+                                <img src={`${url}dstatic/${this.state.order.destination ? this.state.order.departure.icon : ""}`} width={80} style={{borderRadius:"5px"}} />
                                 </Col>
                             </Row>
                             <Divider />
@@ -88,9 +89,6 @@ class TravelDetail extends React.Component {
                             </Row>
                             <hr style={{color:"aliceblue"}}/>
                             <p style={{textAlign:"right"}}>{this.state.order.description}</p>
-                            {/* <hr style={{color:"aliceblue"}}/><br/> */}
-                            {/* <OfferDetail style data={this.state.order.slug}></OfferDetail> */}
-
                         </Card>
                     </Col>
                     <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6}></Col>
