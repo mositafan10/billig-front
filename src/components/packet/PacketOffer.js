@@ -44,13 +44,6 @@ class PacketOffer extends React.Component {
       key: 'offer_count',
       align:"center"
     },
-    // { 
-    //   title: '',
-    //   dataIndex: 'slug',
-    //   key: '',
-    //   align:"center",
-    //   render: () => <Button>چت</Button>
-    // },
     {
       title: '',
       dataIndex: 'sender_id',
@@ -70,7 +63,7 @@ class PacketOffer extends React.Component {
       align:"center",
       render: (dataIndex, row) => { if(row.status == "عدم تایید") {return <Tooltip title="شما این پیشنهاد را رد کرده‌اید"><Button disabled={true} onClick={this.accept.bind(this, dataIndex, row.packet_slug)} style={{fontSize:"12px", border:"hidden", backgroundColor:"green", borderRadius:"10px", color: "transparent", textShadow:"0 0 5px rgba(0,0,0,0.5)"}}><b>قبول</b></Button></Tooltip>} 
                                     else if (row.status == "نهایی‌کردن مبلغ") {return <Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>در انتظار تایید مبلغ توسط مسافر</Button>}
-                                    else if (row.status == "تایید مبلغ") {return <SendTransactionInfo /> }
+                                    else if (row.status == "تایید مبلغ") {return <SendTransactionInfo amount={row.price} /> }
                                     else { return <Popconfirm  onConfirm={this.accept.bind(this, dataIndex, row.packet_slug)} title=" از قبول پیشنهاد مطمئن هستید؟ در صورت قبول پیشنهاد، دیگر پیشنهاد‌ها غیرفعال خواهند شد" okText="بله" cancelText="خیر"><Button style={{fontSize:"12px", border:"hidden", backgroundColor:"green", color:"white", borderRadius:"10px"}}><b>قبول</b></Button></Popconfirm>}}
     },
     // {

@@ -1,29 +1,40 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';  
+import { Button, message } from 'antd';  
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import LoadingIPG from './LoadingIPG';
+import { config } from '../../Constant';
 
+var url = config.url.API_URL;
+const callback_url = "https://billlig.com/payment/verify/"
 
 class SendTransactionInfo extends Component {
-    callback_url = "http://127.0.0.1:3000"
+
+    state = {
+        token:""
+    }
+    
     sendapi = () => {
         const token = localStorage.getItem('token');
-        Axios.post('http://127.0.0.1:8000/api/v1/payment/send/',
+        Axios.post(`${url}api/v1/payment/send/`,
             { 
-             amount:"asda",
-             callback_url: this.callback_url,
+             amount:this.props.amount,
+             callback_url: callback_url,
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
-        .then( res => {if (res.status == 200) {return <Redirect to='/loadingIPG' />}})
-        .catch(error => console.error(error));
+        .then( res => 
+            {if (res.data.status == 1 ) 
+            {  return (
+            console.log("hi","sdfsfsfs"),
+            this.setState({token: res.data.token}),
+            window.location.replace(`https://ipg.vandar.io/v3/${res.data.token}`))}
+        })
+        .catch(error => message.error(error.response.data ? error.response.data.detail : ""));
     }
 
     render() {
         return (
             <div>
                 <Button onClick={this.sendapi} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>تایید و پرداخت</Button>
-                
             </div>
         );
     }

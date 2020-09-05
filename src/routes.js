@@ -12,6 +12,7 @@ import PackForm from './components/packet/PacketForm';
 import PageNotFound from './components/errors/PageNotFound';
 import AuthorizationFail from './components/errors/AuthorizationFail';
 import LoadingIPG from './components/payment/LoadingIPG';
+import VerifyTransaction from './components/payment/VerifyTransaction';
 
 
 class BaseRouter extends React.Component {
@@ -31,6 +32,7 @@ class BaseRouter extends React.Component {
             <Route exact path='/users/:userID' component={UserProfile} />
             <Route exact path='/packet/:orderID' component={OrderDetail} />
             <Route exact path='/ipgloading' component={LoadingIPG} />
+            <Route exact path='/payment/verify' component={VerifyTransaction} />
             <Route component={PageNotFound  } />
         </Switch>
         );

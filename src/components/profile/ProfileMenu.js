@@ -8,6 +8,7 @@ import InboxLayout from '../../containers/InboxLayout';
 import Bookmark_packet from '../packet/Bookmark_packet';
 import ChangePassword from './ChangePassword';
 import TravelProfile from '../../containers/TravelProfile';
+import TransactionList from '../payment/TransactionList';
 
 const { TabPane } = Tabs;
 
@@ -49,7 +50,7 @@ class ProfileMenu extends React.Component {
                 نظرات
               </TabPane>
               <TabPane tab={<span><DollarOutlined style={{fontSize:"16px"}} />پرداخت‌های من</span>} key="4">
-                پرداخت ها
+                <TransactionList />
               </TabPane>
               <TabPane tab={<span><BookOutlined style={{fontSize:"16px"}} />آگهی‌های نشان‌شده</span>} key="5">
                   <Bookmark_packet />

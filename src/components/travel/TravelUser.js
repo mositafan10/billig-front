@@ -62,14 +62,14 @@ class TravelList extends React.Component {
               <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                 <Row style={{textAlign:"center", height:"80px"}} >
                   <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} >
-                    <img src={`http://127.0.0.1/dstatic/${item.departure.icon}`} width={60} style={{borderRadius:"5px"}} />
+                    <img src={`${url}dstatic/${item.departure.icon}`} width={60} style={{borderRadius:"5px"}} />
                     <p style={{margin:"10px 5px"}}>{item.departure_city.name}</p>
                   </Col>
                   <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
                     <img src={airplane} width={60} />
                   </Col>
                   <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
-                  <img src={`http://127.0.0.1/dstatic/${item.destination.icon}`} width={60} style={{borderRadius:"5px"}}  />
+                  <img src={`${url}dstatic/${item.destination.icon}`} width={60} style={{borderRadius:"5px"}}  />
                   <p style={{margin:"10px 25px"}}>{item.destination_city.name}</p>
                   </Col>
                 </Row>

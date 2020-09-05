@@ -66,7 +66,6 @@ export const authLogin = (phone_number, password, otp, name) => {
             window.location = '/';
         })
         .catch(error => {
-            console.log(error);
             message.error(error.response.data.detail);
             dispatch(authFail(error));
         }
