@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';  
-import { Button, Divider } from 'antd';
+import { Button, Divider, Alert } from 'antd';
 import { config } from '../../Constant';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ class VerifyTransaction extends Component {
             token: this.state.token,
         },
         { headers: {"Authorization" : `Bearer ${token1}`} })
-        .then(res => {if(res.status == 201) {return <Redirect to='/payment/success' />}})
+        .then(res => {if(res.status == 201) {return Alert("پرداخت شما با موفقیت انجام شد. لیست پرداخت های خود را می‌توانید در پروفایل خود مشاهده نمایید.")}})
         .catch((error) => console.log(error))
     }
 

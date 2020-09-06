@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { config } from '../../Constant';
 
 var url = config.url.API_URL;
-const callback_url = "http://localhost:3000/payment/verify/"
+const callback_url = "http:billlig.com/payment/verify/"
 
 class SendTransactionInfo extends Component {
 
