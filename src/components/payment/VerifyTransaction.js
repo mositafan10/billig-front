@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';  
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 import { config } from '../../Constant';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -15,9 +15,8 @@ class VerifyTransaction extends Component {
 
     componentDidMount(){
         const query = new URLSearchParams(this.props.location.search);
-        const token = query.get('token')
-        const payment_status = query.get('payment_status')
-        console.log(token, payment_status)
+        const token = query.get('token');
+        const payment_status = query.get('payment_status');
         this.setState({
             payment_status: payment_status,
             token: token
@@ -38,9 +37,12 @@ class VerifyTransaction extends Component {
     render() {
         if( this.state.payment_status != "OK") { 
             return (
-                <div style={{display:"flex", justifyContent:"center", margin:"20px 0 20px"}}>
-                    <p>عملیات ناموفق</p>
-                    <Link to='/'><Button style={{borderRadius:"15px", backgroundColor:"green", color:"white"}}>بازگشت به صفحه اصلی سایت</Button></Link>
+                <div >
+                    <p style={{display:"flex", justifyContent:"center", margin:"20px 0 20px"}}>عملیات ناموفق</p>
+                    <Divider/>
+                    <div style={{display:"flex", justifyContent:"center", margin:"20px 0 20px"}}>
+                        <Link to='/'><Button style={{borderRadius:"15px", backgroundColor:"green", color:"white"}}>بازگشت به صفحه اصلی</Button></Link>
+                    </div>
                 </div>
             )
         }

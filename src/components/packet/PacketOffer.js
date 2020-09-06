@@ -53,6 +53,7 @@ class PacketOffer extends React.Component {
       width:30,
     render: (dataIndex, row) => { if(row.status == "عدم تایید") { return <Tooltip title="شما این پیشنهاد را رد کرده‌اید"><Button disabled={true} style={{fontSize:"12px", border:"hidden", borderRadius:"10px", color: "transparent", textShadow:"0 0 5px rgba(0,0,0,0.5)"}}><b>چت</b></Button></Tooltip> }
                                       else if (row.status == "تایید") {return <Popconfirm  onConfirm={this.cancle.bind(this, row.slug, row.packet_slug)} title="از بازگشت پیشنهاد مطمئن هستید؟" okText="بله" cancelText="خیر"><Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>انصراف</Button></Popconfirm>}
+                                      else if (row.status == "نهایی‌شدن مبلغ") { return <SendMessage data={dataIndex} slug={row.slug} /> }
                                       else { return <SendMessage data={dataIndex} slug={row.slug} /> }}
     },
     {
@@ -62,8 +63,9 @@ class PacketOffer extends React.Component {
       width:20,
       align:"center",
       render: (dataIndex, row) => { if(row.status == "عدم تایید") {return <Tooltip title="شما این پیشنهاد را رد کرده‌اید"><Button disabled={true} onClick={this.accept.bind(this, dataIndex, row.packet_slug)} style={{fontSize:"12px", border:"hidden", backgroundColor:"green", borderRadius:"10px", color: "transparent", textShadow:"0 0 5px rgba(0,0,0,0.5)"}}><b>قبول</b></Button></Tooltip>} 
-                                    else if (row.status == "نهایی‌کردن مبلغ") {return <Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>در انتظار تایید مبلغ توسط مسافر</Button>}
-                                    else if (row.status == "تایید مبلغ") {return <SendTransactionInfo amount={row.price} /> }
+                                    else if (row.status == "نهایی‌شدن مبلغ") {return <Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>در انتظار تایید مبلغ توسط مسافر</Button>}
+                                    else if (row.status == "در حال انجام") {return <Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>در حال انجام توسط مسافر</Button>}
+                                    else if (row.status == "تایید مبلغ") {return <SendTransactionInfo amount={row.price} factorNumber={row.slug} /> }
                                     else { return <Popconfirm  onConfirm={this.accept.bind(this, dataIndex, row.packet_slug)} title=" از قبول پیشنهاد مطمئن هستید؟ در صورت قبول پیشنهاد، دیگر پیشنهاد‌ها غیرفعال خواهند شد" okText="بله" cancelText="خیر"><Button style={{fontSize:"12px", border:"hidden", backgroundColor:"green", color:"white", borderRadius:"10px"}}><b>قبول</b></Button></Popconfirm>}}
     },
     // {

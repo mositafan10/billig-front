@@ -65,7 +65,8 @@ class EditProfileForm extends React.Component {
                     country: (values.living_country ? values.living_country : this.props.data.living_country.id ),
                     city : (values.living_city ? values.living_city : this.props.data.living_city.id ),
                     first_name: (values.first_name ? values.first_name : this.props.data.first_name ),
-                    last_name: (values.last_name ? values.last_name : this.props.data.last_name )
+                    last_name: (values.last_name ? values.last_name : this.props.data.last_name ),
+                    account_number: (values.account_number ? values.account_number : this.props.data.account_number )
                     },
                     { headers: {"Authorization" : `Bearer ${token}`} })
         .then(function (res) { if (res.status == 200){  this.props.update(); }})
@@ -152,6 +153,19 @@ class EditProfileForm extends React.Component {
                                 </Select>   
                             </Form.Item>
                         </Col>
+                    </Row>
+                    <br/>
+                    <Divider plain orientation="center">اطلاعات بانکی</Divider>
+                    <Row>
+                        <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}></Col>
+                        <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}>
+                            <IeOutlined style={{fontSize:"30px"}} />
+                            <Divider plain orientation="center">شماره شبا</Divider>
+                            <Form.Item name="account_numbrt">
+                                <Input defaultValue={this.props.data.account_number} type='number' style={{borderRadius:"8px"}} />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}></Col>
                     </Row>
                     <br/>
                     <Row>

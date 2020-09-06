@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { Form, Input, Button, Select, Checkbox, Divider, Row, Col } from 'antd';
+import { Form, Input, Button, Select, Checkbox, Divider, Row, Col, InputNumber, Alert } from 'antd';
 import UploadFile from '../utils/UploadPicture';
 import TextArea from 'antd/lib/input/TextArea';
 import { Link } from 'react-router-dom';
@@ -72,6 +72,19 @@ class PackForm extends React.Component {
     handleChange = () => {
         this.setState({buy:true})
     }
+
+    handleChangeweight = (input) => {
+        if (input.value < 0) input.value = 0;
+        if (input.value > 50) return Alert("وزن باید کمتر از ۵۰ کیلوگرم باشد");
+    }
+
+
+//   onKeyPress(event) {
+//     const keyCode = event.keyCode || event.which;
+//     const keyValue = String.fromCharCode(keyCode);
+//      if (/\+|-/.test(keyValue))
+//        event.preventDefault();
+//    }
     
     handleFormSubmit = (values) => {
         console.log("Hi ");
@@ -187,15 +200,22 @@ class PackForm extends React.Component {
                     </Row>
                     <Row>
                          <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                        <Divider plain orientation="center">وزن بسته</Divider>  
-                            <Form.Item  name="weight" style={{textAlign:"right"}} rules={[{required: true, message: "وزن بسته را وارد کنید"}]}>
-                                <Input style={{textAlign:"right"}} placeholder="به کیلوگرم وارد کنید" ></Input>
+                        <Divider plain orientation="center">وزن بسته (کیلوگرم)</Divider>  
+                            <Form.Item  name="weight" style={{textAlign:"right"}} 
+                            rules={[{required: true, max:50 , pattern:  "[0-9]*" , type:"number" ,message: "وزن بسته را وارد کنید"}]}>
+                                <Input 
+                                 max={50} min={0} style={{textAlign:"right", width:"-moz-available"}}  />
                             </Form.Item>
                         </Col>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                        <Divider plain orientation="center" >مبلغ پیشنهادی</Divider>
+                        <Divider plain orientation="center" >مبلغ پیشنهادی (تومان)</Divider>
                             <Form.Item  name="suggested_price" style={{textAlign:"right"}} rules={[{required: true, message:"مبلغ پیشنهادی خود را وارد کنید"}]}>
-                                <Input style={{textAlign:"right"}} placeholder="به تومان وارد کنید"/>
+                                <InputNumber 
+                                formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                                style={{textAlign:"right", width:"-moz-available"}} 
+                                min={0}
+                                />
                             </Form.Item>
                         </Col>
                     </Row>

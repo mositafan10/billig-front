@@ -53,7 +53,7 @@ class UserOffer extends React.Component {
         dataIndex: 'slug',
         key: '',
         align:"center",
-        render: (dataIndex, row) => {if( row.status == "نهایی‌کردن مبلغ"){ return <ConfirmPrice data={dataIndex} />}},
+        render: (dataIndex, row) => {if( row.status == "نهایی‌شدن مبلغ"){ return <ConfirmPrice data={dataIndex} />}},
       },
       { 
         title: ' ',

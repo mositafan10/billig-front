@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { config } from '../../Constant';
 
 var url = config.url.API_URL;
-const callback_url = "https://billlig.com/payment/verify/"
+const callback_url = "http://localhost:3000/payment/verify/"
 
 class SendTransactionInfo extends Component {
 
@@ -19,6 +19,7 @@ class SendTransactionInfo extends Component {
             { 
              amount:this.props.amount,
              callback_url: callback_url,
+             factorNumber: this.props.factorNumber,
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
         .then( res => 
