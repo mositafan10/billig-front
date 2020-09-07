@@ -63,8 +63,8 @@ class PacketOffer extends React.Component {
       key: '',
       align:"center",
       render: (dataIndex, row) =>
-            {if(row.status === "در انتظار پاسخ") {return <Tooltip title="شما این پیشنهاد را رد کرده‌اید"><Button onClick={this.accept.bind(this, dataIndex, row.packet_slug)} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}><b>قبول</b></Button></Tooltip>} 
-            else if( row.status === "در انتظار پرداخت"){ return <Button  disabled={this.state.disableconfirm} onClick={this.confirmpayment.bind(this)} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}><b>تایید</b></Button> }
+            {if(row.status === "در انتظار پاسخ") {return <Button onClick={this.accept.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}><b>قبول</b></Button>} 
+            else if( row.status === "در انتظار پرداخت"){ return <Button disabled={this.state.disableconfirm} onClick={this.confirmpayment.bind(this)} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}><b>تایید</b></Button> }
             else if( row.status === "در انتظار تایید خریدار"){ return <Button onClick={this.receiveconfirm.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>تایید تحویل</Button> }
             else if( row.status === "انجام شده"){ return <RateAndComment /> }
             else { return  <Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}></Button>}}
@@ -104,53 +104,51 @@ class PacketOffer extends React.Component {
     // },
   ];
 
-  accept(dataIndex, slug){
+  accept(data){
     const token = localStorage.getItem('token');
-    Axios.put(`${url}api/v1/advertise/offer/`,
+    Axios.post(`${url}api/v1/advertise/offer/update/`,
         {
-          type: "ACCEPT",
-          slug: dataIndex.slug,
-          packet: slug
+          slug: data,
+          status: 1
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(res => {
-            message.success("شما پیشنهادی را قبول کرده‌اید. الان برو پرداخت کن")
-            this.componentDidMount(); //: i dont know this is the 
-        })
-        .catch(error => console.error(error));
-  }
-
-  reject(dataIndex, slug){
-    const token = localStorage.getItem('token');
-    Axios.put(`${url}api/v1/advertise/offer/`,
-        {
-          type: "REJECT",
-          slug: dataIndex.slug,
-          packet: slug
-        },
-        { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(res => {
-            message.success("پیشنهاد توسط شما لغو شد")
+        .then(() => {
+            message.success("تغییر وضعیت با موفقیت انجام شد")
             this.componentDidMount();
         })
         .catch(error => console.error(error));
   }
 
-  cancle(slug, packet_slug){
-    const token = localStorage.getItem('token');
-    Axios.put(`${url}api/v1/advertise/offer/`,
-        {
-          type: "CANCLE",
-          slug: slug,
-          packet: packet_slug
-        },
-        { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(res => {
-            message.success("پیشنهاد توسط شما لغو شد")
-            this.componentDidMount();
-        })
-        .catch(error => console.error(error));
-  }
+  // reject(dataIndex, slug){
+  //   const token = localStorage.getItem('token');
+  //   Axios.post(`${url}api/v1/advertise/offer/update`,
+  //       {
+  //         slug: data,
+  //         status: 2
+  //       },
+  //       { headers: {"Authorization" : `Bearer ${token}`} })
+  //       .then(res => {
+  //           message.success("پیشنهاد توسط شما لغو شد")
+  //           this.componentDidMount();
+  //       })
+  //       .catch(error => console.error(error));
+  // }
+
+  // cancle(slug, packet_slug){
+  //   const token = localStorage.getItem('token');
+  //   Axios.put(`${url}api/v1/advertise/offer/`,
+  //       {
+  //         type: "CANCLE",
+  //         slug: slug,
+  //         packet: packet_slug
+  //       },
+  //       { headers: {"Authorization" : `Bearer ${token}`} })
+  //       .then(res => {
+  //           message.success("پیشنهاد توسط شما لغو شد")
+  //           this.componentDidMount();
+  //       })
+  //       .catch(error => console.error(error));
+  // }
 
   confirmpayment = () => {
     message.success("پیشنهاد توسط شما تایید شد. حال می‌توانید هزینه را پرداخت کنید")
