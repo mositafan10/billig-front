@@ -49,7 +49,7 @@ class VerifyTransaction extends Component {
         else {
             return(
                 <div style={{display:"flex", justifyContent:"center", margin:"20px 0 20px"}}>
-                    <Button style={{borderRadius:"15px", backgroundColor:"green", color:"white"}} onClick={() => this.verify.bind()}>تکمیل فرآیند خرید</Button>
+                    <Button style={{borderRadius:"15px", backgroundColor:"green", color:"white"}} onClick={() => this.verify}>تکمیل فرآیند خرید</Button>
                 </div>
             )
         }
