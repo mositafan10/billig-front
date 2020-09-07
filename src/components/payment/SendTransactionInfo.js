@@ -25,7 +25,6 @@ class SendTransactionInfo extends Component {
         .then( res => 
             {if (res.data.status == 1 ) 
             {  return (
-            console.log("hi","sdfsfsfs"),
             this.setState({token: res.data.token}),
             window.location.replace(`https://ipg.vandar.io/v3/${res.data.token}`))}
         })

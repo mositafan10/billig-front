@@ -85,7 +85,6 @@ class UserOffer extends React.Component {
         this.setState({
           offer: current_offer.filter(offer => offer.slug !== slug),
         });
-        console.log(res.data);  
       })
         .catch(error => console.error(error));
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';  
-import { Button, Divider, Alert } from 'antd';
+import { Button, Divider, Alert, message } from 'antd';
 import { config } from '../../Constant';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -30,8 +30,8 @@ class VerifyTransaction extends Component {
             token: this.state.token,
         },
         { headers: {"Authorization" : `Bearer ${token1}`} })
-        .then(res => {if(res.status == 201) {return Alert("پرداخت شما با موفقیت انجام شد. لیست پرداخت های خود را می‌توانید در پروفایل خود مشاهده نمایید.")}})
-        .catch((error) => console.log(error))
+        .then(res => {if(res.status == 201) { Alert("پرداخت شما با موفقیت انجام شد. لیست پرداخت های خود را می‌توانید در پروفایل خود مشاهده نمایید.")}})
+        .catch((error) => message.Alert(error.response.data.error))
     }
 
     render() {
@@ -49,7 +49,7 @@ class VerifyTransaction extends Component {
         else {
             return(
                 <div style={{display:"flex", justifyContent:"center", margin:"20px 0 20px"}}>
-                    <Button style={{borderRadius:"15px", backgroundColor:"green", color:"white"}} onClick={() => this.verify}>تکمیل فرآیند خرید</Button>
+                    <Button style={{borderRadius:"15px", backgroundColor:"green", color:"white"}} onClick={this.verify.bind(this)}>تکمیل فرآیند خرید</Button>
                 </div>
             )
         }
