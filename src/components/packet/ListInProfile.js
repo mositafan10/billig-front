@@ -84,13 +84,11 @@ class PacketUserList extends React.Component {
                 this.setState({
                     packet_user: res.data
                 });
-                console.log(res.data);  
             })
             .catch(error => console.error(error));
     }
 
     cancel(e) {
-      console.log(e);
       message.error('درخواست لغو شد');
     }
 

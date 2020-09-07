@@ -5,6 +5,7 @@ import { Button , Popconfirm , message, Row,  Col, List } from 'antd';
 import moment from 'moment';
 import EditTravel from './EditTravel';
 import { config } from '../../Constant';
+import PayTraveler from '../payment/PayTraveler';
 
 var url = config.url.API_URL
 const style_left = {display:"flex", justifyContent:"left", paddingLeft:"10px"};
@@ -108,7 +109,7 @@ class TravelList extends React.Component {
                   </Row>
                   <br/>
                   <Row style={style_right}>
-                      <Col style={style_right} xs={20} sm={20} md={20} lg={20} xl={20} >
+                      <Col style={style_right} xs={8} sm={8} md={8} lg={8} xl={8} >
                         <Popconfirm
                             title="آیا از حذف آگهی مطمئن هستید ؟"
                             onConfirm={this.delete.bind(this,item.slug)}
@@ -116,11 +117,14 @@ class TravelList extends React.Component {
                             okText="بله"
                             cancelText="خیر"
                             >
-                          <Button style={{borderRadius:"10px"}}>حذف</Button>
+                          <Button style={{borderRadius:"10px", fontSize:"12px"}}>حذف</Button>
                         </Popconfirm> 
-                        </Col>
-                      <Col style={style_left} xs={4} sm={4} md={4} lg={4} xl={4}>
+                      </Col>
+                      <Col style={style_left} xs={6} sm={6} md={6} lg={6} xl={6}>
                         <EditTravel signal={this.editsignal} data={item.slug} />
+                      </Col>
+                      <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                        <PayTraveler offer={item.slug} />
                       </Col>
                   </Row>
                   <br/>
