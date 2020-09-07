@@ -202,7 +202,7 @@ class PackForm extends React.Component {
                          <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">وزن بسته (کیلوگرم)</Divider>  
                             <Form.Item  name="weight" style={{textAlign:"right"}} 
-                            rules={[{required: true, max:50 , pattern:  "[0-9]*" , type:"number" ,message: "وزن بسته را وارد کنید"}]}>
+                            rules={[{required: true, message: "وزن بسته را وارد کنید"}]}>
                                 <Input 
                                  max={50} min={0} style={{textAlign:"right", width:"-moz-available"}}  />
                             </Form.Item>
