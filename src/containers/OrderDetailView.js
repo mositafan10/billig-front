@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { Card, Row, Col } from 'antd';
 import OfferDetail from '../components/offer/OfferInDetail';
 import DownloadPic from '../components/utils/DownloadPic';
-import Bookmark from '../components/packet/‌BookmarkPacket';
+// import Bookmark from '../components/packet/‌BookmarkPacket';
 import { Link } from 'react-router-dom';
 import { config } from '../Constant';
 
@@ -30,7 +30,6 @@ class OrderDetail extends React.Component {
     }
     render(){
         const picID = this.state.order.picture;
-        const Slug = this.state.order.slug;
         const user = localStorage.getItem('user');
         return(
             <div style={{textAlign:"center", padding:"0 50px 0 50px"}}> 
@@ -133,7 +132,7 @@ class OrderDetail extends React.Component {
                         <DownloadPic data={picID} size={300}/>
                     <br/><br/>
                     <p s>با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید</p>
-                    <Bookmark data={Slug}  /> 
+                    {/* <Bookmark data={Slug}  />  */}
                     </Col>
                 </Row>
             </div>

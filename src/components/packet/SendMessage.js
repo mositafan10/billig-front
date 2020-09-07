@@ -39,7 +39,6 @@ class SendMessage extends React.Component {
 
     handleOk = (values) => {
         const token = localStorage.getItem('token');
-        const receiver = this.props.data;
         Axios.post(`${url}api/v1/chat/message/add/`,
         {
           text: values.text,

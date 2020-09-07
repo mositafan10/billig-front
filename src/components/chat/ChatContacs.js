@@ -37,14 +37,14 @@ class  ChatContacs extends Component {
                     <List.Item style={{borderRight:"solid", borderRightColor:"aliceblue", margin:"0 20px 0 0"}}>
                         <List.Item.Meta
                         avatar={
-                            (user == item.sender) ? 
+                            (user === item.sender) ? 
                             // /be caraful , maybe should be edit addres
                             <Badge count={item.new_massage_sender} ><Avatar src = {`${url}dstatic/media/${item.receiver_avatar}`} /></Badge>
                             :
                             <Badge count={item.new_massage_receiver} ><Avatar src = {`${url}dstatic/media/${item.sender_avatar}`} /></Badge>
                         }
                         title={
-                            (user == item.sender) ? 
+                            (user === item.sender) ? 
                             <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state, item.receiver_avatar, item.sender_avatar, item.sender, item.receiver)}>{item.receiver_name}</Button>
                                 :
                             <Button style={{border:"hidden", fontSize:"12px"}} onClick={() => this.sendData(item.id, item.offer_state, item.receiver_avatar, item.sender_avatar, item.sender, item.receiver)}>{item.sender_name}</Button>

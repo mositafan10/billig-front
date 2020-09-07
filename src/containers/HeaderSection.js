@@ -58,7 +58,7 @@ class HeaderSection extends Component {
                             <Button 
                                 icon={<MenuOutlined />}
                                 // icon={<Avatar src = {`http://127.0.0.1/dstatic/media/${this.state.user_profile.picture}`} />} 
-                                style={{border:"hidden", color:"white",color:"black", borderRadius:"15px"}}>
+                                style={{border:"hidden",color:"black", borderRadius:"15px"}}>
                             </Button>
                             </Dropdown>
                             <Button 

@@ -72,7 +72,7 @@ class PacketUserList extends React.Component {
               okText="بله"
               cancelText="خیر"
               >
-              <a href="#">حذف</a>
+              حذف
           </Popconfirm> ,
       },
     ];

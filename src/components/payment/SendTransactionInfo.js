@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button, message } from 'antd';  
+import { Button, message, Tooltip } from 'antd';  
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom';
 import { config } from '../../Constant';
 
 var url = config.url.API_URL;
@@ -23,7 +22,7 @@ class SendTransactionInfo extends Component {
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
         .then( res => 
-            {if (res.data.status == 1 ) 
+            {if (res.data.status === 1 ) 
             {  return (
             this.setState({token: res.data.token}),
             window.location.replace(`https://ipg.vandar.io/v3/${res.data.token}`))}
@@ -34,7 +33,11 @@ class SendTransactionInfo extends Component {
     render() {
         return (
             <div>
-                <Button onClick={this.sendapi} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>تایید و پرداخت</Button>
+                { this.props.disabled ?
+               <Tooltip title="ابتدا پیشنهاد را تایید کنید"><Button onClick={this.sendapi.bind(this)} disabled={this.props.disabled ? true : false} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>پرداخت</Button></Tooltip> 
+               :
+               <Button onClick={this.sendapi.bind(this)} disabled={this.props.disabled ? true : false} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>پرداخت</Button>
+                }
             </div>
         );
     }

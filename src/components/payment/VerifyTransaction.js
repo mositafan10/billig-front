@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios';  
-import { Button, Divider, Alert, message } from 'antd';
+import { Button, Divider, message } from 'antd';
 import { config } from '../../Constant';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 var url = config.url.API_URL;
 
@@ -30,12 +30,12 @@ class VerifyTransaction extends Component {
             token: this.state.token,
         },
         { headers: {"Authorization" : `Bearer ${token1}`} })
-        .then(res => {if(res.status == 201) { Alert("پرداخت شما با موفقیت انجام شد. لیست پرداخت های خود را می‌توانید در پروفایل خود مشاهده نمایید.")}})
-        .catch((error) => message.Alert(error.response.data.error))
+        .then(res => {if(res.status === 201) { message.success("پرداخت شما با موفقیت انجام شد. لیست پرداخت ها را می‌توانید در پروفایل خود مشاهده نمایید.")}})
+        .catch((error) => message.error(error.response.data.error))
     }
 
     render() {
-        if( this.state.payment_status != "OK") { 
+        if( this.state.payment_status !== "OK") { 
             return (
                 <div >
                     <p style={{display:"flex", justifyContent:"center", margin:"20px 0 20px"}}>عملیات ناموفق</p>

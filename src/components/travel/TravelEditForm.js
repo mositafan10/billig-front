@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form , Col, Button, Row, Divider, Select, Input, Checkbox, DatePicker } from 'antd';
+import { Form , Col, Button, Row, Divider, Select, DatePicker } from 'antd';
 import Axios from 'axios';
 import moment from 'moment';
 import { config } from '../../Constant';
@@ -70,7 +70,7 @@ class TravelEditForm extends Component {
             flight_date_start: flight_date_start,
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
-        .then( res => { if (res.status == 200){
+        .then( res => { if (res.status === 200){
             this.props.cancle();
             this.props.signal();
         }})

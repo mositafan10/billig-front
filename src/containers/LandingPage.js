@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { Row, Col, Divider, Button, Card, Space } from 'antd';
+import { Row, Col, Divider, Button, Card,} from 'antd';
 import { Link } from 'react-router-dom';
 import bag from '../media/Icon/022-bag.svg';
 import Orders from '../components/packet/Orders';
@@ -9,14 +9,7 @@ import { config } from '../Constant';
 
 var url = config.url.API_URL
 const { Meta } = Card;
-const style = {
-    alignItems:"center",
-    display:'flex',
-    justifyContent:'center',
-    border:"solid",
-    borderRadius:"30px",
-    height:"300px"
-}
+
 const style_text = {
     alignContent:"center",
     textAlign:"center",
@@ -61,6 +54,7 @@ class LandingPage extends React.Component {
                 <Row >
                     <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
                     <img
+                        alt = "billlig.com"
                         src = {main_banner}
                         style={{width:"100%", height:"auto"}}
                         />

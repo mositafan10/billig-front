@@ -118,7 +118,7 @@ class PackForm extends React.Component {
             picture : [pic_id]
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(function (res) { if (res.status == 201){ window.location = "/profile" }})
+        .then(function (res) { if (res.status === 201){ window.location = "/profile" }})
         .catch(error => console.error(error));
     }
     

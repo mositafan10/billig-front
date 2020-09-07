@@ -25,7 +25,7 @@ class PayTraveler extends Component {
     render() {
         return (
             <div>
-                <Button style={{fontSize:"12px", borderRadius:"10px"}} onClick={this.pay}>تسویه حساب</Button>
+                <Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}} onClick={this.pay}>تسویه</Button>
             </div>
         );
     }

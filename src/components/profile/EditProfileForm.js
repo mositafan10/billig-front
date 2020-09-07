@@ -69,7 +69,7 @@ class EditProfileForm extends React.Component {
                     account_number: (values.account_number ? values.account_number : this.props.data.account_number )
                     },
                     { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(function (res) { if (res.status == 200){  this.props.update(); }})
+        .then(function (res) { if (res.status === 200){  this.props.update(); }})
         .catch(error => console.error(error));
     }
 

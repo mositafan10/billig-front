@@ -32,7 +32,7 @@ class ConfirmPrice extends React.Component {
            price : price
        },
        { headers: {"Authorization" : `Bearer ${token}`} })
-       .then((res) => this.setState({
+       .then( this.setState({
             price_visible: false
        }))
        .catch((error) => console.log(error))
@@ -41,7 +41,7 @@ class ConfirmPrice extends React.Component {
     render(){
         return(
             <div>
-                <Button onClick={this.pricelistmodal} style={{fontSize:"12px", border:"hidden", borderRadius:"10px"}}>مبلغ نهایی</Button>
+                <Button onClick={this.pricelistmodal} style={{fontSize:"12px", border:"hidden", borderRadius:"10px"}}>ویرایش مبلغ</Button>
                 <Modal
                     visible={this.state.price_visible}
                     title="تایید مبلغ نهایی"

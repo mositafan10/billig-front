@@ -6,8 +6,7 @@ import { config } from '../../Constant'
 
 var url = config.url.API_URL
 
-
-class Bookmark_packet extends Component {
+class BookmarkPacket extends Component {
 
     state = {
         bookmarks: [],
@@ -80,4 +79,4 @@ class Bookmark_packet extends Component {
     }
 }
 
-export default Bookmark_packet;
+export default BookmarkPacket;

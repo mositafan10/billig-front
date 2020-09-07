@@ -102,7 +102,7 @@ class ChatDetail extends Component {
                             <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}> 
                                 <Row>
                                     <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
-                                        {(user == this.props.sender) ? 
+                                        {(user === this.props.sender) ? 
                                         <Link to={'/users/' + this.props.sender}><Avatar src = {`${url}dstatic/media/${this.props.avatar2}`} /></Link>
                                         :
                                         <Link to={'/users/' + this.props.receiver}><Avatar src = {`${url}dstatic/media/${this.props.avatar1}`} /></Link>
@@ -112,7 +112,7 @@ class ChatDetail extends Component {
                                         <p style={{fontSize:"14px"}}>{this.state.offer}</p>
                                     </Col>
                                     <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
-                                        {(user == this.props.sender) ? 
+                                        {(user === this.props.sender) ? 
                                         <Link to={'/users/' + this.props.receiver}><Avatar src = {`${url}dstatic/media/${this.props.avatar1}`} /></Link>
                                         :
                                         <Link to={'/users/' + this.props.sender}><Avatar src = {`${url}dstatic/media/${this.props.avatar2}`} /></Link>
@@ -158,7 +158,7 @@ class ChatDetail extends Component {
                             ""
                             }
                             </div>
-                            { (user == item.ownerid) ?
+                            { (user === item.ownerid) ?
                                 <List.Item >
                                     <div style={right_test_style} >
                                         <List.Item.Meta

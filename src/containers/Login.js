@@ -20,7 +20,6 @@ class LoginForm extends React.Component {
 
     onFinish = values => {
     const otp = "";
-    const error = localStorage.getItem('error');
     this.props.onAuth(values.phone_number, values.password, otp);
     }
 

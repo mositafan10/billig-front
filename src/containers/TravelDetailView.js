@@ -26,7 +26,6 @@ class TravelDetail extends React.Component {
     }
 
     render(){
-        const travelID = this.props.match.params.travelID;
         return(
             <div style={{textAlign:"center", padding:"0 50px 0 50px"}}> 
                 <Row>
@@ -35,10 +34,10 @@ class TravelDetail extends React.Component {
                         <Card style={{borderRadius:"20px"}} title={this.state.order.title}>
                             <Row style={style_right}>
                                 <Col style={style_right} span={5} >
-                                    <img src={`${url}dstatic/${this.state.order.departure ? this.state.order.departure.icon : ""}`} width={80} style={{borderRadius:"5px"}} />
+                                    <img src={`${url}dstatic/${this.state.order.departure ? this.state.order.departure.icon : ""}`} width={80} alt={this.state.order.departure.name} style={{borderRadius:"5px"}} />
                                 </Col>
                                 <Col style={style_left} span={19}>
-                                <img src={`${url}dstatic/${this.state.order.destination ? this.state.order.departure.icon : ""}`} width={80} style={{borderRadius:"5px"}} />
+                                <img src={`${url}dstatic/${this.state.order.destination ? this.state.order.departure.icon : ""}`} width={80}  alt={this.state.order.destination.name} style={{borderRadius:"5px"}} />
                                 </Col>
                             </Row>
                             <Divider />

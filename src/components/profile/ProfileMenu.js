@@ -5,7 +5,7 @@ import PacketUserList from '../packet/ListInProfile';
 import EditProfile from './EditProfile';
 import UserOffer from '../offer/Useroffer';
 import InboxLayout from '../../containers/InboxLayout';
-import Bookmark_packet from '../packet/Bookmark_packet';
+import BookmarkPacket from '../packet/BookmarkPacket';
 import ChangePassword from './ChangePassword';
 import TravelProfile from '../../containers/TravelProfile';
 import TransactionList from '../payment/TransactionList';
@@ -53,7 +53,7 @@ class ProfileMenu extends React.Component {
                 <TransactionList />
               </TabPane>
               <TabPane tab={<span><BookOutlined style={{fontSize:"16px"}} />آگهی‌های نشان‌شده</span>} key="5">
-                  <Bookmark_packet />
+                  <BookmarkPacket />
               </TabPane>
               <TabPane key="7" tab={ <span><MailOutlined style={{fontSize:"16px"}}/> صندوق پیام</span>}>
                 <InboxLayout />
