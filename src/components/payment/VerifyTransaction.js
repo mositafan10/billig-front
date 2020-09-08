@@ -30,7 +30,9 @@ class VerifyTransaction extends Component {
             token: this.state.token,
         },
         { headers: {"Authorization" : `Bearer ${token1}`} })
-        .then(res => {if(res.status === 201) { message.success("پرداخت شما با موفقیت انجام شد. لیست پرداخت ها را می‌توانید در پروفایل خود مشاهده نمایید.")}})
+        .then(res => {if(res.status === 201) { 
+            message.success("پرداخت شما با موفقیت انجام شد. لیست پرداخت ها را می‌توانید در پروفایل خود مشاهده نمایید.")
+            window.location.replace = '/profile'}})
         .catch((error) => message.error(error.response.data.error))
     }
 

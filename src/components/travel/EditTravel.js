@@ -16,7 +16,6 @@ class EditTravel extends Component {
     offerlistmodal = () => {
         const token = localStorage.getItem('token');
         const travel_id = this.props.data;
-
         Axios.get(`${url}api/v1/advertise/travel/${travel_id}/`,
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
@@ -24,7 +23,6 @@ class EditTravel extends Component {
                 travel: res.data,
                 offer_visible: true
             });
-            console.log(res.data);  
         })
         .catch(error => console.error(error));
     }

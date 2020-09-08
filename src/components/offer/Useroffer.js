@@ -68,7 +68,7 @@ class UserOffer extends React.Component {
               {if( row.status === "در انتظار تایید مسافر"){ return <ConfirmPrice data={dataIndex} /> }
               else if( row.status === "در انتظار خرید"){ return <Button onClick={this.buydone.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}>خریداری شد</Button> }
               else if( row.status === "انجام شده"){ return <RateAndComment /> }
-              else if( row.status === "در انتظار تحویل"){ return <Button onClick={this.receiverdone.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}>تحویل شد</Button> }
+              else if( row.status === "در انتظار تحویل"){ return <Button onClick={this.receivedone.bind(this, dataIndex)} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}>تحویل شد</Button> }
               else { return <Button style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}></Button>}}
             },
       { 
@@ -99,6 +99,19 @@ class UserOffer extends React.Component {
       },
     ];
 
+    confrim = (data, price) => {
+      const token = localStorage.getItem('token');
+      Axios.post(`${url}api/v1/advertise/offer/update/`,
+       {
+           slug :  data,
+           price : price,
+           status: 2
+       },
+       { headers: {"Authorization" : `Bearer ${token}`} })
+       .then( message.success("پیشنهاد توسط شما تایید شد"), this.componentDidMount())
+       .catch((error) => console.log(error))
+    }
+    
     buydone = (data) => {
       const token = localStorage.getItem('token');
       Axios.post(`${url}api/v1/advertise/offer/update/`,
@@ -111,7 +124,7 @@ class UserOffer extends React.Component {
         .catch(error => console.error(error));
     }
 
-    receiverdone = (data) => {
+    receivedone = (data) => {
       const token = localStorage.getItem('token');
       Axios.post(`${url}api/v1/advertise/offer/update/`,
         {
@@ -123,33 +136,16 @@ class UserOffer extends React.Component {
         .catch(error => console.error(error));
     }
 
-    confrim = (data, price) => {
+    delete = (data) => {
       const token = localStorage.getItem('token');
       Axios.post(`${url}api/v1/advertise/offer/update/`,
-       {
-           slug :  data,
-           price : price
-       },
-       { headers: {"Authorization" : `Bearer ${token}`} })
-       .then( message.success("پیشنهاد توسط شما تایید شد"), this.componentDidMount())
-       .catch((error) => console.log(error))
-    }
-
-    delete = (slug) => {
-      const token = localStorage.getItem('token');
-      const current_offer = this.state.offer;
-      Axios.delete(`${url}api/v1/advertise/offer/delete/${slug}`,
-      { 
-        headers: {"Authorization" : `Bearer ${token}`}
-      }
-      )
-      .then(res => {
-        this.setState({
-          offer: current_offer.filter(offer => offer.slug !== slug),
-        });
-      })
-        .catch(error => console.error(error));
-    }
+        {
+          slug: data,
+          status: 8
+        },
+        { headers: {"Authorization" : `Bearer ${token}`} })
+        .then( message.success("پیشنهاد شما حذف شد"),this.componentDidMount())
+        .catch(error => console.error(error));}
 
     componentDidMount(){
         const token = localStorage.getItem('token');
