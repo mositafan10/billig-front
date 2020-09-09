@@ -42,7 +42,6 @@ class PackForm extends React.Component {
         const pic = childData.map((pi) => this.setState((state) => {
            return {pic_id: state.pic_id.concat(pi.response) };
           }) ) 
-        console.log(this.state.pic_id);
     }
 
     get_city_origin = (e) => {
@@ -53,7 +52,6 @@ class PackForm extends React.Component {
                 cities_origin: res.data,
                 city_origin_dis : false
             });
-            console.log(res.data);
         })
     }
     
@@ -65,7 +63,6 @@ class PackForm extends React.Component {
                 cities_destination: res.data,
                 city_destination_dis : false
             });
-            console.log(res.data);
         })
     }
 
@@ -87,7 +84,6 @@ class PackForm extends React.Component {
 //    }
     
     handleFormSubmit = (values) => {
-        console.log("Hi ");
         const title = values.title;
         const origin_country = values.origin_country;
         const origin_city = values.origin_city;
@@ -128,7 +124,6 @@ class PackForm extends React.Component {
                 this.setState({
                     countries: res.data
                 });
-                console.log(res.data);
             })
     }
 

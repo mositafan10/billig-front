@@ -48,7 +48,7 @@ class TravelList extends React.Component {
       }}
         locale={{emptyText:"سفری وجود ندارد"}}
         dataSource={this.props.data}
-        renderItem={item => (
+        renderItem={item => ( 
             <Row
               style={{
               border:"solid",
@@ -59,6 +59,7 @@ class TravelList extends React.Component {
               width:"320px",
               height:"310px",
               }}>
+              <List.Item  key={item.slug}>
               <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                 <Row style={{textAlign:"center", height:"80px"}} >
                   <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} >
@@ -130,6 +131,7 @@ class TravelList extends React.Component {
                   </Col>
                 </Row>
               </Col>
+              </List.Item>
             </Row>
         )}
       />  

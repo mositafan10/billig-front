@@ -18,14 +18,14 @@ class UserOffer extends React.Component {
       { 
         title: 'آگهی',
         dataIndex: 'packet_title', 
-        key: 'packet_title',
+        key: 'slug',
         width:300,
         align:"right",
       },
       { 
         title: ' پیشنهاد به',
         dataIndex: 'receiver', 
-        key: 'receiver',
+        key: 'slug',
         width:150,
         align:"center",
       render : (dataIndex, row) => <Link to={'users/' + row.receiver_id}>{dataIndex}</Link>
@@ -33,27 +33,27 @@ class UserOffer extends React.Component {
       {
         title: 'قیمت (تومان)',
         dataIndex: 'price',
-        key: 'y',
+        key: 'slug',
         width:150,
         align:"center"
       },
       { 
         title: 'متن پیشنهاد',
         dataIndex: 'description',
-        key: 'offer_count',
+        key: 'slug',
         align:"center"
       },
       { 
         title: 'وضعیت',
         dataIndex: 'status', 
-        key: 'status',
+        key: 'slug',
         width:180,
         align:"center",
       },
       { 
         title: ' ',
         dataIndex: 'slug',
-        key: '',
+        key: 'slug',
         align:"center",
         render: (dataIndex, row) =>
             {if( row.status === "انجام شده"){ return <Button disabled={true} style={{fontSize:"12px", backgroundColor:"white",color: "transparent", textShadow:"0 0 5px rgba(0,0,0,0.5)", borderRadius:"10px"}}>چت</Button>}
@@ -62,7 +62,7 @@ class UserOffer extends React.Component {
       { 
         title: ' ',
         dataIndex: 'slug',
-        key: '',
+        key: 'slug',
         align:"center",
         render: (dataIndex, row) =>
               {if( row.status === "در انتظار تایید مسافر"){ return <ConfirmPrice data={dataIndex} /> }
@@ -74,7 +74,7 @@ class UserOffer extends React.Component {
       { 
         title: ' ',
         dataIndex: 'slug',
-        key: '',
+        key: 'slug',
         align:"center",
         render: (dataIndex, row) =>
               {if( row.status === "در انتظار تایید مسافر"){ return <Button onClick={this.confrim.bind(this, dataIndex, row.price)} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>تایید</Button> }
@@ -84,7 +84,7 @@ class UserOffer extends React.Component {
       { 
         title: ' ',
         dataIndex: 'slug',
-        key: '',
+        key: 'slug',
         align:"center",
         render: (dataIndex) => 
           <Popconfirm
@@ -145,7 +145,7 @@ class UserOffer extends React.Component {
         },
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then( message.success("پیشنهاد شما حذف شد"),this.componentDidMount())
-        .catch(error => console.error(error));}
+        .catch(error  => console.error(error));}
 
     componentDidMount(){
         const token = localStorage.getItem('token');

@@ -16,6 +16,8 @@ class ProfileMenu extends React.Component {
 
   state = {
     visible: true,
+    mode:"",
+    key: ""
   }
   
   showDrawer = () => {
@@ -30,73 +32,39 @@ class ProfileMenu extends React.Component {
     });
   };
 
+
   render() {
     return (
       <div>
         <Row>
-           {/* for desktop */}
           <Col xs={0} sm={0} md={24} lg={24} xl={24} xxl={24}>
             <Tabs tabPosition="right" style={{textAlign:"center"}} >
-              <TabPane style={{textAlign:"left"}} tab=" آگهی‌های من" key="1">
+              <TabPane style={{textAlign:"left"}} tab=" آگهی‌های من" key="1" >
                 <PacketUserList />
               </TabPane>
                 <TabPane tab=" سفرهای من" key="2" >
                   <TravelProfile />
                 </TabPane>
-              <TabPane tab="پیشنهادهای من" key="6">
+              <TabPane tab="پیشنهادهای من" key="3">
                 <UserOffer/>
               </TabPane>
-              <TabPane tab="نظرات دیگران" key="3">
+              <TabPane tab="نظرات دیگران" key="4">
                 نظرات
               </TabPane>
-              <TabPane tab={<span><DollarOutlined style={{fontSize:"16px"}} />پرداخت‌های من</span>} key="4">
+              <TabPane tab={<span><DollarOutlined style={{fontSize:"16px"}} />پرداخت‌های من</span>} key="5">
                 <TransactionList />
               </TabPane>
-              <TabPane tab={<span><BookOutlined style={{fontSize:"16px"}} />آگهی‌های نشان‌شده</span>} key="5">
+              <TabPane tab={<span><BookOutlined style={{fontSize:"16px"}} />آگهی‌های نشان‌شده</span>} key="6">
                   <BookmarkPacket />
               </TabPane>
               <TabPane key="7" tab={ <span><MailOutlined style={{fontSize:"16px"}}/> صندوق پیام</span>}>
                 <InboxLayout />
               </TabPane>
-              <TabPane tab="ویرایش پروفایل" key="10">
+              <TabPane tab="ویرایش پروفایل" key="8">
                     <EditProfile />
               </TabPane>
               <TabPane tab="تغییر رمز عبور" key="9">
                     <ChangePassword />
-              </TabPane>
-            </Tabs>
-          </Col>
-
-          {/* for mobile */}
-          <Col xs={24} sm={24} md={0} lg={0} xl={0} xxl={0}>
-            <Tabs tabPosition="right" style={{textAlign:"center"}} >
-              <TabPane style={{textAlign:"left"}} tab=" آگهی‌های من" key="1">
-                {/* <PacketUserList_mobile /> */}
-              </TabPane>
-              <TabPane tab=" سفرهای من" key="2" >
-                {/* <TravelList_mobile/>
-                <CreateTravel_mobile/> */}
-              </TabPane>
-              <TabPane tab="نظرات دیگران" key="3">
-                نظرات
-              </TabPane>
-              <TabPane tab={<span><DollarOutlined style={{fontSize:"16px"}} />پرداخت‌های من</span>} key="4">
-                پرداخت ها
-              </TabPane>
-              <TabPane tab={<span><BookOutlined style={{fontSize:"16px"}} />آگهی‌های نشان‌شده</span>} key="5">
-                  {/* <Bookmark_packet /> */}
-              </TabPane>
-              <TabPane tab="پیشنهادهای من" key="6">
-                {/* <UserOffer /> */}
-              </TabPane>
-              <TabPane key="7" tab={ <span><MailOutlined style={{fontSize:"16px"}}/> صندوق پیام</span>}>
-                {/* <InboxLayout /> */}
-              </TabPane>
-              <TabPane tab="ویرایش پروفایل" key="10">
-                    {/* <EditProfile /> */}
-              </TabPane>
-              <TabPane tab="تغییر رمز عبور" key="9">
-                    {/* <ChangePassword_mobile /> */}
               </TabPane>
             </Tabs>
           </Col>

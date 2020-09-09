@@ -16,14 +16,14 @@ class TransactionList extends Component {
         { 
           title: 'تاریخ',
           dataIndex: 'create_at', 
-          key: 'create_at',
+          key: 'transId',
           align:"right",
           render: (dataIndex) => <p>{moment(dataIndex).format('Do MMMM YYYY')}</p>
         },
         {
             title: 'مقدار',
             dataIndex: 'amount',
-            key: 'amount',
+            key: 'transId',
         },
         {
             title: 'شماره تراکنش',

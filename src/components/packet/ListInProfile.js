@@ -48,21 +48,21 @@ class PacketUserList extends React.Component {
       {
         title: '',
         dataIndex: 'slug',
-        key: 'y',
+        key: 'slug',
         width:10,
         render: (dataIndex) => <OfferListModal data={dataIndex}/>,
       },
       {
         title: '',
         dataIndex: 'slug',
-        key: 'y',
+        key: 'slug',
         width:10,
         render: (dataIndex) => <EditPacket data={dataIndex}/>,
       },
       {
         title: '',
         dataIndex: 'slug',
-        key: 'x',
+        key: 'slug',
         width:10,
         render: (dataIndex) => 
           <Popconfirm
@@ -78,6 +78,7 @@ class PacketUserList extends React.Component {
     ];
 
     componentDidMount(){
+      document.title = 'لیست آگهی‌های من';
       const token = localStorage.getItem('token');
         Axios.get(`${url}api/v1/advertise/user_packet/`,{ headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => {

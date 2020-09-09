@@ -134,7 +134,6 @@ class ChatDetail extends Component {
                     }
                     placement="left"
                     width={"100%"}
-                    closeIcon={<LeftOutlined/>}
                     closable={true}
                     onClose={this.onClose}
                     visible={this.state.visible}

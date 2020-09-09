@@ -14,6 +14,7 @@ class TravelProfile extends Component {
     }
 
     componentDidMount(){
+        document.title = 'بیلیگ - لیست سفرهای من';
         const token = localStorage.getItem('token');
         Axios.get(`${url}api/v1/advertise/travellist/`,{ headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => {

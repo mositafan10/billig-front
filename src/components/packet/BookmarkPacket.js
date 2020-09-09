@@ -16,7 +16,7 @@ class BookmarkPacket extends Component {
       { 
         title: 'آگهی',
         dataIndex: 'packet_title', 
-        key: 'departure',
+        key: 'packet_slug',
         align:"right",
         render: (dataIndex, row) => <Link to={row.packet_slug}>{dataIndex}</Link>
       },
