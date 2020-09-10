@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Modal, Button, Space } from 'antd';
+import { Form, Input, Modal, Button, Space, Divider } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
@@ -60,7 +60,7 @@ class SignUpForm extends React.Component {
       onFinish={this.onFinish}
       scrollToFirstError
     >
-        <h3 style={{textAlign:"center"}}>ایجاد حساب کاربری</h3><br/>
+        <Divider>ایجاد حساب کاربری</Divider><br/>
         <Form.Item
         style={{alignItems:"center", textAlign:"center"}}
         name="name"
@@ -125,15 +125,17 @@ class SignUpForm extends React.Component {
       <Input.Password style={{borderRadius:"10px"}} />
       </Form.Item>
       <Form.Item style={{textAlign:"center"}}><br/>
-            <Button type="primary" htmlType="submit" style={{marginRight:'10px', borderRadius:"15px"}}>
-              ثبت نام  
-            </Button>
-              /    
-            <NavLink 
+        <Button type="primary" htmlType="submit" style={{marginRight:'10px', borderRadius:"15px"}}>
+          ثبت نام  
+        </Button>
+      </Form.Item>
+      <Form.Item style={{textAlign:"center"}}><br/>
+        <NavLink 
             style={{marginRight:'20px'}}
-            to='/login/'>ورود 
-            </NavLink>
-        </Form.Item>
+            to='/login/'> ورود با حساب کاربری
+        </NavLink>
+      </Form.Item>
+        
         <Modal
           onCancel={this.handleCancel}
           cancelText="انصراف"

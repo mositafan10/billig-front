@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link, withRouter, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
-import { Button, Dropdown, Menu, Row, Col } from 'antd';
-import billigpost from '../media/billigpost.png';
-import { UserOutlined, MenuOutlined} from '@ant-design/icons';
+import { Button, Dropdown, Menu, Row, Col, Badge } from 'antd';
+import logo from '../media/logo.svg';
+import { UserOutlined, MenuOutlined, BellOutlined } from '@ant-design/icons';
 
 
 class HeaderSection extends Component {
@@ -49,52 +49,69 @@ class HeaderSection extends Component {
             return <Redirect to='/login'/>
         }
         return (
-            <div>
+            <div style={{boxShadow: "0 0 5px 1px", borderRadius:"25px"}}>
                 <Row>
                     <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={20}>
                         {this.props.isAuthenticated ?
-                        <div style={{float:"left", margin:"5px 10px"}}>
-                            <Dropdown overlay={this.menu_login} trigger={['click']}>
-                            <Button 
-                                icon={<MenuOutlined />}
-                                // icon={<Avatar src = {`http://127.0.0.1/dstatic/media/${this.state.user_profile.picture}`} />} 
-                                style={{border:"hidden",color:"black", borderRadius:"15px"}}>
-                            </Button>
-                            </Dropdown>
-                            <Button 
-                                icon={<UserOutlined />}
-                                // icon={<Avatar src = {`http://127.0.0.1/dstatic/media/${this.state.user_profile.picture}`} />} 
-                                style={{border:"hidden", color:"white", backgroundColor:"#46a0ae", borderRadius:"15px"}}>
-                            </Button>
+                        <div style={{float:"left", margin:"5px 0 0 20px", width:"200px", display:"flex"}}>
+                            <div style={{borderRadius:"25px", borderColor:"aliceblue" ,border:"solid", borderWidth:"1px", height:"45px", width:"100px", marginTop:"10px", display:"flex", justifyContent:"center", alignItems:"center"}}>
+                                <Dropdown overlay={this.menu_login} trigger={['click']}>
+                                    <div>
+                                        <Button 
+                                            icon={<MenuOutlined />}
+                                            style={{border:"hidden",color:"black", borderRadius:"15px", }}>
+                                        </Button>
+                                        <Button 
+                                            icon={<UserOutlined/>}
+                                            // icon={<Avatar src = {`http://127.0.0.1/dstatic/media/${this.state.user_profile.picture}`} />} 
+                                            style={{ borderRadius:"15px"}}>
+                                        </Button>
+                                    </div>
+                                </Dropdown>
+                            </div>
+                            <div>
+                                <Badge dot={true}>
+                                    <Button 
+                                        icon={<BellOutlined />}
+                                        style={{border:"hidden",border:"1px solid" ,borderRadius:"15px", marginLeft:"10px"}}>
+                                    </Button>
+                                </Badge>
+                                </div>
                         </div>
                         :
-                        <div style={{float:"left", margin:"5px 10px"}}>
-                            <Dropdown overlay={this.menu_logout} trigger={['click']}>
-                            <Button icon={<UserOutlined />} style={{border:"hidden", color:"white", backgroundColor:"#46a0ae", borderRadius:"15px"}}></Button>
-                            </Dropdown>
+                        <div style={{float:"left", margin:"5px 0 0 20px", width:"200px", display:"flex"}}>
+                        <div style={{borderRadius:"25px", borderColor:"aliceblue" ,border:"solid", borderWidth:"1px", height:"45px", width:"100px", marginTop:"10px", display:"flex", justifyContent:"center", alignItems:"center"}}>
+                        <Dropdown overlay={this.menu_logout} trigger={['click']}>
+                                    <div>
+                                        <Button 
+                                            icon={<MenuOutlined />}
+                                            style={{border:"hidden",color:"black", borderRadius:"15px", }}>
+                                        </Button>
+                                        <Button 
+                                            icon={<UserOutlined/>}
+                                            // icon={<Avatar src = {`http://127.0.0.1/dstatic/media/${this.state.user_profile.picture}`} />} 
+                                            style={{ borderRadius:"15px"}}>
+                                        </Button>
+                                    </div>
+                                </Dropdown>
+                            </div>
                         </div>
                         }
-                        <Row>
+                        <Row style={{marginTop:"5px"}}>
                             <Col xs={0} sm={24} md={20} lg={20} xl={20} xxl={20}>
-                                <div style={{float:"left", margin:"5px 10px"}}>
-                                    <Link to='/createpacket'>
-                                        <Button style={{border:"hidden", color:"white", backgroundColor:"#46a0ae", borderRadius:"15px"}}><b>ثبت رایگان آگهی</b></Button>
-                                    </Link>
-                                </div>
-                                <div style={{float:"left", margin:"5px 10px"}}>
-                                    <Link to='/profile'>
-                                        <Button style={{border:"hidden", color:"white", backgroundColor:"#46a0ae", borderRadius:"15px"}}><b>کسب درآمد از سفر</b></Button>
-                                    </Link>
-                                </div>
+                            <Menu mode="horizontal" >
+                                <Menu.Item key="1"><Link to='/createpacket'><b>ثبت رایگان آگهی</b></Link></Menu.Item>
+                                <Menu.Item key="2"><Link to='/createpacket'><b>کسب درآمد از سفر</b></Link></Menu.Item>
+                            </Menu>
                             </Col>
                         </Row>
                     </Col>
                     <Col xs={0} sm={0} md={4} lg={4} xl={4} xxl={4}>
                         <Link to="/">
-                        <img style={{float:"right", marginTop:"5px"}}
-                        width={60}  
-                        alt="logo"
-                        src={billigpost}
+                        <img style={{float:"right", margin:"5px 8px 5px"}}
+                        width={40}  
+                        alt="billlig"
+                        src={logo}
                         />    
                         </Link>
                     </Col>

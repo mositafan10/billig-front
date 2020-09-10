@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Spin } from 'antd';
+import { Form, Input, Button, Spin, Divider } from 'antd';
 import  { LoadingOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
@@ -28,7 +28,7 @@ class LoginForm extends React.Component {
     }
     render(){
     return (
-    <div style={{ display:"content", alignContent:"center" }}>
+    <div style={{ display:"content", alignContent:"center", marginTop:"10px" }}>
         {
         this.props.loading ?
         <Spin indicator={antIcon}/>
@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
             onFinish={this.onFinish}
             onFinishFailed={this.onFinishFailed}
         >
-        <h3 style={{textAlign:"center"}}>ورود به حساب کاربری</h3><br/>
+        <Divider>ورود به حساب کاربری</Divider><br/>
         <Form.Item
             style={{alignItems:"center"}}
             label="شماره موبایل"
@@ -72,17 +72,19 @@ class LoginForm extends React.Component {
         </Form.Item>
         <Form.Item style={{textAlign:"center"}}><br/>
             <Button type="primary" htmlType="submit" style={{borderRadius:"15px",}}>
-             ورود
+                ورود
             </Button> 
-            /
-            <NavLink 
-            style={{marginRight:'20px'}}
-            to='/signup/'>ثبت نام
-            </NavLink>
         </Form.Item>  
         <Form.Item>
             <ResetPassword />
         </Form.Item>
+        <Form.Item style={{textAlign:"center"}}>
+            <NavLink 
+            style={{marginRight:'20px'}}
+            to='/signup/'>هنوز ثبت نام نکرده اید؟
+            </NavLink>
+        </Form.Item>  
+        
         </Form>
         } 
     </div>

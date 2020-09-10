@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
 import { Redirect } from 'react-router-dom';
-import FooterSection from './FooterSection';
-import HeaderSection from './HeaderSection';
+import FooterSection from '../containers/FooterSection';
+import HeaderSection from '../containers/HeaderSection';
 
 const { Header, Content, Footer } = Layout;
 
