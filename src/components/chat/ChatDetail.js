@@ -91,9 +91,6 @@ class ChatDetail extends Component {
             return (
             <div>
                 <br/>
-                <span>
-               چت را انتخاب کنید
-                </span>
                 <div>
                 <Drawer
                     title={

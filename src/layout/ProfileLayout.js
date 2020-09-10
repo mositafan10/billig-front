@@ -20,12 +20,12 @@ class ProfileLayout extends React.Component {
       <div style={{fontFamily:"IRANSans"}}>
       <Layout style={{backgroundColor:'white'}}>
         <Layout style={{backgroundColor:'white'}} className="site-layout">
-          <Header style={{backgroundColor:'white'}} className="site-layout-background">
-            <HeaderSection />
+          <Header style={{backgroundColor:'white', margin:"10px"}} className="site-layout-background">
+            <HeaderSection {...this.props}/>
           </Header>
         </Layout>
         <Layout>
-          <Content style={{backgroundColor:'white', padding:"30px 0 30px", textAlign:"center"}}>
+          <Content style={{backgroundColor:'white', textAlign:"center", padding:"30px 0"}}>
               <Row>
                 <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
                 <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>

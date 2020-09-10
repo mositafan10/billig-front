@@ -19,6 +19,8 @@ import ProfileLayout from './layout/ProfileLayout';
 import LoginLayout from './layout/LoginLayout';
 
 import 'antd/dist/antd.css';
+import OrdersLayout from './layout/OrdersLayout';
+import OrderList from './containers/OrdersListView';
 
 
 class App extends Component {
@@ -43,7 +45,19 @@ class App extends Component {
             </ConfigProvider>
           </ProfileLayout>
         </Route>
+
+        {/* Profile Layout */}
+        {/* <Route path='/orders' exact>
+          <OrdersLayout {...this.props}>
+            <ConfigProvider direction="rtl">
+              <Switch>
+                <Route exact path='/orders' render={(props) => <OrderList/>} />
+              </Switch>
+            </ConfigProvider>
+          </OrdersLayout>
+        </Route> */}
         
+
       {/* login & Signup Layout */}
       <Route path={["/login", "/signup"]} exact>
           <LoginLayout {...this.props}>

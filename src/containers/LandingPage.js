@@ -16,6 +16,7 @@ const style_text = {
     display:"flex",
     alignItems:"center",
 }
+
 const style_center = {
     display:"flex",
     justifyContent:"center",

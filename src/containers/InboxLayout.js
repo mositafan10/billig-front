@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Row, Drawer } from 'antd';
 import ChatContacs from '../components/chat/ChatContacs';
 import ChatDetail from '../components/chat/ChatDetail';
+import chat from '../media/chat.svg';
 
 class InboxLayout extends React.Component {
 
@@ -27,11 +28,10 @@ class InboxLayout extends React.Component {
         return(
             <div style={{backgroundColor:"white"}}>
                 <Row>
-                    <Col xs={24} sm={24} md={5} lg={5} xl={5} xxl={5}>
+                    <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
                         <ChatContacs parentCallback = {this.callbackFunction} />
                     </Col>
-                    <Col xs={0} sm={0} md={1} lg={1} xl={1} xxl={1} ></Col>
-                    <Col xs={24} sm={24} md={18} lg={18} xl={18} xxl={18} >
+                    <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={2} >
                         <ChatDetail 
                         data={this.state.chatid} 
                         offer={this.state.offer} 
@@ -40,6 +40,15 @@ class InboxLayout extends React.Component {
                         sender={this.state.sender}
                         receiver={this.state.receiver}
                          />
+                    </Col>
+                    <Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} >
+                        <div style={{alignContent:"center", margin:"40px 0"}}>
+                            <img
+                            alt = "billlig.com"
+                            src = {chat}
+                            style={{width:"70%", height:"auto"}}
+                        /> 
+                        </div>
                     </Col>
                 </Row>
             </div>

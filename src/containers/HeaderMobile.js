@@ -7,7 +7,7 @@ import logo from '../media/logo.svg';
 import { UserOutlined, MenuOutlined, BellOutlined } from '@ant-design/icons';
 
 
-class HeaderSection extends Component {
+class HeaderMobile extends Component {
 
     state = {
         toDashboard : false,
@@ -49,7 +49,7 @@ class HeaderSection extends Component {
             return <Redirect to='/login'/>
         }
         return (
-            <div style={{boxShadow: "0 0 5px 1px", borderRadius:"25px"}}>
+            <div>
                 <Row>
                     <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={20}>
                         {this.props.isAuthenticated ?
@@ -127,4 +127,4 @@ const mapDispatchToProps = dispatch => {
     }
   }
 
-export default withRouter(connect(null, mapDispatchToProps)(HeaderSection));
+export default withRouter(connect(null, mapDispatchToProps)(HeaderMobile    ));
