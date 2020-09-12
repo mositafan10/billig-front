@@ -35,8 +35,11 @@ class App extends Component {
       <Router> 
         <Switch>
 
+        
+
+        
         {/* Profile Layout */}
-        <Route path='/profile/:path?' exact>
+        <Route path='/profile/:path?' >
           <ProfileLayout {...this.props}>
             <ConfigProvider direction="rtl">
               <Switch>
@@ -45,17 +48,6 @@ class App extends Component {
             </ConfigProvider>
           </ProfileLayout>
         </Route>
-
-        {/* Profile Layout */}
-        {/* <Route path='/orders' exact>
-          <OrdersLayout {...this.props}>
-            <ConfigProvider direction="rtl">
-              <Switch>
-                <Route exact path='/orders' render={(props) => <OrderList/>} />
-              </Switch>
-            </ConfigProvider>
-          </OrdersLayout>
-        </Route> */}
         
 
       {/* login & Signup Layout */}
@@ -70,7 +62,7 @@ class App extends Component {
         </Route>
 
       {/* Main Layout */}
-        <Route path='/:path?' exact>
+      <Route path='/:path?' >
           <CustomLayout {...this.props}>
             <ConfigProvider direction="rtl">
               <Switch>
@@ -79,7 +71,6 @@ class App extends Component {
             </ConfigProvider>
           </CustomLayout>
         </Route>
-
 
         </Switch>
       </Router>

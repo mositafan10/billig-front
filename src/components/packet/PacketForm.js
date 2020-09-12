@@ -74,14 +74,6 @@ class PackForm extends React.Component {
         if (input.value < 0) input.value = 0;
         if (input.value > 50) return Alert("وزن باید کمتر از ۵۰ کیلوگرم باشد");
     }
-
-
-//   onKeyPress(event) {
-//     const keyCode = event.keyCode || event.which;
-//     const keyValue = String.fromCharCode(keyCode);
-//      if (/\+|-/.test(keyValue))
-//        event.preventDefault();
-//    }
     
     handleFormSubmit = (values) => {
         const title = values.title;
