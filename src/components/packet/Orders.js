@@ -56,9 +56,11 @@ class Orders extends React.Component {
         }}
         dataSource={this.props.data}
         renderItem={item => (
+            <Link style={{}} to={'/packet/' + item.slug}>
             <Row
               style={{
-              boxShadow:"0 0 10px 1px",
+              color:"black",
+              boxShadow:"0 0 9px 1px",
               borderRadius:"10px", 
               margin:"15px 15px 15px 15px", 
               padding:"15px 20px 10px 5px",
@@ -79,12 +81,12 @@ class Orders extends React.Component {
                 </Row>
                 <br/>
                 <Row style={{height:"80px"}}>
-                  <Col>
-                    <Link to={'/packet/' + item.slug}><h4>{item.title}</h4></Link>
+                  <Col style={{color:"black"}}>
+                   {item.title}
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
+                  <Col style={{color:"black"}}>
                     <TimeDiff data={item.create_at} />
                   </Col>
                 </Row>
@@ -96,6 +98,7 @@ class Orders extends React.Component {
                 </div>
               </Col>
             </Row>
+            </Link>
         )}
       />  
       </div> 

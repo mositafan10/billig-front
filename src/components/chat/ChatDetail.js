@@ -82,7 +82,6 @@ class ChatDetail extends Component {
         }), callback(res) )      
         )
         .catch((error) => console.log(error))
-        console.log("Hi");
     }
 
     render() {
