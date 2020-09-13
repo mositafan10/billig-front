@@ -10,6 +10,8 @@ import PageNotFound from './components/errors/PageNotFound';
 import AuthorizationFail from './components/errors/AuthorizationFail';
 import VerifyTransaction from './components/payment/VerifyTransaction';
 import AboutUs from './pages/AboutUs';
+import HowToWork from './pages/HowToWork';
+import TravelGuide from './pages/TravelGuide';
 
 class BaseRouter extends React.Component {
     render(){
@@ -23,6 +25,10 @@ class BaseRouter extends React.Component {
             <Route exact path='/packet/:orderID' component={OrderDetail} />
             <Route exact path='/payment/verify' component={VerifyTransaction} />
             <Route exact path='/about' component={AboutUs} />
+            <Route exact path='/howtowork' component={HowToWork} />
+            <Route exact path='/travelguide' component={TravelGuide} />
+            <Route exact path='/sendparcelguide' component={TravelGuide} />
+            <Route exact path='/buyguide' component={TravelGuide} />
             <Route component={PageNotFound} />
             <Redirect from='/home' to='/'/>
         </Switch>
