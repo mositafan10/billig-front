@@ -206,7 +206,7 @@ class CreateTravel extends React.Component {
                         </Form.Item>
                         
                         <div style={{textAlign:"center"}}>
-                        <Radio.Group onChange={this.radioonChange.bind(this)} value={this.state.radio_value}>
+                        <Radio.Group optionType="button" onChange={this.radioonChange.bind(this)} value={this.state.radio_value}>
                             <Radio value={false}>یک طرفه</Radio>
                             <Radio value={true}>دو طرفه</Radio>
                         </Radio.Group>

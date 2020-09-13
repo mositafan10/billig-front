@@ -28,10 +28,10 @@ export const authFail = error => {
 
 export const logout = () => {
     const token = localStorage.getItem('token');
+        // Axios.get(`${url}api/v1/account/logout/`, 
+        // { headers: {"Authorization" : `Bearer ${token}`} }) 
     localStorage.removeItem('token'); 
     localStorage.removeItem('expirationDate'); 
-    Axios.get(`${url}api/v1/account/logout/`, 
-    { headers: {"Authorization" : `Bearer ${token}`} }) 
     return {
         type: actionTypes.AUTH_LOGOUT
     }
@@ -41,7 +41,7 @@ export const checkAuthTimeout = expirationTime => {
     return dispatch => {
         setTimeout(() => {
             dispatch(logout());
-        }, expirationTime * 1000)
+        }, expirationTime * 10000)
     }
 }
 
@@ -57,7 +57,7 @@ export const authLogin = (phone_number, password, otp, name) => {
         .then(res => {
             const token = res.data.token;
             const user = res.data.user;
-            const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+            const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
             localStorage.setItem('user', user);
             localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);
@@ -82,7 +82,7 @@ export const authSignup = (phone_number, password, name) => {
             name: name
         })
         .then(res => {
-            const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+            const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
             localStorage.setItem('expirationDate', expirationDate);
             dispatch(checkAuthTimeout(3600));
         })

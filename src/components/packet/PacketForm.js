@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { Form, Input, Button, Select, Checkbox, Divider, Row, Col, InputNumber, Alert } from 'antd';
+import { Form, Input, Button, Select, Checkbox, Divider, Row, Col, InputNumber, Alert, Slider, Tooltip } from 'antd';
 import UploadFile from '../utils/UploadPicture';
 import TextArea from 'antd/lib/input/TextArea';
 import { Link } from 'react-router-dom';
@@ -21,6 +21,8 @@ class PackForm extends React.Component {
         city_destination_dis: true,
         pic_id : [],
         buy: false,
+        ocv: "",
+        category_other:false
     }
 
     PacketCategory = [
@@ -29,13 +31,16 @@ class PackForm extends React.Component {
         {value:'2', label:'لوازم الکترونیکی'},
         {value:'3', label:'کفش و پوشاک'},
         {value:'4', label:'لوازم آرایشی و بهداشتی'},
-        {value:'5', label:'سایر موارد'},
+        {value:'5', label:'دارو'},
+        {value:'6', label:'سایر موارد'},
     ]
 
     DIMENSION = [
-        {value:'0', label:'کوچک'},
-        {value:'1', label:'متوسط'},
-        {value:'2', label:'بزرگ'},
+        {value:'0', label:'خیلی کوچک'},
+        {value:'1', label:'کوچک'},
+        {value:'3', label:'متوسط'},
+        {value:'4', label:'بزرگ'},
+        {value:'5', label:'خیلی بزرگ'},
     ]
 
     callbackFunction = (childData) => {
@@ -45,7 +50,7 @@ class PackForm extends React.Component {
     }
 
     get_city_origin = (e) => {
-        console.log('country', e);
+
         Axios.get(`${url}api/v1/account/cities/${e}`)
         .then(res => {
             this.setState({
@@ -56,7 +61,6 @@ class PackForm extends React.Component {
     }
     
     get_city_destination = (e) => {
-        console.log('country', e);
         Axios.get(`${url}api/v1/account/cities/${e}`)
         .then(res => {
             this.setState({
@@ -67,12 +71,32 @@ class PackForm extends React.Component {
     }
 
     handleChange = () => {
-        this.setState({buy:true})
+        if (this.state.buy){
+            this.setState({buy:false})
+        }
+        else {
+            this.setState({buy:true})
+        }
     }
 
-    handleChangeweight = (input) => {
-        if (input.value < 0) input.value = 0;
-        if (input.value > 50) return Alert("وزن باید کمتر از ۵۰ کیلوگرم باشد");
+    changecategory = (value) => {
+        console.log(value)
+        if (value === "6"){
+            if (this.state.category_other === false){
+                this.setState({
+                    category_other: true
+            })
+        }
+            else{
+                this.setState({
+                    category_other: false
+                })
+            }
+        }
+        else{
+        this.setState({
+            category_other: false
+        })}
     }
     
     handleFormSubmit = (values) => {
@@ -88,7 +112,10 @@ class PackForm extends React.Component {
         const description = values.description;
         const buy = this.state.buy;
         const token = localStorage.getItem('token');
-        const pic_id = this.state.pic_id[2].id;
+        const pic_id = this.state.pic_id[2] ? this.state.pic_id[2] : 33;
+        const buy_link = this.state.buy ? values.buy_link : "";
+        const parcel_price = this.state.buy ? values.parcel_price : "";
+        const category_other = this.state.category_other ? values.category_other : "";
 
         Axios.post(`${url}api/v1/advertise/packet/`,
             { 
@@ -103,7 +130,10 @@ class PackForm extends React.Component {
             suggested_price: suggested_price,
             description: description,
             buy: buy,
-            picture : [pic_id]
+            picture : [pic_id],
+            price : parcel_price,
+            link: buy_link,
+            category_other: category_other
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
         .then(function (res) { if (res.status === 201){ window.location = "/profile" }})
@@ -173,58 +203,89 @@ class PackForm extends React.Component {
                     </Row>
                     <Row>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                            <Divider plain orientation="center">نوع بسته</Divider>
-                            <Form.Item name="category" style={{textAlign:"right"}} rules={[{required: true, message:"نوع بسته را انتخاب کنید"}]}>
-                            <Select options={this.PacketCategory}/>  
-                            </Form.Item>
-                        </Col>
-                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                             <Divider plain orientation="center">ابعاد بسته</Divider>  
                             <Form.Item name="dimension" style={{textAlign:"right"}} rules={[{required: true, message: "ابعاد بسته را انتخاب کنید"}]}>
                                 <Select options={this.DIMENSION} />
                             </Form.Item>
                         </Col>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                            <Divider plain orientation="center">نوع بسته</Divider>
+                            <Form.Item name="category" style={{textAlign:"right"}} rules={[{required: true, message:"نوع بسته را انتخاب کنید"}]}>
+                            <Select options={this.PacketCategory} onChange={this.changecategory}/>  
+                            </Form.Item>
+                            <div style={{display:this.state.category_other ? "block" : "none"}}>
+                                 <Divider plain orientation="center"> دسته بندی آگهی خود را وارد کنید</Divider>
+                                <Form.Item name="category_other" style={{textAlign:"right"}} >
+                                    <Input />  
+                                </Form.Item>
+                            </div>
+                        </Col>
                     </Row>
-                    <Row>
-                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                    <Row style={{display:"flex", justifyContent:"center"}}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">وزن بسته (کیلوگرم)</Divider>  
                             <Form.Item  name="weight" style={{textAlign:"right"}} 
                             rules={[{required: true, message: "وزن بسته را وارد کنید"}]}>
-                                <InputNumber
-                                 max={30} min={0} style={{textAlign:"right", width:"-moz-available"}}  />
+                                {/* <InputNumber
+                                 max={30} min={0} style={{textAlign:"right", width:"-moz-available"}}  />*/}
+                                 <Slider max={30} min={0} step={0.5} tooltipVisible /> 
                             </Form.Item>
                         </Col>
+                    </Row>
+                    <Row style={{display:"flex", justifyContent:"center"}}>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center" >مبلغ پیشنهادی (تومان)</Divider>
-                            <Form.Item  name="suggested_price" style={{textAlign:"right"}} rules={[{required: true, message:"مبلغ پیشنهادی خود را وارد کنید"}]}>
+                            <Tooltip title="قیمتی که به مسافر به عنوان پاداش داده می‌شود">                           
+                                <Form.Item  name="suggested_price" style={{textAlign:"right"}} rules={[{required: true, message:"مبلغ پیشنهادی خود را وارد کنید"}]}>
                                 <InputNumber 
                                 formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                 parser={value => value.replace(/\$\s?|(,*)/g, '')}
                                 style={{textAlign:"right", width:"-moz-available"}} 
                                 min={0}
                                 />
-                            </Form.Item>
+                                </Form.Item>
+                            </Tooltip>
                         </Col>
                     </Row>
-                    <Form.Item name="buy" style={{textAlign:"center"}}>
+                    <Form.Item name="buy" style={{textAlign:"center"}} 
+                    >
                         <Checkbox onChange={this.handleChange.bind()}>
-                    بسته می‌تواند توسط مسافر خریداری شود
+                    بسته باید توسط مسافر خریداری شود
                         </Checkbox><br/>
                         <Link style={{fontSize:"12px"}}>( نحوه خرید بسته توسط مسافر ) </Link>
                     </Form.Item>
+                    <div style={{display:this.state.buy ? "block" : "none", border:"1px solid", padding:"30px", borderRadius:"15px", backgroundColor:"aliceblue", marginBottom:"10px"}}>
+                        <Divider plain orientation="center"> لینک خرید / وبسایت فروشگاه / آدرس فروشگاه</Divider>
+                        <Tooltip title="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر شما مفید باشد">
+                            <Form.Item name="buy_link">
+                                <Input />
+                            </Form.Item>
+                        </Tooltip>
+                        <Divider plain orientation="center"> قیمت کالا</Divider>
+                        <Form.Item name="parcel_price">
+                            <InputNumber 
+                                    formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                                    style={{textAlign:"right", width:"-moz-available"}} 
+                                    min={0}
+                                    />
+                            </Form.Item>
+                    </div>
                     <Divider plain orientation="center"> توضیحات تکمیلی</Divider>
                     <Form.Item name="description">
                         <TextArea style={{textAlign:"right"}} />
                     </Form.Item> 
-                    <Form.Item rules={[{required: true, message:"قوانین را مطالعه بفرمایید"}]} style={{textAlign:"center"}}>
+                    <Form.Item name="rule" valuePropName="checked" rules={[
+                        { validator:(_, value) => value ? Promise.resolve() : Promise.reject('لطفا قوانین را ملاحظه بفرمایید') },
+                        ]} style={{textAlign:"center"}}>
                         <Checkbox style={{textAlign:"right"}}>
                         با <a>قوانین و مقررات </a>بیلیگ پست موافقم
                         </Checkbox>
                     </Form.Item>
-                    <Form.Item name="picture" style={{textAlign:"center"}}> 
-                        <UploadFile parentCallback = {this.callbackFunction} />
+                    <Form.Item name="picture" style={{display:"flex", justifyContent:"center"}}> 
+                        <UploadFile parentCallback = {this.callbackFunction}/>
                     </Form.Item>
-                    <Form.Item style={{ textAlign: 'center' }}>
+                    <Form.Item style={{textAlign:"center"}}>
                         <Button style={{borderRadius:'8px'}} type="primary" htmlType="submit">ثبت آگهی</Button>
                     </Form.Item> 
                 </Form>

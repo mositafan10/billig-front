@@ -21,7 +21,7 @@ class PacketUserList extends React.Component {
         dataIndex: 'title', 
         key: 'title',
         align:"right",
-        render : (dataIndex, row) => <Link to={"packet/" + row.slug}>{dataIndex}</Link>
+        render : (dataIndex, row) => <Link to={"/packet/" + row.slug}>{dataIndex}</Link>
       },
       { 
         title: ' قیمت (تومان)',

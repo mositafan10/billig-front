@@ -20,8 +20,8 @@ class FooterSection extends Component {
         {
            email:value
         })
-        .then( message.success("ایمیل شما با موفقیت ثبت شد"))
-        .catch(error => console.error(error))
+        .then( res => { if(res.status === 200) { return message.success("ایمیل شما با موفقیت ثبت شد")}})
+        .catch(error => message.info(error.response.data.detail))
     }
 
     render() {

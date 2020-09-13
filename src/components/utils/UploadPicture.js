@@ -33,6 +33,7 @@ const UploadFile = (props) => {
   };
 
   return (
+    <div style={{display:"flex", justifyContent:"center"}}>
     <ImgCrop rotate>
       <Upload 
         action={`${url}api/v1/advertise/upload/`}
@@ -45,6 +46,7 @@ const UploadFile = (props) => {
         {fileList.length < 1 && '+ Upload'}
       </Upload>
     </ImgCrop>
+    </div>
   );
 };
 

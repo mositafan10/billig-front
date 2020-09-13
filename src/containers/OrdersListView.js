@@ -25,17 +25,17 @@ class OrderList extends React.Component {
     state = {
         orders : [],
         countries: [],
-        filter: "none"
+        filter: "none",
+        filteritems: []
     }
 
-
     PacketCategory = [
-        {value:'0', label:'مدارک و مستندات'},
-        {value:'1', label:'کتاب و مجله'},
-        {value:'2', label:'لوازم الکترونیکی'},
-        {value:'3', label:'کفش و پوشاک'},
-        {value:'4', label:'لوازم آرایشی و بهداشتی'},
-        {value:'5', label:'سایر موارد'},
+        {value:'مدارک و مستندات', label:'مدارک و مستندات'},
+        {value:'کتاب و مجله', label:'کتاب و مجله'},
+        {value:'لوازم الکترونیکی', label:'لوازم الکترونیکی'},
+        {value:'کفش و پوشاک', label:'کفش و پوشاک'},
+        {value:'لوازم آرایشی و بهداشتی', label:'لوازم آرایشی و بهداشتی'},
+        {value:'سایر موارد', label:'سایر موارد'},
     ]
 
     order_type = [
@@ -43,27 +43,36 @@ class OrderList extends React.Component {
         { label: 'پست', value: 'پست' },
       ];
 
-    countries = [(
-        <Menu>{
-        this.state.countries.map((e) => {
-            return <Menu.Item key={e.id}>{e.name}</Menu.Item>;})}
-        </Menu>
-    )]
+    countryfilter = (id) => {
+        const myItems = this.state.orders;
+        const newArray = myItems.filter(item => item.origin_country.id === id || item.destination_country.id === id)
+        this.setState({
+            filteritems: newArray
+        })
+    }
 
-    onChange(checkedValues) {
-        console.log('checked = ', checkedValues);
-      }
-
+    categoryfilter = (id) => {
+        const myItems = this.state.orders;
+        const newArray = myItems.filter(item => item.category === id);
+        this.setState({
+            filteritems: newArray
+        })
+    }
+    
+    
     componentDidMount(){
-
         Axios.get(`${url}api/v1/advertise/packet/`)
             .then(res => {
                 this.setState({
-                    orders: res.data
-                });
-            })
-            .catch(error => console.error(error));
+                    orders: res.data,
+                    filteritems: res.data
+            });
+        })
+        .catch(error => console.error(error));
+    }
 
+
+    countrylist = () => {
         Axios.get(`${url}api/v1/account/countries/`)
         .then(res => {
             this.setState({
@@ -72,11 +81,19 @@ class OrderList extends React.Component {
         })
     }
 
+    canclefilter = () => {
+        this.setState({
+            filteritems: this.state.orders
+        })
+    }
+
+
     showfilter = () => {
         if (this.state.filter === "none"){this.setState({filter:"flex"})
         } else { this.setState({filter:"none"})}
     }
 
+    
     render(){
         return(
             <div >
@@ -111,13 +128,14 @@ class OrderList extends React.Component {
                     <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24}>
                         <div style={{display:"flex", justifyContent:"center"}}>
                             <Space>
-                            <Checkbox.Group options={this.order_type} defaultValue={['پست','خرید']} onChange={this.onChange} />
-                            <Select placeholder="کشور" style={{width:"100px"}}>
+                            <Checkbox.Group options={this.order_type} defaultValue={['پست','خرید']} onChange={this.onChange}  />
+                            <Select placeholder="کشور" style={{width:"100px"}} onClick={this.countrylist} onChange={this.countryfilter.bind(this)}>
                                 {this.state.countries.map((e, key) => {
                                 return <Option key={key} value={e.id}>{e.name}</Option>;})}
                             </Select>
-                            <Select placeholder="دسته بندی" options={this.PacketCategory} style={{width:"180px"}}/> 
+                            <Select placeholder="دسته بندی" options={this.PacketCategory} style={{width:"180px"}} onChange={this.categoryfilter}/> 
                             <Select placeholder="وزن" options={this.PacketCategory} style={{width:"180px"}}/> 
+                            <Button style={{borderRadius:"10px", fontSize:"13px"}} onClick={this.canclefilter.bind(this)}>لغو فیلترها</Button> 
                             </Space>
                         </div>
                     </Col>
@@ -146,7 +164,7 @@ class OrderList extends React.Component {
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                         <Row >
                             <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                <Orders data={this.state.orders} page={100} pagesize={100}/>
+                                <Orders data={this.state.filteritems} page={100} pagesize={100}/>
                             </Col>
                         </Row>
                     </Col>

@@ -15,21 +15,14 @@ class DownloadPic extends React.Component {
         loading: true
     }
 
-    componentDidMount(){
+    componentDidUpdate = (prevProps) => {
+        if (this.props.data !== prevProps.data) {
         Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data && this.props.data}`)
         .then((res) => this.setState({
             url: res.data.image_file
-        }))
+            }))
+        }
     }
-
-    // componentDidUpdate = (prevProps) => {
-    //     if (this.props.data !== prevProps.data) {
-    //     Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data && this.props.data}`)
-    //     .then((res) => this.setState({
-    //         url: res.data.image_file
-    //         }))
-    //     }
-    // }
 
     
     render(){

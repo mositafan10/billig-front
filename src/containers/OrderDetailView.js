@@ -2,10 +2,11 @@ import React from 'react';
 import Axios from 'axios';
 import { Card, Row, Col } from 'antd';
 import OfferDetail from '../components/offer/OfferInDetail';
-import DownloadPic from '../components/utils/DownloadPic';
+import DownloadPic1 from '../components/utils/DownloadPic1';
 // import Bookmark from '../components/packet/‌BookmarkPacket';
 import { Link } from 'react-router-dom';
 import { config } from '../Constant';
+
 
 var url = config.url.API_URL
 
@@ -129,7 +130,7 @@ class OrderDetail extends React.Component {
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={14} xl={14} xxl={14}>
                         <br/><br/>
-                        <DownloadPic data={picID} size={300}/>
+                        <DownloadPic1 data={picID} size={300}/>
                     <br/><br/>
                     <p s>با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید</p>
                     {/* <Bookmark data={Slug}  />  */}
