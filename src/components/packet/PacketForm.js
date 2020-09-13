@@ -19,7 +19,7 @@ class PackForm extends React.Component {
         cities_destination : [],
         city_origin_dis: true,
         city_destination_dis: true,
-        pic_id : [],
+        pic_id : "",
         buy: false,
         ocv: "",
         category_other:false
@@ -44,9 +44,21 @@ class PackForm extends React.Component {
     ]
 
     callbackFunction = (childData) => {
-        const pic = childData.map((pi) => this.setState((state) => {
-           return {pic_id: state.pic_id.concat(pi.response) };
-          }) ) 
+        console.log(childData.length);
+        if(childData.length == 1){
+            // const pic_id = childData[0].response.id ;
+            const pic_id = childData[0] && (childData[0].response && (childData[0].response && childData[0].response.id ));
+            this.setState({
+                pic_id,
+            })
+        // return pic_id
+        }
+        else {
+            return null
+        }
+        // const pic = childData.map((pi) => this.setState((state) => {
+        //    return {pic_id: state.pic_id.concat(pi.response) };
+        //   }) ) 
     }
 
     get_city_origin = (e) => {
@@ -113,9 +125,9 @@ class PackForm extends React.Component {
         const buy = this.state.buy;
         const token = localStorage.getItem('token');
         const pic_id = this.state.pic_id[2] ? this.state.pic_id[2] : 33;
-        const buy_link = this.state.buy ? values.buy_link : "";
-        const parcel_price = this.state.buy ? values.parcel_price : "";
-        const category_other = this.state.category_other ? values.category_other : "";
+        const buy_link = this.state.buy && values.buy_link ;
+        const parcel_price = this.state.buy && values.parcel_price 
+        const category_other = this.state.category_other ? values.category_other : "" ;
 
         Axios.post(`${url}api/v1/advertise/packet/`,
             { 
@@ -226,8 +238,6 @@ class PackForm extends React.Component {
                         <Divider plain orientation="center">وزن بسته (کیلوگرم)</Divider>  
                             <Form.Item  name="weight" style={{textAlign:"right"}} 
                             rules={[{required: true, message: "وزن بسته را وارد کنید"}]}>
-                                {/* <InputNumber
-                                 max={30} min={0} style={{textAlign:"right", width:"-moz-available"}}  />*/}
                                  <Slider max={30} min={0} step={0.5} tooltipVisible /> 
                             </Form.Item>
                         </Col>

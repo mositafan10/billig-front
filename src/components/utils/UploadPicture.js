@@ -8,7 +8,7 @@ const UploadFile = (props) => {
 
   const [fileList, setFileList] = useState([]);
 
-  const sendData = (fileList) => { props.parentCallback(fileList); };
+  const sendData = (newFileList) => { props.parentCallback(newFileList); };
 
   const onChange = async ({ fileList: newFileList }) => {
     setFileList(newFileList);
