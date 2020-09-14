@@ -4,7 +4,8 @@ import { Row, Col, Space, Divider, Input, message, ConfigProvider } from 'antd';
 import {  TwitterOutlined 
         , InstagramOutlined 
         , LinkedinOutlined 
-        , FacebookOutlined  } 
+        , FacebookOutlined
+        , CopyrightOutlined  } 
     from '@ant-design/icons';
 import {config} from '../Constant';
 import { Link } from 'react-router-dom';
@@ -55,32 +56,33 @@ class FooterSection extends Component {
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>راهنمای کاربران</b></p><hr width="120" style={{float:"right"}}/><br/>
-                        <Link to={'/how-billlig-work'}><p style={style_p}>نحوه ثبت سفارش</p></Link>
-                        <p style={style_p}>فرآیند ارسال سفارش</p>
+                        <Link to={'/how-billlig-work'}><p style={style_p}>راهنمای ثبت آگهی</p></Link>
+                        <p style={style_p}>سوالات متداول</p>
                     </Col>
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>خدمات  کاربران</b></p><hr width="120" style={{float:"right"}}/><br/>
-                        <p style={style_p}>سوالات متداول</p>
-                        <p style={style_p}>شرایط استفاده</p>
-                        <p style={style_p}>حریم خصوصی</p>
+                        
+                        <p style={style_p}>پشتیبانی</p>
                         <p style={style_p}>گزارش مشکلات</p>
                     </Col>
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>بیلیگ</b></p><hr width="80" style={{float:"right"}}/><br/>
-                        <Link to={'/about-us'}><p style={style_p}>درباره ما</p></Link>
                         <p style={style_p}>بلاگ</p>
+                        <Link to={'/about-us'}><p style={style_p}>درباره ما</p></Link>
                         <p style={style_p}>تماس با ما</p>
+                        <p style={style_p}>حریم خصوصی</p>
+                        <p style={style_p}>شرایط استفاده</p>
                     </Col>
                     <hr/>
                         <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}>
                     </Col> 
                 </Row>
                 <Divider/>
-                <Row style={{justifyContent:"center", display:"flex",}}>
+                <Row style={{justifyContent:"center", display:"flex"}}>
                     <br/>
-                    <h5 style={{textAlign:"center"}}>.کلیه حقوق این سایت متعلق به شرکت ... است</h5>
+                    <h5 style={{textAlign:"center"}}><CopyrightOutlined /> تمامی حقوق برای بیلیگ محفوظ است. برداشتن مطالب با درج لینک سایت مانعی ندارد . </h5>
                 </Row>
             </ConfigProvider>
         );
