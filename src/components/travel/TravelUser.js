@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import airplane from '../../media/airplane.png';
-import { Button , Popconfirm , message, Row,  Col, List } from 'antd';
+import { Button , Popconfirm , message, Row,  Col, List, ConfigProvider } from 'antd';
 import moment from 'moment';
 import EditTravel from './EditTravel';
 import { config } from '../../Constant';
@@ -81,9 +81,9 @@ class TravelList extends React.Component {
                         <Col style={style_right} xs={12} sm={12} md={12} lg={12} xl={12} >
                             <h4>تاریخ سفر</h4>
                         </Col>
-                        <Col style={style_left} xs={12} sm={12} md={12} lg={12} xl={12}>
-                            {moment(item.flight_date_start).format('Do MMM YYYY')}
-                        </Col>
+                          <Col style={style_left} xs={12} sm={12} md={12} lg={12} xl={12}>
+                              {moment(item.flight_date_start).format('D MMM')}
+                          </Col>
                     </Row>
                   </Col>
                   <hr/>

@@ -5,8 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import './fonts/iransans.ttf';
-import './fonts/vazir.ttf';
+import './index.css';
 
 import reducer from './store/reducers/auth';
 

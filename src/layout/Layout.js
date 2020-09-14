@@ -24,20 +24,18 @@ class CustomLayout extends React.Component {
       return <Redirect to='/login'/>
     }
     return(
-      <div style={{fontFamily:"IRANSans"}}>
-        <Layout className="layout" style={{backgroundColor:'white'}}>
-          <Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor:"white" }} >
+      <div style={{fontFamily:"VazirD", overflow:"hidden"}}>
+        <Layout style={{backgroundColor:'white', height:"auto"}}>
+          <Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor:"white", padding:"0", height:"auto"  }} >
             <HeaderSection {...this.props} />
           </Header>
-          <Content>
+          <Content style={{margin:"0 15px 0 15px"}}>
               <Row style={{marginTop:"100px"}}>
-                {/* <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col> */}
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <div className="site-layout-content">
                     {this.props.children}
                   </div>
                 </Col>
-                {/* <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col> */}
               </Row>
           </Content>
           <Footer style={{ textAlign: 'right', backgroundColor:"#edf2f0" }}>

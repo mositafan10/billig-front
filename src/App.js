@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ConfigProvider } from 'antd';
 import * as actions from './store/actions/auth';
+import  { BreakpointProvider } from 'react-socks';
+
 
 //components
 import Login from './containers/Login';
@@ -40,18 +42,21 @@ class App extends Component {
         
         {/* Profile Layout */}
         <Route path='/profile/:path?' >
-          <ProfileLayout {...this.props}>
-            <ConfigProvider direction="rtl">
-              <Switch>
-                <ProfileRoutes {...this.props} />
-            </Switch>
-            </ConfigProvider>
-          </ProfileLayout>
+        <BreakpointProvider >
+            <ProfileLayout {...this.props}>
+                <ConfigProvider direction="rtl">
+                  <Switch>
+                    <ProfileRoutes {...this.props} />
+                </Switch>
+                </ConfigProvider>
+            </ProfileLayout>
+          </BreakpointProvider>
         </Route>
         
 
       {/* login & Signup Layout */}
       <Route path={["/login", "/signup"]} exact>
+        <BreakpointProvider>
           <LoginLayout {...this.props}>
             <ConfigProvider direction="rtl">
               <Switch>
@@ -59,10 +64,12 @@ class App extends Component {
               </Switch>
             </ConfigProvider>
           </LoginLayout>
+          </BreakpointProvider>
         </Route>
 
       {/* Main Layout */}
       <Route path='/:path?' >
+        <BreakpointProvider>
           <CustomLayout {...this.props}>
             <ConfigProvider direction="rtl">
               <Switch>
@@ -70,7 +77,8 @@ class App extends Component {
               </Switch>
             </ConfigProvider>
           </CustomLayout>
-        </Route>
+        </BreakpointProvider>
+      </Route>
 
         </Switch>
       </Router>

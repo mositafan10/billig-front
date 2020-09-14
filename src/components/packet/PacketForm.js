@@ -164,7 +164,7 @@ class PackForm extends React.Component {
     render(){  
     return (
         <div>
-            <Link style={{fontSize:"14px", display:"flex", justifyContent:"center"}}> راهنمای ثبت آگهی </Link><br/>
+            <Link to={'/how-billlig-work'} style={{fontSize:"14px", display:"flex", justifyContent:"center"}}> راهنمای ثبت آگهی </Link><br/>
             <Row>
             <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6}></Col>
             <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
@@ -234,23 +234,23 @@ class PackForm extends React.Component {
                         </Col>
                     </Row>
                     <Row style={{display:"flex", justifyContent:"center"}}>
-                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                        <Col xs={24} sm={24} md={24} lg={20} xl={20} xxl={20}>
                         <Divider plain orientation="center">وزن بسته (کیلوگرم)</Divider>  
-                            <Form.Item  name="weight" style={{textAlign:"right"}} 
+                            <Form.Item  name="weight" style={{textAlign:"center"}} 
                             rules={[{required: true, message: "وزن بسته را وارد کنید"}]}>
                                  <Slider max={30} min={0} step={0.5} tooltipVisible /> 
                             </Form.Item>
                         </Col>
                     </Row>
                     <Row style={{display:"flex", justifyContent:"center"}}>
-                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center" >مبلغ پیشنهادی (تومان)</Divider>
                             <Tooltip title="قیمتی که به مسافر به عنوان پاداش داده می‌شود">                           
-                                <Form.Item  name="suggested_price" style={{textAlign:"right"}} rules={[{required: true, message:"مبلغ پیشنهادی خود را وارد کنید"}]}>
+                                <Form.Item  name="suggested_price" style={{textAlign:"center"}} rules={[{required: true, message:"مبلغ پیشنهادی خود را وارد کنید"}]}>
                                 <InputNumber 
                                 formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                 parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                                style={{textAlign:"right", width:"-moz-available"}} 
+                                style={{textAlign:"right"}} 
                                 min={0}
                                 />
                                 </Form.Item>
@@ -262,7 +262,6 @@ class PackForm extends React.Component {
                         <Checkbox onChange={this.handleChange.bind()}>
                     بسته باید توسط مسافر خریداری شود
                         </Checkbox><br/>
-                        <Link style={{fontSize:"12px"}}>( نحوه خرید بسته توسط مسافر ) </Link>
                     </Form.Item>
                     <div style={{display:this.state.buy ? "block" : "none", border:"1px solid", padding:"30px", borderRadius:"15px", backgroundColor:"aliceblue", marginBottom:"10px"}}>
                         <Divider plain orientation="center"> لینک خرید / وبسایت فروشگاه / آدرس فروشگاه</Divider>

@@ -9,21 +9,21 @@ const { Header, Content, Footer } = Layout;
 class LoginLayout extends Component {
     render() {
         return (
-            <div style={{fontFamily:"IRANSans", backgroundColor:"white"}}>
+            <div style={{fontFamily:"VazirD", backgroundColor:"white", overflow:"hidden"}}>
                 <Layout style={{backgroundColor:"white"}}>
-                    <Header style={{backgroundColor:"white"}}>
+                    <Header style={{backgroundColor:"white", padding:"0", height:"auto"}}>
                         <HeaderSection {...this.props}/>
                     </Header>
                     <Content>
-                        <Row>
+                        <Row style={{overflow:"hidden"}}>
                             <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12} style={{textAlign:"center"}}>
                             <img
                                 alt = "billlig.com"
                                 src = {login}
-                                style={{width:"70%", height:"auto", margin:"80px"}}
+                                style={{width:"70%", height:"auto", marginTop:"50px"}}
                                 />
                             </Col>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12} style={{marginTop:"100px"}} >
+                            <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12} style={{marginTop:"30px"}} >
                                 <Row style={{display:"flex", justifyContent:"center"}}>
                                 {this.props.children}
                                 </Row>

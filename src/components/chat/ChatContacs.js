@@ -33,6 +33,7 @@ class  ChatContacs extends Component {
                 <List
                     itemLayout="horizontal"
                     dataSource={this.state.contacs}
+                    locale={{emptyText:"مذاکره‌ای وجود ندارد"}}
                     renderItem={item => (
                     <List.Item style={{borderRight:"solid", borderRightColor:"aliceblue", margin:"0 20px 0 0"}}>
                         <List.Item.Meta
