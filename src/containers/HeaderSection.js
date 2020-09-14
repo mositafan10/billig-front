@@ -40,7 +40,6 @@ class HeaderSection extends Component {
       </Menu>
     );
     
-
     render() {
         if (this.state.toDashboard){
             this.setState({
@@ -49,7 +48,7 @@ class HeaderSection extends Component {
             return <Redirect to='/login'/>
         }
         return (
-            <div style={{boxShadow: "0 0 5px 1px", borderRadius:"25px"}}>
+            <div style={{boxShadow: "0 0 5px 1px", borderRadius:"25px", backgroundColor:"white"}}>
                 <Row>
                     <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={20}>
                         {this.props.isAuthenticated ?
@@ -97,10 +96,10 @@ class HeaderSection extends Component {
                             </div>
                         </div>
                         }
-                        <Row style={{marginTop:"5px"}}>
+                        <Row >
                             <Col xs={0} sm={24} md={20} lg={20} xl={20} xxl={20}>
                             <Menu mode="horizontal" >
-                                <Menu.Item key="1"><Link to='/createpacket'><b>ثبت رایگان آگهی</b></Link></Menu.Item>
+                                <Menu.Item key="1"><Link to='/create-packet'><b>ثبت رایگان آگهی</b></Link></Menu.Item>
                                 <Menu.Item key="2"><Link to='/orders'><b>کسب درآمد از سفر</b></Link></Menu.Item>
                             </Menu>
                             </Col>

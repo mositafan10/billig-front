@@ -83,12 +83,12 @@ class LandingPage extends React.Component {
                             <Row >
                                 <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0} >
                                 <Divider plain orientation="center">
-                                    <Link><span>بیلیگ‌پست چگونه کار می‌کند؟</span></Link>
+                                    <Link to={'/how-billlig-work'}><span>بیلیگ‌پست چگونه کار می‌کند؟</span></Link>
                                     </Divider>
                                 </Col>
                                 <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24} style={{padding:"0 85px"}}>
                                 <Divider plain orientation="center">
-                                    <Link>بیلیگ‌پست چگونه کار می‌کند؟</Link>
+                                <Link to={'/how-billlig-work'}>بیلیگ‌پست چگونه کار می‌کند؟</Link>
                                     </Divider>
                                 </Col>
                             </Row>

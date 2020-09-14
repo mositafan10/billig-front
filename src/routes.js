@@ -12,6 +12,8 @@ import VerifyTransaction from './components/payment/VerifyTransaction';
 import AboutUs from './pages/AboutUs';
 import HowToWork from './pages/HowToWork';
 import TravelGuide from './pages/TravelGuide';
+import SendParcelGuide from './pages/SendParcelGuide';
+import BuyGuide from './pages/BuyGuide';
 
 class BaseRouter extends React.Component {
     render(){
@@ -19,16 +21,16 @@ class BaseRouter extends React.Component {
         <Switch>
             <Route exact path='/' render={(props) => <LandingPage/>} />
             <Route exact path='/orders' render={(props) => <OrderList/> }/>
-            <Route exact path='/createpacket' render={(props) => this.props.isAuthenticated ? <PackForm {...this.props}/>:<AuthorizationFail/>}/>
+            <Route exact path='/create-packet' render={(props) => this.props.isAuthenticated ? <PackForm {...this.props}/>:<AuthorizationFail/>}/>
             <Route exact path='/travel/:travelID' component={this.props.isAuthenticated ? TravelDetail:AuthorizationFail} />
             <Route exact path='/users/:userID' component={UserProfile} />
             <Route exact path='/packet/:orderID' component={OrderDetail} />
             <Route exact path='/payment/verify' component={VerifyTransaction} />
-            <Route exact path='/about' component={AboutUs} />
-            <Route exact path='/howtowork' component={HowToWork} />
-            <Route exact path='/travelguide' component={TravelGuide} />
-            <Route exact path='/sendparcelguide' component={TravelGuide} />
-            <Route exact path='/buyguide' component={TravelGuide} />
+            <Route exact path='/about-us' component={AboutUs} />
+            <Route exact path='/how-billlig-work' component={HowToWork} />
+            <Route exact path='/travel-guide' component={TravelGuide} />
+            <Route exact path='/send-parcel-guide' component={SendParcelGuide} />
+            <Route exact path='/buy-guide' component={BuyGuide} />
             <Route component={PageNotFound} />
             <Redirect from='/home' to='/'/>
         </Switch>

@@ -7,6 +7,7 @@ import {  TwitterOutlined
         , FacebookOutlined  } 
     from '@ant-design/icons';
 import {config} from '../Constant';
+import { Link } from 'react-router-dom';
 
 var url = config.url.API_URL;
 const style_p ={color:"#707070"}
@@ -54,7 +55,7 @@ class FooterSection extends Component {
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>راهنمای کاربران</b></p><hr width="120" style={{float:"right"}}/><br/>
-                       <a><p style={style_p}>نحوه ثبت سفارش</p></a>
+                        <Link to={'/how-billlig-work'}><p style={style_p}>نحوه ثبت سفارش</p></Link>
                         <p style={style_p}>فرآیند ارسال سفارش</p>
                     </Col>
                     <hr/>
@@ -68,7 +69,7 @@ class FooterSection extends Component {
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>بیلیگ</b></p><hr width="80" style={{float:"right"}}/><br/>
-                        <p style={style_p}>درباره ما</p>
+                        <Link to={'/about-us'}><p style={style_p}>درباره ما</p></Link>
                         <p style={style_p}>بلاگ</p>
                         <p style={style_p}>تماس با ما</p>
                     </Col>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Col, Row, Divider, Button, Space } from "antd";
 import image from '../media/HowtoWork.svg';
 
@@ -43,9 +44,9 @@ class HowToWork extends Component {
             </p>
             <div>
             <Space direction="horizontal">
-                <Button style={{borderRadius:"10px",  backgroundColor: "#46a0ae", color: "white",}}>  قصد سفر دارم </Button>
-                <Button style={{borderRadius:"10px",  backgroundColor: "#46a0ae", color: "white",}}> قصد ارسال بسته دارم </Button>
-                <Button style={{borderRadius:"10px",  backgroundColor: "#46a0ae", color: "white",}}> قصد خرید دارم </Button>
+              <Link to={'/travel-guide'}><Button style={{borderRadius:"10px",  backgroundColor: "#46a0ae", color: "white",}}>  قصد سفر دارم </Button></Link> 
+              <Link to={'/send-parcel-guide'}> <Button style={{borderRadius:"10px",  backgroundColor: "#46a0ae", color: "white",}}> قصد ارسال بسته دارم </Button></Link>
+              <Link to={'/buy-guide'}>  <Button style={{borderRadius:"10px",  backgroundColor: "#46a0ae", color: "white",}}> قصد خرید دارم </Button></Link>
             </Space>
             </div>  
           </Col>

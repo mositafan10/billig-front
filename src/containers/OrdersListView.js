@@ -96,7 +96,7 @@ class OrderList extends React.Component {
     
     render(){
         return(
-            <div >
+            <div style={{padding:"0 30px 0 30px"}}>
                 <Row >
                     <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12} style={style_text}>
                         <Row>
