@@ -51,7 +51,7 @@ class EditPacket extends Component {
                     okButtonProps={{textAlign:"center",}}
                     cancelButtonProps={{hidden:"true"}}
                     style={{fontFamily:"IRANSans", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
-                    width="60%"
+                    width="80%"
                     bodyStyle={{borderRadius:"20px"}}
                     maskStyle={{borderRadius:"20px"}}
                     >
