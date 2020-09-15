@@ -4,6 +4,11 @@ import { Col, Row, Divider, Button, Space } from "antd";
 import image from '../media/HowtoWork.svg';
 
 class HowToWork extends Component {
+
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
+  
     render() {
         return (
             <div>

@@ -61,6 +61,7 @@ class OrderList extends React.Component {
     
     
     componentDidMount(){
+        window.scrollTo(0, 0);
         Axios.get(`${url}api/v1/advertise/packet/`)
             .then(res => {
                 this.setState({
@@ -100,17 +101,18 @@ class OrderList extends React.Component {
                 <Row >
                     <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12} style={style_text}>
                         <Row>
+                                {/* <Col>
+                                <h1 style={{fontSize:"33px"}}>آگهی‌های خرید و پست</h1>
+                                </Col> */}
                             <Col>
-                            <h1 style={{fontSize:"33px"}}>آگهی‌های خرید و پست</h1>
-                            </Col>
-                            <Col>
-                            <p style={{fontSize:"16px"}}>در هر سفر می‌توانید هزینه‌های خود را با خرید و یا جابه‌جایی بسته‌ها هزینه خود را کاهش دهید</p>
+                                <p style={{fontSize:"18px"}}>در هر سفر می‌توانید هزینه‌های خود را با خرید و یا جابه‌جایی بسته‌ها هزینه خود را کاهش دهید</p>
                             </Col>
                             <Col>
                             <Space>
-                                <Button size={"large"} style={{borderRadius:"15px"}}>راهنمای پذیرش  آگهی</Button>
-                                <Button size={"large"} style={{borderRadius:"15px", backgroundColor:"#46a0ae", color:"white"}}>ثبت سفر</Button>
+                                <Link to="/travel-guide"><Button size={"medium"} style={{borderRadius:"15px"}}>راهنمای پذیرش  آگهی</Button></Link>
+                                <Link to="/profile/mytravel"><Button size={"medium"} style={{borderRadius:"15px", backgroundColor:"#46a0ae", color:"white"}}>ثبت سفر</Button></Link>
                             </Space>
+                            <Divider style={{opacity:"0"}}/>
                             </Col>
                         </Row>
                     </Col>

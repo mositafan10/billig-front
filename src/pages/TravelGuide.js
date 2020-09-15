@@ -8,6 +8,11 @@ import buyer from "../media/buyer.svg";
 import Delivery from "../media/Delivery.svg";
 
 class TravelGuide extends Component {
+  
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
+  
   render() {
     return (
       <div>

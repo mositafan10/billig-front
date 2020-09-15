@@ -9,6 +9,9 @@ import buyer from '../media/buyer.svg';
 
 
 class SendParcelGuide extends Component {
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
   render() {
     return (
       <div>

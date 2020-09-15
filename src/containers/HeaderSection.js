@@ -20,7 +20,8 @@ class HeaderSection extends Component {
   state = {
     toDashboard: false,
     Drawerprofile: false,
-    Drawerpage: false
+    Drawerpage: false,
+    Drawernotification: false
   };
 
   exit = () => {
@@ -43,10 +44,17 @@ class HeaderSection extends Component {
     })
 }
 
+shownotification = () => {
+    this.setState({
+      Drawernotification: true
+    })
+}
+
   onClose = () => {
     this.setState({
         Drawerprofile: false,
-        Drawerpage: false
+        Drawerpage: false,
+        Drawernotification: false
     })
   }
 
@@ -209,8 +217,9 @@ class HeaderSection extends Component {
                     />
                     </Link>
                     </Col>  
-                    <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} style={{textAlign:"right", paddingRight:"10px"}}>
-                        <Button onClick={this.showprofilemenu} icon={<UserOutlined />} style={{borderRadius:"15px", border:"1px solid"}}></Button>
+                    <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} style={{textAlign:"right", paddingRight:"15px"}}>
+                        <Button onClick={this.showprofilemenu} icon={<UserOutlined />} style={{borderRadius:"15px", border:"1px solid", backgroundColor:"#46a0ae", color:"white"}}></Button>
+                       <Badge count={8} size="small"><Button onClick={this.shownotification} icon={<BellOutlined />} style={{borderRadius:"15px", border:"hidden", backgroundColor:"#46a0ae", color:"white"}}></Button></Badge> 
                         <Drawer
                             title="بیلیگ"
                             placement="right"
@@ -260,6 +269,18 @@ class HeaderSection extends Component {
                             <Link onClick={this.onClose} to="/signup"><p>ثبت نام</p></Link>
                             </div>
                             } 
+                        </div>
+                        </Drawer>
+                        <Drawer
+                            title="اعلانات"
+                            placement="right"
+                            closable={false}
+                            onClose={this.onClose}
+                            width="50%"
+                            visible={this.state.Drawernotification}
+                            style={{textAlign:"right", fontFamily:"VazirD"}}
+                        >   
+                        <div >
                         </div>
                         </Drawer>
                     </Col>

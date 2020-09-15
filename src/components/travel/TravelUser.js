@@ -33,10 +33,10 @@ class TravelList extends React.Component {
           })
           .catch(error => console.error(error));
     }
+    
     render(){
         return(
-          <div>
-          
+        <div>
     <List
       grid={{
         xs: 1,

@@ -5,6 +5,11 @@ import about2 from "../media/about2.svg";
 import Favicon from "../media/FavIcon.png";
 
 class AboutUs extends Component {
+  
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
+
   render() {
     return (
       <div>
