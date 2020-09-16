@@ -2,7 +2,8 @@ import React from 'react';
 import Axios from 'axios';
 import { Button, Modal, Form, message } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import { config } from '../../Constant'
+import { config } from '../../Constant';
+import { Link } from 'react-router-dom';
 
 var url = config.url.API_URL
 
@@ -57,7 +58,7 @@ class SendMessage extends React.Component {
     render(){
         return(
             <div>
-            <Button onClick={this.show_modal} style={{fontSize:"12px", backgroundColor:"white", color:"black", borderRadius:"10px"}}>چت</Button>
+            <Link to="/profile/inbox"><Button onClick={this.show_modal} style={{fontSize:"12px", backgroundColor:"white", color:"black", borderRadius:"10px"}}>چت</Button></Link>
             <Modal
                 visible={this.state.messageModal}
                 title=" ارسال پیام"

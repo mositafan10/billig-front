@@ -26,21 +26,21 @@ class PackForm extends React.Component {
     }
 
     PacketCategory = [
-        {value:0, label:'مدارک و مستندات'},
-        {value:1, label:'کتاب و مجله'},
-        {value:2, label:'لوازم الکترونیکی'},
-        {value:3, label:'کفش و پوشاک'},
-        {value:4, label:'لوازم آرایشی و بهداشتی'},
-        {value:5, label:'دارو'},
-        {value:6, label:'سایر موارد'},
+        {value:"0", label:'مدارک و مستندات'},
+        {value:"1", label:'کتاب و مجله'},
+        {value:"2", label:'لوازم الکترونیکی'},
+        {value:"3", label:'کفش و پوشاک'},
+        {value:"4", label:'لوازم آرایشی و بهداشتی'},
+        {value:"5", label:'دارو'},
+        {value:"6", label:'سایر موارد'},
     ]
 
     DIMENSION = [
-        {value:0, label:'خیلی کوچک'},
-        {value:1, label:'کوچک'},
-        {value:3, label:'متوسط'},
-        {value:4, label:'بزرگ'},
-        {value:5, label:'خیلی بزرگ'},
+        {value:"0", label:'خیلی کوچک'},
+        {value:"1", label:'کوچک'},
+        {value:"3", label:'متوسط'},
+        {value:"4", label:'بزرگ'},
+        {value:"5", label:'خیلی بزرگ'},
     ]
 
     callbackFunction = (childData) => {
@@ -48,9 +48,11 @@ class PackForm extends React.Component {
         if(childData.length == 1){
             // const pic_id = childData[0].response.id ;
             const pic_id = childData[0] && (childData[0].response && (childData[0].response && childData[0].response.id ));
+            console.log(pic_id)
             this.setState({
-                pic_id, 
+                pic_id: pic_id
             })
+            console.log(this.state.pic_id)
         // return pic_id
         }
         else {
@@ -124,7 +126,7 @@ class PackForm extends React.Component {
         const description = values.description;
         const buy = this.state.buy;
         const token = localStorage.getItem('token');
-        const pic_id = this.state.pic_id[2] ? this.state.pic_id[2] : 33;
+        const pic_id = this.state.pic_id && this.state.pic_id ;
         const buy_link = this.state.buy && values.buy_link ;
         const parcel_price = this.state.buy && values.parcel_price 
         const category_other = this.state.category_other ? values.category_other : "" ;
