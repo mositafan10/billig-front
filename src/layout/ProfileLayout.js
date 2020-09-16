@@ -19,7 +19,7 @@ class ProfileLayout extends React.Component {
   render() {
     return (
       <div style={{fontFamily:"VazirD", overflow:"hidden"}}>
-        <Breakpoint large up>
+        <Breakpoint medium up>
         <Layout style={{backgroundColor:"white"}}>
           <Header style={{backgroundColor:'white', padding:"0", height:"auto"}} >
             <HeaderSection {...this.props}/>
@@ -71,7 +71,7 @@ class ProfileLayout extends React.Component {
           </Layout>
       </Layout>
       </Breakpoint>
-      <Breakpoint large down>
+      <Breakpoint medium down>
       <Layout style={{backgroundColor:"white"}}>
           <Header style={{backgroundColor:'white', padding:"0", height:"auto"}} >
             <HeaderSection {...this.props}/>

@@ -26,21 +26,21 @@ class PackForm extends React.Component {
     }
 
     PacketCategory = [
-        {value:'0', label:'مدارک و مستندات'},
-        {value:'1', label:'کتاب و مجله'},
-        {value:'2', label:'لوازم الکترونیکی'},
-        {value:'3', label:'کفش و پوشاک'},
-        {value:'4', label:'لوازم آرایشی و بهداشتی'},
-        {value:'5', label:'دارو'},
-        {value:'6', label:'سایر موارد'},
+        {value:0, label:'مدارک و مستندات'},
+        {value:1, label:'کتاب و مجله'},
+        {value:2, label:'لوازم الکترونیکی'},
+        {value:3, label:'کفش و پوشاک'},
+        {value:4, label:'لوازم آرایشی و بهداشتی'},
+        {value:5, label:'دارو'},
+        {value:6, label:'سایر موارد'},
     ]
 
     DIMENSION = [
-        {value:'0', label:'خیلی کوچک'},
-        {value:'1', label:'کوچک'},
-        {value:'3', label:'متوسط'},
-        {value:'4', label:'بزرگ'},
-        {value:'5', label:'خیلی بزرگ'},
+        {value:0, label:'خیلی کوچک'},
+        {value:1, label:'کوچک'},
+        {value:3, label:'متوسط'},
+        {value:4, label:'بزرگ'},
+        {value:5, label:'خیلی بزرگ'},
     ]
 
     callbackFunction = (childData) => {
@@ -49,7 +49,7 @@ class PackForm extends React.Component {
             // const pic_id = childData[0].response.id ;
             const pic_id = childData[0] && (childData[0].response && (childData[0].response && childData[0].response.id ));
             this.setState({
-                pic_id,
+                pic_id, 
             })
         // return pic_id
         }
@@ -142,7 +142,7 @@ class PackForm extends React.Component {
             suggested_price: suggested_price,
             description: description,
             buy: buy,
-            picture : [pic_id],
+            picture : pic_id,
             price : parcel_price,
             link: buy_link,
             category_other: category_other

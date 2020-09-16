@@ -85,7 +85,7 @@ class PacketUserList extends React.Component {
   ];
 
   componentDidMount() {
-    document.title = "لیست آگهی‌های من";
+    document.title = "بیلیگ - لیست آگهی‌های من";
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/advertise/user_packet/`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -126,7 +126,7 @@ class PacketUserList extends React.Component {
     return (
       <div>
         {/* for desktop */}
-        <Breakpoint large up>
+        <Breakpoint medium up>
           <Table
             scroll={{ x: 900 }}
             columns={this.columns}
@@ -135,7 +135,7 @@ class PacketUserList extends React.Component {
           />
         </Breakpoint>
         {/* for mobile */}
-        <Breakpoint large down>
+        <Breakpoint medium down>
           <List
             // grid={{
             //   xs: 1,
