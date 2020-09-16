@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
 import { Button, Dropdown, Menu, Row, Col, Badge, Drawer } from "antd";
 import { UserOutlined, MenuOutlined, BellOutlined } from "@ant-design/icons";
-import logo from "../media/logo.webp";
+import logo from "../media/billlig.png";
 import {
     ContainerOutlined,
     CommentOutlined,
@@ -211,7 +211,7 @@ shownotification = () => {
                   <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} style={{textAlign:"center"}}>
                     <Link to="/">
                     <img
-                        style={{width: "100%", height: "auto",}}
+                        style={{width: "60%", height: "auto",}}
                         alt="billlig"
                         src={logo}
                     />

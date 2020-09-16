@@ -148,7 +148,7 @@ class PackForm extends React.Component {
             category_other: category_other
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(function (res) { if (res.status === 201){ window.location = "/profile" }})
+        .then(function (res) { if (res.status === 201){ window.location = "/profile/mypacket" }})
         .catch(error => console.error(error));
     }
     

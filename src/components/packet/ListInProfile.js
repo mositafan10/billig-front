@@ -126,7 +126,7 @@ class PacketUserList extends React.Component {
     return (
       <div>
         {/* for desktop */}
-        <Breakpoint medium up>
+        <Breakpoint large up>
           <Table
             scroll={{ x: 900 }}
             columns={this.columns}
@@ -135,20 +135,19 @@ class PacketUserList extends React.Component {
           />
         </Breakpoint>
         {/* for mobile */}
-        <Breakpoint medium down>
+        <Breakpoint large down>
           <List
-            grid={{
-              xs: 1,
-              sm: 1,
-              md: 2,
-              lg: 3,
-              xl: 3,
-              xxl: 3,
-            }}
+            // grid={{
+            //   xs: 1,
+            //   sm: 1,
+            //   md: 2,
+            //   lg: 3,
+            //   xl: 3,
+            //   xxl: 3,
+            // }}
             locale={{ emptyText: "آگهی وجود ندارد" }}
             pagination={{
               onChange: (page) => {
-                console.log(page);
               },
               hideOnSinglePage: true,
               simple: true,
@@ -160,10 +159,10 @@ class PacketUserList extends React.Component {
                 <Row
                   style={{
                     color: "black",
-                    boxShadow: "0 0 9px 1px",
+                    boxShadow: "0 0 5px 1px",
                     borderRadius: "10px",
-                    margin: "15px 15px 15px 15px",
-                    padding: "15px 5px 15px 5px",
+                    margin: "25px 15px 25px 15px",
+                    padding: "15px 15px 15px 15px",
                     width: "90%",
                     height: "auto",
                   }}
