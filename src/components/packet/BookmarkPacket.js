@@ -18,7 +18,7 @@ class BookmarkPacket extends Component {
         dataIndex: 'packet_title', 
         key: 'packet_slug',
         align:"right",
-        render: (dataIndex, row) => <Link to={row.packet_slug}>{dataIndex}</Link>
+        render: (dataIndex, row) => <Link to={`/packet/${row.packet_slug}`}>{dataIndex}</Link>
       },
       {
           title: '',
@@ -40,23 +40,20 @@ class BookmarkPacket extends Component {
 
     delete = (dataIndex, id) => {
         const current_packet = this.state.bookmarks;
-        console.log("id",id);
-        console.log("dataIndex",dataIndex);
         const token = localStorage.getItem('token');
-        Axios.delete(`${url}api/v1/advertise/packet/bookmark/${dataIndex}/`,      
+        Axios.delete(`${url}api/v1/advertise/bookmarks/${dataIndex}/`,      
         { headers: {"Authorization" : `Bearer ${token}`} })
               .then(res => {
                 this.setState({
                   bookmarks: current_packet.filter(bookmarks => bookmarks.id !== id),
                 });
-                console.log(res.data);  
             })
             .catch(error => console.error(error));
     }
 
     componentDidMount(){
         const token = localStorage.getItem('token');
-        Axios.get(`${url}api/v1/advertise/packet/bookmark/list/`,
+        Axios.get(`${url}api/v1/advertise/bookmarks/`,
         { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
                 this.setState({

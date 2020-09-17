@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { Card, Row, Col } from 'antd';
 import OfferDetail from '../components/offer/OfferInDetail';
 import DownloadPic1 from '../components/utils/DownloadPic1';
-// import Bookmark from '../components/packet/‌BookmarkPacket';
+import Bookmark from '../components/packet/Bookmark';
 import { Link } from 'react-router-dom';
 import { config } from '../Constant';
 
@@ -133,7 +133,7 @@ class OrderDetail extends React.Component {
                         <DownloadPic1 data={picID} size={300}/>
                     <br/><br/>
                     <p s>با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید</p>
-                    {/* <Bookmark data={Slug}  />  */}
+                    <Bookmark data={this.state.order.slug}  /> 
                     </Col>
                 </Row>
             </div>

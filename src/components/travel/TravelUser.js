@@ -54,9 +54,9 @@ class TravelList extends React.Component {
               border:"solid",
               borderWidth:"0.5px",
               borderRadius:"30px 30px 15px 15px", 
-              margin:"15px 15px 15px 15px", 
+              margin:"15px 25px 15px 15px", 
               padding:"20px 20px 20px 20px",
-              width:"100%",
+              width:"320px",
               height:"auto",
               }}>
               <List.Item  key={item.slug}>

@@ -10,7 +10,7 @@ const UploadFile = (props) => {
 
   const sendData = (newFileList) => { props.parentCallback(newFileList); };
 
-  const onChange = async ({ fileList: newFileList }) => {
+  const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
     sendData(newFileList);
   };

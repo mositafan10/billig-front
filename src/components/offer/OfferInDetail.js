@@ -54,7 +54,7 @@ class OfferDetail extends React.Component {
                 packet : this.state.slug
               },
               { headers: {"Authorization" : `Bearer ${token}`} })
-            .then(res => { console.log(res); window.location.reload(); })
+            .then(res => { console.log(res); window.location.replace('/profile/myoffer'); })
             .catch(error => console.error(error));
       };
 

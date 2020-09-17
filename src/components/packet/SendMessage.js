@@ -5,7 +5,7 @@ import TextArea from 'antd/lib/input/TextArea';
 import { config } from '../../Constant';
 import { Link } from 'react-router-dom';
 
-var url = config.url.API_URL
+var url = config.url.API_URL;
 
 class SendMessage extends React.Component {
 

@@ -4,8 +4,7 @@ import { Spin } from 'antd';
 import  { LoadingOutlined } from '@ant-design/icons';
 import { config } from '../../Constant';
 
-var url = config.url.API_URL
-
+var url = config.url.API_URL;
 const antIcon = <LoadingOutlined type="loading" style={{fontsize: 24, textAlign:"center"}} spin />; {/*should be place in center*/}
 
 class DownloadPic extends React.Component {
@@ -16,22 +15,12 @@ class DownloadPic extends React.Component {
     }
 
     componentDidMount(){
-        Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data && this.props.data}`)
+        Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data}`)
         .then((res) => this.setState({
             url: res.data.image_file
         }))
     }
 
-    // componentDidUpdate = (prevProps) => {
-    //     if (this.props.data !== prevProps.data) {
-    //     Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data && this.props.data}`)
-    //     .then((res) => this.setState({
-    //         url: res.data.image_file
-    //         }))
-    //     }
-    // }
-
-    
     render(){
         return(
             <div>

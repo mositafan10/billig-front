@@ -44,27 +44,20 @@ class PackForm extends React.Component {
     ]
 
     callbackFunction = (childData) => {
-        console.log(childData.length);
         if(childData.length == 1){
-            // const pic_id = childData[0].response.id ;
             const pic_id = childData[0] && (childData[0].response && (childData[0].response && childData[0].response.id ));
             console.log(pic_id)
             this.setState({
                 pic_id: pic_id
             })
             console.log(this.state.pic_id)
-        // return pic_id
         }
         else {
             return null
         }
-        // const pic = childData.map((pi) => this.setState((state) => {
-        //    return {pic_id: state.pic_id.concat(pi.response) };
-        //   }) ) 
     }
 
     get_city_origin = (e) => {
-
         Axios.get(`${url}api/v1/account/cities/${e}`)
         .then(res => {
             this.setState({
@@ -128,7 +121,7 @@ class PackForm extends React.Component {
         const token = localStorage.getItem('token');
         const pic_id = this.state.pic_id && this.state.pic_id ;
         const buy_link = this.state.buy && values.buy_link ;
-        const parcel_price = this.state.buy && values.parcel_price 
+        const parcel_price = this.state.buy && values.parcel_price ;
         const category_other = this.state.category_other ? values.category_other : "" ;
 
         Axios.post(`${url}api/v1/advertise/packet/`,
