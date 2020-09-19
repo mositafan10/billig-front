@@ -10,7 +10,8 @@ var url = config.url.API_URL
 class TravelProfile extends Component {
 
     state = {
-        travel_user : []
+        travel_user : [],
+        loading: true
     }
 
     componentDidMount(){
@@ -19,9 +20,9 @@ class TravelProfile extends Component {
         Axios.get(`${url}api/v1/advertise/travellist/`,{ headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => {
                 this.setState({
-                    travel_user: res.data
+                    travel_user: res.data,
+                    loading: false
                 });
-                console.log(res.data);  
             })
             .catch(error => console.error(error));
     }
@@ -35,7 +36,7 @@ class TravelProfile extends Component {
             <div>
                 <CreateTravel parentCallback = {this.callbackFunction}/> 
                 <Divider />
-                <TravelList parentCallback = {this.callbackFunction} data={this.state.travel_user}/>
+                <TravelList parentCallback = {this.callbackFunction} data={this.state.travel_user} loading={this.state.loading}/>
             </div>
         );
     }

@@ -9,6 +9,7 @@ import {
   Col,
   Row,
   Avatar,
+  Spin
 } from "antd";
 import { Link } from "react-router-dom";
 import ConfirmPrice from "../profile/ConfirmPrice";
@@ -22,6 +23,7 @@ var url = config.url.API_URL;
 class UserOffer extends React.Component {
   state = {
     offer: [],
+    loading: true,
   };
 
   columns = [
@@ -271,6 +273,7 @@ class UserOffer extends React.Component {
       .then((res) =>
         this.setState({
           offer: res.data,
+          loading: false,
         })
       )
       .catch((error) => console.log(error));
@@ -280,67 +283,81 @@ class UserOffer extends React.Component {
     return (
       <div>
         <Breakpoint medium up>
-          <Table
-            pagination={{
-              onChange: (page) => {
-                console.log(page);
-              },
-              hideOnSinglePage: true,
-              size: "small",
-            }}
-            locale={{ emptyText: "پیشنهادی وجود ندارد" }}
-            columns={this.columns}
-            dataSource={this.state.offer}
-          />
+          {this.state.loading ? (
+            <div style={{ marginTop: "100px" }}>
+              <Spin />
+            </div>
+          ) : (
+            <Table
+              pagination={{
+                onChange: (page) => {
+                  console.log(page);
+                },
+                hideOnSinglePage: true,
+                size: "small",
+              }}
+              locale={{ emptyText: "پیشنهادی وجود ندارد" }}
+              columns={this.columns}
+              dataSource={this.state.offer}
+            />
+          )}
         </Breakpoint>
         <Breakpoint small down>
-          <List
-            locale={{ emptyText: "پیشنهادی وجود ندارد" }}
-            pagination={{
-              onChange: (page) => {},
-              hideOnSinglePage: true,
-              simple: true,
-              hide: true,
-            }}
-            dataSource={this.state.offer}
-            renderItem={(item) => (
-              <div>
-                <Row
-                  style={{
-                    color: "black",
-                    // boxShadow: "0 0 5px 1px",
-                    border: "1px solid",
-                    borderRadius: "10px",
-                    margin: "25px 15px 25px 15px",
-                    padding: "15px 15px 15px 15px",
-                    width: "90%",
-                    height: "auto",
-                  }}
-                >
-                  <Col
-                    xs={24}
-                    sm={24}
-                    md={24}
-                    lg={24}
-                    xl={24}
-                    xxl={24}
-                    style={{ textAlign: "center" }}
-                  >
-                    <p s>{item.status}</p>
-                    <hr />
-                  </Col>
-                  <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                    <Avatar></Avatar>
-                    <span> {item.sender} </span>
-                    <p>{item.description}</p>
-                    <hr />
-                    <p>{item.price} تومان </p>
-                  </Col>
-                  <Col></Col>
-                </Row>
-              </div>
-            )}
-          />
+          {this.state.loading ? (
+            <div style={{ marginTop: "100px" }}>
+              <Spin />
+            </div>
+          ) : (
+            <div>
+              <List
+                locale={{ emptyText: "پیشنهادی وجود ندارد" }}
+                pagination={{
+                  onChange: (page) => {},
+                  hideOnSinglePage: true,
+                  simple: true,
+                  hide: true,
+                }}
+                dataSource={this.state.offer}
+                renderItem={(item) => (
+                  <div>
+                    <Row
+                      style={{
+                        color: "black",
+                        // boxShadow: "0 0 5px 1px",
+                        border: "1px solid",
+                        borderRadius: "10px",
+                        margin: "25px 15px 25px 15px",
+                        padding: "15px 15px 15px 15px",
+                        width: "90%",
+                        height: "auto",
+                      }}
+                    >
+                      <Col
+                        xs={24}
+                        sm={24}
+                        md={24}
+                        lg={24}
+                        xl={24}
+                        xxl={24}
+                        style={{ textAlign: "center" }}
+                      >
+                        <p s>{item.status}</p>
+                        <hr />
+                      </Col>
+                      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                        <Avatar></Avatar>
+                        <span> {item.sender} </span>
+                        <p>{item.description}</p>
+                        <hr />
+                        <p>{item.price} تومان </p>
+                      </Col>
+                      <Col></Col>
+                    </Row>
+                  </div>
+                )}
+              />
+            </div>
+          )}
         </Breakpoint>
       </div>
     );

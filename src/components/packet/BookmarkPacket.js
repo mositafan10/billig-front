@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { Table, Popconfirm } from "antd";
+import { Table, Popconfirm, Spin } from "antd";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 
@@ -9,6 +9,7 @@ var url = config.url.API_URL;
 class BookmarkPacket extends Component {
   state = {
     bookmarks: [],
+    loading: true,
   };
 
   columns = [
@@ -61,6 +62,7 @@ class BookmarkPacket extends Component {
     }).then((res) => {
       this.setState({
         bookmarks: res.data,
+        loading: false,
       });
     });
   }
@@ -68,13 +70,19 @@ class BookmarkPacket extends Component {
   render() {
     return (
       <div>
-        <Table
-          scroll={{ x: 300 }}
-          locale={{ emptyText: "نشانی وجود ندارد" }}
-          style={{ padding: "30px 30px 30px 30px" }}
-          columns={this.columns}
-          dataSource={this.state.bookmarks}
-        />
+        {this.state.loading ? (
+          <div style={{ marginTop: "100px" }}>
+            <Spin />
+          </div>
+        ) : (
+          <Table
+            scroll={{ x: 300 }}
+            locale={{ emptyText: "نشانی وجود ندارد" }}
+            style={{ padding: "30px 30px 30px 30px" }}
+            columns={this.columns}
+            dataSource={this.state.bookmarks}
+          />
+        )}
       </div>
     );
   }
