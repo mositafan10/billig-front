@@ -139,8 +139,7 @@ class PacketUserList extends React.Component {
           <List
             locale={{ emptyText: "آگهی وجود ندارد" }}
             pagination={{
-              onChange: (page) => {
-              },
+              onChange: (page) => {},
               hideOnSinglePage: true,
               simple: true,
               hide: true,
@@ -169,7 +168,9 @@ class PacketUserList extends React.Component {
                     </Row>
                     <br />
                     <Row style={{ justifyContent: "center", display: "flex" }}>
-                      <Col style={{ color: "black" }}><Link to={`/packet/${item.slug}`}>{item.title}</Link></Col>
+                      <Col style={{ color: "black" }}>
+                        <Link to={`/packet/${item.slug}`}>{item.title}</Link>
+                      </Col>
                     </Row>
                     <hr style={{ width: "70%" }} />
                     <Row style={{ justifyContent: "center", display: "flex" }}>
@@ -193,7 +194,7 @@ class PacketUserList extends React.Component {
                             okText="بله"
                             cancelText="خیر"
                           >
-                            <a style={{color:"grey"}}>حذف</a>
+                            <a style={{ color: "grey" }}>حذف</a>
                           </Popconfirm>
                         </Space>
                       </Col>

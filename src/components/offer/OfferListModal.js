@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { Button, Modal, Drawer } from "antd";
 import PacketOffer from "../packet/PacketOffer";
 import { Breakpoint } from "react-socks";
@@ -7,7 +7,7 @@ import { Breakpoint } from "react-socks";
 class OfferListModal extends React.Component {
   state = {
     offer_visible: false,
-    drawer_visible: false
+    drawer_visible: false,
   };
 
   offerlistmodal = () => {
@@ -19,15 +19,15 @@ class OfferListModal extends React.Component {
   handleCancel = () => {
     this.setState({
       offer_visible: false,
-      drawer_visible: false
+      drawer_visible: false,
     });
   };
-  
+
   drawerofferlist = () => {
-      this.setState({
-        drawer_visible: true
-      })
-  }
+    this.setState({
+      drawer_visible: true,
+    });
+  };
 
   render() {
     return (
@@ -81,7 +81,7 @@ class OfferListModal extends React.Component {
             style={{ textAlign: "right", fontFamily: "VazirD" }}
           >
             <div>
-            <PacketOffer data={this.props.data} />
+              <PacketOffer data={this.props.data} />
             </div>
           </Drawer>
         </Breakpoint>

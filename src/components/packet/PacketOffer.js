@@ -1,5 +1,16 @@
 import React from "react";
-import { Button, Popconfirm, Table, message, Tooltip, List, Row, Col, Avatar, Space } from "antd";
+import {
+  Button,
+  Popconfirm,
+  Table,
+  message,
+  Tooltip,
+  List,
+  Row,
+  Col,
+  Avatar,
+  Space,
+} from "antd";
 import Axios from "axios";
 import SendMessage from "./SendMessage";
 import { Link } from "react-router-dom";
@@ -242,27 +253,26 @@ class PacketOffer extends React.Component {
   render() {
     return (
       <div>
-      <Breakpoint medium up>
-      <Table
-        scroll={{ x: 900 }}
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          hideOnSinglePage: true,
-          size: "small",
-        }}
-        locale={{ emptyText: "پیشنهادی وجود ندارد" }}
-        columns={this.columns}
-        dataSource={this.state.packet_offer}
-      />
-      </Breakpoint>
-      <Breakpoint small down>
-        <List
-            locale={{ emptyText: "پیشنهادی وجود ندارد" }}
+        <Breakpoint medium up>
+          <Table
+            scroll={{ x: 900 }}
             pagination={{
               onChange: (page) => {
+                console.log(page);
               },
+              hideOnSinglePage: true,
+              size: "small",
+            }}
+            locale={{ emptyText: "پیشنهادی وجود ندارد" }}
+            columns={this.columns}
+            dataSource={this.state.packet_offer}
+          />
+        </Breakpoint>
+        <Breakpoint small down>
+          <List
+            locale={{ emptyText: "پیشنهادی وجود ندارد" }}
+            pagination={{
+              onChange: (page) => {},
               hideOnSinglePage: true,
               simple: true,
               hide: true,
@@ -282,28 +292,31 @@ class PacketOffer extends React.Component {
                     height: "auto",
                   }}
                 >
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} style={{textAlign:"center"}}>
-                      <p s>{item.status}</p>
-                      <hr/>
-                    </Col>
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} >
-                      <Avatar></Avatar><span> {item.sender} </span>
-                      <p>{item.description}</p>
-                      <hr/>
-                      <p>{item.price} تومان </p> 
-                    </Col>
-                    <Col>
-                      <Space>
-                        <Button>چت</Button>
-                        <Button>قبول</Button>
-                        <Button>پرداخت</Button>
-                      </Space>
-                    </Col>
-                  </Row>
+                  <Col
+                    xs={24}
+                    sm={24}
+                    md={24}
+                    lg={24}
+                    xl={24}
+                    xxl={24}
+                    style={{ textAlign: "center" }}
+                  >
+                    <p s>{item.status}</p>
+                    <hr />
+                  </Col>
+                  <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                    <Avatar></Avatar>
+                    <span> {item.sender} </span>
+                    <p>{item.description}</p>
+                    <hr />
+                    <p>{item.price} تومان </p>
+                  </Col>
+                  <Col></Col>
+                </Row>
               </div>
             )}
           />
-      </Breakpoint>
+        </Breakpoint>
       </div>
     );
   }

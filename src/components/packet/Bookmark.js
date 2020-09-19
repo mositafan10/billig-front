@@ -17,7 +17,7 @@ class Bookmark extends Component {
     render() {
         return (
             <div>
-                <Button onClick={this.bookmark.bind(this)}>نشان کردن آگهی</Button>
+                <Button style={{fontSize:"13px", borderRadius:"10px"}} onClick={this.bookmark.bind(this)}>نشان کردن آگهی</Button>
             </div>
         );
     }

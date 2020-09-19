@@ -55,7 +55,7 @@ class App extends Component {
         
 
       {/* login & Signup Layout */}
-      <Route path={["/login", "/signup"]} exact>
+      <Route path={["/login", "/signup", "/signup/:path?"]} exact>
         <BreakpointProvider>
           <LoginLayout {...this.props}>
             <ConfigProvider direction="rtl">
