@@ -135,16 +135,8 @@ class PacketUserList extends React.Component {
           />
         </Breakpoint>
         {/* for mobile */}
-        <Breakpoint medium down>
+        <Breakpoint small down>
           <List
-            // grid={{
-            //   xs: 1,
-            //   sm: 1,
-            //   md: 2,
-            //   lg: 3,
-            //   xl: 3,
-            //   xxl: 3,
-            // }}
             locale={{ emptyText: "آگهی وجود ندارد" }}
             pagination={{
               onChange: (page) => {
@@ -171,13 +163,13 @@ class PacketUserList extends React.Component {
                     <Row style={{ justifyContent: "center", display: "flex" }}>
                       <Col>
                         <div>
-                          <DownloadPic data={item.picture} size={140} />
+                          {/* <DownloadPic data={item.picture} size={140} /> */}
                         </div>
                       </Col>
                     </Row>
                     <br />
                     <Row style={{ justifyContent: "center", display: "flex" }}>
-                      <Col style={{ color: "black" }}>{item.title}</Col>
+                      <Col style={{ color: "black" }}><Link to={`/packet/${item.slug}`}>{item.title}</Link></Col>
                     </Row>
                     <hr style={{ width: "70%" }} />
                     <Row style={{ justifyContent: "center", display: "flex" }}>

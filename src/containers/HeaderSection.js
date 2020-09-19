@@ -95,7 +95,7 @@ shownotification = () => {
         <Breakpoint medium up>
         <div>
         <Row style={{padding:"0 20px 0 20px"}}>
-          <Col xs={24} sm={24} md={24} lg={20} xl={20} xxl={20}>
+          <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={20}>
               <div
                 style={{
                   float: "left",
@@ -166,10 +166,10 @@ shownotification = () => {
               </Col>
             </Row>
           </Col>
-          <Col xs={0} sm={0} md={0} lg={4} xl={4} xxl={4}>
+          <Col xs={0} sm={0} md={4} lg={4} xl={4} xxl={4} style={{display:"flex", alignItems:"center"}}>
             <Link to="/">
               <img
-                style={{ float: "right", margin: "5px 20px 5px", width: "50%", height: "auto" }}
+                style={{ float: "right", margin: "1px 20px 5px", width: "55%", height: "auto" }}
                 alt="billlig"
                 src={logo}
               />
@@ -178,8 +178,8 @@ shownotification = () => {
         </Row>
         </div>
         </Breakpoint>
-        <Breakpoint medium down>
-            <div>
+        <Breakpoint small down>
+            <div style={{position: 'fixed', zIndex: 1, backgroundColor:"white"}}>
               <Row>
                   <Col xs={8} sm={8} md={8} lg={0} xl={0} xxl={0} style={{paddingLeft:"10px"}}>
                     <div>
@@ -219,7 +219,7 @@ shownotification = () => {
                     </Col>  
                     <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} style={{textAlign:"right", paddingRight:"15px"}}>
                         <Button onClick={this.showprofilemenu} icon={<UserOutlined />} style={{borderRadius:"15px", border:"1px solid", backgroundColor:"#46a0ae", color:"white"}}></Button>
-                       <Badge count={8} size="small"><Button onClick={this.shownotification} icon={<BellOutlined />} style={{borderRadius:"15px", border:"hidden", backgroundColor:"#46a0ae", color:"white"}}></Button></Badge> 
+                        {this.props.isAuthenticated && <Badge count={8} size="small"><Button onClick={this.shownotification} icon={<BellOutlined />} style={{borderRadius:"15px", border:"hidden", backgroundColor:"#46a0ae", color:"white"}}></Button></Badge> }
                         <Drawer
                             title="بیلیگ"
                             placement="right"

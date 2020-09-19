@@ -180,7 +180,7 @@ class LandingPage extends React.Component {
           </Divider>
           <br />
           <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1}></Col>
-          <Col xs={24} sm={24} md={24} lg={22} xl={22} xxl={22}>
+          <Col xs={24} sm={24} md={24} lg={22} xl={22} xxl={22} style={{textAlign:"center"}}>
             <Orders data={this.state.orders} page={8} pagesize={8} />
           </Col>
           <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1}></Col>
