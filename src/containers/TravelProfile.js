@@ -33,10 +33,11 @@ class TravelProfile extends Component {
 
     render() {
         return (
-            <div>
+            <div >
                 <CreateTravel parentCallback = {this.callbackFunction}/> 
-                <Divider />
+                <div style={{display:"flex", justifyContent:"center"}}>
                 <TravelList parentCallback = {this.callbackFunction} data={this.state.travel_user} loading={this.state.loading}/>
+                </div>
             </div>
         );
     }

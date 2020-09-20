@@ -141,7 +141,7 @@ class PacketUserList extends React.Component {
       <div>
         {/* for desktop */}
         <Breakpoint medium up>
-          <Link to="create-packet">
+          <Link to="/create-packet">
             <Button icon={<PlusOutlined />} style={{ borderRadius: "8px" }}>
               <b> ثبت آگهی جدید</b>
             </Button>
@@ -168,19 +168,18 @@ class PacketUserList extends React.Component {
             </div>
           ) : (
             <div>
-              <Link to="create-packet">
+              <Link to="/create-packet">
                 <Button
                   icon={<PlusOutlined />}
                   style={{
                     borderRadius: "8px",
-                    marginTop: "20px",
+                    marginTop: "40px",
                     fontSize: "13px",
                   }}
                 >
                   <b> ثبت آگهی جدید</b>
                 </Button>
               </Link>
-              <Divider />
               <List
                 locale={{ emptyText: "آگهی وجود ندارد" }}
                 pagination={{
@@ -218,7 +217,7 @@ class PacketUserList extends React.Component {
                           style={{ justifyContent: "center", display: "flex" }}
                         >
                           <Col style={{ color: "black" }}>
-                            <Link to={`/packet/${item.slug}`}>
+                            <Link to={`/packet/${item.slug}`} style={{color:"black"}}>
                               {item.title}
                             </Link>
                           </Col>

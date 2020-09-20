@@ -29,9 +29,11 @@ class LoginForm extends React.Component {
     render(){
     return (
     <div style={{ display:"content", alignContent:"center", marginTop:"10px" }}>
-        {
+        { 
         this.props.loading ?
-        <Spin indicator={antIcon}/>
+        <div style={{margin:"100px"}}>
+            <Spin size="large" />
+        </div>
         :
         <Form
             size="middle"

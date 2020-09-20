@@ -80,6 +80,7 @@ class OfferListModal extends React.Component {
             visible={this.state.drawer_visible}
             style={{ textAlign: "right", fontFamily: "VazirD" }}
           >
+            <a><p style={{textAlign:"center"}}>(( راهنمای مدیریت پیشنهادها ))</p></a>
             <div>
               <PacketOffer data={this.props.data} />
             </div>

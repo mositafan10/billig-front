@@ -70,8 +70,8 @@ class UploadProfilePicture extends React.Component {
                 <img
                   src={`${url}dstatic/${this.props.data}`}
                   alt="avatar"
-                  width={300}
-                  style={{ borderRadius: "15px" }}
+                  width={200}
+                  style={{ borderRadius: "15px", marginTop:"30px" }}
                 />
               ) : (
                 "بارگذاری تصویر"

@@ -44,6 +44,7 @@ const style_icon = { width: "50px", display: "inline" };
 class LandingPage extends React.Component {
   state = {
     orders: [],
+    loading: true
   };
 
   componentDidMount() {
@@ -52,6 +53,7 @@ class LandingPage extends React.Component {
       .then((res) => {
         this.setState({
           orders: res.data,
+          loading: false
         });
       })
       .catch((error) => console.error(error));
@@ -180,8 +182,16 @@ class LandingPage extends React.Component {
           </Divider>
           <br />
           <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1}></Col>
-          <Col xs={24} sm={24} md={24} lg={22} xl={22} xxl={22} style={{textAlign:"center"}}>
-            <Orders data={this.state.orders} page={8} pagesize={8} />
+          <Col
+            xs={24}
+            sm={24}
+            md={24}
+            lg={22}
+            xl={22}
+            xxl={22}
+            style={{ textAlign: "center" }}
+          >
+            <Orders data={this.state.orders} page={8} pagesize={8} loading={this.state.loading}/>
           </Col>
           <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1}></Col>
         </Row>

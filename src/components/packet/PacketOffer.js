@@ -10,6 +10,7 @@ import {
   Col,
   Avatar,
   Space,
+  Divider,
 } from "antd";
 import Axios from "axios";
 import SendMessage from "./SendMessage";
@@ -301,18 +302,111 @@ class PacketOffer extends React.Component {
                     xxl={24}
                     style={{ textAlign: "center" }}
                   >
-                    <p s>{item.status}</p>
+                    <p> وضعیت : {item.status}</p>
                     <hr />
                   </Col>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                    <Avatar></Avatar>
-                    <span> {item.sender} </span>
+                    <Avatar
+                      src={`${url}dstatic/media/${item.sender_avatar}`}
+                    ></Avatar>
+                    <span>
+                      <Link
+                        to={`/users/${item.sender_id}`}
+                        style={{ color: "black", fontSize:"14px" }}
+                      >
+                        {" "}
+                        {item.sender}{" "}
+                      </Link>
+                    </span>
+                    <Divider style={{ marginTop: "5px", opacity: "0" }} />
                     <p>{item.description}</p>
-                    <hr />
-                    <p>{item.price} تومان </p>
+                    <br />
+                    <p style={{textAlign:"left"}}> {item.price} تومان </p>
                   </Col>
-                  <Col></Col>
+                    <Col style={{display:"flex", justifyContent:"center"}}>
+                  <Space>
+                    <Col>
+                      {item.status === "انجام شده" ? (
+                        <Button
+                          disabled={true}
+                          style={{
+                            fontSize: "12px",
+                            backgroundColor: "white",
+                            color: "transparent",
+                            textShadow: "0 0 5px rgba(0,0,0,0.5)",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          چت
+                        </Button>
+                      ) : (
+                        <SendMessage data={item.slug} slug={item.slug} />
+                      )}
+                    </Col>
+                    <Col>
+                      {item.status === "در انتظار پاسخ" && (
+                        <Button
+                          onClick={this.accept.bind(this, item.slug)}
+                          style={{
+                            fontSize: "12px",
+                            border: "hidden",
+                            color: "white",
+                            backgroundColor: "green",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <b>قبول</b>
+                        </Button>
+                      )}
+                      {item.status === "در انتظار پرداخت" && (
+                        <Button
+                          disabled={this.state.disableconfirm}
+                          onClick={this.confirmpayment.bind(this)}
+                          style={{
+                            fontSize: "12px",
+                            border: "hidden",
+                            color: "white",
+                            backgroundColor: "green",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <b>تایید</b>
+                        </Button>
+                      )}
+                      {item.status === "در انتظار تایید خریدار" && (
+                        <Button
+                          onClick={this.receiveconfirm.bind(this, item.slug)}
+                          style={{
+                            fontSize: "12px",
+                            border: "hidden",
+                            backgroundColor: "aliceblue",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          تایید تحویل
+                        </Button>
+                      )}
+                      {item.status === "انجام شده" && (
+                        <RateAndComment
+                          signal={this.callbackFunction}
+                          data={item.slug}
+                          receiver={item.receiver_id}
+                        />
+                      )}
+                    </Col>
+                    <Col>
+                      {item.status === "در انتظار پرداخت" && (
+                        <SendTransactionInfo
+                          disabled={this.state.disablepayment}
+                          amount={item.price}
+                          factorNumber={item.slug}
+                        />
+                      )}
+                    </Col>
+                  </Space>
+                    </Col>
                 </Row>
+                <Divider/>
               </div>
             )}
           />

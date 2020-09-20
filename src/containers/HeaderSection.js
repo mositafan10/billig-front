@@ -3,7 +3,7 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import { Breakpoint } from "react-socks";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
-import { Button, Dropdown, Menu, Row, Col, Badge, Drawer } from "antd";
+import { Button, Dropdown, Menu, Row, Col, Badge, Drawer, Avatar, Divider } from "antd";
 import { UserOutlined, MenuOutlined, BellOutlined } from "@ant-design/icons";
 import logo from "../media/billlig.png";
 import {
@@ -15,6 +15,10 @@ import {
   AimOutlined,
   VerticalLeftOutlined,
 } from "@ant-design/icons";
+import Axios from "axios";
+import { config } from "../Constant";
+
+var url = config.url.API_URL;
 
 class HeaderSection extends Component {
   state = {
@@ -22,6 +26,7 @@ class HeaderSection extends Component {
     Drawerprofile: false,
     Drawerpage: false,
     Drawernotification: false,
+    userinfo: {},
   };
 
   exit = () => {
@@ -57,6 +62,19 @@ class HeaderSection extends Component {
       Drawernotification: false,
     });
   };
+
+  componentDidMount() {
+    const token = localStorage.getItem("token");
+    Axios.get(`${url}api/v1/account/userinfo/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        this.setState({
+          userinfo: res.data,
+        });
+      })
+      .catch((error) => console.error(error));
+  }
 
   menu_login = (
     <Menu>
@@ -203,7 +221,12 @@ class HeaderSection extends Component {
         </Breakpoint>
         <Breakpoint small down>
           <div
-            style={{ position: "fixed", zIndex: 1, backgroundColor: "white" }}
+            style={{
+              position: "fixed",
+              zIndex: 1,
+              backgroundColor: "white",
+              boxShadow: "0 0 5px 1px",
+            }}
           >
             <Row>
               <Col
@@ -281,28 +304,28 @@ class HeaderSection extends Component {
                     color: "white",
                   }}
                 ></Button>
-                {this.props.isAuthenticated && (
-                  <Badge count={8} size="small">
-                    <Button
-                      onClick={this.shownotification}
-                      icon={<BellOutlined />}
-                      style={{
-                        borderRadius: "15px",
-                        border: "hidden",
-                        backgroundColor: "#46a0ae",
-                        color: "white",
-                      }}
-                    ></Button>
-                  </Badge>
-                )}
                 <Drawer
-                  title="بیلیگ"
+                  title={
+                    this.props.isAuthenticated ? 
+                    <div >
+                      <Row style={{display:"flex",justifyContent:"center", alignItems:"center"}}>
+                        <Avatar
+                          src={`${url}dstatic/media/${this.state.userinfo.picture}`}
+                        />
+                        <Divider style={{margin:"5px", opacity:"0"}}/>
+                        {this.state.userinfo.user &&
+                          this.state.userinfo.user.name}
+                          </Row>
+                    </div>
+                    :
+                    "بیلیگ"
+                  }
                   placement="right"
                   closable={false}
                   onClose={this.onClose}
                   width="60%"
                   visible={this.state.Drawerprofile}
-                  style={{ textAlign: "right", fontFamily: "VazirD" }}
+                  style={{ textAlign: "center", fontFamily: "VazirD" }}
                 >
                   <div>
                     {this.props.isAuthenticated ? (

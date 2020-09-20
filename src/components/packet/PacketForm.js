@@ -171,12 +171,14 @@ class PackForm extends React.Component {
                     <Row>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">کشور مبدا</Divider>
+                        <Tooltip title="جایی که مسافر کالا را دریافت می ‌کند.">
                             <Form.Item  name="origin_country" style={{textAlign:"right"}} rules={[{required: true, message:"کشور مبدا را انتخاب کنید"}]}>
                                 <Select onChange={this.get_city_origin.bind()}>
                                     {this.state.countries.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>
                             </Form.Item>
+                            </Tooltip>
                         </Col>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">شهر مبدا</Divider>
@@ -191,12 +193,14 @@ class PackForm extends React.Component {
                     <Row>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">کشور مقصد</Divider>
+                        <Tooltip title="جایی که مسافر کالا را تحویل می‌دهد.">
                             <Form.Item  name="destination_country" style={{textAlign:"right"}} rules={[{required: true, message:"کشور مقصد را انتخاب کنید"}]}>
                                 <Select onChange={this.get_city_destination.bind()}>
                                     {this.state.countries.map((e, key) => {
                                     return <option key={key} value={e.id}>{e.name}</option>;})}
                                 </Select>
                             </Form.Item>
+                        </Tooltip>
                         </Col>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <Divider plain orientation="center">شهر مقصد</Divider>

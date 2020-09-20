@@ -4,7 +4,7 @@ import Axios from 'axios';
 import { config } from '../../Constant';
 
 var url = config.url.API_URL;
-const callback_url = "http:billlig.com/payment/verify/"
+const callback_url = "https://billlig.com/payment/verify/"
 
 class SendTransactionInfo extends Component {
 
@@ -27,7 +27,7 @@ class SendTransactionInfo extends Component {
             this.setState({token: res.data.token}),
             window.location.replace(`https://ipg.vandar.io/v3/${res.data.token}`))}
         })
-        .catch(error => message.error(error.response.data ? error.response.data.detail : ""));
+        .catch(error => message.error(error.response.data ? error.response.data.errors : ""));
     }
 
     render() {
