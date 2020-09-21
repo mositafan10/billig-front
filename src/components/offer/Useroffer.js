@@ -9,7 +9,8 @@ import {
   Col,
   Row,
   Avatar,
-  Spin
+  Spin,
+  Space,
 } from "antd";
 import { Link } from "react-router-dom";
 import ConfirmPrice from "../profile/ConfirmPrice";
@@ -308,7 +309,13 @@ class UserOffer extends React.Component {
               <Spin />
             </div>
           ) : (
-            <div>
+            <div
+              style={{
+                marginTop: "50px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <List
                 locale={{ emptyText: "پیشنهادی وجود ندارد" }}
                 pagination={{
@@ -323,12 +330,12 @@ class UserOffer extends React.Component {
                     <Row
                       style={{
                         color: "black",
-                        // boxShadow: "0 0 5px 1px",
+                        boxShadow: "0 0 8px 0px",
                         border: "1px solid",
                         borderRadius: "10px",
-                        margin: "25px 15px 25px 15px",
+                        margin: "25px 0px 25px 0px",
                         padding: "15px 15px 15px 15px",
-                        width: "90%",
+                        width: "100%",
                         height: "auto",
                       }}
                     >
@@ -345,13 +352,94 @@ class UserOffer extends React.Component {
                         <hr />
                       </Col>
                       <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                        <Avatar></Avatar>
+                        <Avatar
+                          src={`${url}dstatic/media/${item.sender_avatar}`}
+                        ></Avatar>
                         <span> {item.sender} </span>
                         <p>{item.description}</p>
                         <hr />
-                        <p>{item.price} تومان </p>
+                        <p style={{ textAlign: "left", marginTop: "20px" }}>
+                          {item.price} تومان{" "}
+                        </p>
                       </Col>
-                      <Col></Col>
+                      <Col>
+                        <Space>
+                          <Col>
+                            {item.status === "انجام شده" ? (
+                              <Button
+                                disabled={true}
+                                style={{
+                                  fontSize: "12px",
+                                  backgroundColor: "white",
+                                  color: "transparent",
+                                  textShadow: "0 0 5px rgba(0,0,0,0.5)",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                چت
+                              </Button>
+                            ) : (
+                              <SendMessage data={item.slug} slug={item.slug} />
+                            )}
+                          </Col>
+                          <Col>
+                            {item.status === "در انتظار تایید مسافر" && (
+                              <ConfirmPrice data={item.slug} />
+                            )}
+                            {item.status === "در انتظار خرید" && (
+                              <Button
+                                onClick={this.buydone.bind(this, item.slug)}
+                                style={{
+                                  fontSize: "12px",
+                                  border: "hidden",
+                                  color: "white",
+                                  backgroundColor: "green",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                خریداری شد
+                              </Button>
+                            )}
+                            {item.status === "انجام شده" && <RateAndComment />}
+                            {item.status === "در انتظار تحویل" && (
+                              <Button
+                                onClick={this.receivedone.bind(this, item.slug)}
+                                style={{
+                                  fontSize: "12px",
+                                  border: "hidden",
+                                  color: "white",
+                                  backgroundColor: "green",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                تحویل شد
+                              </Button>
+                            )}
+                          </Col>
+                          <Col>
+                            {item.status === "در انتظار تایید مسافر" && (
+                              <Button
+                                onClick={this.confrim.bind(
+                                  this,
+                                  item.slug,
+                                  item.price
+                                )}
+                                style={{
+                                  fontSize: "12px",
+                                  border: "hidden",
+                                  backgroundColor: "aliceblue",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                تایید
+                              </Button>
+                            )}
+                            {item.status === "انجام شده" && (
+                              <PayTraveler data={item.slug} />
+                            )}
+                          </Col>
+                        </Space>
+                      </Col>
                     </Row>
                   </div>
                 )}

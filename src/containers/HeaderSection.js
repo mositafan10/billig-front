@@ -152,7 +152,9 @@ class HeaderSection extends Component {
                           }}
                         ></Button>
                         <Button
-                          icon={<UserOutlined />}
+                          icon={<Avatar
+                            src={`${url}dstatic/${this.state.userinfo.picture}`}
+                          />}
                           style={{ borderRadius: "15px" }}
                         ></Button>
                       </div>
@@ -296,11 +298,13 @@ class HeaderSection extends Component {
               >
                 <Button
                   onClick={this.showprofilemenu}
-                  icon={<UserOutlined />}
+                  icon={<Avatar
+                    src={`${url}dstatic/${this.state.userinfo.picture}`}
+                  />}
                   style={{
                     borderRadius: "15px",
                     border: "1px solid",
-                    backgroundColor: "#46a0ae",
+                    // backgroundColor: "white",
                     color: "white",
                   }}
                 ></Button>
@@ -310,7 +314,7 @@ class HeaderSection extends Component {
                     <div >
                       <Row style={{display:"flex",justifyContent:"center", alignItems:"center"}}>
                         <Avatar
-                          src={`${url}dstatic/media/${this.state.userinfo.picture}`}
+                          src={`${url}dstatic/${this.state.userinfo.picture}`}
                         />
                         <Divider style={{margin:"5px", opacity:"0"}}/>
                         {this.state.userinfo.user &&

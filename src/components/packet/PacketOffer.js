@@ -284,7 +284,7 @@ class PacketOffer extends React.Component {
                 <Row
                   style={{
                     color: "black",
-                    // boxShadow: "0 0 5px 1px",
+                    boxShadow: "0 0 8px 0px",
                     border: "1px solid",
                     borderRadius: "10px",
                     margin: "25px 15px 25px 15px",

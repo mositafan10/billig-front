@@ -11,6 +11,7 @@ class InboxLayout extends React.Component {
         offer : "",
         avatar1 : "",
         avatar2 : "",
+        disable : false
     }
 
     callbackFunction = (chatid, offer, avatar1, avatar2, sender, receiver) => {
@@ -24,14 +25,21 @@ class InboxLayout extends React.Component {
         })
     }
 
+    componentDidMount(){
+        console.log("hi")
+        this.setState({
+            disable: true
+        })
+    }
+
     render(){
         return(
             <div style={{backgroundColor:"white"}}>
                 <Row>
-                    <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+                    <Col xs={24} sm={24} md={7} lg={7} xl={7} xxl={7}>
                         <ChatContacs parentCallback = {this.callbackFunction} />
                     </Col>
-                    <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={2} >
+                    <Col xs={24} sm={24} md={1} lg={1} xl={1} xxl={1} >
                         <ChatDetail 
                         data={this.state.chatid} 
                         offer={this.state.offer} 

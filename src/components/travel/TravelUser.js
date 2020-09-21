@@ -50,13 +50,13 @@ class TravelList extends React.Component {
 
   render() {
     return (
-      <div style={{display:"flex", justifyContent:"center"}}>
+      <div>
         {this.props.loading ? (
           <div style={{ marginTop: "100px" }}>
             <Spin />
           </div>
         ) : (
-          <div style={{display:"flex", justifyContent:"center"}}>
+          <div>
             <List
               grid={{
                 xs: 1,
@@ -68,7 +68,7 @@ class TravelList extends React.Component {
               }}
               locale={{ emptyText: "سفری وجود ندارد" }}
               dataSource={this.props.data}
-              style={{display:"flex", justifyContent:"center"}}
+              style={{display:"table-caption",}}
               renderItem={(item) => (
                 <Row
                   style={{

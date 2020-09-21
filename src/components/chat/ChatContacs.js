@@ -39,7 +39,7 @@ class ChatContacs extends Component {
   render() {
     const user = localStorage.getItem("user");
     return (
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: "40px" }}>
         {this.state.loading ? (
           <div style={{ marginTop: "100px" }}>
             <Spin />

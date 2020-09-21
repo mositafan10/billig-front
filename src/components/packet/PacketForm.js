@@ -263,7 +263,7 @@ class PackForm extends React.Component {
                         </Checkbox><br/>
                     </Form.Item>
                     <div style={{display:this.state.buy ? "block" : "none", border:"1px solid", padding:"30px", borderRadius:"15px", backgroundColor:"aliceblue", marginBottom:"10px"}}>
-                        <Divider plain orientation="center"> لینک خرید / وبسایت فروشگاه / آدرس فروشگاه</Divider>
+                        <Divider plain orientation="center"> لینک کالا / وبسایت فروشگاه / آدرس فروشگاه</Divider>
                         <Tooltip title="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر شما مفید باشد">
                             <Form.Item name="buy_link">
                                 <Input />
