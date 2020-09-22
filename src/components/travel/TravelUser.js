@@ -68,7 +68,7 @@ class TravelList extends React.Component {
               }}
               locale={{ emptyText: "سفری وجود ندارد" }}
               dataSource={this.props.data}
-              style={{display:"table-caption",}}
+              style={{display:"flex",}}
               renderItem={(item) => (
                 <Row
                   style={{
@@ -183,7 +183,8 @@ class TravelList extends React.Component {
                               lg={4}
                               xl={4}
                             >
-                              {item.income}
+                             <p> {item.income} </p>
+                {item.income !== 0 && <p style={{marginRight:"5px"}}> تومان </p> }
                             </Col>
                           </Row>
                           <br />

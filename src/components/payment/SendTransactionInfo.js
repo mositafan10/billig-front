@@ -14,9 +14,11 @@ class SendTransactionInfo extends Component {
     
     sendapi = () => {
         const token = localStorage.getItem('token');
+        const amount_w = this.props.amount;
+        const net_amount = ( 1 + 5/100 ) * amount_w;
         Axios.post(`${url}api/v1/payment/send/`,
             { 
-             amount:this.props.amount,
+             amount: net_amount,
              callback_url: callback_url,
              factorNumber: this.props.factorNumber,
             },

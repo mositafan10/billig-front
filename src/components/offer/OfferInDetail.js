@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Form, Input, message, Select } from "antd";
+import { Modal, Button, Form, Input, message, Select, InputNumber } from "antd";
 import Axios from "axios";
 import TextArea from "antd/lib/input/TextArea";
 import { Link } from "react-router-dom";
@@ -29,7 +29,6 @@ class OfferDetail extends React.Component {
   success = () => {
     message.success({
       content: "پیشنهاد شما با موفقیت ثبت شد.",
-      style: { fontFamily: "IRANSans" },
     });
   };
 
@@ -49,13 +48,6 @@ class OfferDetail extends React.Component {
     });
 
     const token = localStorage.getItem("token");
-    console.log(
-      "HI",
-      this.state.price,
-      this.state.flight_date,
-      this.state.id,
-      this.state.description
-    );
     Axios.post(
       `${url}api/v1/advertise/offer/`,
       {
@@ -70,7 +62,7 @@ class OfferDetail extends React.Component {
         console.log(res);
         window.location.replace("/profile/myoffer");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => message.error(error.response.data.detail));
   };
 
   handleCancel = (e) => {
@@ -106,7 +98,6 @@ class OfferDetail extends React.Component {
           <b> ثبت پیشنهاد جدید </b>
         </Button>
         <Modal
-          style={{ fontFamily: "IRANSans" }}
           onCancel={this.handleCancel}
           cancelText="بازگشت"
           okText="ارسال"
@@ -116,6 +107,7 @@ class OfferDetail extends React.Component {
             htmlType: "submit",
           }}
           visible={this.state.visible}
+          style={{fontFamily:"VazirD"}}
         >
           {token ? (
             <div>
@@ -129,7 +121,6 @@ class OfferDetail extends React.Component {
               </p>
               <Form
                 layout="vertical"
-                style={{ fontFamily: "IRANSans" }}
                 name="offering"
                 onFinish={this.handleOk}
               >
@@ -186,10 +177,12 @@ class OfferDetail extends React.Component {
                     },
                   ]}
                 >
-                  <Input
-                    style={{ textAlign: "right", borderRadius: "10px" }}
-                    placeholder="به تومان وارد کنید"
-                  />
+                   <InputNumber 
+                                    formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                                    style={{textAlign:"right", width:"-moz-available"}} 
+                                    min={0}
+                                    />
                 </Form.Item>
                 <br />
                 <label

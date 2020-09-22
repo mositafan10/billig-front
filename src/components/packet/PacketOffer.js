@@ -168,7 +168,7 @@ class PacketOffer extends React.Component {
           return (
             <SendTransactionInfo
               disabled={this.state.disablepayment}
-              amount={row.price}
+              amount={row.price+row.parcel_price}
               factorNumber={row.slug}
             />
           );
@@ -398,7 +398,7 @@ class PacketOffer extends React.Component {
                       {item.status === "در انتظار پرداخت" && (
                         <SendTransactionInfo
                           disabled={this.state.disablepayment}
-                          amount={item.price}
+                          amount={item.price+item.parcel_price}
                           factorNumber={item.slug}
                         />
                       )}

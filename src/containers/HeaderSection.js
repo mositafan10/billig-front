@@ -81,10 +81,7 @@ class HeaderSection extends Component {
       <Menu.Item key="1">
         <Link to="/profile">پروفایل من</Link>
       </Menu.Item>
-      <Menu.Item key="2">صندوق پیام</Menu.Item>
-      <Menu.Item key="3">ثبت آگهی</Menu.Item>
-      <Menu.Item key="4">ثبت سفر</Menu.Item>
-      <Menu.Item key="5" onClick={this.exit}>
+      <Menu.Item key="2" onClick={this.exit}>
         خروج
       </Menu.Item>
     </Menu>
@@ -155,7 +152,7 @@ class HeaderSection extends Component {
                           icon={<Avatar
                             src={`${url}dstatic/${this.state.userinfo.picture}`}
                           />}
-                          style={{ borderRadius: "15px" }}
+                          style={{ borderRadius: "15px", color:"white", borderColor:"white" }}
                         ></Button>
                       </div>
                     </Dropdown>
