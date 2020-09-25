@@ -2,7 +2,7 @@ import React from "react";
 import Axios from "axios";
 import { Card, Row, Col, Spin } from "antd";
 import OfferDetail from "../components/offer/OfferInDetail";
-import DownloadPic1 from "../components/utils/DownloadPic1";
+import DownloadPic from "../components/utils/DownloadPic";
 import Bookmark from "../components/packet/Bookmark";
 import { Link } from "react-router-dom";
 import { config } from "../Constant";
@@ -163,29 +163,6 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                        <h4>قابلیت خریداری</h4>
-                      </Col>
-                      <Col
-                        style={style_left}
-                        xs={10}
-                        sm={10}
-                        md={10}
-                        lg={10}
-                        xl={10}
-                      >
-                        دارد
-                      </Col>
-                    </Row>
-                    <hr style={{ color: "aliceblue" }} />
-                    <Row style={style_right}>
-                      <Col
-                        style={style_right}
-                        xs={14}
-                        sm={14}
-                        md={14}
-                        lg={14}
-                        xl={14}
-                      >
                         <h4>قیمت کالا</h4>
                       </Col>
                       <Col
@@ -196,7 +173,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        <span style={{ marginLeft: "5px" }}> ۱/۰۰۰/۰۰۰ </span>
+                        <span style={{ marginLeft: "5px" }}> {this.state.order.parcel_price } </span>
                         <span> تومان </span>
                       </Col>
                     </Row>
@@ -220,7 +197,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        <a href="https://www.amazon.com">www.amazon.com</a>
+                        <a href="https://www.amazon.com">{this.state.order.parcel_link}</a>
                       </Col>
                     </Row>
                   </div>
@@ -271,7 +248,7 @@ class OrderDetail extends React.Component {
                     lg={14}
                     xl={14}
                   >
-                    درآمد شما
+                    ارزش جابه‌جایی
                   </Col>
                   <Col
                     style={style_left}
@@ -281,8 +258,8 @@ class OrderDetail extends React.Component {
                     lg={10}
                     xl={10}
                   >
-                    <h3 style={{ marginLeft: "5px" }}> ۲۰۰/۰۰۰ </h3>
-                    <h3> تومان </h3>
+                    <p style={{ marginLeft: "5px" }}> {this.state.order.suggested_price}</p>
+                    <p> تومان </p>
                   </Col>
                 </Row>
                 <OfferDetail
@@ -296,18 +273,14 @@ class OrderDetail extends React.Component {
             <Col xs={24} sm={24} md={24} lg={14} xl={14} xxl={14}>
               <br />
               <br />
-              <DownloadPic1 data={picID} size={300} />
+              <DownloadPic data={picID} size={300} />
               <br />
-              <br />
-              <p s>
-                با مطالعه‌ی <a>راهنمای خرید امن</a> آسوده‌تر خرید کنید
-              </p>
               <Bookmark data={this.state.order.slug} />
             </Col>
           </Row>
         )}
       </div>
-    );
+    );  
   }
 }
 

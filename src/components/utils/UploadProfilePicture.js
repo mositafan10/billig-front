@@ -57,7 +57,7 @@ class UploadProfilePicture extends React.Component {
           <Col xs={2} sm={2} md={2} lg={2} xl={0} xxl={0}></Col>
           <Col xs={20} sm={20} md={20} lg={20} xl={24} xxl={24}>
             <Upload
-              name="avatar"
+              name="billlig"
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}

@@ -149,15 +149,19 @@ class HeaderSection extends Component {
                           }}
                         ></Button>
                         <Button
-                          icon={<Avatar
-                            src={`${url}dstatic/${this.state.userinfo.picture}`}
-                          />}
+                          icon={this.state.userinfo.picture ? <Avatar
+                            src={`${url}dstatic/${this.state.userinfo.picture}`} />
+                            : 
+                            <Avatar style={{backgroundColor:"white", color:"black"}} icon={<UserOutlined />} />
+                          }
                           style={{ borderRadius: "15px", color:"white", borderColor:"white" }}
-                        ></Button>
+                        >
+
+                        </Button>
                       </div>
                     </Dropdown>
                   </div>
-                  {this.props.isAuthenticated && (
+                  {/* {this.props.isAuthenticated && (
                     <div>
                       <Badge dot={true}>
                         <Button
@@ -171,7 +175,7 @@ class HeaderSection extends Component {
                         ></Button>
                       </Badge>
                     </div>
-                  )}
+                  )} */}
                 </div>
                 <Row>
                   <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={20}>
@@ -295,13 +299,14 @@ class HeaderSection extends Component {
               >
                 <Button
                   onClick={this.showprofilemenu}
-                  icon={<Avatar
-                    src={`${url}dstatic/${this.state.userinfo.picture}`}
-                  />}
+                  icon={this.state.userinfo.picture ? <Avatar
+                            src={`${url}dstatic/${this.state.userinfo.picture}`} />
+                            : 
+                            <Avatar style={{backgroundColor:"white", color:"black", border:"1px solid"}} icon={<UserOutlined />} />
+                          }
                   style={{
                     borderRadius: "15px",
                     border: "1px solid",
-                    // backgroundColor: "white",
                     color: "white",
                   }}
                 ></Button>
@@ -310,9 +315,11 @@ class HeaderSection extends Component {
                     this.props.isAuthenticated ? 
                     <div >
                       <Row style={{display:"flex",justifyContent:"center", alignItems:"center"}}>
-                        <Avatar
-                          src={`${url}dstatic/${this.state.userinfo.picture}`}
-                        />
+                      {this.state.userinfo.picture ? <Avatar
+                            src={`${url}dstatic/${this.state.userinfo.picture}`} />
+                            : 
+                            <Avatar style={{backgroundColor:"white", color:"black", border:"1px solid"}} icon={<UserOutlined />} />
+                          }
                         <Divider style={{margin:"5px", opacity:"0"}}/>
                         {this.state.userinfo.user &&
                           this.state.userinfo.user.name}

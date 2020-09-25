@@ -19,7 +19,7 @@ class PackForm extends React.Component {
         cities_destination : [],
         city_origin_dis: true,
         city_destination_dis: true,
-        pic_id : "",
+        pic_id : null,
         buy: false,
         ocv: "",
         category_other:false
@@ -46,11 +46,9 @@ class PackForm extends React.Component {
     callbackFunction = (childData) => {
         if(childData.length == 1){
             const pic_id = childData[0] && (childData[0].response && (childData[0].response && childData[0].response.id ));
-            console.log(pic_id)
             this.setState({
                 pic_id: pic_id
             })
-            console.log(this.state.pic_id)
         }
         else {
             return null

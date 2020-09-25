@@ -8,6 +8,7 @@ import {
     FacebookOutlined,
     IeOutlined,
     UserOutlined,
+    DollarCircleOutlined
     } from '@ant-design/icons';
 
 import { config } from '../../Constant';
@@ -23,32 +24,27 @@ class EditProfileForm extends React.Component {
     }
 
     componentDidMount(){
-
     Axios.get(`${url}api/v1/account/countries/`)
         .then(res => {
             this.setState({
                 countries: res.data
             });
-            console.log(res.data);
         })
     Axios.get(`${url}api/v1/account/cities/`)
         .then(res => {
             this.setState({
                 cities: res.data
             });
-            console.log(res.data);
         })
     }
 
     get_city = (e) => {
-        console.log('country', e);
         Axios.get(`${url}api/v1/account/cities/${e}`)
         .then(res => {
             this.setState({
                 cities: res.data,
                 city_dis : false
             });
-            console.log(res.data);
         })
     }
     
@@ -62,8 +58,8 @@ class EditProfileForm extends React.Component {
                     linkdin_id : (values.linkdin_id ? values.linkdin_id : this.props.data.linkdin_id ),
                     email: (values.email ? values.email : this.props.data.email ),
                     bio: (values.bio ? values.bio : this.props.data.bio ),
-                    country: (values.living_country ? values.living_country : this.props.data.living_country.id ),
-                    city : (values.living_city ? values.living_city : this.props.data.living_city.id ),
+                    country: (values.living_country ? values.living_country : this.props.data.living_country ),
+                    city : (values.living_city ? values.living_city : this.props.data.living_city ),
                     first_name: (values.first_name ? values.first_name : this.props.data.first_name ),
                     last_name: (values.last_name ? values.last_name : this.props.data.last_name ),
                     account_number: (values.account_number ? values.account_number : this.props.data.account_number )
@@ -82,7 +78,7 @@ class EditProfileForm extends React.Component {
                             <UserOutlined style={{fontSize:"30px"}} />
                             <Divider plain orientation="center">بیوگرافی</Divider>
                             <Form.Item  name="bio">
-                                <textarea defaultValue={this.props.data.bio} placeholder="... آنچه دوست دارید دیگران در مورد شما بدانند" style={{borderRadius:"8px", textAlign:"center", padding:"10px"}} rows="4" cols="54" />
+                                <textarea defaultValue={this.props.data.bio} placeholder="... آنچه دوست دارید دیگران در مورد شما بدانند" style={{borderRadius:"8px", textAlign:"center", padding:"10px", width:"-moz-available"}} rows="4" cols="54" />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -156,10 +152,11 @@ class EditProfileForm extends React.Component {
                     </Row>
                     <br/>
                     <Divider plain orientation="center">اطلاعات بانکی</Divider>
+                    <p>این گزینه مربوط به تسویه حساب با مسافرانی که بسته جابه‌جا می ‌کنند،‌ می‌باشد.</p>
                     <Row>
                         <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}></Col>
                         <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}>
-                            <IeOutlined style={{fontSize:"30px"}} />
+                            <DollarCircleOutlined style={{fontSize:"30px"}} />
                             <Divider plain orientation="center">شماره شبا</Divider>
                             <Form.Item name="account_numbrt">
                                 <Input defaultValue={this.props.data.account_number} type='number' style={{borderRadius:"8px"}} />
