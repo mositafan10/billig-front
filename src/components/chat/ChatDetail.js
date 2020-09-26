@@ -1,13 +1,23 @@
 import React, { Component } from "react";
-import { List, Avatar, Row, Col, Drawer, Spin, Tooltip, Upload, Button } from "antd";
+import {
+  List,
+  Avatar,
+  Row,
+  Col,
+  Drawer,
+  Spin,
+  Tooltip,
+  Upload,
+  Button,
+} from "antd";
 import Axios from "axios";
 import TextInput from "./TextInput";
 import moment from "moment";
-import { LeftOutlined, ReloadOutlined } from "@ant-design/icons";
+import { LinkOutlined, ReloadOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
-import DownloadPic1 from '../utils/DownloadPic1';
+import DownloadPic1 from "../utils/DownloadPic1";
 
 var url = config.url.API_URL;
 
@@ -40,10 +50,12 @@ class ChatDetail extends Component {
   state = {
     massages: [],
     offer: "",
-    visible: false,
+    visible: this.props.visible,
     loading: true,
-    fileList:[],
+    fileList: [],
   };
+
+  myRef = React.createRef();
 
   showDrawer = () => {
     this.setState({
@@ -53,39 +65,49 @@ class ChatDetail extends Component {
 
   onClose = () => {
     this.setState({
-      visible: false,
-    });
+     visible:false
+    })
+     this.props.parentCallback()
   };
 
-    onChange = ({ fileList: newFileList }) => {
+  onChange = ({ fileList: newFileList }) => {
     this.setState({
-        fileList:  newFileList
-    })
+      fileList: newFileList,
+    });
     this.handler();
-  }
+  };
+
+  scrollToMyRef = () => {
+    this.myRef.current.scrollIntoView();
+  };
 
   componentDidUpdate = (prevProps, callback) => {
     const token = localStorage.getItem("token");
     const chatid = this.props.data;
-    if (this.props.data !== prevProps.data) {
+    console.log(prevProps.visible)
+    if (this.props.visible !== prevProps.visible) {
       this.setState({
         offer: this.props.offer,
-        visible: true,
+        visible: this.props.visible,
         loading: true,
       });
       Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-        .then((res) =>
-          this.setState({
-            massages: res.data,
-            loading: false,
-          })
+        .then(
+          (res) =>
+            this.setState({
+              massages: res.data,
+              loading: false,
+            })
           // callback(res)
         )
         .catch((error) => console.log(error));
     }
+
+    this.scrollToMyRef();
   };
+
 
   handler = (callback) => {
     const token = localStorage.getItem("token");
@@ -102,12 +124,13 @@ class ChatDetail extends Component {
         )
       )
       .catch((error) => console.log(error));
+    this.scrollToMyRef();
   };
 
   render() {
     const user = localStorage.getItem("user");
     const chatid = this.props.data;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     return (
       <div>
         <div style={{ marginTop: "20px" }}>
@@ -169,10 +192,28 @@ class ChatDetail extends Component {
               }
               footer={
                 <Row>
-                  <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}>
-                    <ReloadOutlined
-                      style={{ fontSize: "18px", float: "left", margin: "8px" }}
-                    />{" "}
+                  <Col
+                    xs={2}
+                    sm={2}
+                    md={2}
+                    lg={6}
+                    xl={6}
+                    xxl={6}
+                    style={{ justifyContent: "left", display: "flex" }}
+                  >
+                    <Upload
+                      action={`${url}api/v1/chat/messages/${chatid}`}
+                      name="billig"
+                      headers={{ Authorization: `Bearer ${token}` }}
+                      onChange={this.onChange}
+                      fileList={this.fileList}
+                      multiple="true"
+                      accept=".png,.jpeg"
+                    >
+                      <Button
+                        icon={<LinkOutlined style={{ marginTop: "5px" }} />}
+                      ></Button>
+                    </Upload>
                   </Col>
                   <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12}>
                     <TextInput data={chatid} handler={this.handler} />
@@ -225,20 +266,37 @@ class ChatDetail extends Component {
                         {user === item.ownerid ? (
                           <List.Item>
                             <div style={right_test_style}>
-                              <List.Item.Meta
-                                style={{ fontSize: "8px", height: "auto" }}
-                                description={item.text}
-                              />
+                              {item.picture === null ? (
+                                <List.Item.Meta
+                                  style={{ fontSize: "8px" }}
+                                  description={item.text}
+                                />
+                              ) : (
+                                <DownloadPic1 data={item.picture} size={100} />
+                              )}
                               {moment(item.create_at).format("HH:mm")}
                             </div>
                           </List.Item>
                         ) : (
                           <List.Item style={left_test_style}>
                             <div>
-                              <List.Item.Meta
-                                style={{ fontSize: "8px", height: "auto" }}
-                                description={item.text}
-                              />
+                              {item.picture === null ? (
+                                <List.Item.Meta
+                                  style={{ fontSize: "8px" }}
+                                  description={item.text}
+                                />
+                              ) : (
+                                <div>
+                                  <img
+                                    src={`${url}dstatic/${item.picture}`}
+                                    style={{
+                                      borderRadius: "10px",
+                                      margin: "5px",
+                                    }}
+                                    width={150}
+                                  />
+                                </div>
+                              )}
                               {moment(item.create_at).format("HH:mm")}
                             </div>
                           </List.Item>
@@ -249,6 +307,7 @@ class ChatDetail extends Component {
                   )}
                 />
               )}
+              <div ref={this.myRef}></div>
             </Drawer>
             <br />
           </Breakpoint>
@@ -265,7 +324,7 @@ class ChatDetail extends Component {
                           ) : (
                             <ReloadOutlined
                               onClick={this.componentDidUpdate}
-                              style={{ fontSize: "20px" }}
+                              style={{ fontSize: "16px", marginTop: "7px" }}
                             />
                           )}
                         </Tooltip>
@@ -311,13 +370,19 @@ class ChatDetail extends Component {
               footer={
                 <Row>
                   <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>
-                    <Upload action={`${url}api/v1/chat/message/add/${chatid}`}
-                          name="billig"
-                          headers={{ Authorization: `Bearer ${token}` }}
-                          onChange={this.onChange}
-                        //   onPreview={onPreview}
-                          fileList={this.fileList}>
-                        <Button icon={<ReloadOutlined style={{marginTop:"5px"}}/>}></Button></Upload> 
+                    <Upload
+                      action={`${url}api/v1/chat/messages/${chatid}`}
+                      name="billig"
+                      headers={{ Authorization: `Bearer ${token}` }}
+                      onChange={this.onChange}
+                      fileList={this.fileList}
+                      multiple="true"
+                      accept=".png,.jpeg"
+                    >
+                      <Button
+                        icon={<LinkOutlined style={{ marginTop: "5px" }} />}
+                      ></Button>
+                    </Upload>
                   </Col>
                   <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>
                     <TextInput data={chatid} handler={this.handler} />
@@ -364,34 +429,37 @@ class ChatDetail extends Component {
                         {user === item.ownerid ? (
                           <List.Item>
                             <div style={right_test_style}>
-                             { item.picture === null ? 
-                              <List.Item.Meta
-                                style={{ fontSize: "8px" }}
-                                description={item.text}
-                              />
-                              :
-                              <DownloadPic1 data={item.picture} size={100} />
-                                }
+                              {item.picture === null ? (
+                                <List.Item.Meta
+                                  style={{ fontSize: "8px" }}
+                                  description={item.text}
+                                />
+                              ) : (
+                                <DownloadPic1 data={item.picture} size={100} />
+                              )}
                               {moment(item.create_at).format("HH:mm")}
                             </div>
                           </List.Item>
                         ) : (
                           <List.Item style={left_test_style}>
                             <div>
-                            { item.picture === null ? 
-                              <List.Item.Meta
-                                style={{ fontSize: "8px" }}
-                                description={item.text}
-                              />
-                              :
-                              <div>
-                              <img
-                                src = {`${url}dstatic/${item.picture}`}
-                                style={{borderRadius:"10px", margin:"5px"}}
-                                width = {150}
+                              {item.picture === null ? (
+                                <List.Item.Meta
+                                  style={{ fontSize: "8px" }}
+                                  description={item.text}
                                 />
+                              ) : (
+                                <div>
+                                  <img
+                                    src={`${url}dstatic/${item.picture}`}
+                                    style={{
+                                      borderRadius: "10px",
+                                      margin: "5px",
+                                    }}
+                                    width={150}
+                                  />
                                 </div>
-                                }
+                              )}
                               {moment(item.create_at).format("HH:mm")}
                             </div>
                           </List.Item>
@@ -401,6 +469,7 @@ class ChatDetail extends Component {
                   )}
                 />
               )}
+              <div ref={this.myRef}></div>
             </Drawer>
             <br />
           </Breakpoint>

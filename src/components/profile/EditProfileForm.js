@@ -59,7 +59,7 @@ class EditProfileForm extends React.Component {
                     email: (values.email ? values.email : this.props.data.email ),
                     bio: (values.bio ? values.bio : this.props.data.bio ),
                     country: (values.living_country ? values.living_country : this.props.data.living_country ),
-                    city : (values.living_city ? values.living_city : this.props.data.living_city ),
+                    city : (values.living_city ? values.living_city : this.props.data.living_city    ),
                     first_name: (values.first_name ? values.first_name : this.props.data.first_name ),
                     last_name: (values.last_name ? values.last_name : this.props.data.last_name ),
                     account_number: (values.account_number ? values.account_number : this.props.data.account_number )

@@ -9,6 +9,7 @@ class ChatContacs extends Component {
   state = {
     contacs: [],
     loading: true,
+    visible: true
   };
 
   componentDidMount() {
@@ -25,14 +26,15 @@ class ChatContacs extends Component {
       .catch((error) => console.log(error));
   }
 
-  sendData = (chatid, offer, avatar1, avatar2, sender, receiver) => {
+  sendData = (chatid, offer, avatar1, avatar2, sender, receiver, visible) => {
     this.props.parentCallback(
       chatid,
       offer,
       avatar1,
       avatar2,
       sender,
-      receiver
+      receiver,
+      visible
     );
   };
 
@@ -101,7 +103,8 @@ class ChatContacs extends Component {
                             item.receiver_avatar,
                             item.sender_avatar,
                             item.sender,
-                            item.receiver
+                            item.receiver,
+                            this.state.visible
                           )
                         }
                       >

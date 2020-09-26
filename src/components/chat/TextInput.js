@@ -35,9 +35,8 @@ class TextInput extends Component {
     send = (value) => {
         const token = localStorage.getItem('token');
         const owner = localStorage.getItem('user');
-        Axios.post(`${url}api/v1/chat/message/add/`,
+        Axios.post(`${url}api/v1/chat/messages/${this.props.data}`,
         {
-            chat_id: this.props.data,
             owner: owner,
             text: value
         },

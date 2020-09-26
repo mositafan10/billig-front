@@ -41,7 +41,7 @@ export const checkAuthTimeout = (expirationTime) => {
   return (dispatch) => {
     setTimeout(() => {
       dispatch(logout());
-    }, expirationTime * 10000);
+    }, expirationTime * 1000);
   };
 };
 
@@ -58,7 +58,7 @@ export const authLogin = (phone_number, password, otp, name) => {
         const token = res.data.token;
         const user = res.data.user;
         const first_time = res.data.first_time;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
+        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
         localStorage.setItem("user", user);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
@@ -86,7 +86,7 @@ export const authSignup = (phone_number, password, name) => {
       name: name,
     })
       .then((res) => {
-        const expirationDate = new Date(new Date().getTime() + 3600 * 10000);
+        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(checkAuthTimeout(3600));
       })

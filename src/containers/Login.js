@@ -1,10 +1,13 @@
 import React from 'react';
-import { Form, Input, Button, Spin, Divider } from 'antd';
+import { Form, Input, Button, Spin, Divider, ConfigProvider } from 'antd';
 import  { LoadingOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/auth';
 import ResetPassword from '../components/profile/ResetPassword';
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 const antIcon = <LoadingOutlined type="loading" style={{fontsize: 24, textAlign:"center"}} spin />; {/*should be place in center*/}
  
 
@@ -35,6 +38,7 @@ class LoginForm extends React.Component {
             <Spin size="large" />
         </div>
         :
+        <ConfigProvider direction="ltr">
         <Form
             size="middle"
             layout="vertical"
@@ -47,7 +51,7 @@ class LoginForm extends React.Component {
         >
         <Divider>ورود به حساب کاربری</Divider><br/>
         <Form.Item
-            style={{alignItems:"center"}}
+            style={{ alignItems: "center", textAlign: "left" }}
             label="شماره موبایل"
             name="phone_number"
             rules={[
@@ -57,7 +61,17 @@ class LoginForm extends React.Component {
             },
             ]}
         >
-          <Input style={{borderRadius:"10px"}}/>
+          <PhoneInput
+              style={{
+                fontFamily: "VazirD",
+                borderRadius: "10px",
+                width: "300px",
+              }}
+              placeholder=""
+              preferredCountries={['ir' ]}
+              enableSearch="true"
+              disableSearchIcon="true"
+            />
         </Form.Item>
         <Form.Item
             style={{alignItems:"center"}}
@@ -86,8 +100,8 @@ class LoginForm extends React.Component {
             to='/signup/'>هنوز ثبت نام نکرده اید؟
             </NavLink>
         </Form.Item>  
-        
         </Form>
+        </ConfigProvider>
         } 
     </div>
   );
