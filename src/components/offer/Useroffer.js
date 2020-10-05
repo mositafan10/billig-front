@@ -87,7 +87,7 @@ class UserOffer extends React.Component {
             </Button>
           );
         } else {
-          return <SendMessage data={dataIndex} slug={dataIndex} />;
+          return <SendMessage data={row.sender_id} slug={dataIndex} />;
         }
       },
     },
@@ -292,7 +292,6 @@ class UserOffer extends React.Component {
             <Table
               pagination={{
                 onChange: (page) => {
-                  console.log(page);
                 },
                 hideOnSinglePage: true,
                 size: "small",

@@ -11,6 +11,7 @@ import {
   Avatar,
   Space,
   Divider,
+  Spin
 } from "antd";
 import Axios from "axios";
 import SendMessage from "./SendMessage";
@@ -19,15 +20,19 @@ import SendTransactionInfo from "../payment/SendTransactionInfo";
 import { config } from "../../Constant";
 import RateAndComment from "../rating/RateAndComment";
 import PayTraveler from "../payment/PayTraveler";
-import { Breakpoint } from "react-socks";
+import ChatDetail from '../chat/ChatDetail';
+import { Breakpoint } from 'react-socks';
 
 var url = config.url.API_URL;
+const token = localStorage.getItem("token");
 
 class PacketOffer extends React.Component {
   state = {
     packet_offer: [],
     disablepayment: true,
     disableconfirm: false,
+    visible: false,
+    loading: true
   };
 
   columns = [
@@ -58,17 +63,20 @@ class PacketOffer extends React.Component {
       dataIndex: "description",
       key: "offer_count",
       align: "center",
+      width: 600,
     },
     {
       title: " ",
       dataIndex: "slug",
       key: "",
       align: "center",
+      width: 50,
       render: (dataIndex, row) => {
         if (row.status === "انجام شده") {
           return (
-            <Button
+              <Button
               disabled={true}
+              // onClick={()=>this.setState({visible:true})}
               style={{
                 fontSize: "12px",
                 backgroundColor: "white",
@@ -81,7 +89,7 @@ class PacketOffer extends React.Component {
             </Button>
           );
         } else {
-          return <SendMessage data={dataIndex} slug={dataIndex} />;
+          return <SendMessage dir={false} data={row.sender_id} slug={dataIndex} />;
         }
       },
     },
@@ -204,7 +212,6 @@ class PacketOffer extends React.Component {
   };
 
   accept(data) {
-    const token = localStorage.getItem("token");
     Axios.post(
       `${url}api/v1/advertise/offer/update/`,
       {
@@ -221,7 +228,6 @@ class PacketOffer extends React.Component {
   }
 
   receiveconfirm = (data) => {
-    const token = localStorage.getItem("token");
     Axios.post(
       `${url}api/v1/advertise/offer/update/`,
       {
@@ -238,7 +244,6 @@ class PacketOffer extends React.Component {
   };
 
   componentDidMount() {
-    const token = localStorage.getItem("token");
     const orderID = this.props.data;
     Axios.get(`${url}api/v1/advertise/offer/${orderID}/`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -246,6 +251,7 @@ class PacketOffer extends React.Component {
       .then((res) => {
         this.setState({
           packet_offer: res.data,
+          loading: false
         });
       })
       .catch((error) => console.error(error));
@@ -255,11 +261,15 @@ class PacketOffer extends React.Component {
     return (
       <div>
         <Breakpoint medium up>
+        {this.state.loading ? (
+            <div style={{ marginTop: "100px" }}>
+              <Spin />
+            </div>
+          ) : (
           <Table
             scroll={{ x: 900 }}
             pagination={{
               onChange: (page) => {
-                console.log(page);
               },
               hideOnSinglePage: true,
               size: "small",
@@ -268,6 +278,7 @@ class PacketOffer extends React.Component {
             columns={this.columns}
             dataSource={this.state.packet_offer}
           />
+        )}
         </Breakpoint>
         <Breakpoint small down>
           <List
@@ -340,7 +351,7 @@ class PacketOffer extends React.Component {
                           چت
                         </Button>
                       ) : (
-                        <SendMessage data={item.slug} slug={item.slug} />
+                      <SendMessage data={item.sender_id} slug={item.slug} />
                       )}
                     </Col>
                     <Col>

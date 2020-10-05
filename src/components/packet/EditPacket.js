@@ -23,7 +23,6 @@ class EditPacket extends Component {
                 packet: res.data,
                 offer_visible: true
             });
-            console.log(res.data);  
         })
         .catch(error => console.error(error));
     }

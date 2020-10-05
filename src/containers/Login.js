@@ -67,6 +67,7 @@ class LoginForm extends React.Component {
                 borderRadius: "10px",
                 width: "300px",
               }}
+              country='ir'
               placeholder=""
               preferredCountries={['ir' ]}
               enableSearch="true"

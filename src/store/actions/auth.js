@@ -28,13 +28,12 @@ export const authFail = (error) => {
 
 export const logout = () => {
   const token = localStorage.getItem("token");
-  // Axios.get(`${url}api/v1/account/logout/`,
-  // { headers: {"Authorization" : `Bearer ${token}`} })
   localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
+
 };
 
 export const checkAuthTimeout = (expirationTime) => {
@@ -82,8 +81,6 @@ export const authSignup = (phone_number, password, name) => {
     dispatch(authStart());
     Axios.post(`${url}api/v1/account/signup/`, {
       phone_number: phone_number,
-      password: password,
-      name: name,
     })
       .then((res) => {
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
@@ -101,6 +98,39 @@ export const authSignup = (phone_number, password, name) => {
       });
   };
 };
+
+export const authSignup1 = (phone_number, password, otp, name) => {
+  return (dispatch) => {
+    dispatch(authStart());
+    Axios.post(`${url}api/v1/account/signup/complete/`, {
+      phone_number: phone_number,
+      password: password,
+      otp: otp,
+      name: name,
+    })
+        .then((res) => {
+          const token = res.data.token;
+          const user = res.data.user;
+          const first_time = res.data.first_time;
+          const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+          localStorage.setItem("user", user);
+          localStorage.setItem("token", token);
+          localStorage.setItem("expirationDate", expirationDate);
+          dispatch(authSuccess(token, user));
+          dispatch(checkAuthTimeout(3600));
+          {
+            first_time
+              ? (window.location = "/signup/complete/")
+              : (window.location = "/");
+          }
+        })
+        .catch((error) => {
+          message.error(error.response.data.detail);
+          dispatch(authFail(error));
+        })
+      };
+  };
+
 
 export const authCheckState = () => {
   return (dispatch) => {

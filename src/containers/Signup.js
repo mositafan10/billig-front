@@ -25,7 +25,7 @@ class SignUpForm extends React.Component {
   };
 
   onFinish = (values) => {
-    this.props.onAuth(values.phone_number, values.password, values.name);
+    this.props.onAuth(values.phone_number);
     this.setState({
       password: values.password,
       phone_number: values.phone_number,
@@ -52,7 +52,7 @@ class SignUpForm extends React.Component {
     const phone_number = this.state.phone_number;
     const name = this.state.name;
     const otp = this.state.otp;
-    this.props.onAuth1(phone_number, password, otp, name);
+    this.props.onAuth2(phone_number, password, otp, name);
   };
 
   handleCancel = (e) => {
@@ -85,7 +85,7 @@ class SignUpForm extends React.Component {
               },
             ]}
           >
-            <Input style={{ width: "300px", borderRadius: "10px" }} />
+            <Input style={{ width: "300px", borderRadius: "10px", textAlign:"center" }} />
           </Form.Item>
           <Form.Item
             style={{ alignItems: "center", textAlign: "left" }}
@@ -104,6 +104,7 @@ class SignUpForm extends React.Component {
                 borderRadius: "10px",
                 width: "300px",
               }}
+              country='ir'
               placeholder=""
               preferredCountries={['ir' ]}
               enableSearch="true"
@@ -164,7 +165,6 @@ class SignUpForm extends React.Component {
               ورود با حساب کاربری
             </NavLink>
           </Form.Item>
-
           <Modal
             onCancel={this.handleCancel}
             cancelText="انصراف"
@@ -211,10 +211,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (phone_number, password, name) =>
-      dispatch(actions.authSignup(phone_number, password, name)),
+    onAuth: (phone_number) =>
+      dispatch(actions.authSignup(phone_number)),
     onAuth1: (phone_number, password, otp, name) =>
       dispatch(actions.authLogin(phone_number, password, otp, name)),
+    onAuth2: (phone_number, password, otp, name) =>
+      dispatch(actions.authSignup1(phone_number, password, otp, name)),
   };
 };
 

@@ -26,7 +26,7 @@ class ChatContacs extends Component {
       .catch((error) => console.log(error));
   }
 
-  sendData = (chatid, offer, avatar1, avatar2, sender, receiver, visible) => {
+  sendData = (chatid, offer, avatar1, avatar2, sender, receiver, sender_name, receiver_name, visible) => {
     this.props.parentCallback(
       chatid,
       offer,
@@ -34,6 +34,8 @@ class ChatContacs extends Component {
       avatar2,
       sender,
       receiver,
+      sender_name,
+      receiver_name,
       visible
     );
   };
@@ -87,7 +89,10 @@ class ChatContacs extends Component {
                             item.receiver_avatar,
                             item.sender_avatar,
                             item.sender,
-                            item.receiver
+                            item.receiver,
+                            item.sender_name,
+                            item.receiver_name,
+                            this.state.visible
                           )
                         }
                       >
@@ -104,6 +109,8 @@ class ChatContacs extends Component {
                             item.sender_avatar,
                             item.sender,
                             item.receiver,
+                            item.sender_name,
+                            item.receiver_name,
                             this.state.visible
                           )
                         }

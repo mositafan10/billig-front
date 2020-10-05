@@ -9,6 +9,7 @@ import {
   Tooltip,
   Upload,
   Button,
+  Modal
 } from "antd";
 import Axios from "axios";
 import TextInput from "./TextInput";
@@ -84,7 +85,6 @@ class ChatDetail extends Component {
   componentDidUpdate = (prevProps, callback) => {
     const token = localStorage.getItem("token");
     const chatid = this.props.data;
-    console.log(prevProps.visible)
     if (this.props.visible !== prevProps.visible) {
       this.setState({
         offer: this.props.offer,
@@ -132,10 +132,10 @@ class ChatDetail extends Component {
     const chatid = this.props.data;
     const token = localStorage.getItem("token");
     return (
-      <div>
         <div style={{ marginTop: "20px" }}>
           <Breakpoint medium up>
-            <Drawer
+            {/* <div > */}
+            <Drawer 
               title={
                 <Row>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
@@ -153,7 +153,8 @@ class ChatDetail extends Component {
                         </Tooltip>
                       </Col>
                       <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={7}>
-                        {user === this.props.sender ? (
+                        {user !== this.props.sender ? (
+                          
                           <Link to={"/users/" + this.props.sender}>
                             <Avatar
                               src={`${url}dstatic/media/${this.props.avatar2}`}
@@ -166,40 +167,22 @@ class ChatDetail extends Component {
                             />
                           </Link>
                         )}
+                       <span style={{paddingRight:"10px"}}>{this.props.sender_name}</span> 
                       </Col>
-                      <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
-                        <p style={{ fontSize: "14px" }}>{this.state.offer}</p>
-                      </Col>
-                      <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={7}>
-                        {user === this.props.sender ? (
-                          <Link to={"/users/" + this.props.receiver}>
-                            <Avatar
-                              src={`${url}dstatic/media/${this.props.avatar1}`}
-                            />
-                          </Link>
-                        ) : (
-                          <Link to={"/users/" + this.props.sender}>
-                            <Avatar
-                              src={`${url}dstatic/media/${this.props.avatar2}`}
-                            />
-                          </Link>
-                        )}
-                      </Col>
-                      <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
                     </Row>
                   </Col>
                 </Row>
               }
               footer={
-                <Row>
+                <Row style={{padding:"20px 0 20px 0"}}>
                   <Col
-                    xs={2}
-                    sm={2}
-                    md={2}
-                    lg={6}
-                    xl={6}
-                    xxl={6}
-                    style={{ justifyContent: "left", display: "flex" }}
+                    xs={1}
+                    sm={1}
+                    md={1}
+                    lg={1}
+                    xl={1}
+                    xxl={1}
+                    style={{ justifyContent: "right", display: "flex" }}
                   >
                     <Upload
                       action={`${url}api/v1/chat/messages/${chatid}`}
@@ -211,26 +194,25 @@ class ChatDetail extends Component {
                       accept=".png,.jpeg"
                     >
                       <Button
+                       size="large"
                         icon={<LinkOutlined style={{ marginTop: "5px" }} />}
                       ></Button>
                     </Upload>
                   </Col>
-                  <Col xs={20} sm={20} md={20} lg={12} xl={12} xxl={12}>
+                  <Col xs={23} sm={23} md={23} lg={23} xl={23} xxl={23}>
                     <TextInput data={chatid} handler={this.handler} />
-                  </Col>
-                  <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}>
-                    {" "}
                   </Col>
                 </Row>
               }
               placement="left"
-              width={"100%"}
+              width={"50%"}
               closable={true}
               onClose={this.onClose}
               visible={this.state.visible}
               getContainer={false}
               headerStyle={{ marginTop: 20 }}
-              bodyStyle={{ marginBottom: 30 }}
+              bodyStyle={{ marginBottom: 30, zIndex:999 }}
+              style={{zIndex:999}}
             >
               {this.state.loading ? (
                 <div style={{ marginTop: "100px" }}>
@@ -243,24 +225,21 @@ class ChatDetail extends Component {
                   locale={{ emptyText: " پیامی وجود ندارد" }}
                   renderItem={(item) => (
                     <Row>
-                      <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
                       <Col
-                        xs={20}
-                        sm={20}
-                        md={20}
-                        lg={12}
-                        xl={12}
-                        xxl={12}
+                        xs={24}
+                        sm={24}
+                        md={24}
+                        lg={24}
+                        xl={24}
+                        xxl={24}
                         style={{
-                          // borderRight: "solid",
-                          // borderLeft: "solid",
                           borderColor: "#9cd3ee",
                           padding: "0 5px 0 5px",
                         }}
                       >
                         <div style={{ textAlign: "center" }}>
                           {item.first_day
-                            ? moment(item.create_at).format("dddd Do MMM")
+                            ? moment(item.create_at).format("dddd d MMM")
                             : ""}
                         </div>
                         {user === item.ownerid ? (
@@ -302,22 +281,24 @@ class ChatDetail extends Component {
                           </List.Item>
                         )}
                       </Col>
-                      <Col xs={2} sm={2} md={2} lg={6} xl={6} xxl={6}></Col>
                     </Row>
                   )}
                 />
               )}
               <div ref={this.myRef}></div>
             </Drawer>
+            {/* </div> */}
             <br />
           </Breakpoint>
           <Breakpoint small down>
+            
             <Drawer
+            style={{ position: 'absolute' }}
               title={
                 <Row>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                     <Row>
-                      <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}>
+                      <Col span={4}>
                         <Tooltip title="به روزرسانی پیام‌ها">
                           {this.state.loading ? (
                             <Spin />
@@ -329,7 +310,7 @@ class ChatDetail extends Component {
                           )}
                         </Tooltip>
                       </Col>
-                      <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={7}>
+                      <Col span={20}>
                         {user === this.props.sender ? (
                           <Link to={"/users/" + this.props.sender}>
                             <Avatar
@@ -343,33 +324,15 @@ class ChatDetail extends Component {
                             />
                           </Link>
                         )}
+                      <span style={{paddingRight:"10px", fontSize:"14px"}}>{this.props.sender_name}</span> 
                       </Col>
-                      <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
-                        <p style={{ fontSize: "14px" }}>{this.state.offer}</p>
-                      </Col>
-                      <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={7}>
-                        {user === this.props.sender ? (
-                          <Link to={"/users/" + this.props.receiver}>
-                            <Avatar
-                              src={`${url}dstatic/media/${this.props.avatar1}`}
-                            />
-                          </Link>
-                        ) : (
-                          <Link to={"/users/" + this.props.sender}>
-                            <Avatar
-                              src={`${url}dstatic/media/${this.props.avatar2}`}
-                            />
-                          </Link>
-                        )}
-                      </Col>
-                      <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
                     </Row>
                   </Col>
                 </Row>
               }
               footer={
                 <Row>
-                  <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>
+                  <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2} >
                     <Upload
                       action={`${url}api/v1/chat/messages/${chatid}`}
                       name="billig"
@@ -380,7 +343,8 @@ class ChatDetail extends Component {
                       accept=".png,.jpeg"
                     >
                       <Button
-                        icon={<LinkOutlined style={{ marginTop: "5px" }} />}
+                      size="large"
+                        icon={<LinkOutlined style={{ margin:"5px 0 0 5px" }} />}
                       ></Button>
                     </Upload>
                   </Col>
@@ -397,6 +361,7 @@ class ChatDetail extends Component {
               getContainer={false}
               headerStyle={{ marginTop: 20 }}
               bodyStyle={{ marginBottom: 30 }}
+              maskStyle={{zIndex:"999"}}
             >
               {this.state.loading ? (
                 <div style={{ marginTop: "100px" }}>
@@ -423,7 +388,7 @@ class ChatDetail extends Component {
                       >
                         <div style={{ textAlign: "center" }}>
                           {item.first_day
-                            ? moment(item.create_at).format("dddd Do MMM")
+                            ? moment(item.create_at).format("dddd d MMM")
                             : ""}
                         </div>
                         {user === item.ownerid ? (
@@ -474,7 +439,6 @@ class ChatDetail extends Component {
             <br />
           </Breakpoint>
         </div>
-      </div>
     );
   }
 }

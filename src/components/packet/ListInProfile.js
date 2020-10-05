@@ -91,7 +91,7 @@ class PacketUserList extends React.Component {
           okText="بله"
           cancelText="خیر"
         >
-          حذف
+          <a style={{ color: "grey" }}>حذف</a>
         </Popconfirm>
       ),
     },
@@ -139,7 +139,6 @@ class PacketUserList extends React.Component {
   render() {
     return (
       <div>
-        {/* for desktop */}
         <Breakpoint medium up>
           <Link to="/create-packet">
             <Button icon={<PlusOutlined />} style={{ borderRadius: "8px" }}>
@@ -160,7 +159,6 @@ class PacketUserList extends React.Component {
             />
           )}
         </Breakpoint>
-        {/* for mobile */}
         <Breakpoint small down>
           {this.state.loading ? (
             <div style={{ marginTop: "100px" }}>
@@ -203,6 +201,7 @@ class PacketUserList extends React.Component {
                       }}
                     >
                       <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                      <p style={{textAlign:"center"}}>{item.status}</p>
                         <Row
                           style={{ justifyContent: "center", display: "flex" }}
                         >
@@ -212,7 +211,7 @@ class PacketUserList extends React.Component {
                             </div>
                           </Col>
                         </Row>
-                        <br />
+                        {/* <br /> */}
                         <Row
                           style={{ justifyContent: "center", display: "flex" }}
                         >
@@ -232,7 +231,6 @@ class PacketUserList extends React.Component {
                         </Row>
                         <br />
                       </Col>
-
                       <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                         <Row
                           style={{ justifyContent: "center", display: "flex" }}

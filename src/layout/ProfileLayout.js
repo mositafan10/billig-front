@@ -19,7 +19,7 @@ class ProfileLayout extends React.Component {
     return (
       <div style={{ fontFamily: "VazirD", overflow: "hidden" }}>
         <Breakpoint medium up>
-          <Layout style={{ backgroundColor: "white" }}>
+          <Layout style={{ backgroundColor: "white"}}>
             <Header
               style={{ backgroundColor: "white", padding: "0", height: "auto" }}
             >
@@ -42,10 +42,9 @@ class ProfileLayout extends React.Component {
               </Content>
               <Sider
                 width={250}
-                trigger={null}
-                style={{ backgroundColor: "white" }}
+                style={{ backgroundColor: "white", }}
               >
-                <div style={{ position: "fixed" }}>
+                <div>
                   <Menu
                     mode="inline"
                     theme="light"
@@ -60,7 +59,7 @@ class ProfileLayout extends React.Component {
                       <AimOutlined />
                     </Menu.Item>
                     <Menu.Item key="3">
-                      <Link to="/profile/myoffer"> پیشنهاد من </Link>{" "}
+                      <Link to="/profile/myoffer"> پیشنهادهای من </Link>{" "}
                       <ContainerOutlined />
                     </Menu.Item>
                     <Menu.Item key="4">

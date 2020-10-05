@@ -11,10 +11,14 @@ class InboxLayout extends React.Component {
         offer : "",
         avatar1 : "",
         avatar2 : "",
-        visible : false
+        visible : false,
+        sender_name: "",
+        receiver_name: "",
+        sender: "",
+        receiver: ""
     }
 
-    callbackFunction = (chatid, offer, avatar1, avatar2, sender, receiver, visible) => {
+    callbackFunction = (chatid, offer, avatar1, avatar2, sender, receiver, sender_name, receiver_name) => {
         this.setState({
             chatid: chatid,
             offer: offer,
@@ -22,13 +26,15 @@ class InboxLayout extends React.Component {
             avatar2: avatar2,
             sender: sender,
             receiver: receiver,
+            sender_name: sender_name,
+            receiver_name: receiver_name,
             visible: true
         })
     }
+    
     callbackFunction1 = () => {
         this.setState({visible:false})
     }
-
 
     render(){
         return(
@@ -45,8 +51,11 @@ class InboxLayout extends React.Component {
                         avatar2={this.state.avatar2}
                         sender={this.state.sender}
                         receiver={this.state.receiver}
+                        sender_name={this.state.sender_name}
+                        receiver_name={this.state.receiver_name}
                         visible={this.state.visible}
                         parentCallback = {this.callbackFunction1}
+                        dir={false}
                          />
                     </Col>
                     <Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} >

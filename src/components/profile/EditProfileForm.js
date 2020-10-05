@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { Row, Col, Form, Divider, Select, Button, Input } from 'antd';
+import { Row, Col, Form, Divider, Select, Button, Input, message } from 'antd';
 import { 
     InstagramOutlined,
     TwitterOutlined,
@@ -30,12 +30,15 @@ class EditProfileForm extends React.Component {
                 countries: res.data
             });
         })
+        .catch(err => console.log(err))
+
     Axios.get(`${url}api/v1/account/cities/`)
         .then(res => {
             this.setState({
                 cities: res.data
             });
         })
+        .catch(err => console.log(err))
     }
 
     get_city = (e) => {
@@ -58,27 +61,28 @@ class EditProfileForm extends React.Component {
                     linkdin_id : (values.linkdin_id ? values.linkdin_id : this.props.data.linkdin_id ),
                     email: (values.email ? values.email : this.props.data.email ),
                     bio: (values.bio ? values.bio : this.props.data.bio ),
-                    country: (values.living_country ? values.living_country : this.props.data.living_country ),
-                    city : (values.living_city ? values.living_city : this.props.data.living_city    ),
+                    country: (values.living_country ? values.living_country : this.props.data.country ),
+                    city : (values.living_city ? values.living_city : this.props.data.city),
                     first_name: (values.first_name ? values.first_name : this.props.data.first_name ),
                     last_name: (values.last_name ? values.last_name : this.props.data.last_name ),
                     account_number: (values.account_number ? values.account_number : this.props.data.account_number )
                     },
                     { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(function (res) { if (res.status === 200){  this.props.update(); }})
+        .then( res => {  message.success("تغییر با موفقیت انجام شد"); this.props.update(); })
         .catch(error => console.error(error));
     }
 
     render(){
         return(
             <div>
+                
                 <Form size="middle" onFinish={(values) => this.handleFormSubmit(values)} id="edit">
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                             <UserOutlined style={{fontSize:"30px"}} />
                             <Divider plain orientation="center">بیوگرافی</Divider>
                             <Form.Item  name="bio">
-                                <textarea defaultValue={this.props.data.bio} placeholder="... آنچه دوست دارید دیگران در مورد شما بدانند" style={{borderRadius:"8px", textAlign:"center", padding:"10px", width:"-moz-available"}} rows="4" cols="54" />
+                                <textarea defaultValue={this.props.data.bio} placeholder="... آنچه دوست دارید دیگران در مورد شما بدانند" style={{borderRadius:"8px", textAlign:"center", padding:"10px", width:"-moz-available"}} rows="2" cols="44" />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -94,6 +98,7 @@ class EditProfileForm extends React.Component {
                         <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}></Col>
                     </Row>
                     <Divider plain orientation="center">اکانت شبکه‌های اجتماعی</Divider>
+                    <p>این موارد جهت شناخت بیشتر کاربران از یکدیگر هنگام بازدید آنها از صفحه پروفایل شما نمایش داده می‌شوند</p>
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={11} xxl={11}>
                             <LinkedinOutlined style={{fontSize:"30px"}} />

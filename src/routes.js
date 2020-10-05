@@ -14,6 +14,7 @@ import HowToWork from './pages/HowToWork';
 import TravelGuide from './pages/TravelGuide';
 import SendParcelGuide from './pages/SendParcelGuide';
 import BuyGuide from './pages/BuyGuide';
+import Faq from './pages/Faq';
 
 class BaseRouter extends React.Component {
     render(){
@@ -31,6 +32,7 @@ class BaseRouter extends React.Component {
             <Route exact path='/travel-guide' component={TravelGuide} />
             <Route exact path='/send-parcel-guide' component={SendParcelGuide} />
             <Route exact path='/buy-guide' component={BuyGuide} />
+            <Route exact path='/faq' component={Faq} />
             <Route component={PageNotFound} />
             <Redirect from='/home' to='/'/>
         </Switch>

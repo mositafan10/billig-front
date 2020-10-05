@@ -1,5 +1,5 @@
 import React from "react";
-import { Upload, message, Row, Col, Spin } from "antd";
+import { Upload, message, Row, Col, Spin, Button } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { config } from "../../Constant";
 
@@ -45,20 +45,27 @@ class UploadProfilePicture extends React.Component {
 
   render() {
     const token = localStorage.getItem("token");
-    const uploadButton = (
-      <div>
-        {this.state.loading ? <Spin/> : <PlusOutlined />}
-        <div className="ant-upload-text">بارگذاری</div>
-      </div>
-    );
     return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}
+      >
         <Row>
-          <Col xs={2} sm={2} md={2} lg={2} xl={0} xxl={0}></Col>
-          <Col xs={20} sm={20} md={20} lg={20} xl={24} xxl={24}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+            {this.state.loading ? (
+              <div style={{ margin: "100px" }}>
+                <Spin size="large" />
+              </div>
+            ) : (
+              <img
+                src={`${url}dstatic/${this.props.data}`}
+                alt="avatar"
+                width={200}
+                style={{ borderRadius: "15px", marginTop: "30px" }}
+              />
+            )}
+            <br />
             <Upload
               name="billlig"
-              listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
               action={`${url}api/v1/account/upload/`}
@@ -66,20 +73,10 @@ class UploadProfilePicture extends React.Component {
               beforeUpload={beforeUpload}
               onChange={this.handleChange}
             >
-              {this.props.data ? (
-                <img
-                  src={`${url}dstatic/${this.props.data}`}
-                  alt="avatar"
-                  width={200}
-                  style={{ borderRadius: "15px", marginTop:"30px" }}
-                />
-              ) : (
-                "بارگذاری تصویر"
-              )}
+              <br />
+              <Button style={{fontSize:"14px", borderRadius:"10px"}}>تغییر تصویر</Button>
             </Upload>
-            <p>برای تغییر تصویر پروفایل بر روی آن کلیک کنید</p>
           </Col>
-          <Col xs={2} sm={2} md={2} lg={2} xl={0} xxl={0}></Col>
         </Row>
       </div>
     );
