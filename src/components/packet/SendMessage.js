@@ -72,7 +72,7 @@ class SendMessage extends React.Component {
           sender={this.state.info.sender}
           receiver={this.state.info.receiver}
           sender_name={this.state.info.sender_name}
-          receiver_name={this.state.receiver_name}
+          receiver_name={this.state.info.receiver_name}
           parentCallback={this.callbackFunction1}
         />
       </div>

@@ -19,7 +19,7 @@ import { LinkOutlined, ReloadOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
-import DownloadPic1 from "../utils/DownloadPic1";
+import DownloadPic from "../utils/DownloadPic";
 
 var url = config.url.API_URL;
 const token = localStorage.getItem("token");
@@ -28,8 +28,8 @@ const right_test_style = {
   display: "inline",
   border: "solid",
   borderRadius: "15px 10px 15px 10px ",
-  backgroundColor: "deepskyblue",
-  borderColor: "deepskyblue",
+  backgroundColor: "lightcyan",
+  borderColor: "white ",
   padding: "10px 10px 10px 10px",
   width: "auto",
   maxWidth: "70%",
@@ -93,10 +93,8 @@ class ChatDetail extends Component {
             })
         )
         .catch((error) => console.log(error));
-      }, 7000);}
+      }, 5000);}
   }
-
-    this.scrollToMyRef();
   };
   
   showDrawer = () => {
@@ -105,7 +103,7 @@ class ChatDetail extends Component {
     });
   };
 
-  onClose = () => {
+  onClose = () => { 
     this.setState({
      visible:false
     })
@@ -125,7 +123,7 @@ class ChatDetail extends Component {
   };
 
   scrollToMyRef = () => {
-    this.myRef.current.scrollIntoView();
+    this.myRef.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
   };
 
   handler = () => {
@@ -142,7 +140,9 @@ class ChatDetail extends Component {
         )
       )
       .catch((error) => console.log(error));
-    this.scrollToMyRef();
+      setTimeout(() => {
+        this.scrollToMyRef();
+      }, 500); 
   };
 
   render() {
@@ -152,26 +152,25 @@ class ChatDetail extends Component {
     return (
         <div style={{ marginTop: "20px" }}>
           <Breakpoint medium up>
-            {/* <div > */}
             <Drawer 
               title={
                 <Row>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                     <Row>
                       <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={7}>
-                        {user !== this.props.sender ? (
+                        {user == this.props.sender ? (
                           <Link to={"/users/" + this.props.sender}>
                             <Avatar
                               src={`${url}dstatic/media/${this.props.avatar2}`}
                             />
-                            <span style={{paddingRight:"10px", color:"black"}}>{this.props.sender_name}</span> 
+                            <span style={{paddingRight:"10px", color:"black"}}>{this.props.receiver_name}</span> 
                           </Link>
                         ) : (
                           <Link to={"/users/" + this.props.receiver} >
                             <Avatar
                               src={`${url}dstatic/media/${this.props.avatar1}`}
                             />
-                       <span style={{paddingRight:"10px", color:"black"}}>{this.props.receiver_name}</span> 
+                       <span style={{paddingRight:"10px", color:"black"}}>{this.props.sender_name}</span> 
                           </Link>
                         )}
                       </Col>
@@ -245,7 +244,7 @@ class ChatDetail extends Component {
                       >
                         <div style={{ textAlign: "center" }}>
                           {item.first_day
-                            ? moment(item.create_at).format("dddd d MMM")
+                            ? moment(item.create_at).format("dddd D MMM")
                             : ""}
                         </div>
                         {user == item.ownerid ? (
@@ -257,7 +256,16 @@ class ChatDetail extends Component {
                                   description={item.text}
                                 />
                               ) : (
-                                <DownloadPic1 data={item.picture} size={100} />
+                                <div>
+                                  <img
+                                    src={`${url}dstatic/${item.picture}`}
+                                    style={{
+                                      borderRadius: "10px",
+                                      margin: "5px",
+                                    }}
+                                    width={150}
+                                  />
+                                </div>
                               )}
                               {moment(item.create_at).format("HH:mm")}
                             </div>
@@ -265,7 +273,7 @@ class ChatDetail extends Component {
                         ) : (
                           <List.Item style={left_test_style}>
                             <div>
-                              {item.picture == null ? (
+                              {item.picture === null ? (
                                 <List.Item.Meta
                                   style={{ fontSize: "8px" }}
                                   description={item.text}
@@ -293,7 +301,6 @@ class ChatDetail extends Component {
               )}
               <div ref={this.myRef}></div>
             </Drawer>
-            {/* </div> */}
             <br />
           </Breakpoint>
           <Breakpoint small down>
@@ -382,20 +389,29 @@ class ChatDetail extends Component {
                       >
                         <div style={{ textAlign: "center" }}>
                           {item.first_day
-                            ? moment(item.create_at).format("dddd d MMM")
+                            ? moment(item.create_at).format("dddd D MMM")
                             : ""}
                         </div>
                         {user == item.ownerid ? (
                           <List.Item>
                             <div style={right_test_style}>
-                              {item.picture === null ? (
+                              {item.picture == null ? (
                                 <List.Item.Meta
                                   style={{ fontSize: "8px" }}
                                   description={item.text}
                                   
                                 />
                               ) : (
-                                <DownloadPic1 data={item.picture} size={100} />
+                                <div>
+                                  <img
+                                    src={`${url}dstatic/${item.picture}`}
+                                    style={{
+                                      borderRadius: "10px",
+                                      margin: "5px",
+                                    }}
+                                    width={150}
+                                  />
+                                </div>
                               )}
                               {moment(item.create_at).format("HH:mm")}
                             </div>
@@ -428,8 +444,8 @@ class ChatDetail extends Component {
                     </Row>
                   )}
                 />
-              )}
-              <div ref={this.myRef}></div>
+                )}
+                <div height="100px" ref={this.myRef}></div>
             </Drawer>
             <br />
           </Breakpoint>

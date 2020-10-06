@@ -30,9 +30,9 @@ class VerifyTransaction extends Component {
             token: this.state.token,
         },
         { headers: {"Authorization" : `Bearer ${token1}`} })
-        .then(res => {if(res.status === 201) { 
+        .then(res => { 
             message.success("پرداخت شما با موفقیت انجام شد. لیست پرداخت ها را می‌توانید در پروفایل خود مشاهده نمایید.")
-            window.location.replace = '/profile'}})
+            window.location.replace = '/profile/'})
         .catch((error) => message.error(error.response.data.error))
     }
 
@@ -43,7 +43,7 @@ class VerifyTransaction extends Component {
                     <p style={{display:"flex", justifyContent:"center", margin:"20px 0 20px"}}>عملیات ناموفق</p>
                     <Divider/>
                     <div style={{display:"flex", justifyContent:"center", margin:"20px 0 20px"}}>
-                        <Link to='/'><Button style={{borderRadius:"15px", backgroundColor:"green", color:"white"}}>بازگشت به صفحه اصلی</Button></Link>
+                        <Link to='/profile/'><Button style={{borderRadius:"15px", backgroundColor:"green", color:"white"}}>بازگشت به پروفایل</Button></Link>
                     </div>
                 </div>
             )

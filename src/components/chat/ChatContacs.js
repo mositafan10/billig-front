@@ -64,7 +64,6 @@ class ChatContacs extends Component {
                 <List.Item.Meta
                   avatar={
                     user === item.sender ? (
-                      // /be caraful , maybe should be edit addres
                       <Badge count={item.new_massage_sender}>
                         <Avatar
                           src={`${url}dstatic/media/${item.receiver_avatar}`}
