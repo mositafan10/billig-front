@@ -27,7 +27,7 @@ class ProfileLayout extends React.Component {
             </Header>
             <Divider style={{ opacity: "0" }} />
             <Layout>
-              <Content
+            <Content
                 style={{ backgroundColor: "white", textAlign: "center" }}
               >
                 <Row>
@@ -42,7 +42,7 @@ class ProfileLayout extends React.Component {
               </Content>
               <Sider
                 width={250}
-                style={{ backgroundColor: "white", }}
+                style={{ backgroundColor: "white" }}
               >
                 <div>
                   <Menu
@@ -81,6 +81,7 @@ class ProfileLayout extends React.Component {
                   </Menu>
                 </div>
               </Sider>
+              
             </Layout>
           </Layout>
         </Breakpoint>

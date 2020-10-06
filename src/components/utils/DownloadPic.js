@@ -15,6 +15,7 @@ class DownloadPic extends React.Component {
     }
 
     componentDidMount(){
+        console.log(this.props.data && this.props.data)
         Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data}`)
         .then((res) => this.setState({
             url: res.data.image_file

@@ -20,6 +20,7 @@ class OfferDetail extends React.Component {
     travel: "",
     description: "",
     travellist: [],
+    loading:false
   };
 
   offer = () => {
@@ -42,7 +43,6 @@ class OfferDetail extends React.Component {
 
   handleOk = (values) => {
     this.setState({
-      visible: false,
       price: values.price,
       description: values.description,
       travel: values.travel,
@@ -60,7 +60,15 @@ class OfferDetail extends React.Component {
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then((res) => {
+        this.setState({loading:true})
+                setTimeout(() => {
+                    this.setState({
+                      visible: false,
+                      loading: false,
+                    });
+                  }, 2000);
         message.success("پیشنهاد شما با موفقیت ثبت شد")
+
       })
       .catch((error) => message.error(error.response.data));
   };
@@ -103,6 +111,7 @@ class OfferDetail extends React.Component {
           onCancel={this.handleCancel}
           cancelText="بازگشت"
           okText="ارسال"
+          confirmLoading={this.state.loading}
           okButtonProps={{
             form: "offering",
             key: "submit",

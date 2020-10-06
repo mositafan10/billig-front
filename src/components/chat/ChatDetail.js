@@ -9,7 +9,8 @@ import {
   Tooltip,
   Upload,
   Button,
-  Modal
+  Modal,
+  message
 } from "antd";
 import Axios from "axios";
 import TextInput from "./TextInput";
@@ -21,6 +22,7 @@ import { Breakpoint } from "react-socks";
 import DownloadPic1 from "../utils/DownloadPic1";
 
 var url = config.url.API_URL;
+const token = localStorage.getItem("token");
 
 const right_test_style = {
   display: "inline",
@@ -54,36 +56,12 @@ class ChatDetail extends Component {
     visible: this.props.visible,
     loading: true,
     fileList: [],
+    interval: 1
   };
 
   myRef = React.createRef();
 
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-     visible:false
-    })
-     this.props.parentCallback()
-  };
-
-  onChange = ({ fileList: newFileList }) => {
-    this.setState({
-      fileList: newFileList,
-    });
-    this.handler();
-  };
-
-  scrollToMyRef = () => {
-    this.myRef.current.scrollIntoView();
-  };
-
-  componentDidUpdate = (prevProps, callback) => {
-    const token = localStorage.getItem("token");
+  componentDidUpdate = (prevProps) => {
     const chatid = this.props.data;
     if (this.props.visible !== prevProps.visible) {
       this.setState({
@@ -100,16 +78,57 @@ class ChatDetail extends Component {
               massages: res.data,
               loading: false,
             })
-          // callback(res)
+        )
+        .catch((error) => message.error(error.response.data.detail));
+      if (this.props.data !== prevProps.data ){
+      this.state.interval = setInterval(() => {
+      Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then(
+          (res) =>
+            this.setState({
+              massages: res.data,
+              loading: false,
+            })
         )
         .catch((error) => console.log(error));
-    }
+      }, 7000);}
+  }
 
     this.scrollToMyRef();
   };
+  
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
 
+  onClose = () => {
+    this.setState({
+     visible:false
+    })
+    this.props.parentCallback()
+    this.componentWillUnmount()
+  };
 
-  handler = (callback) => {
+  componentWillUnmount = () =>{
+    clearInterval(this.state.interval);
+  }
+
+  onChange = ({ fileList: newFileList }) => {
+    this.setState({
+      fileList: newFileList,
+    });
+    this.handler();
+  };
+
+  scrollToMyRef = () => {
+    this.myRef.current.scrollIntoView();
+  };
+
+  handler = () => {
     const token = localStorage.getItem("token");
     const chatid = this.props.data;
     Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
@@ -119,8 +138,7 @@ class ChatDetail extends Component {
         (res) => (
           this.setState({
             massages: res.data,
-          }),
-          callback(res)
+          })
         )
       )
       .catch((error) => console.log(error));
@@ -140,34 +158,22 @@ class ChatDetail extends Component {
                 <Row>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                     <Row>
-                      <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}>
-                        <Tooltip title="به روزرسانی پیام‌ها">
-                          {this.state.loading ? (
-                            <Spin />
-                          ) : (
-                            <ReloadOutlined
-                              onClick={this.componentDidUpdate}
-                              style={{ fontSize: "20px" }}
-                            />
-                          )}
-                        </Tooltip>
-                      </Col>
                       <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={7}>
                         {user !== this.props.sender ? (
-                          
                           <Link to={"/users/" + this.props.sender}>
                             <Avatar
                               src={`${url}dstatic/media/${this.props.avatar2}`}
                             />
+                            <span style={{paddingRight:"10px", color:"black"}}>{this.props.sender_name}</span> 
                           </Link>
                         ) : (
-                          <Link to={"/users/" + this.props.receiver}>
+                          <Link to={"/users/" + this.props.receiver} >
                             <Avatar
                               src={`${url}dstatic/media/${this.props.avatar1}`}
                             />
+                       <span style={{paddingRight:"10px", color:"black"}}>{this.props.receiver_name}</span> 
                           </Link>
                         )}
-                       <span style={{paddingRight:"10px"}}>{this.props.sender_name}</span> 
                       </Col>
                     </Row>
                   </Col>
@@ -242,7 +248,7 @@ class ChatDetail extends Component {
                             ? moment(item.create_at).format("dddd d MMM")
                             : ""}
                         </div>
-                        {user === item.ownerid ? (
+                        {user == item.ownerid ? (
                           <List.Item>
                             <div style={right_test_style}>
                               {item.picture === null ? (
@@ -259,7 +265,7 @@ class ChatDetail extends Component {
                         ) : (
                           <List.Item style={left_test_style}>
                             <div>
-                              {item.picture === null ? (
+                              {item.picture == null ? (
                                 <List.Item.Meta
                                   style={{ fontSize: "8px" }}
                                   description={item.text}
@@ -298,18 +304,6 @@ class ChatDetail extends Component {
                 <Row>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                     <Row>
-                      <Col span={4}>
-                        <Tooltip title="به روزرسانی پیام‌ها">
-                          {this.state.loading ? (
-                            <Spin />
-                          ) : (
-                            <ReloadOutlined
-                              onClick={this.componentDidUpdate}
-                              style={{ fontSize: "16px", marginTop: "7px" }}
-                            />
-                          )}
-                        </Tooltip>
-                      </Col>
                       <Col span={20}>
                         {user === this.props.sender ? (
                           <Link to={"/users/" + this.props.sender}>
@@ -391,13 +385,14 @@ class ChatDetail extends Component {
                             ? moment(item.create_at).format("dddd d MMM")
                             : ""}
                         </div>
-                        {user === item.ownerid ? (
+                        {user == item.ownerid ? (
                           <List.Item>
                             <div style={right_test_style}>
                               {item.picture === null ? (
                                 <List.Item.Meta
                                   style={{ fontSize: "8px" }}
                                   description={item.text}
+                                  
                                 />
                               ) : (
                                 <DownloadPic1 data={item.picture} size={100} />
@@ -408,7 +403,7 @@ class ChatDetail extends Component {
                         ) : (
                           <List.Item style={left_test_style}>
                             <div>
-                              {item.picture === null ? (
+                              {item.picture == null ? (
                                 <List.Item.Meta
                                   style={{ fontSize: "8px" }}
                                   description={item.text}

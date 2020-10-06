@@ -26,7 +26,7 @@ class CustomLayout extends React.Component {
     return(
       <div style={{fontFamily:"VazirD", overflow:"hidden"}}>
         <Layout style={{backgroundColor:'white', height:"auto"}}>
-          <Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor:"white", padding:"0", height:"auto"  }} >
+          <Header style={{ position: 'fixed', zIndex: 9999, width: '100%', backgroundColor:"white", padding:"0", height:"auto"  }} >
             <HeaderSection {...this.props} />
           </Header>
           <Content style={{margin:"0 15px 0 15px"}}>

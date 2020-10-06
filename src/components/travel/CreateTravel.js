@@ -21,7 +21,7 @@ class CreateTravel extends React.Component {
         city_origin_dis: true,
         city_destination_dis: true,
         radio_value: true,
-        loading: false
+        confirmLoading: false
       }
 
     componentDidMount(){
@@ -46,10 +46,10 @@ class CreateTravel extends React.Component {
     };
 
     handleOkTravel = (values) => {
-        this.setState({loading:true})
         const token = localStorage.getItem('token');
         { this.state.radio_value
             ? 
+            
         Axios.post(`${url}api/v1/advertise/travel/`, {
                 departure : values.origin_country, 
                 departure_city : values.origin_city, 
@@ -61,16 +61,19 @@ class CreateTravel extends React.Component {
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
             .then(res => {
-                this.setState({
-                    createtravelvisible : false,
-                    loading: false
+                this.setState({confirmLoading:true})
+                setTimeout(() => {
+                    this.setState({
+                      createtravelvisible: false,
+                      confirmLoading: false,
                     });
+                  }, 2000);
                     {this.props.loc === "offer" ?
                     this.props.parent() :
                     this.props.parentCallback(); }
                     message.success("سفر شما با موفقیت ثبت شد")
             })  
-            .catch(error => message.warn(error.response.data.detail), this.setState({loading:false}))
+            .catch(error => message.warn(error.response.data.detail), this.setState({confirmLoading:false}))
             :
             Axios.post(`${url}api/v1/advertise/travel/`, {
                     departure : values.origin_country, 
@@ -82,16 +85,19 @@ class CreateTravel extends React.Component {
                 },
                 { headers: {"Authorization" : `Bearer ${token}`} })
                 .then(res => {
-                    this.setState({
-                        createtravelvisible : false,
-                        loading: false
+                    this.setState({confirmLoading:true})
+                    setTimeout(() => {
+                        this.setState({
+                          createtravelvisible: false,
+                          confirmLoading: false,
                         });
+                      }, 2000);
                         {this.props.loc === "offer" ?
                         this.props.parent() :
                         this.props.parentCallback(); }
                         message.success("سفر شما با موفقیت ثبت شد")
                 })  
-                .catch(error => message.warn(error.response.data.detail), this.setState({loading:false}))
+                .catch(error => message.warn(error.response.data.detail), this.setState({confirmLoading:false}))
             }
     }
     
@@ -116,7 +122,6 @@ class CreateTravel extends React.Component {
     }
 
     radioonChange = e => {
-        console.log(e.target.value)
         this.setState({
             radio_value: e.target.value,
         });
@@ -129,8 +134,9 @@ class CreateTravel extends React.Component {
                 <Modal
                 visible={this.state.createtravelvisible}
                 onCancel={this.handleCancel}
-                okButtonProps={{form:'create_travel', key:'submit', htmlType:'submit', icon:this.state.loading?<Spin/>:""}}
+                okButtonProps={{form:'create_travel', key:'submit', htmlType:'submit'}}
                 okText={"ثبت"}
+                confirmLoading={this.state.confirmLoading}
                 cancelText="انصراف"
                 style={{borderRadius:"10px",fontFamily:"VazirD", overflow:"hidden"}}
                 >
