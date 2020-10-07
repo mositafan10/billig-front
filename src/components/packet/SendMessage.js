@@ -31,7 +31,7 @@ class SendMessage extends React.Component {
       },
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    
+
       .then((res) => {
         Axios.get(`${url}api/v1/chat/conversation/${res.data.id}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -42,7 +42,6 @@ class SendMessage extends React.Component {
         });
       })
       .catch((error) => console.error(error));
-   
   };
 
   handleCancel = () => {
@@ -69,18 +68,18 @@ class SendMessage extends React.Component {
         >
           چت
         </Button>
-            <ChatDetail
-              data={this.state.chatID && this.state.chatID}
-              offer={this.state.info.offer_state}
-              sender_avatar={this.state.info.sender_avatar}
-              receiver_avatar={this.state.info.receiver_avatar}
-              sender={this.state.info.sender}
-              receiver={this.state.info.receiver}
-              sender_name={this.state.info.sender_name}
-              receiver_name={this.state.info.receiver_name}
-              visible={this.state.visible}
-              parentCallback={this.callbackFunction1}
-            />
+        <ChatDetail
+          data={this.state.chatID && this.state.chatID}
+          offer={this.state.info.offer_state}
+          sender_avatar={this.state.info.sender_avatar}
+          receiver_avatar={this.state.info.receiver_avatar}
+          sender={this.state.info.sender}
+          receiver={this.state.info.receiver}
+          sender_name={this.state.info.sender_name}
+          receiver_name={this.state.info.receiver_name}
+          visible={this.state.visible}
+          parentCallback={this.callbackFunction1}
+        />
       </div>
     );
   }

@@ -45,7 +45,7 @@ class InboxLayout extends React.Component {
                     </Col>
                     <Col xs={24} sm={24} md={1} lg={1} xl={1} xxl={1} >
                         <ChatDetail 
-                        data={this.state.chatid} 
+                        data={this.state.chatid}   
                         offer={this.state.offer} 
                         sender_avatar={this.state.sender_avatar}
                         receiver_avatar={this.state.receiver_avatar}
