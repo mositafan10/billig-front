@@ -46,14 +46,17 @@ class OfferListModal extends React.Component {
             title=" پیشنهادها"
             onOk={this.handleCancel}
             onCancel={this.handleCancel}
+            closable={false}
             okText="بازگشت"
-            okButtonProps={{ textAlign: "center" }}
+            okButtonProps={{ textAlign: "center", style:{position:"unset"} }}
             cancelButtonProps={{ hidden: "true" }}
             style={{
               fontFamily: "VazirD",
               textAlign: "center",
               overflow: "hidden",
               borderRadius: "20px",
+              // position:"relative",
+              // zIndex:0
             }}
             width="80%"
             bodyStyle={{ borderRadius: "20px"}}

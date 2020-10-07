@@ -174,28 +174,28 @@ class LandingPage extends React.Component {
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "25px",
-                fontFamily: "IRANSans",
               }}
             >
               آخرین آگهی‌ها
             </h1>
           </Divider>
           <br />
-          <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1}></Col>
+          <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
           <Col
             xs={24}
             sm={24}
             md={24}
-            lg={22}
-            xl={22}
-            xxl={22}
-            style={{ textAlign: "center" }}
+            lg={20}
+            xl={20}
+            xxl={20}
+            style={{ textAlign:"center" ,display: "flex", justifyContent:"center" }}
           >
             <Orders data={this.state.orders} page={8} pagesize={8} loading={this.state.loading}/>
           </Col>
-          <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1}></Col>
+          <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
         </Row>
         <Row style={{ display: "flex", justifyContent: "center" }}>
+          <Divider style={{opacity:0}} />
           <Link to="/orders">
             <Button style={{ borderRadius: "8px" }}>نمایش همه آگهی</Button>
           </Link>
@@ -208,7 +208,6 @@ class LandingPage extends React.Component {
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "25px",
-                fontFamily: "IRANSans",
               }}
             >
               مزیت‌های بیلیگ برای شما

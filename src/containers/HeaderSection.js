@@ -158,7 +158,6 @@ class HeaderSection extends Component {
                           }
                           style={{ borderRadius: "15px", color:"white", borderColor:"white" }}
                         >
-
                         </Button>
                       </div>
                     </Dropdown>

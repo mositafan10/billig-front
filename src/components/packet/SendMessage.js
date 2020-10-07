@@ -27,16 +27,20 @@ class SendMessage extends React.Component {
       },
       { headers: { Authorization: `Bearer ${token}` } }
     )
+    
       .then((res) => {
+        setTimeout(() => {
         Axios.get(`${url}api/v1/chat/conversation/${res.data.id}`, {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => this.setState({ info: res.data }));
+      }, 1000);
         this.setState({
           chatID: res.data.id,
           visible: true,
         });
       })
       .catch((error) => console.error(error));
+   
   };
 
   handleCancel = () => {
@@ -63,18 +67,21 @@ class SendMessage extends React.Component {
         >
           چت
         </Button>
-        <ChatDetail
-          data={this.state.chatID && this.state.chatID}
-          visible={this.state.visible}
-          offer={this.state.info.offer_state}
-          avatar1={this.state.info.sender_avatar}
-          avatar2={this.state.info.receiver_avatar}
-          sender={this.state.info.sender}
-          receiver={this.state.info.receiver}
-          sender_name={this.state.info.sender_name}
-          receiver_name={this.state.info.receiver_name}
-          parentCallback={this.callbackFunction1}
-        />
+        {/* <Modal   visible={this.state.visible}>
+
+        </Modal> */}
+            <ChatDetail
+              data={this.state.chatID && this.state.chatID}
+              visible={this.state.visible}
+              offer={this.state.info.offer_state}
+              avatar1={this.state.info.sender_avatar}
+              avatar2={this.state.info.receiver_avatar}
+              sender={this.state.info.sender}
+              receiver={this.state.info.receiver}
+              sender_name={this.state.info.sender_name}
+              receiver_name={this.state.info.receiver_name}
+              parentCallback={this.callbackFunction1}
+            />
       </div>
     );
   }

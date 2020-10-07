@@ -42,7 +42,7 @@ class ProfileLayout extends React.Component {
               </Content>
               <Sider
                 width={250}
-                style={{ backgroundColor: "white" }}
+                style={{ backgroundColor: "white", position:"unset" }}
               >
                 <div>
                   <Menu
