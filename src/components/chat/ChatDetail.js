@@ -101,7 +101,9 @@ class ChatDetail extends Component {
                 this.setState({
                   massages: res.data,
                 });
-                if (this.state.messages.length >= 5) {
+                
+                console.log(res.data.length)
+                if (res.data.length > 5) {
                   this.setState({
                     new_mass_vis: true,
                   });
@@ -370,13 +372,13 @@ class ChatDetail extends Component {
                       {user === this.props.sender ? (
                         <Link to={"/users/" + this.props.sender}>
                           <Avatar
-                            src={`${url}dstatic/media/${this.props.avatar2}`}
+                            src={`${url}dstatic/media/${this.props.receiver_avatar}`}
                           />
                         </Link>
                       ) : (
                         <Link to={"/users/" + this.props.receiver}>
                           <Avatar
-                            src={`${url}dstatic/media/${this.props.avatar1}`}
+                            src={`${url}dstatic/media/${this.props.sender_avatar}`}
                           />
                         </Link>
                       )}

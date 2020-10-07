@@ -140,6 +140,7 @@ class HeaderSection extends Component {
                           : this.menu_logout
                       }
                       trigger={["click"]}
+                      overlayStyle={{fontFamily:"VazirD"}}
                     >
                       <div>
                         <Button

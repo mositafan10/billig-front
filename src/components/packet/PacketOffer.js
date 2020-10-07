@@ -122,9 +122,10 @@ class PacketOffer extends React.Component {
               style={{
                 fontSize: "12px",
                 border: "hidden",
-                color: "white",
+                color: this.state.disableconfirm?"transparent":"white",
                 backgroundColor: "green",
                 borderRadius: "10px",
+                textShadow:this.state.disableconfirm && "0 0 5px rgba(0,0,0,0.5)",
               }}
             >
               <b>تایید</b>

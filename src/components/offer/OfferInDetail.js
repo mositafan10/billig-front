@@ -66,8 +66,8 @@ class OfferDetail extends React.Component {
             visible: false,
             loading: false,
           });
-          message.success("پیشنهاد شما با موفقیت ثبت شد");
         }, 2000);
+        message.success("پیشنهاد شما با موفقیت ثبت شد");
       })
       .catch((error) => message.error(error.response.data.detail));
   };

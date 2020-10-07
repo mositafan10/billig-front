@@ -33,11 +33,9 @@ class SendMessage extends React.Component {
     )
     
       .then((res) => {
-        // setTimeout(() => {
         Axios.get(`${url}api/v1/chat/conversation/${res.data.id}`, {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => this.setState({ info: res.data }));
-      // }, 1000);
         this.setState({
           chatID: res.data.id,
           visible: true,
@@ -73,7 +71,6 @@ class SendMessage extends React.Component {
         </Button>
             <ChatDetail
               data={this.state.chatID && this.state.chatID}
-              visible={this.state.visible}
               offer={this.state.info.offer_state}
               sender_avatar={this.state.info.sender_avatar}
               receiver_avatar={this.state.info.receiver_avatar}
@@ -81,6 +78,7 @@ class SendMessage extends React.Component {
               receiver={this.state.info.receiver}
               sender_name={this.state.info.sender_name}
               receiver_name={this.state.info.receiver_name}
+              visible={this.state.visible}
               parentCallback={this.callbackFunction1}
             />
       </div>
