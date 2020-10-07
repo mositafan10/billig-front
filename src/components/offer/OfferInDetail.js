@@ -68,7 +68,6 @@ class OfferDetail extends React.Component {
                     });
                   }, 2000);
         message.success("پیشنهاد شما با موفقیت ثبت شد")
-
       })
       .catch((error) => message.error(error.response.data));
   };
@@ -175,7 +174,7 @@ class OfferDetail extends React.Component {
                     قیمت پیشنهادی (تومان)
                   </label>
                   <Form.Item
-                    style={{ textAlign: "right", fontSize: "10px" }}
+                    style={{ textAlign: "right", fontSize: "10px", width:"auto" }}
                     name="price"
                     rules={[
                       {
@@ -189,7 +188,7 @@ class OfferDetail extends React.Component {
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
                       parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                      style={{ textAlign: "right", width: "-moz-available" }}
+                      style={{ textAlign: "right", width:"auto"}}
                       min={0}
                     />
                   </Form.Item>

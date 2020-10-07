@@ -11,7 +11,7 @@ import { Breakpoint } from "react-socks";
 
 var url = config.url.API_URL;
 
-const style_left = { display: "flex", justifyContent: "left" };
+const style_left = { display: "flex", justifyContent: "flex-end" };
 const style_right = { display: "flex", justifyContent: "right" };
 
 class OrderDetail extends React.Component {

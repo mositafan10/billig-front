@@ -87,7 +87,7 @@ class UserOffer extends React.Component {
             </Button>
           );
         } else {
-          return <SendMessage data={row.sender_id} slug={dataIndex} />;
+          return <SendMessage sender={row.sender_id} receiver={row.receiver_id} slug={dataIndex} />;
         }
       },
     },

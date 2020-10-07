@@ -89,7 +89,7 @@ class PacketOffer extends React.Component {
             </Button>
           );
         } else {
-          return <SendMessage dir={false} data={row.sender_id} slug={dataIndex} />;
+          return <SendMessage sender={row.sender_id} receiver={row.receiver_id} slug={dataIndex} />;
         }
       },
     },
@@ -169,7 +169,7 @@ class PacketOffer extends React.Component {
     {
       title: "",
       dataIndex: "slug",
-      key: "",
+      key: "slug",
       align: "center",
       render: (dataIndex, row) => {
         if (row.status === "در انتظار پرداخت") {
@@ -177,7 +177,7 @@ class PacketOffer extends React.Component {
             <SendTransactionInfo
               disabled={this.state.disablepayment}
               amount={row.price+row.parcel_price}
-              factorNumber={row.slug}
+              factorNumber={dataIndex}
             />
           );
         } else {

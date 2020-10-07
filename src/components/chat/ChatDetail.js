@@ -29,12 +29,13 @@ const right_test_style = {
   display: "inline",
   border: "solid",
   borderRadius: "15px 10px 15px 10px ",
-  backgroundColor: "lightcyan",
+  backgroundColor: "#1890ff",
   borderColor: "white ",
   padding: "10px 10px 10px 10px",
   width: "auto",
   maxWidth: "70%",
   height: "auto",
+  color:"white"
 };
 
 const left_test_style = {
@@ -99,8 +100,12 @@ class ChatDetail extends Component {
               if (a !== b && b != undefined) {
                 this.setState({
                   massages: res.data,
-                  new_mass_vis: true,
                 });
+                if (this.state.messages.length >= 5) {
+                  this.setState({
+                    new_mass_vis: true,
+                  });
+                }
               }
             })
             .catch((error) => console.log(error));
@@ -174,9 +179,9 @@ class ChatDetail extends Component {
                   <Row>
                     <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={7}>
                       {user == this.props.sender ? (
-                        <Link to={"/users/" + this.props.sender}>
+                        <Link to={"/users/" + this.props.receiver}>
                           <Avatar
-                            src={`${url}dstatic/media/${this.props.avatar1}`}
+                            src={`${url}dstatic/media/${this.props.receiver_avatar}`}
                           />
                           <span
                             style={{ paddingRight: "10px", color: "black" }}
@@ -185,9 +190,9 @@ class ChatDetail extends Component {
                           </span>
                         </Link>
                       ) : (
-                        <Link to={"/users/" + this.props.receiver}>
+                        <Link to={"/users/" + this.props.sender}>
                           <Avatar
-                            src={`${url}dstatic/media/${this.props.avatar2}`}
+                            src={`${url}dstatic/media/${this.props.sender_avatar}`}
                           />
                           <span
                             style={{ paddingRight: "10px", color: "black" }}
@@ -306,10 +311,7 @@ class ChatDetail extends Component {
                         <List.Item>
                           <div style={right_test_style}>
                             {item.picture === null ? (
-                              <List.Item.Meta
-                                style={{ fontSize: "8px" }}
-                                description={item.text}
-                              />
+                                item.text
                             ) : (
                               <div>
                                 <img
@@ -322,6 +324,7 @@ class ChatDetail extends Component {
                                 />
                               </div>
                             )}
+                            <br/>
                             {moment(item.create_at).format("HH:mm")}
                           </div>
                         </List.Item>
@@ -329,10 +332,7 @@ class ChatDetail extends Component {
                         <List.Item style={left_test_style}>
                           <div>
                             {item.picture === null ? (
-                              <List.Item.Meta
-                                style={{ fontSize: "8px" }}
-                                description={item.text}
-                              />
+                              item.text
                             ) : (
                               <div>
                                 <img
@@ -345,6 +345,7 @@ class ChatDetail extends Component {
                                 />
                               </div>
                             )}
+                              <br/>
                             {moment(item.create_at).format("HH:mm")}
                           </div>
                         </List.Item>

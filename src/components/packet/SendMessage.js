@@ -18,22 +18,26 @@ class SendMessage extends React.Component {
 
   show_modal = () => {
     const token = localStorage.getItem("token");
-    const receiver = this.props.data;
+    const user = localStorage.getItem("user");
+    const receiver = this.props.receiver;
+    const sender = this.props.sender;
+    const person = user == sender ? receiver : sender;
+
     Axios.post(
       `${url}api/v1/chat/conversation/`,
       {
-        receiver: receiver,
+        receiver: person,
         offer: this.props.slug,
       },
       { headers: { Authorization: `Bearer ${token}` } }
     )
     
       .then((res) => {
-        setTimeout(() => {
+        // setTimeout(() => {
         Axios.get(`${url}api/v1/chat/conversation/${res.data.id}`, {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => this.setState({ info: res.data }));
-      }, 1000);
+      // }, 1000);
         this.setState({
           chatID: res.data.id,
           visible: true,
@@ -67,15 +71,12 @@ class SendMessage extends React.Component {
         >
           چت
         </Button>
-        {/* <Modal   visible={this.state.visible}>
-
-        </Modal> */}
             <ChatDetail
               data={this.state.chatID && this.state.chatID}
               visible={this.state.visible}
               offer={this.state.info.offer_state}
-              avatar1={this.state.info.sender_avatar}
-              avatar2={this.state.info.receiver_avatar}
+              sender_avatar={this.state.info.sender_avatar}
+              receiver_avatar={this.state.info.receiver_avatar}
               sender={this.state.info.sender}
               receiver={this.state.info.receiver}
               sender_name={this.state.info.sender_name}
