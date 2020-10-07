@@ -5,7 +5,7 @@ import TextArea from "antd/lib/input/TextArea";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { config } from "../../Constant";
-import CreateTravel from '../travel/CreateTravel';
+import CreateTravel from "../travel/CreateTravel";
 
 var url = config.url.API_URL;
 
@@ -20,7 +20,7 @@ class OfferDetail extends React.Component {
     travel: "",
     description: "",
     travellist: [],
-    loading:false
+    loading: false,
   };
 
   offer = () => {
@@ -60,16 +60,16 @@ class OfferDetail extends React.Component {
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then((res) => {
-        this.setState({loading:true})
-                setTimeout(() => {
-                    this.setState({
-                      visible: false,
-                      loading: false,
-                    });
-                  }, 2000);
-        message.success("پیشنهاد شما با موفقیت ثبت شد")
+        this.setState({ loading: true });
+        setTimeout(() => {
+          this.setState({
+            visible: false,
+            loading: false,
+          });
+          message.success("پیشنهاد شما با موفقیت ثبت شد");
+        }, 2000);
       })
-      .catch((error) => message.error(error.response.data));
+      .catch((error) => message.error(error.response.data.detail));
   };
 
   handleCancel = (e) => {
@@ -82,16 +82,15 @@ class OfferDetail extends React.Component {
     Axios.get(`${url}api/v1/advertise/travellist/`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then((res) => this.setState({ travellist: res.data}))
+      .then((res) => this.setState({ travellist: res.data }))
       .catch((error) => console.error(error));
   };
 
   callbackfunction = () => {
-    this.componentDidMount()
-  }
+    this.componentDidMount();
+  };
 
   render() {
-    
     return (
       <div
         style={{
@@ -128,8 +127,15 @@ class OfferDetail extends React.Component {
                   name="offering"
                   onFinish={this.handleOk}
                 >
-                  <p style={{ display:"flex", justifyContent:"center", fontSize:"16px"}}>ثبت پیشنهاد</p>
-                  {" "}
+                  <p
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      fontSize: "16px",
+                    }}
+                  >
+                    ثبت پیشنهاد
+                  </p>{" "}
                   <br />
                   <label
                     style={{
@@ -156,8 +162,8 @@ class OfferDetail extends React.Component {
                       {this.state.travellist.map((e, key) => {
                         return (
                           <option key={key} value={e.slug}>
-                            {e.destination.name} به {e.departure.name} در{" "}
-                            "{moment(e.flight_date_start).format("Do MMM YYYY")}"{" "}
+                            {e.destination.name} به {e.departure.name} در "
+                            {moment(e.flight_date_start).format("Do MMM YYYY")}"{" "}
                           </option>
                         );
                       })}
@@ -174,7 +180,11 @@ class OfferDetail extends React.Component {
                     قیمت پیشنهادی (تومان)
                   </label>
                   <Form.Item
-                    style={{ textAlign: "right", fontSize: "10px", width:"auto" }}
+                    style={{
+                      textAlign: "right",
+                      fontSize: "10px",
+                      width: "auto",
+                    }}
                     name="price"
                     rules={[
                       {
@@ -188,7 +198,7 @@ class OfferDetail extends React.Component {
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
                       parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                      style={{ textAlign: "right", width:"auto"}}
+                      style={{ textAlign: "right", width: "auto" }}
                       min={0}
                     />
                   </Form.Item>
@@ -210,7 +220,10 @@ class OfferDetail extends React.Component {
                 <p style={{ textAlign: "center" }}>
                   <b>
                     برای ثبت پیشنهاد ابتدا باید سفر خود را ثبت نمایید
-                    <CreateTravel loc={"offer"} parent={this.callbackfunction} />
+                    <CreateTravel
+                      loc={"offer"}
+                      parent={this.callbackfunction}
+                    />
                   </b>
                 </p>
               )}

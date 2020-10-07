@@ -63,7 +63,7 @@ class ChatContacs extends Component {
               >
                 <List.Item.Meta
                   avatar={
-                    user === item.sender ? (
+                    user == item.sender ? (
                       <Badge count={item.new_massage_sender}>
                         <Avatar
                           src={`${url}dstatic/media/${item.receiver_avatar}`}
@@ -78,7 +78,7 @@ class ChatContacs extends Component {
                     )
                   }
                   title={
-                    user === item.sender ? (
+                    user == item.sender ? (
                       <Button
                         style={{ border: "hidden", fontSize: "12px" }}
                         onClick={() =>
