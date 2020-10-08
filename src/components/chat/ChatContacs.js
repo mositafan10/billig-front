@@ -26,7 +26,11 @@ class ChatContacs extends Component {
       .catch((error) => console.log(error));
   }
 
-  sendData = (chatid, offer, sender_avatar, receiver_avatar, sender, receiver, sender_name, receiver_name, visible) => {
+  componentWillReceiveProps(){
+    this.componentDidMount()
+  }
+
+  sendData = (chatid, offer, sender_avatar, receiver_avatar, sender, receiver, sender_name, receiver_name, packet_title, visible) => {
     this.props.parentCallback(
       chatid,
       offer,
@@ -36,6 +40,7 @@ class ChatContacs extends Component {
       receiver,
       sender_name,
       receiver_name,
+      packet_title,
       visible
     );
   };
@@ -91,11 +96,13 @@ class ChatContacs extends Component {
                             item.receiver,
                             item.sender_name,
                             item.receiver_name,
+                            item.packet_title,
                             this.state.visible
                           )
                         }
                       >
-                        {item.receiver_name}
+                        <p style={{fontSize:"14px",textAlign:"right"}}>{item.receiver_name}</p>
+                        <p style={{textAlign:"right"}}>در آگهی {item.packet_title}</p>
                       </Button>
                     ) : (
                       <Button
@@ -109,12 +116,14 @@ class ChatContacs extends Component {
                             item.sender,
                             item.receiver,
                             item.sender_name,
-                            item.receiver_name,
+                            item.receiver_name,  
+                            item.packet_title,
                             this.state.visible
                           )
                         }
                       >
-                        {item.sender_name}
+                        <p style={{fontSize:"14px",textAlign:"right"}}>{item.sender_name}</p>
+                        <p style={{textAlign:"right"}}>در آگهی {item.packet_title}</p>
                       </Button>
                     )
                   }

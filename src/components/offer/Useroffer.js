@@ -34,6 +34,9 @@ class UserOffer extends React.Component {
       key: "slug",
       width: 300,
       align: "right",
+      render: (dataIndex, row) => (
+        <Link to={"/packet/" + row.packet_slug}>{dataIndex}</Link>
+      ),
     },
     {
       title: " پیشنهاد به",

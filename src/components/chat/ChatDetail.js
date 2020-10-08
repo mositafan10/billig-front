@@ -10,13 +10,15 @@ import {
   Upload,
   Button,
   Modal,
+  Card,
   message,
   Badge,
+  Dropdown,
 } from "antd";
 import Axios from "axios";
 import TextInput from "./TextInput";
 import moment from "moment";
-import { LinkOutlined, ArrowDownOutlined } from "@ant-design/icons";
+import { LinkOutlined, ArrowDownOutlined, MoreOutlined  } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
@@ -51,11 +53,13 @@ const left_test_style = {
   height: "auto",
 };
 
+
+
 class ChatDetail extends Component {
   state = {
     massages: [],
-    // new_massages: [],
-    offer: "",
+    offer: this.props.offer,
+    packet_title: this.props.packet_title,
     visible: this.props.visible,
     loading: false,
     fileList: [],
@@ -71,7 +75,6 @@ class ChatDetail extends Component {
       setTimeout(() => {
         this.scrollToMyRef();
       }, 500);
-      this.scrollToMyRef();
       this.setState({
         offer: this.props.offer,
         visible: this.props.visible,
@@ -102,8 +105,7 @@ class ChatDetail extends Component {
                   massages: res.data,
                 });
                 
-                console.log(res.data.length)
-                if (res.data.length > 5) {
+                if (res.data.length > 8) {
                   this.setState({
                     new_mass_vis: true,
                   });
@@ -167,10 +169,18 @@ class ChatDetail extends Component {
     }, 600);
   };
 
+ 
   render() {
     const user = localStorage.getItem("user");
     const chatid = this.props.data;
     const token = localStorage.getItem("token");
+    const informatoin = (
+      <Card style={{textAlign:"right", padding:"10px", fontFamily:"VazirD"}}>
+        <p>آگهی : {this.props.packet_title} </p> 
+        <p>وضعیت آگهی : {this.props.offer}</p>
+      </Card>
+    );
+      
     return (
       <div style={{ marginTop: "20px" }}>
         <Breakpoint medium up>
@@ -179,6 +189,12 @@ class ChatDetail extends Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
+                    <Col>
+                    <Dropdown overlay={informatoin} trigger={["click"]}
+                     >
+                      <Button size="large" icon={<MoreOutlined style={{fontSize:"larger"}}/>} style={{color:"black", border:"hidden"}} />
+                    </Dropdown>
+                    </Col>
                     <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={7}>
                       {user == this.props.sender ? (
                         <Link to={"/users/" + this.props.receiver}>

@@ -77,6 +77,7 @@ class SendMessage extends React.Component {
           receiver={this.state.info.receiver}
           sender_name={this.state.info.sender_name}
           receiver_name={this.state.info.receiver_name}
+          packet_title = {this.state.info.packet_title}
           visible={this.state.visible}
           parentCallback={this.callbackFunction1}
         />
