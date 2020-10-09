@@ -76,7 +76,6 @@ class PacketOffer extends React.Component {
           return (
               <Button
               disabled={true}
-              // onClick={()=>this.setState({visible:true})}
               style={{
                 fontSize: "12px",
                 backgroundColor: "white",
@@ -296,7 +295,6 @@ class PacketOffer extends React.Component {
                 <Row
                   style={{
                     color: "black",
-                    boxShadow: "0 0 8px 0px",
                     border: "1px solid",
                     borderRadius: "10px",
                     margin: "25px 15px 25px 15px",
@@ -314,7 +312,7 @@ class PacketOffer extends React.Component {
                     xxl={24}
                     style={{ textAlign: "center" }}
                   >
-                    <p> وضعیت : {item.status}</p>
+                    <p> وضعیت : <span style={{color:"blue"}}>{item.status}</span></p>
                     <hr />
                   </Col>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
@@ -352,7 +350,7 @@ class PacketOffer extends React.Component {
                           چت
                         </Button>
                       ) : (
-                      <SendMessage data={item.sender_id} slug={item.slug} />
+                      <SendMessage sender={item.sender_id} receiver={item.receiver_id} slug={item.slug} />
                       )}
                     </Col>
                     <Col>

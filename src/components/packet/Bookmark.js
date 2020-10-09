@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, message } from "antd";
+import { Button, notification } from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
 var url = config.url.API_URL;
@@ -19,10 +19,18 @@ class Bookmark extends Component {
       .then((res) => { 
         setTimeout(() => {
           this.setState({ loading: false });
-            message.success("آگهی شما با موفقیت ثبت شد");
+          notification['success']({
+            message: 'آگهی با موفقیت نشان شد',
+            style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+            duration:2,
+          });
         }, 2000);
       })
-      .catch((err) => message.warn(err.response.data.detail));
+      .catch((err) => notification['error']({
+        message: err.response.data.detail,
+        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+        duration:2,
+      }));
   };
   render() {
     return (

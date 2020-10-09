@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { Table, Popconfirm, Spin } from "antd";
+import { Table, Popconfirm, Spin, Button } from "antd";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 
@@ -18,6 +18,7 @@ class BookmarkPacket extends Component {
       dataIndex: "packet_title",
       key: "packet_slug",
       align: "right",
+      width:140,
       render: (dataIndex, row) => (
         <Link to={`/packet/${row.packet_slug}`}>{dataIndex}</Link>
       ),
@@ -29,13 +30,23 @@ class BookmarkPacket extends Component {
       width: 20,
       render: (dataIndex, row) => (
         <Popconfirm
+          overlayStyle={{ fontFamily: "VazirD" }}
           title="آیا از حذف آگهی مطمئن هستید ؟"
           onConfirm={this.delete.bind(this, dataIndex, row.id)}
           onCancel={this.cancel}
           okText="بله"
           cancelText="خیر"
         >
-          <a href="#">حذف</a>
+          <Button
+          size="middle"
+            style={{
+              border:"hidden",
+              borderRadius: "10px",
+              fontSize: "13px",
+            }}
+          >
+            حذف
+          </Button>
         </Popconfirm>
       ),
     },
@@ -78,7 +89,7 @@ class BookmarkPacket extends Component {
           <Table
             scroll={{ x: 300 }}
             locale={{ emptyText: "نشانی وجود ندارد" }}
-            style={{ padding: "30px 30px 30px 30px" }}
+            style={{ padding: "30px 0 30px 0" }}
             columns={this.columns}
             dataSource={this.state.bookmarks}
           />

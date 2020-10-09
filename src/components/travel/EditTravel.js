@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { Modal, Button } from 'antd';
 import TravelEditForm from './TravelEditForm';
 import { config } from '../../Constant';
+import { Breakpoint } from 'react-socks';
 
 var url = config.url.API_URL
 
@@ -41,7 +42,8 @@ class EditTravel extends Component {
     render() {
         return (
             <div>
-                <Button style={{fontSize:"12px", borderRadius:"10px"}} onClick={this.offerlistmodal}>ویرایش</Button>
+                <Breakpoint medium up>
+                <Button style={{fontSize:"14px", borderRadius:"10px"}} onClick={this.offerlistmodal}>ویرایش</Button>
                 <Modal
                     visible={this.state.offer_visible}
                     title="ویرایش سفر"
@@ -51,12 +53,31 @@ class EditTravel extends Component {
                     okButtonProps={{textAlign:"center",}}
                     cancelButtonProps={{hidden:"true"}}
                     style={{fontFamily:"IRANSans", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
-                    width="50%"
+                    width="30%"
                     bodyStyle={{borderRadius:"20px"}}
                     maskStyle={{borderRadius:"20px"}}
                     >
                 <TravelEditForm cancle={this.handleCancel} signal={this.editsignal} data={this.state.travel}/>
                 </Modal>
+                </Breakpoint>
+                <Breakpoint small down>
+                <Button style={{fontSize:"14px", borderRadius:"10px"}} onClick={this.offerlistmodal}>ویرایش</Button>
+                <Modal
+                    visible={this.state.offer_visible}
+                    title="ویرایش سفر"
+                    onOk={this.handleCancel}
+                    onCancel={this.handleCancel}
+                    okText="بازگشت"
+                    okButtonProps={{textAlign:"center",}}
+                    cancelButtonProps={{hidden:"true"}}
+                    style={{fontFamily:"IRANSans", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
+                    width="90%"
+                    bodyStyle={{borderRadius:"20px"}}
+                    maskStyle={{borderRadius:"20px"}}
+                    >
+                <TravelEditForm cancle={this.handleCancel} signal={this.editsignal} data={this.state.travel}/>
+                </Modal>
+                </Breakpoint>
             </div>
         );
     }

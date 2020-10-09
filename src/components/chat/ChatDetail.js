@@ -379,28 +379,40 @@ class ChatDetail extends Component {
         </Breakpoint>
         <Breakpoint small down>
           <Drawer
-            style={{ position: "absolute" }}
             title={
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
-                    <Col span={20}>
-                      {user === this.props.sender ? (
-                        <Link to={"/users/" + this.props.sender}>
+                    <Col>
+                    <Dropdown overlay={informatoin} trigger={["click"]}
+                     >
+                      <Button size="large" icon={<MoreOutlined style={{fontSize:"larger"}}/>} style={{color:"black", border:"hidden"}} />
+                    </Dropdown>
+                    </Col>
+                    <Col span={12}>
+                      {user == this.props.sender ? (
+                        <Link to={"/users/" + this.props.receiver}>
                           <Avatar
                             src={`${url}dstatic/media/${this.props.receiver_avatar}`}
                           />
+                          <span
+                            style={{ paddingRight: "10px", color: "black" }}
+                          >
+                            {this.props.receiver_name}
+                          </span>
                         </Link>
                       ) : (
-                        <Link to={"/users/" + this.props.receiver}>
+                        <Link to={"/users/" + this.props.sender}>
                           <Avatar
                             src={`${url}dstatic/media/${this.props.sender_avatar}`}
                           />
+                          <span
+                            style={{ paddingRight: "10px", color: "black" }}
+                          >
+                            {this.props.sender_name}
+                          </span>
                         </Link>
                       )}
-                      <span style={{ paddingRight: "10px", fontSize: "14px" }}>
-                        {this.props.sender_name}
-                      </span>
                     </Col>
                   </Row>
                 </Col>
@@ -437,7 +449,6 @@ class ChatDetail extends Component {
             getContainer={false}
             headerStyle={{ marginTop: 20 }}
             bodyStyle={{ marginBottom: 30 }}
-            maskStyle={{ zIndex: "999" }}
           >
             {this.state.loading ? (
               <div style={{ marginTop: "100px" }}>
@@ -471,10 +482,7 @@ class ChatDetail extends Component {
                         <List.Item>
                           <div style={right_test_style}>
                             {item.picture == null ? (
-                              <List.Item.Meta
-                                style={{ fontSize: "8px" }}
-                                description={item.text}
-                              />
+                              item.text
                             ) : (
                               <div>
                                 <img
@@ -487,6 +495,7 @@ class ChatDetail extends Component {
                                 />
                               </div>
                             )}
+                            <br/>
                             {moment(item.create_at).format("HH:mm")}
                           </div>
                         </List.Item>
@@ -494,10 +503,7 @@ class ChatDetail extends Component {
                         <List.Item style={left_test_style}>
                           <div>
                             {item.picture == null ? (
-                              <List.Item.Meta
-                                style={{ fontSize: "8px" }}
-                                description={item.text}
-                              />
+                              item.text
                             ) : (
                               <div>
                                 <img
@@ -510,6 +516,7 @@ class ChatDetail extends Component {
                                 />
                               </div>
                             )}
+                            <br/>
                             {moment(item.create_at).format("HH:mm")}
                           </div>
                         </List.Item>

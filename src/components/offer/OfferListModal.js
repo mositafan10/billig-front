@@ -55,8 +55,6 @@ class OfferListModal extends React.Component {
               textAlign: "center",
               overflow: "hidden",
               borderRadius: "20px",
-              // position:"relative",
-              // zIndex:0
             }}
             width="80%"
             bodyStyle={{ borderRadius: "20px"}}
@@ -66,13 +64,12 @@ class OfferListModal extends React.Component {
         </Breakpoint>
         <Breakpoint small down>
           <Button
-            style={{ border: "hidden", fontSize: "12px", borderRadius: "10px" }}
+            style={{fontSize: "14px", borderRadius: "10px" }}
             onClick={this.drawerofferlist}
           >
-            {" "}
-            پیشنهادها{" "}
-          </Button>{" "}
-          <span>{this.props.count}</span>
+          مشاهده پیشنهادها : <span style={{marginRight:"3px"}}> {this.props.count} </span>
+          </Button>
+          
           <Modal
             title="پیشنهاد‌های آگهی"
             okText="بازگشت"
@@ -84,7 +81,6 @@ class OfferListModal extends React.Component {
             visible={this.state.drawer_visible}
             style={{ textAlign: "right", fontFamily: "VazirD" }}
           >
-            <a><p style={{textAlign:"center"}}>(( راهنمای مدیریت پیشنهادها ))</p></a>
             <div>
               <PacketOffer data={this.props.data} />
             </div>

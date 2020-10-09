@@ -160,20 +160,32 @@ class PackForm extends React.Component {
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then(function (res) {
-          setTimeout(() => {
-            window.location = "/profile/mypacket";
-          }, 3000);
-          notification['success']({
-            message: 'آگهی شما با موفقیت ثبت شد',
-            style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"50%"},
-            duration:2.5,
-          });
+        setTimeout(() => {
+          window.location = "/profile/mypacket";
+        }, 3000);
+        notification["success"]({
+          message: "آگهی شما با موفقیت ثبت شد",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            marginTop: "50%",
+          },
+          duration: 2.5,
+        });
       })
       .catch((error) => {
-        notification['error']({
+        notification["error"]({
           message: error.response.data.detail,
-          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"50%"},
-          duration:2.5,
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            marginTop: "50%",
+          },
+          duration: 2.5,
         });
         this.setState({
           loading: false,
@@ -233,7 +245,10 @@ class PackForm extends React.Component {
                         { required: true, message: "کشور مبدا را انتخاب کنید" },
                       ]}
                     >
-                      <Select onChange={this.get_city_origin.bind()}>
+                      <Select
+                        onChange={this.get_city_origin.bind()}
+                        dropdownStyle={{ fontFamily: "VazirD" }}
+                      >
                         {this.state.countries.map((e, key) => {
                           return (
                             <Option key={key} value={e.id}>
@@ -256,7 +271,10 @@ class PackForm extends React.Component {
                       { required: true, message: "شهر مبدا را انتخاب کنید" },
                     ]}
                   >
-                    <Select disabled={this.state.city_origin_dis}>
+                    <Select
+                      disabled={this.state.city_origin_dis}
+                      dropdownStyle={{ fontFamily: "VazirD" }}
+                    >
                       {this.state.cities_origin.map((e, key) => {
                         return (
                           <Option key={key} value={e.id}>
@@ -281,7 +299,10 @@ class PackForm extends React.Component {
                         { required: true, message: "کشور مقصد را انتخاب کنید" },
                       ]}
                     >
-                      <Select onChange={this.get_city_destination.bind()}>
+                      <Select
+                        onChange={this.get_city_destination.bind()}
+                        dropdownStyle={{ fontFamily: "VazirD" }}
+                      >
                         {this.state.countries.map((e, key) => {
                           return (
                             <option key={key} value={e.id}>
@@ -304,7 +325,10 @@ class PackForm extends React.Component {
                       { required: true, message: "شهر مقصد را انتخاب کنید" },
                     ]}
                   >
-                    <Select disabled={this.state.city_destination_dis}>
+                    <Select
+                      disabled={this.state.city_destination_dis}
+                      dropdownStyle={{ fontFamily: "VazirD" }}
+                    >
                       {this.state.cities_destination.map((e, key) => {
                         return (
                           <Option key={key} value={e.id}>
@@ -328,7 +352,10 @@ class PackForm extends React.Component {
                       { required: true, message: "ابعاد بسته را انتخاب کنید" },
                     ]}
                   >
-                    <Select options={this.DIMENSION} />
+                    <Select
+                      options={this.DIMENSION}
+                      dropdownStyle={{ fontFamily: "VazirD" }}
+                    />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
@@ -345,6 +372,7 @@ class PackForm extends React.Component {
                     <Select
                       options={this.PacketCategory}
                       onChange={this.changecategory}
+                      dropdownStyle={{ fontFamily: "VazirD" }}
                     />
                   </Form.Item>
                   <div

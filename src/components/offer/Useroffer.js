@@ -45,7 +45,7 @@ class UserOffer extends React.Component {
       width: 150,
       align: "center",
       render: (dataIndex, row) => (
-        <Link to={"users/" + row.receiver_id}>{dataIndex}</Link>
+        <Link to={"/users/" + row.receiver_id}>{dataIndex}</Link>
       ),
     },
     {
@@ -117,8 +117,6 @@ class UserOffer extends React.Component {
               خریداری شد
             </Button>
           );
-        } else if (row.status === "انجام شده") {
-          return <RateAndComment />;
         } else if (row.status === "در انتظار تحویل") {
           return (
             <Button
@@ -191,13 +189,19 @@ class UserOffer extends React.Component {
       align: "center",
       render: (dataIndex) => (
         <Popconfirm
-          title="آیا از حذف آگهی مطمئن هستید ؟"
+          overlayStyle={{fontFamily:"VazirD"}}
+          title="آیا از حذف پیشنهاد مطمئن هستید ؟"
           onConfirm={this.delete.bind(this, dataIndex)}
           onCancel={this.cancel}
           okText="بله"
           cancelText="خیر"
         >
-          <a href="#">حذف</a>
+          <a ><Button
+            style={{ border: "hidden", fontSize: "12px", borderRadius: "10px" }}
+            onClick={this.offerlistmodal}
+          >
+            حذف
+          </Button></a>
         </Popconfirm>
       ),
     },
@@ -381,7 +385,7 @@ class UserOffer extends React.Component {
                                 چت
                               </Button>
                             ) : (
-                              <SendMessage data={item.slug} slug={item.slug} />
+                              <SendMessage sender={item.sender_id} receiver={item.receiver_id} slug={item.slug} />
                             )}
                           </Col>
                           <Col>

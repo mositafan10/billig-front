@@ -40,7 +40,7 @@ class EditPacket extends Component {
     render() {
         return (
             <div>
-                <Button style={{border:"hidden", fontSize:"12px", borderRadius:"10px"}} onClick={this.offerlistmodal}>ویرایش</Button>
+                <Button style={{ border:"hidden", fontSize:"14px", borderRadius:"10px"}} onClick={this.offerlistmodal}>ویرایش</Button>
                 <Modal
                     visible={this.state.offer_visible}
                     title="ویرایش آگهی"

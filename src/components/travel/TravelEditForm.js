@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form , Col, Button, Row, Divider, Select, DatePicker } from 'antd';
+import { Form , Col, Button, Row, Divider, Select, DatePicker, notification } from 'antd';
 import Axios from 'axios';
 import moment from 'moment';
 import { config } from '../../Constant';
@@ -22,7 +22,6 @@ class TravelEditForm extends Component {
     }
 
     get_city_destination = (e) => {
-        console.log('country', e);
         Axios.get(`${url}api/v1/account/cities/${e}`)
         .then(res => {
             this.setState({
@@ -70,11 +69,22 @@ class TravelEditForm extends Component {
             flight_date_start: flight_date_start,
             },
             { headers: {"Authorization" : `Bearer ${token}`} })
-        .then( res => { if (res.status === 200){
+        .then( () => {
             this.props.cancle();
             this.props.signal();
-        }})
-        .catch(error => console.error(error));
+            notification['success']({
+                message: 'سفر شما با موفقیت ویرایش شد',
+                style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%",fontSizeAdjust:"0.5"},
+                duration:2,
+              });
+    })
+        .catch(error => {
+            notification['error']({
+                message: error.response.data.detail,
+                style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%", fontSizeAdjust:"0.5"},
+                duration:2,
+              });
+            });
     }
     
     componentDidMount = () => {
@@ -90,12 +100,11 @@ class TravelEditForm extends Component {
         const flight_date_start = moment(this.props.data.flight_date_start);
         return (
             <div>
-            <Row>
-            <Col xs={0} sm={0} md={0} lg={0} xl={6} xxl={6}></Col>
-            <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
+            <Row style={{padding:"10px"}}>
+            <Col span={24}>
                 <Form onFinish={(values) => this.handleFormSubmit(values)} id="edit">
                     <Row>
-                        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+                        <Col span={24}>
                         <Divider plain orientation="center">کشور مبدا</Divider>
                             <Form.Item name="departure" style={{textAlign:"right"}} >
                                 <Select defaultValue={this.props.data.departure ? this.props.data.departure.name : ""} onChange={this.get_city_origin.bind()}>
@@ -104,7 +113,7 @@ class TravelEditForm extends Component {
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+                        <Col span={24}>
                         <Divider plain orientation="center">شهر مبدا</Divider>
                             <Form.Item name="departure_city" style={{textAlign:"right"}}>
                             <Select disabled={this.state.city_origin_dis} defaultValue={this.props.data.departure_city.name}>
@@ -115,7 +124,7 @@ class TravelEditForm extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+                        <Col span={24}>
                         <Divider plain orientation="center">کشور مقصد</Divider>
                             <Form.Item  name="destination" style={{textAlign:"right"}} >
                                 <Select defaultValue={this.props.data.destination ? this.props.data.destination.name : ""} onChange={this.get_city_destination.bind()}>
@@ -124,7 +133,7 @@ class TravelEditForm extends Component {
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+                        <Col span={24}>
                         <Divider plain orientation="center">شهر مقصد</Divider>
                             <Form.Item name="destination_city" style={{textAlign:"right"}} >
                             <Select disabled={this.state.city_destination_dis} defaultValue={this.props.data.destination_city.name}>
@@ -135,7 +144,7 @@ class TravelEditForm extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                        <Col span={24}>
                         <Divider plain orientation="center" >تاریخ پرواز</Divider>
                         <Form.Item name="flight_date_start" style={{textAlign:"center"}} >
                             <DatePicker defaultValue={moment(flight_date_start)} style={{textAlign:"center"}}/>
@@ -148,7 +157,6 @@ class TravelEditForm extends Component {
                     </Form.Item> 
                 </Form>
             </Col>
-            <Col xs={0} sm={0} md={0} lg={0} xl={6} xxl={6}></Col>
             </Row>
         </div>
 

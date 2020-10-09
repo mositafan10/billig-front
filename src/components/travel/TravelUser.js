@@ -10,6 +10,8 @@ import {
   List,
   ConfigProvider,
   Spin,
+  Divider,
+  notification
 } from "antd";
 import moment from "moment";
 import EditTravel from "./EditTravel";
@@ -30,7 +32,11 @@ class TravelList extends React.Component {
   };
 
   cancel(e) {
-    message.error("درخواست لغو شد");
+    notification['error']({
+      message: 'درخواست لغو شد',
+      style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%", fontSizeAdjust:"0.5"},
+      duration:2,
+    });
   }
 
   editsignal = () => {
@@ -111,7 +117,7 @@ class TravelList extends React.Component {
                           </p>
                         </Col>
                       </Row>
-                      <br />
+                      <hr style={{marginBottom:"20px"}}/>
                       <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                           <Row style={style_right}>
@@ -187,17 +193,22 @@ class TravelList extends React.Component {
                 {item.income !== 0 && <p style={{marginRight:"5px"}}> تومان </p> }
                             </Col>
                           </Row>
-                          <br />
+                          <Row style={{display:"flex", justifyContent:"center"}}>
+                          <br/>
+                          
+                          { item.status != 4 &&
+                              <PayTraveler travel={item.slug} amount={item.income} />
+                          
+                          }
+                          </Row>  
+                          <hr style={{margin:"15px 0 15px 0"}}/>
                           <Row style={style_right}>
                             <Col
                               style={style_right}
-                              xs={8}
-                              sm={8}
-                              md={8}
-                              lg={8}
-                              xl={8}
-                            >
+                              span={12}
+                            > 
                               <Popconfirm
+                                overlayStyle={{fontFamily:"VazirD"}}
                                 title="آیا از حذف آگهی مطمئن هستید ؟"
                                 onConfirm={this.delete.bind(this, item.slug)}
                                 onCancel={this.cancel}
@@ -207,7 +218,7 @@ class TravelList extends React.Component {
                                 <Button
                                   style={{
                                     borderRadius: "10px",
-                                    fontSize: "12px",
+                                    fontSize: "14px",
                                   }}
                                 >
                                   حذف
@@ -216,29 +227,14 @@ class TravelList extends React.Component {
                             </Col>
                             <Col
                               style={style_left}
-                              xs={6}
-                              sm={6}
-                              md={6}
-                              lg={6}
-                              xl={6}
+                             span={12}
                             >
                               <EditTravel
                                 signal={this.editsignal}
                                 data={item.slug}
                               />
                             </Col>
-                            <Col
-                              style={style_left}
-                              xs={10}
-                              sm={10}
-                              md={10}
-                              lg={10}
-                              xl={10}
-                            >
-                              <PayTraveler travel={item.slug} amount={item.income} />
-                            </Col>
                           </Row>
-                          <br />
                         </Col>
                       </Row>
                     </Col>

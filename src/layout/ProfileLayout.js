@@ -85,7 +85,7 @@ class ProfileLayout extends React.Component {
             </Layout>
           </Layout>
         </Breakpoint>
-        <Breakpoint medium down>
+        <Breakpoint small down>
           <Layout style={{ backgroundColor: "white" }}>
             <Header
               style={{ backgroundColor: "white", padding: "0", height: "auto" }}

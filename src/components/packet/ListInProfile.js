@@ -4,7 +4,7 @@ import Axios from "axios";
 import { Spin } from "antd";
 import {
   Popconfirm,
-  message,
+  notification,
   Table,
   List,
   Row,
@@ -85,13 +85,25 @@ class PacketUserList extends React.Component {
       width: 10,
       render: (dataIndex) => (
         <Popconfirm
+          overlayStyle={{ fontFamily: "VazirD" }}
           title="آیا از حذف آگهی مطمئن هستید ؟"
           onConfirm={this.delete.bind(this, dataIndex)}
           onCancel={this.cancel}
           okText="بله"
           cancelText="خیر"
         >
-          <a style={{ color: "grey" }}>حذف</a>
+          <a>
+            <Button
+              style={{
+                border: "hidden",
+                fontSize: "12px",
+                borderRadius: "10px",
+              }}
+              onClick={this.offerlistmodal}
+            >
+              حذف
+            </Button>
+          </a>
         </Popconfirm>
       ),
     },
@@ -113,7 +125,18 @@ class PacketUserList extends React.Component {
   }
 
   cancel(e) {
-    message.error("درخواست لغو شد");
+    notification["error"]({
+      message: "درخواست لغو شد",
+      style: {
+        fontFamily: "VazirD",
+        textAlign: "right",
+        float: "right",
+        width: "max-content",
+        marginTop: "30%",
+        fontSizeAdjust: "0.5",
+      },
+      duration: 2,
+    });
   }
 
   delete = (slug) => {
@@ -170,9 +193,9 @@ class PacketUserList extends React.Component {
                 <Button
                   icon={<PlusOutlined />}
                   style={{
-                    borderRadius: "8px",
+                    borderRadius: "10px",
                     marginTop: "40px",
-                    fontSize: "13px",
+                    fontSize: "14px",
                   }}
                 >
                   <b> ثبت آگهی جدید</b>
@@ -201,7 +224,8 @@ class PacketUserList extends React.Component {
                       }}
                     >
                       <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                      <p style={{textAlign:"center"}}>{item.status}</p>
+                        <span style={{display:"flex", justifyContent:"center"}}> وضعیت آگهی : <span style={{ display: "flex", justifyContent:"center",color:"darkgreen", marginRight:"3px" }}> {item.status} </span></span>
+                        <hr/>
                         <Row
                           style={{ justifyContent: "center", display: "flex" }}
                         >
@@ -211,46 +235,57 @@ class PacketUserList extends React.Component {
                             </div>
                           </Col>
                         </Row>
-                        {/* <br /> */}
                         <Row
-                          style={{ justifyContent: "center", display: "flex" }}
+                          style={{ justifyContent: "center", display: "flex", marginTop:"10px" }}
                         >
                           <Col style={{ color: "black" }}>
-                            <Link to={`/packet/${item.slug}`} style={{color:"black"}}>
+                            <Link
+                              to={`/packet/${item.slug}`}
+                              style={{ color: "black" }}
+                            >
                               {item.title}
                             </Link>
                           </Col>
                         </Row>
-                        <hr style={{ width: "70%" }} />
-                        <Row
-                          style={{ justifyContent: "center", display: "flex" }}
+                        
+                        <Row style={{display:"flex", justifyContent:"center", marginTop:"10px"}}>
+                          <OfferListModal data={item.slug} count={item.offer_count} />
+                      </Row>
+                      <hr/>
+                      <Row
+                          
                         >
-                          <Col style={{ color: "black" }}>
-                            تعداد پیشنهاد :‌ {item.offer_count}
-                          </Col>
-                        </Row>
-                        <br />
-                      </Col>
-                      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                        <Row
-                          style={{ justifyContent: "center", display: "flex" }}
-                        >
-                          <Col>
-                            <Space>
-                              <OfferListModal data={item.slug} />
+                          <Col span={12} style={{ justifyContent: "center", display: "flex", borderLeft:"1px solid" }}>
                               <EditPacket data={item.slug} />
+                              </Col>
+                      <Col span={12} style={{display:"flex",justifyContent:"center",}}>
                               <Popconfirm
+                                overlayStyle={{ fontFamily: "VazirD" }}
                                 title="آیا از حذف آگهی مطمئن هستید ؟"
                                 onConfirm={this.delete.bind(this, item.slug)}
                                 onCancel={this.cancel}
                                 okText="بله"
                                 cancelText="خیر"
                               >
-                                <a style={{ color: "grey" }}>حذف</a>
+                                <a>
+                                  <Button
+                                    style={{
+                                      border:"hidden",
+                                      fontSize: "14px",
+                                      borderRadius: "10px",
+                                    }}
+                                    onClick={this.offerlistmodal}
+                                  >
+                                    حذف
+                                  </Button>
+                                </a>
                               </Popconfirm>
-                            </Space>
-                          </Col>
+                              </Col>
                         </Row>
+                      </Col>
+                      
+                      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                        
                       </Col>
                     </Row>
                   </div>

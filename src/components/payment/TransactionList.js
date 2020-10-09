@@ -54,9 +54,8 @@ class TransactionList extends Component {
           </div>
         ) : (
           <Table
-            scroll={{ x: 300 }}
             locale={{ emptyText: "تراکنشی وجود ندارد" }}
-            style={{ padding: "30px 30px 30px 30px" }}
+            style={{ padding: "40px 10px 30px 10px" }}
             columns={this.columns}
             dataSource={this.state.transactions}
           />

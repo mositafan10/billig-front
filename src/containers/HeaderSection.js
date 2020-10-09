@@ -108,7 +108,7 @@ class HeaderSection extends Component {
       return <Redirect to="/login" />;
     }
     return (
-      <div style={{ boxShadow: "0 0 5px 1px" }}>
+      <div style={{ boxShadow: "0 0 5px 1px", position:"fixed", zIndex:2}}>
         <Breakpoint medium up>
           <div>
             <Row style={{ padding: "0 20px 0 20px" }}>
@@ -228,7 +228,7 @@ class HeaderSection extends Component {
           <div
             style={{
               position: "fixed",
-              zIndex: 1,
+              zIndex: 2,
               backgroundColor: "white",
               boxShadow: "0 0 5px 1px",
             }}
@@ -253,19 +253,21 @@ class HeaderSection extends Component {
                     }}
                   ></Button>
                   <Drawer
-                    title="بیلیگ"
+                    title={<p style={{color:"white"}}>بیلیگ</p>}
                     placement="left"
+                  
+                    headerStyle={{backgroundColor:"#46a0ae", color:"white"}}
                     closable={false}
                     onClose={this.onClose}
                     width="50%"
                     visible={this.state.Drawerpage}
-                    style={{ textAlign: "left", fontFamily: "VazirD" }}
+                    style={{ textAlign: "left", fontFamily: "VazirD" , color:"black"}}
                   >
                     <div>
-                      <Link onClick={this.onClose} to="create-packet">
+                      <Link style={{color:"black"}} onClick={this.onClose} to="create-packet">
                         <p>ثبت آگهی</p>
                       </Link>
-                      <Link onClick={this.onClose} to="orders">
+                      <Link style={{color:"black"}} onClick={this.onClose} to="orders">
                         <p>کسب در آمد از سفر</p>
                       </Link>
                       <p>بلاگ</p>
@@ -282,13 +284,13 @@ class HeaderSection extends Component {
                 xxl={8}
                 style={{ textAlign: "center" }}
               >
-                <Link to="/">
+                <a href="/">
                   <img
                     style={{ width: "60%", height: "auto" }}
                     alt="billlig"
                     src={logo}
                   />
-                </Link>
+                </a>
               </Col>
               <Col
                 xs={8}
@@ -315,16 +317,16 @@ class HeaderSection extends Component {
                 <Drawer
                   title={
                     this.props.isAuthenticated ? 
-                    <div >
+                    <div  >
                       <Row style={{display:"flex",justifyContent:"center", alignItems:"center"}}>
                       {this.state.userinfo.picture ? <Avatar
-                            src={`${url}dstatic/${this.state.userinfo.picture}`} />
+                            src={`${url}dstatic/${this.state.userinfo.picture}`} size="large" />
                             : 
-                            <Avatar style={{backgroundColor:"white", color:"black", border:"1px solid"}} icon={<UserOutlined />} />
+                            <Avatar  size="large" style={{backgroundColor:"white", color:"black", border:"1px solid"}} icon={<UserOutlined />} />
                           }
                         <Divider style={{margin:"5px", opacity:"0"}}/>
-                        {this.state.userinfo.user &&
-                          this.state.userinfo.user.name}
+                       <p style={{color:"white"}}> {this.state.userinfo.user &&
+                          this.state.userinfo.user.name}</p>
                           </Row>
                     </div>
                     :
@@ -333,7 +335,8 @@ class HeaderSection extends Component {
                   placement="right"
                   closable={false}
                   onClose={this.onClose}
-                  width="60%"
+                  width="65%"
+                  headerStyle={{backgroundColor:"#46a0ae"}}
                   visible={this.state.Drawerprofile}
                   style={{ textAlign: "center", fontFamily: "VazirD" }}
                 >
