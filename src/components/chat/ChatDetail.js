@@ -18,7 +18,7 @@ import {
 import Axios from "axios";
 import TextInput from "./TextInput";
 import moment from "moment";
-import { LinkOutlined, ArrowDownOutlined, MoreOutlined  } from "@ant-design/icons";
+import { LinkOutlined, DownOutlined , MoreOutlined  } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
@@ -246,11 +246,11 @@ class ChatDetail extends Component {
                             display: "grid",
                             alignItems: "center",
                             paddingTop: "10px",
-                            backgroundColor: "royalblue",
-                            color: "white",
+                            backgroundColor: "whitesmoke",
+                            color: "black",
                             borderColor: "white",
                           }}
-                          icon={<ArrowDownOutlined />}
+                          icon={<DownOutlined />}
                         ></Button>
                       </Tooltip>
                     </Badge>

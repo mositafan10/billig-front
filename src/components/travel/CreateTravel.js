@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, Form, Select, DatePicker, Radio, message, Tooltip, Spin} from 'antd'; 
+import { Button, Modal, Form, Select, DatePicker, Radio, message, Tooltip, Spin, notification} from 'antd'; 
 import { PlusOutlined, WindowsFilled } from '@ant-design/icons';
 import Axios from 'axios';
 import TextArea from 'antd/lib/input/TextArea';
@@ -71,7 +71,11 @@ class CreateTravel extends React.Component {
                     {this.props.loc === "offer" ?
                     this.props.parent() :
                     this.props.parentCallback(); }
-                    message.success("سفر شما با موفقیت ثبت شد")
+                    notification['success']({
+                        message: 'سفر شما با موفقیت ثبت شد',
+                        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+                        duration:2,
+                      });
             })  
             .catch(error => message.warn(error.response.data.detail), this.setState({confirmLoading:false}))
             :
@@ -95,7 +99,11 @@ class CreateTravel extends React.Component {
                         {this.props.loc === "offer" ?
                         this.props.parent() :
                         this.props.parentCallback(); }
-                        message.success("سفر شما با موفقیت ثبت شد")
+                        notification['success']({
+                            message: 'سفر شما با موفقیت ثبت شد',
+                            style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+                            duration:2,
+                          });
                 })  
                 .catch(error => message.warn(error.response.data.detail), this.setState({confirmLoading:false}))
             }

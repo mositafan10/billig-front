@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, message } from 'antd';
+import { Button, message, notification } from 'antd';
 import Axios from 'axios';
 import { config } from '../../Constant';
 var url = config.url.API_URL;
@@ -9,16 +9,18 @@ class PayTraveler extends Component {
     pay = () => {
         const token = localStorage.getItem('token'); 
         Axios.post(`${url}api/v1/payment/paytraveler/`, {
-            payment_number: this.props.offer,
+            payment_number: this.props.travel,
             amount: this.props.amount,
         },{
             headers: {"Authorization" : `Bearer ${token}`}
         })
-        .then(res => 
-            {if(res.status == '1')
-                {return message.success("درخواست شما با موفقیت ثبت شد")
-            } 
-        })
+        .then(() => 
+            notification['success']({
+                message: 'درخواست شما با موفقیت ثبت شد',
+                style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"70px"},
+                duration:2.5,
+              })
+     )
         .catch(err => message.error(err.response.data.error))
     }   
 

@@ -235,7 +235,7 @@ class TravelList extends React.Component {
                               lg={10}
                               xl={10}
                             >
-                              <PayTraveler offer={item.slug} />
+                              <PayTraveler travel={item.slug} amount={item.income} />
                             </Col>
                           </Row>
                           <br />

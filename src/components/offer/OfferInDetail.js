@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Form, Input, message, Select, InputNumber } from "antd";
+import { Modal, Button, Form, notification, message, Select, InputNumber } from "antd";
 import Axios from "axios";
 import TextArea from "antd/lib/input/TextArea";
 import { Link } from "react-router-dom";
@@ -66,10 +66,20 @@ class OfferDetail extends React.Component {
             visible: false,
             loading: false,
           });
-        }, 2000);
-        message.success("پیشنهاد شما با موفقیت ثبت شد");
+        }, 3000);
+        notification['success']({
+          message: 'پیشنهاد شما با موفقیت ثبت شد',
+          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+          duration:3,
+        });
       })
-      .catch((error) => message.error(error.response.data.detail));
+      .catch((error) => {
+      notification['error']({
+        message: error.response.data.detail,
+        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+        duration:3,
+      });
+    });
   };
 
   handleCancel = (e) => {

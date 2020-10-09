@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { Button, Divider, message } from "antd";
+import { Button, Divider, message, notification } from "antd";
 import { config } from "../../Constant";
 import { Link } from "react-router-dom";
 
@@ -33,14 +33,16 @@ class VerifyTransaction extends Component {
       },
       { headers: { Authorization: `Bearer ${token1}` } }
     )
-      .then((res) => {
-        this.setState({ loading: false });
-        message.success(
-          "پرداخت شما با موفقیت انجام شد. لیست پرداخت ها را می‌توانید در پروفایل خود مشاهده نمایید."
-        );
-        setTimeout(() => {
-          window.location.replace = "/profile/mypacket/";
-        }, 2000);
+      .then((res) => { 
+          setTimeout(() => {
+            this.setState({ loading: false })
+            window.location.replace("/profile/payment")
+        }, 4000);
+        notification['success']({
+          message: 'پرداخت شما با موفقیت انجام شد',
+          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"70px"},
+          duration:3.5,
+        });
       })
       .catch((error) => message.error(error.response.data.error));
   };

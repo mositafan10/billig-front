@@ -14,7 +14,7 @@ import {
   Slider,
   Tooltip,
   Cascader,
-  message,
+  notification,
 } from "antd";
 import UploadFile from "../utils/UploadPicture";
 import TextArea from "antd/lib/input/TextArea";
@@ -160,15 +160,21 @@ class PackForm extends React.Component {
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then(function (res) {
-        if (res.status === 201) {
           setTimeout(() => {
             window.location = "/profile/mypacket";
-          }, 2000);
-          message.success("آگهی شما با موفقیت ثبت شد");
-        }
+          }, 3000);
+          notification['success']({
+            message: 'آگهی شما با موفقیت ثبت شد',
+            style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"50%"},
+            duration:2.5,
+          });
       })
       .catch((error) => {
-        message.warn(error.response.data.detail);
+        notification['error']({
+          message: error.response.data.detail,
+          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"50%"},
+          duration:2.5,
+        });
         this.setState({
           loading: false,
         });
