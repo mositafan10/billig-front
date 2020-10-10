@@ -11,7 +11,8 @@ import {
   Avatar,
   Space,
   Divider,
-  Spin
+  Spin,
+  notification,
 } from "antd";
 import Axios from "axios";
 import SendMessage from "./SendMessage";
@@ -20,8 +21,8 @@ import SendTransactionInfo from "../payment/SendTransactionInfo";
 import { config } from "../../Constant";
 import RateAndComment from "../rating/RateAndComment";
 import PayTraveler from "../payment/PayTraveler";
-import ChatDetail from '../chat/ChatDetail';
-import { Breakpoint } from 'react-socks';
+import ChatDetail from "../chat/ChatDetail";
+import { Breakpoint } from "react-socks";
 
 var url = config.url.API_URL;
 const token = localStorage.getItem("token");
@@ -32,7 +33,7 @@ class PacketOffer extends React.Component {
     disablepayment: true,
     disableconfirm: false,
     visible: false,
-    loading: true
+    loading: true,
   };
 
   columns = [
@@ -74,7 +75,7 @@ class PacketOffer extends React.Component {
       render: (dataIndex, row) => {
         if (row.status === "انجام شده") {
           return (
-              <Button
+            <Button
               disabled={true}
               style={{
                 fontSize: "12px",
@@ -88,7 +89,13 @@ class PacketOffer extends React.Component {
             </Button>
           );
         } else {
-          return <SendMessage sender={row.sender_id} receiver={row.receiver_id} slug={dataIndex} />;
+          return (
+            <SendMessage
+              sender={row.sender_id}
+              receiver={row.receiver_id}
+              slug={dataIndex}
+            />
+          );
         }
       },
     },
@@ -100,49 +107,76 @@ class PacketOffer extends React.Component {
       render: (dataIndex, row) => {
         if (row.status === "در انتظار پاسخ") {
           return (
-            <Button
-              onClick={this.accept.bind(this, dataIndex)}
-              style={{
-                fontSize: "12px",
-                border: "hidden",
-                color: "white",
-                backgroundColor: "green",
-                borderRadius: "10px",
-              }}
+            <Popconfirm
+              overlayStyle={{ fontFamily: "VazirD" }}
+              title="آیا از قبول پیشنهاد مطمئن هستید ؟"
+              onConfirm={this.accept.bind(this, dataIndex)}
+              onCancel={this.cancel}
+              okText="بله"
+              cancelText="خیر"
             >
-              <b>قبول</b>
-            </Button>
+              <Button
+                style={{
+                  fontSize: "12px",
+                  border: "hidden",
+                  color: "white",
+                  backgroundColor: "green",
+                  borderRadius: "10px",
+                }}
+              >
+                <b>قبول</b>
+              </Button>
+            </Popconfirm>
           );
         } else if (row.status === "در انتظار پرداخت") {
           return (
-            <Button
-              disabled={this.state.disableconfirm}
-              onClick={this.confirmpayment.bind(this)}
-              style={{
-                fontSize: "12px",
-                border: "hidden",
-                color: this.state.disableconfirm?"transparent":"white",
-                backgroundColor: "green",
-                borderRadius: "10px",
-                textShadow:this.state.disableconfirm && "0 0 5px rgba(0,0,0,0.5)",
-              }}
+            <Popconfirm
+              overlayStyle={{ fontFamily: "VazirD" }}
+              title="آیا مبلغ نهایی مورد تایید است ؟"
+              onConfirm={this.confirmpayment.bind(this)}
+              onCancel={this.cancel}
+              okText="بله"
+              cancelText="خیر"
             >
-              <b>تایید</b>
-            </Button>
+              <Button
+                disabled={this.state.disableconfirm}
+                // onClick={this.confirmpayment.bind(this)}
+                style={{
+                  fontSize: "12px",
+                  border: "hidden",
+                  color: this.state.disableconfirm ? "transparent" : "white",
+                  backgroundColor: "green",
+                  borderRadius: "10px",
+                  textShadow:
+                    this.state.disableconfirm && "0 0 5px rgba(0,0,0,0.5)",
+                }}
+              >
+                <b>تایید</b>
+              </Button>
+            </Popconfirm>
           );
         } else if (row.status === "در انتظار تایید خریدار") {
           return (
-            <Button
-              onClick={this.receiveconfirm.bind(this, dataIndex)}
-              style={{
-                fontSize: "12px",
-                border: "hidden",
-                backgroundColor: "aliceblue",
-                borderRadius: "10px",
-              }}
+            <Popconfirm
+              overlayStyle={{ fontFamily: "VazirD" }}
+              title="آیا کالا را تحویل گرفته‌اید ؟"
+              onConfirm={this.receiveconfirm.bind(this, dataIndex)}
+              onCancel={this.cancel}
+              okText="بله"
+              cancelText="خیر"
             >
-              تایید تحویل
-            </Button>
+              <Button
+                // onClick={this.receiveconfirm.bind(this, dataIndex)}
+                style={{
+                  fontSize: "12px",
+                  border: "hidden",
+                  backgroundColor: "aliceblue",
+                  borderRadius: "10px",
+                }}
+              >
+                تایید تحویل
+              </Button>
+            </Popconfirm>
           );
         } else if (row.status === "انجام شده") {
           return (
@@ -176,7 +210,7 @@ class PacketOffer extends React.Component {
           return (
             <SendTransactionInfo
               disabled={this.state.disablepayment}
-              amount={row.price+row.parcel_price}
+              amount={row.price + row.parcel_price}
               factorNumber={dataIndex}
             />
           );
@@ -201,9 +235,18 @@ class PacketOffer extends React.Component {
   };
 
   confirmpayment = () => {
-    message.success(
-      "پیشنهاد توسط شما تایید شد. حال می‌توانید هزینه را پرداخت کنید"
-    );
+    notification["success"]({
+      message: "مبلغ پرداخت توسط شما تایید شد",
+      description: "حال می‌توانید پرداخت خود را انجام دهید",
+      style: {
+        fontFamily: "VazirD",
+        textAlign: "right",
+        float: "right",
+        width: "max-content",
+        marginTop: "50%",
+      },
+      duration: 5,
+    });
     this.componentDidMount();
     this.setState({
       disableconfirm: true,
@@ -221,7 +264,18 @@ class PacketOffer extends React.Component {
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then(() => {
-        message.success("تغییر وضعیت با موفقیت انجام شد");
+        notification["success"]({
+          message: "پیشنهاد با موفقیت تایید شد",
+          description: "حال باید منتظر تایید مبلغ از سوی مسافر باشید",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            marginTop: "50%",
+          },
+          duration: 5,
+        });
         this.componentDidMount();
       })
       .catch((error) => console.error(error));
@@ -237,7 +291,19 @@ class PacketOffer extends React.Component {
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then(() => {
-        message.success("اعلام وضعیت پیشنهاد با موفقیت ثبت شد");
+        notification["success"]({
+          message: "دریافت کالا از سوی شما تایید شد",
+          description:
+            "حال می‌توانید نظر خود را در مورد مسافر بیان کنید و به ایشان امتیاز دهید. امتیاز شما می‌تواند به کابران دیگر کمک کند",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            marginTop: "50%",
+          },
+          duration: 5,
+        });
         this.componentDidMount();
       })
       .catch((error) => console.error(error));
@@ -251,7 +317,7 @@ class PacketOffer extends React.Component {
       .then((res) => {
         this.setState({
           packet_offer: res.data,
-          loading: false
+          loading: false,
         });
       })
       .catch((error) => console.error(error));
@@ -261,24 +327,22 @@ class PacketOffer extends React.Component {
     return (
       <div>
         <Breakpoint medium up>
-        {this.state.loading ? (
+          {this.state.loading ? (
             <div style={{ marginTop: "100px" }}>
               <Spin />
             </div>
           ) : (
-          <Table
-            scroll={{ x: 900 }}
-            pagination={{
-              onChange: (page) => {
-              },
-              hideOnSinglePage: true,
-              size: "small",
-            }}
-            locale={{ emptyText: "پیشنهادی وجود ندارد" }}
-            columns={this.columns}
-            dataSource={this.state.packet_offer}
-          />
-        )}
+            <Table
+              pagination={{
+                onChange: (page) => {},
+                hideOnSinglePage: true,
+                size: "small",
+              }}
+              locale={{ emptyText: "پیشنهادی وجود ندارد" }}
+              columns={this.columns}
+              dataSource={this.state.packet_offer}
+            />
+          )}
         </Breakpoint>
         <Breakpoint small down>
           <List
@@ -312,7 +376,11 @@ class PacketOffer extends React.Component {
                     xxl={24}
                     style={{ textAlign: "center" }}
                   >
-                    <p> وضعیت : <span style={{color:"blue"}}>{item.status}</span></p>
+                    <p>
+                      {" "}
+                      وضعیت :{" "}
+                      <span style={{ color: "blue" }}>{item.status}</span>
+                    </p>
                     <hr />
                   </Col>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
@@ -322,7 +390,7 @@ class PacketOffer extends React.Component {
                     <span>
                       <Link
                         to={`/users/${item.sender_id}`}
-                        style={{ color: "black", fontSize:"14px" }}
+                        style={{ color: "black", fontSize: "14px" }}
                       >
                         {" "}
                         {item.sender}{" "}
@@ -331,92 +399,124 @@ class PacketOffer extends React.Component {
                     <Divider style={{ marginTop: "5px", opacity: "0" }} />
                     <p>{item.description}</p>
                     <br />
-                    <p style={{textAlign:"left"}}> {item.price} تومان </p>
+                    <p style={{ textAlign: "left" }}> {item.price} تومان </p><hr/>
                   </Col>
-                    <Col style={{display:"flex", justifyContent:"center"}}>
-                  <Space>
-                    <Col>
-                      {item.status === "انجام شده" ? (
-                        <Button
-                          disabled={true}
-                          style={{
-                            fontSize: "12px",
-                            backgroundColor: "white",
-                            color: "transparent",
-                            textShadow: "0 0 5px rgba(0,0,0,0.5)",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          چت
-                        </Button>
-                      ) : (
-                      <SendMessage sender={item.sender_id} receiver={item.receiver_id} slug={item.slug} />
-                      )}
-                    </Col>
-                    <Col>
-                      {item.status === "در انتظار پاسخ" && (
-                        <Button
-                          onClick={this.accept.bind(this, item.slug)}
-                          style={{
-                            fontSize: "12px",
-                            border: "hidden",
-                            color: "white",
-                            backgroundColor: "green",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <b>قبول</b>
-                        </Button>
-                      )}
-                      {item.status === "در انتظار پرداخت" && (
-                        <Button
-                          disabled={this.state.disableconfirm}
-                          onClick={this.confirmpayment.bind(this)}
-                          style={{
-                            fontSize: "12px",
-                            border: "hidden",
-                            color: "white",
-                            backgroundColor: "green",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <b>تایید</b>
-                        </Button>
-                      )}
-                      {item.status === "در انتظار تایید خریدار" && (
-                        <Button
-                          onClick={this.receiveconfirm.bind(this, item.slug)}
-                          style={{
-                            fontSize: "12px",
-                            border: "hidden",
-                            backgroundColor: "aliceblue",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          تایید تحویل
-                        </Button>
-                      )}
-                      {item.status === "انجام شده" && (
-                        <RateAndComment
-                          signal={this.callbackFunction}
-                          data={item.slug}
-                          receiver={item.receiver_id}
-                        />
-                      )}
-                    </Col>
-                    <Col>
-                      {item.status === "در انتظار پرداخت" && (
-                        <SendTransactionInfo
-                          disabled={this.state.disablepayment}
-                          amount={item.price+item.parcel_price}
-                          factorNumber={item.slug}
-                        />
-                      )}
-                    </Col>
-                  </Space>
-                    </Col>
+                  <Col style={{ display: "flex", justifyContent: "center" }}>
+                    <Space>
+                      <Col>
+                        {item.status === "انجام شده" ? (
+                          <Button
+                            disabled={true}
+                            style={{
+                              fontSize: "12px",
+                              backgroundColor: "white",
+                              color: "transparent",
+                              textShadow: "0 0 5px rgba(0,0,0,0.5)",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            چت
+                          </Button>
+                        ) : (
+                          <SendMessage
+                            sender={item.sender_id}
+                            receiver={item.receiver_id}
+                            slug={item.slug}
+                          />
+                        )}
+                      </Col>
+                      <Col>
+                        {item.status === "در انتظار پاسخ" && (
+                          <Popconfirm
+                            overlayStyle={{ fontFamily: "VazirD" }}
+                            title="آیا از قبول پیشنهاد مطمئن هستید ؟"
+                            onConfirm={this.accept.bind(this, item.slug)}
+                            onCancel={this.cancel}
+                            okText="بله"
+                            cancelText="خیر"
+                          >
+                            <Button
+                              style={{
+                                fontSize: "12px",
+                                border: "hidden",
+                                color: "white",
+                                backgroundColor: "green",
+                                borderRadius: "10px",
+                              }}
+                            >
+                              <b>قبول</b>
+                            </Button>
+                          </Popconfirm>
+                        )}
+                        {item.status === "در انتظار پرداخت" && (
+                          <Popconfirm
+                            overlayStyle={{ fontFamily: "VazirD" }}
+                            title="آیا مبلغ نهایی مورد تایید شما است ؟"
+                            onConfirm={this.confirmpayment.bind(this)}
+                            onCancel={this.cancel}
+                            okText="بله"
+                            cancelText="خیر"
+                          >
+                            <Button
+                              disabled={this.state.disableconfirm}
+                              // onClick={this.confirmpayment.bind(this)}
+                              style={{
+                                fontSize: "12px",
+                                border: "hidden",
+                                color: "white",
+                                backgroundColor: "green",
+                                borderRadius: "10px",
+                              }}
+                            >
+                              <b>تایید</b>
+                            </Button>
+                          </Popconfirm>
+                        )}
+                        {item.status === "در انتظار تایید خریدار" && (
+                          <Popconfirm
+                            overlayStyle={{ fontFamily: "VazirD" }}
+                            title="آیا کالا را تحویل گرفته‌اید ؟"
+                            onConfirm={this.receiveconfirm.bind(
+                              this,
+                              item.slug
+                            )}
+                            onCancel={this.cancel}
+                            okText="بله"
+                            cancelText="خیر"
+                          >
+                            <Button
+                              style={{
+                                fontSize: "12px",
+                                border: "hidden",
+                                backgroundColor: "aliceblue",
+                                borderRadius: "10px",
+                              }}
+                            >
+                              تایید تحویل
+                            </Button>
+                          </Popconfirm>
+                        )}
+                        {item.status === "انجام شده" && (
+                          <RateAndComment
+                            signal={this.callbackFunction}
+                            data={item.slug}
+                            receiver={item.receiver_id}
+                          />
+                        )}
+                      </Col>
+                      <Col>
+                        {item.status === "در انتظار پرداخت" && (
+                          <SendTransactionInfo
+                            disabled={this.state.disablepayment}
+                            amount={item.price + item.parcel_price}
+                            factorNumber={item.slug}
+                          />
+                        )}
+                      </Col>
+                    </Space>
+                  </Col>
                 </Row>
-                <Divider/>
+                <Divider />
               </div>
             )}
           />

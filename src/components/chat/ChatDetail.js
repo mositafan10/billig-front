@@ -383,13 +383,13 @@ class ChatDetail extends Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
-                    <Col>
+                    <Col span={3} style={{display:"flex", justifyContent:"right"}}>
                     <Dropdown overlay={informatoin} trigger={["click"]}
                      >
                       <Button size="large" icon={<MoreOutlined style={{fontSize:"larger"}}/>} style={{color:"black", border:"hidden"}} />
                     </Dropdown>
                     </Col>
-                    <Col span={12}>
+                    <Col span={18} style={{display:"flex", justifyContent:"right"}}>
                       {user == this.props.sender ? (
                         <Link to={"/users/" + this.props.receiver}>
                           <Avatar
@@ -447,7 +447,7 @@ class ChatDetail extends Component {
             onClose={this.onClose}
             visible={this.state.visible}
             getContainer={false}
-            headerStyle={{ marginTop: 20 }}
+            headerStyle={{ height: "60px" }}
             bodyStyle={{ marginBottom: 30 }}
           >
             {this.state.loading ? (

@@ -19,8 +19,13 @@ class OrderDetail extends React.Component {
     order: [],
     loading: true,
   };
+  myRef = React.createRef()
 
   componentDidMount() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
     const orderID = this.props.match.params.orderID;
     Axios.get(`${url}api/v1/advertise/packet/${orderID}`)
       .then((res) => {
@@ -43,7 +48,9 @@ class OrderDetail extends React.Component {
                 <Spin size="large" />
               </div>
             ) : (
+              
               <Row style={{margin:"50px"}} >
+                
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} >
                   <Card
                     style={{ borderRadius: "20px" }}
@@ -149,7 +156,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        <Link to={"users/" + user}>
+                        <Link to={"/users/" + user}>
                           {" "}
                           {this.state.order.owner_name}{" "}
                         </Link>
@@ -298,7 +305,7 @@ class OrderDetail extends React.Component {
               <Col>
                 <DownloadPic1 data={picID} size={200} />
                 <br />
-                <Bookmark data={this.state.order.slug} />
+                <Bookmark packet={this.state.order.slug} />
                 <br />
               </Col>
               <Col> 

@@ -67,16 +67,19 @@ class OfferDetail extends React.Component {
             loading: false,
           });
         }, 3000);
+        setTimeout(() => {
         notification['success']({
           message: 'پیشنهاد شما با موفقیت ثبت شد',
           style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
           duration:3,
         });
+      }, 1500);
       })
       .catch((error) => {
       notification['error']({
-        message: error.response.data.detail,
-        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+        message: "شما قبلا به این آگهی پیشنهاد داده‌اید",
+        description: error.response.data.detail,
+        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%", fontSizeAdjust:"0.4"},
         duration:3,
       });
     });

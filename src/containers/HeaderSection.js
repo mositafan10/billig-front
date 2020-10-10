@@ -3,7 +3,17 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import { Breakpoint } from "react-socks";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
-import { Button, Dropdown, Menu, Row, Col, Badge, Drawer, Avatar, Divider } from "antd";
+import {
+  Button,
+  Dropdown,
+  Menu,
+  Row,
+  Col,
+  Badge,
+  Drawer,
+  Avatar,
+  Divider,
+} from "antd";
 import { UserOutlined, MenuOutlined, BellOutlined } from "@ant-design/icons";
 import logo from "../media/billlig.png";
 import {
@@ -65,26 +75,45 @@ class HeaderSection extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem("token");
-    {token &&
-    Axios.get(`${url}api/v1/account/userinfo/`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => {
-        this.setState({
-          userinfo: res.data,
-        });
-      })
-      .catch((error) => console.error(error));
+    {
+      token &&
+        Axios.get(`${url}api/v1/account/userinfo/`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+          .then((res) => {
+            this.setState({
+              userinfo: res.data,
+            });
+          })
+          .catch((error) => console.error(error));
     }
   }
 
   menu_login = (
-    <Menu>
+    <Menu mode="inline" theme="light" style={{ textAlign: "right" }}>
       <Menu.Item key="1">
-        <Link to="/profile">پروفایل من</Link>
+        <Link to="/profile/mypacket"> آگهی‌های من <ShoppingOutlined /> </Link> 
       </Menu.Item>
-      <Menu.Item key="2" onClick={this.exit}>
-        خروج
+      <Menu.Item key="2">
+        <Link to="/profile/mytravel"> سفرهای من <AimOutlined /></Link> 
+      </Menu.Item>
+      <Menu.Item key="3">
+        <Link to="/profile/myoffer"> پیشنهادهای من <ContainerOutlined /></Link> 
+      </Menu.Item>
+      <Menu.Item key="4">
+        <Link to="/profile/inbox"> صندوق پیام <CommentOutlined /></Link> 
+      </Menu.Item>
+      <Menu.Item key="5">
+        <Link to="/profile/payment">پرداخت <DollarCircleOutlined /></Link> 
+      </Menu.Item>
+      <Menu.Item key="6">
+        <Link to="/profile/bookmark">آگهی‌های نشان شده <HeartOutlined /></Link> 
+      </Menu.Item>
+      <Menu.Item key="7">
+        <Link to="/profile/editprofile">ویرایش پروفایل <ContainerOutlined /></Link>
+      </Menu.Item>
+      <Menu.Item key="8" onClick={this.exit}>
+      <Link to="/"> خروج <VerticalLeftOutlined /></Link>
       </Menu.Item>
     </Menu>
   );
@@ -108,7 +137,7 @@ class HeaderSection extends Component {
       return <Redirect to="/login" />;
     }
     return (
-      <div style={{ boxShadow: "0 0 5px 1px", position:"fixed", zIndex:2}}>
+      <div style={{ boxShadow: "0 0 5px 1px", zIndex: 1 }}>
         <Breakpoint medium up>
           <div>
             <Row style={{ padding: "0 20px 0 20px" }}>
@@ -140,7 +169,7 @@ class HeaderSection extends Component {
                           : this.menu_logout
                       }
                       trigger={["click"]}
-                      overlayStyle={{fontFamily:"VazirD"}}
+                      overlayStyle={{ fontFamily: "VazirD" }}
                     >
                       <div>
                         <Button
@@ -152,14 +181,27 @@ class HeaderSection extends Component {
                           }}
                         ></Button>
                         <Button
-                          icon={this.state.userinfo.picture ? <Avatar
-                            src={`${url}dstatic/${this.state.userinfo.picture}`} />
-                            : 
-                            <Avatar style={{backgroundColor:"white", color:"black"}} icon={<UserOutlined />} />
+                          icon={
+                            this.state.userinfo.picture ? (
+                              <Avatar
+                                src={`${url}dstatic/${this.state.userinfo.picture}`}
+                              />
+                            ) : (
+                              <Avatar
+                                style={{
+                                  backgroundColor: "white",
+                                  color: "black",
+                                }}
+                                icon={<UserOutlined />}
+                              />
+                            )
                           }
-                          style={{ borderRadius: "15px", color:"white", borderColor:"white" }}
-                        >
-                        </Button>
+                          style={{
+                            borderRadius: "15px",
+                            color: "white",
+                            borderColor: "white",
+                          }}
+                        ></Button>
                       </div>
                     </Dropdown>
                   </div>
@@ -253,21 +295,32 @@ class HeaderSection extends Component {
                     }}
                   ></Button>
                   <Drawer
-                    title={<p style={{color:"white"}}>بیلیگ</p>}
+                    title={<p style={{ color: "white" }}>بیلیگ</p>}
                     placement="left"
-                  
-                    headerStyle={{backgroundColor:"#46a0ae", color:"white"}}
+                    headerStyle={{ backgroundColor: "#46a0ae", color: "white" }}
                     closable={false}
                     onClose={this.onClose}
                     width="50%"
                     visible={this.state.Drawerpage}
-                    style={{ textAlign: "left", fontFamily: "VazirD" , color:"black"}}
+                    style={{
+                      textAlign: "left",
+                      fontFamily: "VazirD",
+                      color: "black",
+                    }}
                   >
                     <div>
-                      <Link style={{color:"black"}} onClick={this.onClose} to="create-packet">
+                      <Link
+                        style={{ color: "black" }}
+                        onClick={this.onClose}
+                        to="create-packet"
+                      >
                         <p>ثبت آگهی</p>
                       </Link>
-                      <Link style={{color:"black"}} onClick={this.onClose} to="orders">
+                      <Link
+                        style={{ color: "black" }}
+                        onClick={this.onClose}
+                        to="orders"
+                      >
                         <p>کسب در آمد از سفر</p>
                       </Link>
                       <p>بلاگ</p>
@@ -303,11 +356,22 @@ class HeaderSection extends Component {
               >
                 <Button
                   onClick={this.showprofilemenu}
-                  icon={this.state.userinfo.picture ? <Avatar
-                            src={`${url}dstatic/${this.state.userinfo.picture}`} />
-                            : 
-                            <Avatar style={{backgroundColor:"white", color:"black", border:"1px solid"}} icon={<UserOutlined />} />
-                          }
+                  icon={
+                    this.state.userinfo.picture ? (
+                      <Avatar
+                        src={`${url}dstatic/${this.state.userinfo.picture}`}
+                      />
+                    ) : (
+                      <Avatar
+                        style={{
+                          backgroundColor: "white",
+                          color: "black",
+                          border: "1px solid",
+                        }}
+                        icon={<UserOutlined />}
+                      />
+                    )
+                  }
                   style={{
                     borderRadius: "15px",
                     border: "1px solid",
@@ -316,27 +380,48 @@ class HeaderSection extends Component {
                 ></Button>
                 <Drawer
                   title={
-                    this.props.isAuthenticated ? 
-                    <div  >
-                      <Row style={{display:"flex",justifyContent:"center", alignItems:"center"}}>
-                      {this.state.userinfo.picture ? <Avatar
-                            src={`${url}dstatic/${this.state.userinfo.picture}`} size="large" />
-                            : 
-                            <Avatar  size="large" style={{backgroundColor:"white", color:"black", border:"1px solid"}} icon={<UserOutlined />} />
-                          }
-                        <Divider style={{margin:"5px", opacity:"0"}}/>
-                       <p style={{color:"white"}}> {this.state.userinfo.user &&
-                          this.state.userinfo.user.name}</p>
-                          </Row>
-                    </div>
-                    :
-                    "بیلیگ"
+                    this.props.isAuthenticated ? (
+                      <div>
+                        <Row
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          {this.state.userinfo.picture ? (
+                            <Avatar
+                              src={`${url}dstatic/${this.state.userinfo.picture}`}
+                              size="large"
+                            />
+                          ) : (
+                            <Avatar
+                              size="large"
+                              style={{
+                                backgroundColor: "white",
+                                color: "black",
+                                border: "1px solid",
+                              }}
+                              icon={<UserOutlined />}
+                            />
+                          )}
+                          <Divider style={{ margin: "5px", opacity: "0" }} />
+                          <p style={{ color: "white" }}>
+                            {" "}
+                            {this.state.userinfo.user &&
+                              this.state.userinfo.user.name}
+                          </p>
+                        </Row>
+                      </div>
+                    ) : (
+                      <p style={{ color: "white", marginTop: "10px" }}>حساب کاربری</p>
+                    )
                   }
                   placement="right"
                   closable={false}
                   onClose={this.onClose}
                   width="65%"
-                  headerStyle={{backgroundColor:"#46a0ae"}}
+                  headerStyle={{ backgroundColor: "#46a0ae" }}
                   visible={this.state.Drawerprofile}
                   style={{ textAlign: "center", fontFamily: "VazirD" }}
                 >
@@ -357,7 +442,7 @@ class HeaderSection extends Component {
                             <AimOutlined />
                           </Menu.Item>
                           <Menu.Item key="3" onClick={this.onClose}>
-                            <Link to="/profile/myoffer"> پیشنهاد من </Link>{" "}
+                            <Link to="/profile/myoffer"> پیشنهادهای من </Link>{" "}
                             <ContainerOutlined />
                           </Menu.Item>
                           <Menu.Item key="4" onClick={this.onClose}>
@@ -381,8 +466,7 @@ class HeaderSection extends Component {
                             <ContainerOutlined />
                           </Menu.Item>
                           <Menu.Item key="8" onClick={this.exit}>
-                            خروج
-                            <VerticalLeftOutlined />
+                            خروج <VerticalLeftOutlined />
                           </Menu.Item>
                         </Menu>
                       </div>

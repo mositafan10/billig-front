@@ -144,7 +144,7 @@ class LandingPage extends React.Component {
                 <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
                   <Divider plain orientation="center">
                     <Link to={"/how-billlig-work"}>
-                      <span>بیلیگ‌پست چگونه کار می‌کند؟</span>
+                      <span>بیلیگ چگونه کار می‌کند؟</span>
                     </Link>
                   </Divider>
                 </Col>
