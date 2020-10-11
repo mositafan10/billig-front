@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
-import { message } from "antd";
+import { message, notification } from "antd";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;
@@ -8,6 +8,7 @@ var url = config.url.API_URL;
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START,
+    token: null
   };
 };
 
@@ -23,6 +24,14 @@ export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
     error: error,
+    token: "notready"
+  };
+};
+
+export const authReady = () => {
+  return {
+    type: actionTypes.AUTH_READY,
+    token: "ready"
   };
 };
 
@@ -47,6 +56,7 @@ export const checkAuthTimeout = (expirationTime) => {
 export const authLogin = (phone_number, password, otp, name) => {
   return (dispatch) => {
     dispatch(authStart());
+    localStorage.setItem("token", null);
     Axios.post(`${url}api/v1/account/login/`, {
       phone_number: phone_number,
       password: password,
@@ -84,17 +94,19 @@ export const authSignup = (phone_number, password, name) => {
     })
       .then((res) => {
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        dispatch(authReady())
+        localStorage.setItem("token", "ready");
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(checkAuthTimeout(3600));
       })
       .catch((error) => {
         dispatch(authFail(error));
-        message.loading("... صبر کنید", 0.5).then(() =>
-          message.error({
-            content: error.response ? error.response.data.detail : "",
-            duration: "4",
-          })
-        );
+        localStorage.setItem("token", "notready");
+        notification['error']({
+          message: error.response.data.detail,
+          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"10%", fontSizeAdjust:"0.5"},
+          duration:3,
+        });
       });
   };
 };

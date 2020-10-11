@@ -8,6 +8,8 @@ import {
   Divider,
   InputNumber,
   ConfigProvider,
+  Checkbox,
+  Spin
 } from "antd";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
@@ -22,18 +24,27 @@ class SignUpForm extends React.Component {
     phone_number: "",
     name: "",
     toDashboard: false,
+    loading: false,
+    otploading: false
   };
 
   onFinish = (values) => {
+    this.setState({loading:true})
+    setTimeout(()=>{
+      const token = localStorage.getItem('token')
+      {
+        if( token == "ready") {
+        this.showModal();
+        }
+        this.setState({loading:false})
+      }
+    },2000)
     this.props.onAuth(values.phone_number);
     this.setState({
       password: values.password,
       phone_number: values.phone_number,
       name: values.name,
     });
-    {
-      this.showModal();
-    }
   };
 
   showModal = () => {
@@ -43,6 +54,13 @@ class SignUpForm extends React.Component {
   };
 
   handleOk = (values) => {
+    this.setState({otploading: true,otp: values.otp})
+    setTimeout(()=>{
+      this.setState({
+        visible: false,
+        toDashboard: true,
+      });
+    },2000)
     this.setState({
       visible: false,
       otp: values.otp,
@@ -64,6 +82,7 @@ class SignUpForm extends React.Component {
   render() {
     return (
       <ConfigProvider direction="ltr">
+        <Spin spinning={this.state.loading}>
         <Form
           size="middle"
           layout="vertical"
@@ -148,6 +167,23 @@ class SignUpForm extends React.Component {
           >
             <Input.Password style={{width: "300px", borderRadius: "10px" }} />
           </Form.Item>
+          <Form.Item
+                name="rule"
+                valuePropName="checked"
+                rules={[
+                  {
+                    validator: (_, value) =>
+                      value
+                        ? Promise.resolve()
+                        : Promise.reject("لطفا قوانین را ملاحظه بفرمایید"),
+                  },
+                ]}
+                style={{ textAlign: "center", direction:"rtl" }}
+              >
+                <Checkbox style={{ textAlign: "right" }}>
+                  با <a>قوانین و مقررات </a>بیلیگ پست موافقم *
+                </Checkbox>
+              </Form.Item>
           <Form.Item style={{width: "300px", textAlign: "center" }}>
             <br />
             <Button
@@ -169,12 +205,14 @@ class SignUpForm extends React.Component {
             onCancel={this.handleCancel}
             cancelText="انصراف"
             okText="ارسال"
+            confirmLoading={this.setState.otploading}
             okButtonProps={{
               form: "otpInsert",
               key: "submit",
               htmlType: "submit",
             }}
             visible={this.state.visible}
+            style={{ fontFamily: "VazirD" }}
           >
             <p style={{ textAlign: "center", fontFamily: "IRANSans" }}>
               {" "}
@@ -191,12 +229,13 @@ class SignUpForm extends React.Component {
                   },
                 ]}
               >
-                <InputNumber style={{ borderRadius: "10px", width:"100%", fontFamily:"VazirD", textAlign:"center" }} autoFocus="true" />
+                <InputNumber style={{ borderRadius: "10px", width:"100%", fontFamily:"VazirD", textAlign:"center" }} autoFocus />
               </Form.Item>
             </Form>
           </Modal>
           <Space direction="vertical" size="large" />
         </Form>
+        </Spin>
       </ConfigProvider>
     );
   }

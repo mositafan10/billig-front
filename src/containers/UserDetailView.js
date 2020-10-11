@@ -2,6 +2,8 @@ import React from 'react';
 import Axios from 'axios';
 import { Card , Tabs, Rate } from 'antd';
 import { config } from '../Constant';
+import CommentUser from '../components/comment/CommentUser'
+import { Breakpoint } from 'react-socks';
 
 var url = config.url.API_URL;
 const { TabPane } = Tabs;
@@ -23,11 +25,15 @@ class UserProfile extends React.Component {
     }
 
     render(){
+        const userID = this.props.match.params.userID;
         return(
-            <div style={{textAlign:"center"}}> 
+            <div> 
+            <Breakpoint medium up>
+                <div  style={{textAlign:"center", }}>
                     <img
                         width={300}
                         // alt="profile pic"
+                        style={{borderRadius:"10px"}}
                         src = {`${url}dstatic/${this.state.user_profile.picture}`}
                     /><br/>
                 <Card bordered={false}>
@@ -38,11 +44,36 @@ class UserProfile extends React.Component {
                 </Card>
                 <br/>
                 <Tabs  tabPosition="top" style={{textAlign:"center"}}>
-                    <TabPane tab="لیست سفرهای کاربر " key="1">
+                    <TabPane tab="نظرات دیگران " key="1">
+                        <CommentUser userID={userID}/>
                     </TabPane>
-                    <TabPane tab="نظرات دیگران " key="2">
-                    </TabPane>
+                    
                 </Tabs>
+                </div>
+                </Breakpoint>
+                <Breakpoint small down>
+                <div style={{textAlign:"center"}}>
+                    <img
+                        width={300}
+                        // alt="profile pic"
+                        style={{borderRadius:"10px"}}
+                        src = {`${url}dstatic/${this.state.user_profile.picture}`}
+                    /><br/>
+                <Card bordered={false}>
+                    <h3>{this.state.user_profile.name}</h3>
+                <Rate allowHalf value={this.state.user_profile.score} disabled={true} />
+                <br/><br/>
+                    <p >{this.state.user_profile.bio}</p>
+                </Card>
+                <br/>
+                <Tabs  tabPosition="top" style={{textAlign:"center"}}>
+                    <TabPane tab="نظرات دیگران " key="1">
+                        <CommentUser/>
+                    </TabPane>
+                    
+                </Tabs>
+                </div>
+                </Breakpoint>
             </div>
         )
     }

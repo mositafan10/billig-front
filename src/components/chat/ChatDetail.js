@@ -18,7 +18,7 @@ import {
 import Axios from "axios";
 import TextInput from "./TextInput";
 import moment from "moment";
-import { LinkOutlined, DownOutlined , MoreOutlined  } from "@ant-design/icons";
+import { LinkOutlined, DownOutlined , MoreOutlined, ArrowLeftOutlined   } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
@@ -189,13 +189,13 @@ class ChatDetail extends Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
-                    <Col>
+                    <Col span={3}>
                     <Dropdown overlay={informatoin} trigger={["click"]}
                      >
                       <Button size="large" icon={<MoreOutlined style={{fontSize:"larger"}}/>} style={{color:"black", border:"hidden"}} />
                     </Dropdown>
                     </Col>
-                    <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={7}>
+                    <Col span={18} style={{display:"flex", justifyContent:"right"}}>
                       {user == this.props.sender ? (
                         <Link to={"/users/" + this.props.receiver}>
                           <Avatar
@@ -219,6 +219,9 @@ class ChatDetail extends Component {
                           </span>
                         </Link>
                       )}
+                    </Col>
+                    <Col span={3} style={{display:"flex", justifyContent:"center"}}>
+                      <Button onClick={this.onClose} size="large" icon={<ArrowLeftOutlined size="large" />} style={{color:"black", border:"hidden"}} />
                     </Col>
                   </Row>
                 </Col>
@@ -289,11 +292,11 @@ class ChatDetail extends Component {
             }
             placement="left"
             width={"50%"}
-            closable={true}
+            closable={false}
             onClose={this.onClose}
             visible={this.state.visible}
             getContainer={false}
-            headerStyle={{ marginTop: 20 }}
+            headerStyle={{ height:"60px" }}
             bodyStyle={{ marginBottom: 30, zIndex: 999 }}
             style={{ zIndex: 999 }}
           >
@@ -414,6 +417,9 @@ class ChatDetail extends Component {
                         </Link>
                       )}
                     </Col>
+                    <Col span={3} style={{display:"flex", justifyContent:"right"}}>
+                      <Button onClick={this.onClose} size="large" icon={<ArrowLeftOutlined />} style={{color:"black", border:"hidden"}} />
+                    </Col>
                   </Row>
                 </Col>
               </Row>
@@ -441,9 +447,10 @@ class ChatDetail extends Component {
                 </Col>
               </Row>
             }
+            
             placement="left"
             width={"100%"}
-            closable={true}
+            closable={false}
             onClose={this.onClose}
             visible={this.state.visible}
             getContainer={false}

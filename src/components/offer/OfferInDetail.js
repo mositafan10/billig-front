@@ -77,8 +77,7 @@ class OfferDetail extends React.Component {
       })
       .catch((error) => {
       notification['error']({
-        message: "شما قبلا به این آگهی پیشنهاد داده‌اید",
-        description: error.response.data.detail,
+        message: error.response.data.detail,
         style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%", fontSizeAdjust:"0.4"},
         duration:3,
       });
@@ -170,13 +169,15 @@ class OfferDetail extends React.Component {
                     ]}
                   >
                     <Select
-                      style={{ textAlign: "right", borderRadius: "10px" }}
+                      style={{ textAlign: "right", borderRadius: "10px"}}
+                      dropdownStyle={{ fontFamily: "VazirD" }}
+
                     >
                       {this.state.travellist.map((e, key) => {
                         return (
                           <option key={key} value={e.slug}>
                             {e.destination.name} به {e.departure.name} در "
-                            {moment(e.flight_date_start).format("Do MMM YYYY")}"{" "}
+                            {moment(e.flight_date_start).format("D MMM")}"{" "}
                           </option>
                         );
                       })}

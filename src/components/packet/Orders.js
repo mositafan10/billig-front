@@ -60,7 +60,8 @@ class Orders extends React.Component {
               <Row
                 style={{
                   color: "black",
-                  boxShadow: "0 0 9px 1px",
+                  // boxShadow: "0 0 9px 1px",
+                  border:"1px solid",
                   borderRadius: "10px",
                   margin: "15px 15px 15px 15px",
                   padding: "15px 15px 10px 5px",
