@@ -9,6 +9,7 @@ import {
   Divider,
   Select,
   Checkbox,
+  Spin,
 } from "antd";
 import { Link } from "react-router-dom";
 import Orders from "../components/packet/Orders";
@@ -16,7 +17,6 @@ import { config } from "../Constant";
 import billliger from "../media/Billliger.svg";
 
 var url = config.url.API_URL;
-const { Search } = Input;
 const { Option } = Select;
 
 const style_text = {
@@ -32,6 +32,7 @@ class OrderList extends React.Component {
     countries: [],
     filter: "none",
     filteritems: [],
+    loading: false,
   };
 
   PacketCategory = [
@@ -48,23 +49,32 @@ class OrderList extends React.Component {
     { label: "پست", value: "پست" },
   ];
 
-  countryfilter = (id) => {
+  countryfilter = (e) => {
+    this.setState({ loading: true });
     const myItems = this.state.orders;
+    this.props.history.replace(`/orders/${e}`);
     const newArray = myItems.filter(
       (item) =>
-        item.origin_country.id === id || item.destination_country.id === id
+        item.origin_country.name === e || item.destination_country.name === e
     );
-    this.setState({
-      filteritems: newArray,
-    });
+    setTimeout(() => {
+      this.setState({
+        filteritems: newArray,
+        loading: false,
+      });
+    }, 1000);
   };
 
   categoryfilter = (id) => {
+    this.setState({ loading: true });
     const myItems = this.state.orders;
     const newArray = myItems.filter((item) => item.category === id);
-    this.setState({
-      filteritems: newArray,
-    });
+    setTimeout(() => {
+      this.setState({
+        filteritems: newArray,
+        loading: false,
+      });
+    }, 1000);
   };
 
   componentDidMount() {
@@ -77,15 +87,24 @@ class OrderList extends React.Component {
         });
       })
       .catch((error) => console.error(error));
-  }
 
-  countrylist = () => {
     Axios.get(`${url}api/v1/account/countries/`).then((res) => {
       this.setState({
         countries: res.data,
       });
     });
-  };
+
+    const ini_filter = this.props.location.pathname;
+    const country = ini_filter.replace("/orders", "");
+    const p_country = country.replace("/", "");
+
+    if (country != "" && country != "/") {
+      this.setState({ loading: true });
+      setTimeout(() => {
+        this.countryfilter(p_country);
+      }, 1000);
+    }
+  }
 
   canclefilter = () => {
     this.setState({
@@ -115,9 +134,6 @@ class OrderList extends React.Component {
             style={style_text}
           >
             <Row>
-              {/* <Col>
-                                <h1 style={{fontSize:"33px"}}>آگهی‌های خرید و پست</h1>
-                                </Col> */}
               <Col>
                 <p style={{ fontSize: "18px" }}>
                   در هر سفر می‌توانید هزینه‌های خود را با خرید و یا جابه‌جایی
@@ -178,12 +194,11 @@ class OrderList extends React.Component {
                 <Select
                   placeholder="کشور"
                   style={{ width: "100px" }}
-                  onClick={this.countrylist}
                   onChange={this.countryfilter.bind(this)}
                 >
                   {this.state.countries.map((e, key) => {
                     return (
-                      <Option key={key} value={e.id}>
+                      <Option key={key} value={e.name}>
                         {e.name}
                       </Option>
                     );
@@ -194,7 +209,18 @@ class OrderList extends React.Component {
                   options={this.PacketCategory}
                   style={{ width: "180px" }}
                   onChange={this.categoryfilter}
-                />
+                >
+                  {this.PacketCategory.map((e, key) => {
+                    return (
+                      <Link to={`/${key}`}>
+                        {" "}
+                        <Option key={key} value={e.value}>
+                          {e.value}
+                        </Option>
+                      </Link>
+                    );
+                  })}
+                </Select>
                 <Select
                   placeholder="وزن"
                   options={this.PacketCategory}
@@ -223,7 +249,7 @@ class OrderList extends React.Component {
                     {this.state.countries.map((e, key) => {
                       return (
                         <Option key={key} value={e.id}>
-                          {e.name}
+                          <Link to={`/orders/${e.name}`}> {e.name}</Link>
                         </Option>
                       );
                     })}
@@ -253,11 +279,13 @@ class OrderList extends React.Component {
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <Row>
               <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                <Orders
-                  data={this.state.filteritems}
-                  page={100}
-                  pagesize={100}
-                />
+                <Spin spinning={this.state.loading}>
+                  <Orders
+                    data={this.state.filteritems}
+                    page={100}
+                    pagesize={100}
+                  />
+                </Spin>
               </Col>
             </Row>
           </Col>

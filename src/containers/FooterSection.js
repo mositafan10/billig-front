@@ -74,7 +74,7 @@ class FooterSection extends Component {
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>بیلیگ</b></p><hr width="80" style={{float:"right"}}/><br/>
-                        <p style={style_p}>بلاگ</p>
+                        <a href={`${url}blog`}><p style={style_p}>بلاگ</p></a>
                         <Link to={'/about-us'}><p style={style_p}>درباره ما</p></Link>
                         <p style={style_p}>تماس با ما</p>
                         <p style={style_p}>حریم خصوصی</p>

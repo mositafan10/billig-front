@@ -32,7 +32,7 @@ class PackForm extends React.Component {
     cities_destination: [],
     city_origin_dis: true,
     city_destination_dis: true,
-    pic_id: null,
+    pic_id: 1,
     buy: false,
     ocv: "",
     category_other: false,

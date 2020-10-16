@@ -250,7 +250,7 @@ class HeaderSection extends Component {
                 xxl={4}
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <Link to="/">
+                <a href="/">
                   <img
                     style={{
                       float: "right",
@@ -261,7 +261,7 @@ class HeaderSection extends Component {
                     alt="billlig"
                     src={logo}
                   />
-                </Link>
+                </a>
               </Col>
             </Row>
           </div>
