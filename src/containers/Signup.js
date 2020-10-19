@@ -16,6 +16,8 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import FormItem from "antd/lib/form/FormItem";
+import Timer from '../components/utils/Timer';
 
 class SignUpForm extends React.Component {
   state = {
@@ -25,8 +27,12 @@ class SignUpForm extends React.Component {
     name: "",
     toDashboard: false,
     loading: false,
-    otploading: false
+    otploading: false,
+    timer: false,
+    enable: true
   };
+
+  child = React.createRef();
 
   onFinish = (values) => {
     this.setState({loading:true})
@@ -50,6 +56,7 @@ class SignUpForm extends React.Component {
   showModal = () => {
     this.setState({
       visible: true,
+      timer: true
     });
   };
 
@@ -78,6 +85,22 @@ class SignUpForm extends React.Component {
       visible: false,
     });
   };
+
+  timer = () => {
+    this.setState({
+      timer: true,
+      enable: true
+    })
+    this.props.onAuth(this.state.phone_number);
+    this.child.current.componentDidMount();
+  }
+
+  reset = () => {
+    this.setState({
+      timer: false,
+      enable:false
+    })
+  }
 
   render() {
     return (
@@ -231,6 +254,11 @@ class SignUpForm extends React.Component {
               >
                 <InputNumber style={{ borderRadius: "10px", width:"100%", fontFamily:"VazirD", textAlign:"center" }} autoFocus />
               </Form.Item>
+              <FormItem style={{borderRadius:"10px", textAlign:"center",}}>
+                {/* <p>کد تایید دریافت نکرده‌اید؟</p> */}
+                <Timer ref={this.child} parentcallback={this.reset.bind(this)} timer={this.state.timer} />
+                <Button disabled={this.state.enable} onClick={this.timer}  style={{borderRadius:"10px", border:"hidden", marginLeft:"5px"}}> ارسال مجدد  </Button>
+              </FormItem>
             </Form>
           </Modal>
           <Space direction="vertical" size="large" />

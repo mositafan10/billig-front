@@ -1,6 +1,6 @@
 import React from "react";
 import { Upload, message, Row, Col, Spin, Button } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;
@@ -56,12 +56,15 @@ class UploadProfilePicture extends React.Component {
                 <Spin size="large" />
               </div>
             ) : (
+              this.props.data ?
               <img
                 src={`${url}dstatic/${this.props.data}`}
                 alt="avatar"
                 width={200}
                 style={{ borderRadius: "15px", marginTop: "30px" }}
               />
+              :
+              <UserOutlined style={{fontSize:"100px"}} />
             )}
             <br />
             <Upload

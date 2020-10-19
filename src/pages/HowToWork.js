@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Col, Row, Divider, Button, Space } from "antd";
 import image from "../media/HowtoWork.svg";
+import { Breakpoint } from "react-socks";
 
 class HowToWork extends Component {
   componentDidMount() {
@@ -62,50 +63,100 @@ class HowToWork extends Component {
               <b>برای آشنایی با مراحل کار به لینک‌های زیر مراجعه فرمایید:</b>
             </p>
             <div>
-              <Space direction="horizontal" style={{display:"flex", justifyContent:"center"}}>
-                <Link to={"/travel-guide"}>
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      backgroundColor: "#46a0ae",
-                      color: "white",
-                    }}
-                  >
+              <Breakpoint medium up>
+                <Space
+                  direction="horizontal"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <Link to={"/travel-guide"}>
+                    <Button
+                      style={{
+                        borderRadius: "10px",
+                        backgroundColor: "#46a0ae",
+                        color: "white",
+                      }}
+                    >
+                      {" "}
+                      قصد سفر دارم{" "}
+                    </Button>
+                  </Link>
+                  <Link to={"/send-parcel-guide"}>
                     {" "}
-                    قصد سفر دارم{" "}
-                  </Button>
-                </Link>
-                <Link to={"/send-parcel-guide"}>
-                  {" "}
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      backgroundColor: "#46a0ae",
-                      color: "white",
-                    }}
-                  >
+                    <Button
+                      style={{
+                        borderRadius: "10px",
+                        backgroundColor: "#46a0ae",
+                        color: "white",
+                      }}
+                    >
+                      {" "}
+                      قصد ارسال بسته دارم{" "}
+                    </Button>
+                  </Link>
+                  <Link to={"/buy-guide"}>
                     {" "}
-                    قصد ارسال بسته دارم{" "}
-                  </Button>
-                </Link>
-                <Link to={"/buy-guide"}>
-                  {" "}
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      backgroundColor: "#46a0ae",
-                      color: "white",
-                    }}
-                  >
+                    <Button
+                      style={{
+                        borderRadius: "10px",
+                        backgroundColor: "#46a0ae",
+                        color: "white",
+                      }}
+                    >
+                      {" "}
+                      قصد خرید دارم{" "}
+                    </Button>
+                  </Link>
+                </Space>
+              </Breakpoint>
+              <Breakpoint small down>
+                <Space
+                  direction="vertical"
+                  style={{ display: "flex", textAlign: "center" }}
+                >
+                  <Link to={"/send-parcel-guide"}>
                     {" "}
-                    قصد خرید دارم{" "}
-                  </Button>
-                </Link>
-              </Space>
-              <Divider style={{opacity:"0"}}/>
+                    <Button
+                      style={{
+                        borderRadius: "10px",
+                        backgroundColor: "#46a0ae",
+                        color: "white",
+                      }}
+                    >
+                      {" "}
+                      قصد ارسال بسته دارم{" "}
+                    </Button>
+                  </Link>
+                  <Link to={"/buy-guide"}>
+                    {" "}
+                    <Button
+                      style={{
+                        borderRadius: "10px",
+                        backgroundColor: "#46a0ae",
+                        color: "white",
+                      }}
+                    >
+                      {" "}
+                      قصد خرید دارم{" "}
+                    </Button>
+                  </Link>
+                  <Link to={"/travel-guide"}>
+                    <Button
+                      style={{
+                        borderRadius: "10px",
+                        backgroundColor: "#46a0ae",
+                        color: "white",
+                      }}
+                    >
+                      {" "}
+                      قصد سفر دارم{" "}
+                    </Button>
+                  </Link>
+                </Space>
+              </Breakpoint>
+
+              <Divider style={{ opacity: "0" }} />
             </div>
           </Col>
-          <Col xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}></Col>
         </Row>
       </div>
     );

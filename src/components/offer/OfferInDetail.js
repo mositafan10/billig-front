@@ -171,7 +171,6 @@ class OfferDetail extends React.Component {
                     <Select
                       style={{ textAlign: "right", borderRadius: "10px"}}
                       dropdownStyle={{ fontFamily: "VazirD" }}
-
                     >
                       {this.state.travellist.map((e, key) => {
                         return (

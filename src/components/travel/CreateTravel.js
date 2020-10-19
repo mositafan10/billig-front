@@ -165,7 +165,7 @@ class CreateTravel extends React.Component {
                                 message:"کشور مبدا را انتخاب کنید"
                                 },
                         ]}>
-                            <Select onChange={this.get_city_origin.bind()}>
+                            <Select onChange={this.get_city_origin.bind()} dropdownStyle={{ fontFamily: "VazirD" }}>
                                 {this.state.countries.map((e, key) => {
                                 return <Option key={e.id}  value={e.id}>{e.name}</Option>;})}
                             </Select>
@@ -182,7 +182,7 @@ class CreateTravel extends React.Component {
                                 message:"شهر مبدا را انتخاب کنید"
                                 },
                         ]}>
-                            <Select disabled={this.state.city_origin_dis}>
+                            <Select disabled={this.state.city_origin_dis} dropdownStyle={{ fontFamily: "VazirD" }}>
                                 {this.state.cities_origin.map((e, key) => {
                                 return <option key={e.id} value={e.id}>{e.name}</option>;})}
                             </Select>
@@ -198,7 +198,7 @@ class CreateTravel extends React.Component {
                                 message:"کشور مقصد را انتخاب کنید"
                                 },
                         ]}>
-                            <Select onChange={this.get_city_destination.bind()}>
+                            <Select onChange={this.get_city_destination.bind()} dropdownStyle={{ fontFamily: "VazirD" }}>
                                 {this.state.countries.map((e, key) => {
                                 return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>
@@ -214,7 +214,7 @@ class CreateTravel extends React.Component {
                                 message:"شهر مقصد را انتخاب کنید"
                                 },
                         ]}>
-                            <Select disabled={this.state.city_destination_dis}>
+                            <Select disabled={this.state.city_destination_dis} dropdownStyle={{ fontFamily: "VazirD" }}>
                                 {this.state.cities_destination.map((e, key) => {
                                 return <option key={key} value={e.id}>{e.name}</option>;})}
                             </Select>

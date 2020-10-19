@@ -312,18 +312,24 @@ class HeaderSection extends Component {
                       <Link
                         style={{ color: "black" }}
                         onClick={this.onClose}
-                        to="create-packet"
+                        to="/create-packet"
                       >
                         <p>ثبت آگهی</p>
                       </Link>
                       <Link
                         style={{ color: "black" }}
                         onClick={this.onClose}
-                        to="orders"
+                        to="/orders"
                       >
                         <p>کسب در آمد از سفر</p>
                       </Link>
-                      <p>بلاگ</p>
+                      <a
+                        style={{ color: "black" }}
+                        onClick={this.onClose}
+                        href="https://billlig.com/blog"
+                      >
+                        <p>بلاگ</p>
+                      </a>
                     </div>
                   </Drawer>
                 </div>
