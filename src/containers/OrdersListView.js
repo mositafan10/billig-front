@@ -186,11 +186,6 @@ class OrderList extends React.Component {
           <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24}>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Space>
-                <Checkbox.Group
-                  options={this.order_type}
-                  defaultValue={["پست", "خرید"]}
-                  onChange={this.onChange}
-                />
                 <Select
                   placeholder="کشور"
                   style={{ width: "100px" }}
@@ -201,23 +196,6 @@ class OrderList extends React.Component {
                       <Option key={key} value={e.name}>
                         {e.name}
                       </Option>
-                    );
-                  })}
-                </Select>
-                <Select
-                  placeholder="دسته بندی"
-                  options={this.PacketCategory}
-                  style={{ width: "180px" }}
-                  onChange={this.categoryfilter}
-                >
-                  {this.PacketCategory.map((e, key) => {
-                    return (
-                      <Link to={`/${key}`}>
-                        {" "}
-                        <Option key={key} value={e.value}>
-                          {e.value}
-                        </Option>
-                      </Link>
                     );
                   })}
                 </Select>
@@ -249,26 +227,11 @@ class OrderList extends React.Component {
                     {this.state.countries.map((e, key) => {
                       return (
                         <Option key={key} value={e.id}>
-                          <Link to={`/orders/${e.name}`}> {e.name}</Link>
+                          <Link to={`/orders/${e.eng_name}`}> {e.name}</Link>
                         </Option>
                       );
                     })}
                   </Select>
-                  <Select
-                    placeholder="دسته بندی"
-                    options={this.PacketCategory}
-                    style={{ width: "180px" }}
-                  />
-                  <Select
-                    placeholder="وزن"
-                    options={this.PacketCategory}
-                    style={{ width: "180px" }}
-                  />
-                  <Checkbox.Group
-                    options={this.order_type}
-                    defaultValue={["پست", "خرید"]}
-                    onChange={this.onChange}
-                  />
                 </Space>
               </div>
             </div>
