@@ -148,7 +148,7 @@ class PacketForEdit extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{fontFamily:"VazirD"}}>
         <Row>
           <Col xs={0} sm={0} md={0} lg={0} xl={6} xxl={6}></Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>

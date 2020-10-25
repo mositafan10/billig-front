@@ -11,7 +11,7 @@ import {
   ConfigProvider,
   Spin,
   Divider,
-  notification
+  notification,
 } from "antd";
 import moment from "moment";
 import EditTravel from "./EditTravel";
@@ -21,7 +21,7 @@ import PayTraveler from "../payment/PayTraveler";
 var url = config.url.API_URL;
 const style_left = {
   display: "flex",
-  justifyContent: "left",
+  justifyContent: "flex-end",
   paddingLeft: "10px",
 };
 const style_right = { display: "flex", justifyContent: "right" };
@@ -32,10 +32,17 @@ class TravelList extends React.Component {
   };
 
   cancel(e) {
-    notification['error']({
-      message: 'درخواست لغو شد',
-      style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%", fontSizeAdjust:"0.5"},
-      duration:2,
+    notification["error"]({
+      message: "درخواست لغو شد",
+      style: {
+        fontFamily: "VazirD",
+        textAlign: "right",
+        float: "right",
+        width: "max-content",
+        marginTop: "30%",
+        fontSizeAdjust: "0.5",
+      },
+      duration: 2,
     });
   }
 
@@ -74,18 +81,17 @@ class TravelList extends React.Component {
               }}
               locale={{ emptyText: "سفری وجود ندارد" }}
               dataSource={this.props.data}
-              style={{display:"flex",}}
+              style={{ display: "flex" }}
               renderItem={(item) => (
                 <Row
                   style={{
                     border: "solid",
                     borderWidth: "0.5px",
-                    borderRadius: "30px 30px 15px 15px",
+                    borderRadius: "15px 15px 15px 15px",
                     margin: "15px 25px 15px 15px",
                     padding: "20px 20px 20px 20px",
                     width: "320px",
                     height: "auto",
-                    
                   }}
                 >
                   <List.Item key={item.slug}>
@@ -117,7 +123,7 @@ class TravelList extends React.Component {
                           </p>
                         </Col>
                       </Row>
-                      <hr style={{marginBottom:"20px"}}/>
+                      <hr style={{ marginBottom: "20px" }} />
                       <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                           <Row style={style_right}>
@@ -143,7 +149,7 @@ class TravelList extends React.Component {
                             </Col>
                           </Row>
                         </Col>
-                        <hr />
+                        <hr style={{backgroundColor:"white", color:"white"}}/>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                           <Row style={style_right}>
                             <Col
@@ -168,7 +174,7 @@ class TravelList extends React.Component {
                             </Col>
                           </Row>
                         </Col>
-                        <hr />
+                        <hr style={{backgroundColor:"white", color:"white"}}/>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                           <Row style={style_right}>
                             <Col
@@ -189,26 +195,54 @@ class TravelList extends React.Component {
                               lg={4}
                               xl={4}
                             >
-                             <p> {item.income} </p>
-                {item.income !== 0 && <p style={{marginRight:"5px"}}> تومان </p> }
+                              <p> {item.income} </p>
+                              {item.income !== 0 && (
+                                <p style={{ marginRight: "5px" }}> تومان </p>
+                              )}
                             </Col>
                           </Row>
-                          <Row style={{display:"flex", justifyContent:"center"}}>
-                          <br/>
-                          
-                          { item.status != 4 &&
-                              <PayTraveler travel={item.slug} amount={item.income} />
-                          
-                          }
-                          </Row>  
-                          <hr style={{margin:"15px 0 15px 0"}}/>
+                          <Row
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <br />
+                            { item.income != 0 ?
+                            (item.status != 4 && item.status != 8 ? (
+                              <PayTraveler
+                                travel={item.slug}
+                                amount={item.income}
+                              />
+                            ) : (
+                              <span
+                                style={{
+                                  border: "hidden",
+                                  padding: "5px",
+                                  borderRadius: "10px",
+                                  backgroundColor: "aliceblue",
+                                }}
+                              >
+                                در انتظار تسویه
+                              </span>
+                            ))
+                            :
+                            <Button
+                                style={{
+                                  border: "hidden",
+                                  padding: "5px",
+                                  borderRadius: "10px",
+                                  backgroundColor: "aliceblue",
+                                }}
+                              >
+                              </Button>
+                            }
+                          </Row>
+                          <hr style={{ margin: "15px 0 15px 0" }} />
                           <Row style={style_right}>
-                            <Col
-                              style={style_right}
-                              span={12}
-                            > 
+                            <Col style={style_right} span={12}>
                               <Popconfirm
-                                overlayStyle={{fontFamily:"VazirD"}}
+                                overlayStyle={{ fontFamily: "VazirD" }}
                                 title="آیا از حذف آگهی مطمئن هستید ؟"
                                 onConfirm={this.delete.bind(this, item.slug)}
                                 onCancel={this.cancel}
@@ -225,10 +259,7 @@ class TravelList extends React.Component {
                                 </Button>
                               </Popconfirm>
                             </Col>
-                            <Col
-                              style={style_left}
-                             span={12}
-                            >
+                            <Col style={style_left} span={12}>
                               <EditTravel
                                 signal={this.editsignal}
                                 data={item.slug}

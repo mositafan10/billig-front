@@ -40,6 +40,7 @@ class UploadProfilePicture extends React.Component {
         loading: false,
       });
       this.props.update();
+      window.location.reload();
     }
   };
 
@@ -47,7 +48,7 @@ class UploadProfilePicture extends React.Component {
     const token = localStorage.getItem("token");
     return (
       <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}
+        style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
       >
         <Row>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>

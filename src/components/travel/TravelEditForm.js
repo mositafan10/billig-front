@@ -99,7 +99,7 @@ class TravelEditForm extends Component {
     render() {
         const flight_date_start = moment(this.props.data.flight_date_start);
         return (
-            <div>
+            <div style={{fontFamily:"VazirD"}}>
             <Row style={{padding:"10px"}}>
             <Col span={24}>
                 <Form onFinish={(values) => this.handleFormSubmit(values)} id="edit">

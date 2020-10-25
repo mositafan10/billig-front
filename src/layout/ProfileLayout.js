@@ -75,13 +75,12 @@ class ProfileLayout extends React.Component {
                       <HeartOutlined />
                     </Menu.Item>
                     <Menu.Item key="7">
-                      <Link to="/profile/editprofile">ویرایش پروفایل</Link>{" "}
+                      <Link to="/profile/editprofile">اطلاعات کاربری</Link>{" "}
                       <ContainerOutlined />
                     </Menu.Item>
                   </Menu>
                 </div>
               </Sider>
-              
             </Layout>
           </Layout>
         </Breakpoint>

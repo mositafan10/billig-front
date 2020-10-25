@@ -369,17 +369,176 @@ class UserOffer extends React.Component {
               <Spin />
             </div>
           ) : (
-            <Table
-              pagination={{
-                onChange: (page) => {
-                },
-                hideOnSinglePage: true,
-                size: "small",
-              }}
-              locale={{ emptyText: "پیشنهادی وجود ندارد" }}
-              columns={this.columns}
-              dataSource={this.state.offer}
-            />
+            // <Table
+            //   pagination={{
+            //     onChange: (page) => {
+            //     },
+            //     hideOnSinglePage: true,
+            //     size: "small",
+            //   }}
+            //   locale={{ emptyText: "پیشنهادی وجود ندارد" }}
+            //   columns={this.columns}
+            //   dataSource={this.state.offer}
+            // />
+            <List
+                locale={{ emptyText: "پیشنهادی وجود ندارد" }}
+                grid={{
+                  xs: 1,
+                  sm: 1,
+                  md: 2,
+                  lg: 3,
+                  xl: 3,
+                  xxl: 3,
+                }}
+                pagination={{
+                  onChange: (page) => {},
+                  hideOnSinglePage: true,
+                  simple: true,
+                  hide: true,
+                }}
+                dataSource={this.state.offer}
+                renderItem={(item) => (
+                  <div>
+                    <Row
+                      style={{
+                        color: "black",
+                        boxShadow: "0 0 8px 0px",
+                        border: "1px solid",
+                        borderRadius: "10px",
+                        margin: "25px 0px 25px 0px",
+                        padding: "15px 15px 15px 15px",
+                        width: "100%",
+                        height: "auto",
+                      }}
+                    >
+                      <Col
+                        xs={24}
+                        sm={24}
+                        md={24}
+                        lg={24}
+                        xl={24}
+                        xxl={24}
+                        style={{ textAlign: "center" }}
+                      >
+                        <p>وضعیت :‌ <span style={{color:"#46a0ae"}}>{item.status}</span></p>
+                        <hr />
+                      </Col>
+                      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                        <Avatar
+                          src={`${url}dstatic/media/${item.receiver_avatar}`}
+                        ></Avatar>
+                        <span> {item.receiver} </span>
+                        <p style={{margin:"8px 8px"}}>{item.description}</p>
+                        <p style={{ textAlign: "left", marginTop: "20px" }}>
+                          {item.price} تومان{" "}
+                        </p><hr/>
+                      </Col>
+                      <Col>
+                        <Space>
+                          <Col>
+                            {item.status === "انجام شده" ? (
+                              <Button
+                                disabled={true}
+                                style={{
+                                  fontSize: "12px",
+                                  backgroundColor: "white",
+                                  color: "transparent",
+                                  textShadow: "0 0 5px rgba(0,0,0,0.5)",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                چت
+                              </Button>
+                            ) : (
+                              <SendMessage sender={item.sender_id} receiver={item.receiver_id} slug={item.slug} />
+                            )}
+                          </Col>
+                          <Col>
+                            {item.status === "در انتظار تایید مسافر" && (
+                              <ConfirmPrice data={item.slug} price1={item.price} parentfunction={this.callbackfunction} />
+                            )}
+                            {item.status === "در انتظار خرید" && (
+                              <Popconfirm
+                              overlayStyle={{fontFamily:"VazirD"}}
+                              title="آیا کالا خریداری شده است؟"
+                              onConfirm={this.buydone.bind(this, item.slug)}
+                              onCancel={this.cancel}
+                              okText="بله"
+                              cancelText="خیر"
+                            >
+                             <Button
+                                style={{
+                                  fontSize: "12px",
+                                  border: "hidden",
+                                  color: "white",
+                                  backgroundColor: "green",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                خریداری شد
+                              </Button>
+                            </Popconfirm>
+                              
+                            )}
+                            {item.status === "در انتظار تحویل" && (
+                              <Popconfirm
+                              overlayStyle={{fontFamily:"VazirD"}}
+                              title="آیا کالا تحویل شده است؟"
+                              onConfirm={this.receivedone.bind(this, item.slug)}
+                              onCancel={this.cancel}
+                              okText="بله"
+                              cancelText="خیر"
+                            >
+                             <Button
+                                style={{
+                                  fontSize: "12px",
+                                  border: "hidden",
+                                  color: "white",
+                                  backgroundColor: "green",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                تحویل شد
+                              </Button>
+                            </Popconfirm>
+                            )}
+                          </Col>
+                          <Col>
+                            {item.status === "در انتظار تایید مسافر" && (
+                              <Popconfirm
+                              overlayStyle={{fontFamily:"VazirD"}}
+                              title="آیا مبلغ نهایی مورد تایید است؟"
+                              onConfirm={this.confrim.bind(
+                                this,
+                                item.slug,
+                                item.price
+                              )}
+                              onCancel={this.cancel}
+                              okText="بله"
+                              cancelText="خیر"
+                            >
+                             <Button
+                                style={{
+                                  fontSize: "12px",
+                                  border: "hidden",
+                                  backgroundColor: "aliceblue",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                تایید
+                              </Button>
+                            </Popconfirm>
+                            )}
+                            {item.status === "انجام شده" && (
+                              <PayTraveler data={item.slug} />
+                            )}
+                          </Col>
+                        </Space>
+                      </Col>
+                    </Row>
+                  </div>
+                )}
+              />
           )}
         </Breakpoint>
         <Breakpoint small down>

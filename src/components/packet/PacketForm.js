@@ -15,6 +15,8 @@ import {
   Tooltip,
   Cascader,
   notification,
+  Steps,
+  message
 } from "antd";
 import UploadFile from "../utils/UploadPicture";
 import TextArea from "antd/lib/input/TextArea";
@@ -24,6 +26,7 @@ import { config } from "../../Constant";
 var url = config.url.API_URL;
 
 const { Option } = Select;
+const { Step } = Steps;
 
 class PackForm extends React.Component {
   state = {
@@ -37,6 +40,7 @@ class PackForm extends React.Component {
     ocv: "",
     category_other: false,
     loading: false,
+    current: 0,
   };
 
   PacketCategory = [
@@ -56,6 +60,26 @@ class PackForm extends React.Component {
     { value: "4", label: "بزرگ" },
     { value: "5", label: "خیلی بزرگ" },
   ];
+
+  steps = [
+    {
+      title: 'First',
+      content: 'First-content',
+    },
+    {
+      title: 'Second',
+      content: 'Second-content',
+    },
+    {
+      title: 'Last',
+      content: 'Last-content',
+    },
+  ];
+
+
+  onChange = current => {
+    this.setState({ current });
+  };
 
   callbackFunction = (childData) => {
     if (childData.length == 1) {
@@ -163,17 +187,16 @@ class PackForm extends React.Component {
         setTimeout(() => {
           window.location = "/profile/mypacket";
         }, 3000);
-        notification["success"]({
+        setTimeout(()=>{ notification["success"]({
           message: "آگهی شما با موفقیت ثبت شد",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
             float: "right",
             width: "max-content",
-            marginTop: "50%",
           },
           duration: 2.5,
-        });
+        });},1500)
       })
       .catch((error) => {
         notification["error"]({
@@ -183,7 +206,6 @@ class PackForm extends React.Component {
             textAlign: "right",
             float: "right",
             width: "max-content",
-            marginTop: "50%",
           },
           duration: 2.5,
         });
@@ -405,7 +427,14 @@ class PackForm extends React.Component {
                       { required: true, message: "وزن بسته را وارد کنید" },
                     ]}
                   >
-                    <Slider max={30} min={0} step={0.5} tooltipVisible />
+                    <InputNumber
+                        formatter={(value) =>
+                          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                        style={{ textAlign: "right" }}
+                        min={0}
+                      />
                   </Form.Item>
                 </Col>
               </Row>
@@ -464,7 +493,7 @@ class PackForm extends React.Component {
                 </Tooltip>
                 <Divider plain orientation="center">
                   {" "}
-                  قیمت کالا
+               قیمت کالا (تومان)
                 </Divider>
                 <Form.Item name="parcel_price">
                   <InputNumber
@@ -524,6 +553,34 @@ class PackForm extends React.Component {
           </Col>
           <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6}></Col>
         </Row>
+
+{/* 
+<>
+        <Steps current={this.current}>
+          {this.steps.map(item => (
+            <Step key={item.title} title={item.title} />
+          ))}
+        </Steps>
+        <div className="steps-content">{this.steps[this.current].content}</div>
+        <div className="steps-action">
+          {this.current < this.steps.length - 1 && (
+            <Button type="primary" onClick={() => this.next()}>
+              Next
+            </Button>
+          )}
+          {this.current === this.steps.length - 1 && (
+            <Button type="primary" onClick={() => message.success('Processing complete!')}>
+              Done
+            </Button>
+          )}
+          {this.current > 0 && (
+            <Button style={{ margin: '0 8px' }} onClick={() => this.prev()}>
+              Previous
+            </Button>
+          )}
+        </div>
+      </> */}
+
       </div>
     );
   }

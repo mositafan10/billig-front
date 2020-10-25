@@ -55,7 +55,7 @@ class OrderList extends React.Component {
     this.props.history.replace(`/orders/${e}`);
     const newArray = myItems.filter(
       (item) =>
-        item.origin_country.name === e || item.destination_country.name === e
+        item.origin_country.eng_name === e || item.destination_country.eng_name === e
     );
     setTimeout(() => {
       this.setState({
@@ -65,17 +65,6 @@ class OrderList extends React.Component {
     }, 1000);
   };
 
-  categoryfilter = (id) => {
-    this.setState({ loading: true });
-    const myItems = this.state.orders;
-    const newArray = myItems.filter((item) => item.category === id);
-    setTimeout(() => {
-      this.setState({
-        filteritems: newArray,
-        loading: false,
-      });
-    }, 1000);
-  };
 
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -193,22 +182,17 @@ class OrderList extends React.Component {
                 >
                   {this.state.countries.map((e, key) => {
                     return (
-                      <Option key={key} value={e.name}>
+                      <Option key={key} value={e.eng_name}>
                         {e.name}
                       </Option>
                     );
                   })}
                 </Select>
-                <Select
-                  placeholder="وزن"
-                  options={this.PacketCategory}
-                  style={{ width: "180px" }}
-                />
                 <Button
                   style={{ borderRadius: "10px", fontSize: "13px" }}
                   onClick={this.canclefilter.bind(this)}
                 >
-                  لغو فیلترها
+                  لغو فیلتر
                 </Button>
               </Space>
             </div>
@@ -222,17 +206,19 @@ class OrderList extends React.Component {
               <div
                 style={{ display: this.state.filter, justifyContent: "center" }}
               >
-                <Space direction="vertical">
-                  <Select placeholder="کشور" style={{ width: "180px" }}>
-                    {this.state.countries.map((e, key) => {
-                      return (
-                        <Option key={key} value={e.id}>
-                          <Link to={`/orders/${e.eng_name}`}> {e.name}</Link>
-                        </Option>
-                      );
-                    })}
-                  </Select>
-                </Space>
+                <Select
+                  placeholder="کشور"
+                  style={{ width: "100px" }}
+                  onChange={this.countryfilter.bind(this)}
+                >
+                  {this.state.countries.map((e, key) => {
+                    return (
+                      <Option key={key} value={e.eng_name}>
+                        {e.name}
+                      </Option>
+                    );
+                  })}
+                </Select>
               </div>
             </div>
           </Col>

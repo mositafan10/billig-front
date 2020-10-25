@@ -254,11 +254,10 @@ class SignUpForm extends React.Component {
               >
                 <InputNumber style={{ borderRadius: "10px", width:"100%", fontFamily:"VazirD", textAlign:"center" }} autoFocus />
               </Form.Item>
-              <FormItem style={{borderRadius:"10px", textAlign:"center",}}>
-                {/* <p>کد تایید دریافت نکرده‌اید؟</p> */}
+              <Form.Item style={{borderRadius:"10px", textAlign:"center",}}>
                 <Timer ref={this.child} parentcallback={this.reset.bind(this)} timer={this.state.timer} />
                 <Button disabled={this.state.enable} onClick={this.timer}  style={{borderRadius:"10px", border:"hidden", marginLeft:"5px"}}> ارسال مجدد  </Button>
-              </FormItem>
+              </Form.Item>
             </Form>
           </Modal>
           <Space direction="vertical" size="large" />

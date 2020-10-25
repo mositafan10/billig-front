@@ -52,7 +52,7 @@ class EditTravel extends Component {
                     okText="بازگشت"
                     okButtonProps={{textAlign:"center",}}
                     cancelButtonProps={{hidden:"true"}}
-                    style={{fontFamily:"IRANSans", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
+                    style={{fontFamily:"VazirD", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
                     width="30%"
                     bodyStyle={{borderRadius:"20px"}}
                     maskStyle={{borderRadius:"20px"}}
@@ -70,7 +70,7 @@ class EditTravel extends Component {
                     okText="بازگشت"
                     okButtonProps={{textAlign:"center",}}
                     cancelButtonProps={{hidden:"true"}}
-                    style={{fontFamily:"IRANSans", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
+                    style={{fontFamily:"VazirD", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
                     width="90%"
                     bodyStyle={{borderRadius:"20px"}}
                     maskStyle={{borderRadius:"20px"}}
