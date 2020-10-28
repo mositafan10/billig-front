@@ -11,22 +11,22 @@ class InboxLayout extends React.Component {
         offer : "",
         sender_avatar : "",
         receiver_avatar : "",
-        visible : false,
         sender_name: "",
         receiver_name: "",
-        sender: "",
-        receiver: "",
+        sender_slug: "",
+        receiver_slug: "",
         packet_title: "",
+        visible : false,
     }
 
-    callbackFunction = (chatid, offer, sender_avatar, receiver_avatar, sender, receiver, sender_name, receiver_name, packet_title) => {
+    callbackFunction = (chatid, offer, sender_avatar, receiver_avatar, sender_slug, receiver_slug, sender_name, receiver_name, packet_title) => {
         this.setState({
             chatid: chatid,
             offer: offer,
             sender_avatar: sender_avatar,
             receiver_avatar: receiver_avatar,
-            sender: sender,
-            receiver: receiver,
+            sender_slug: sender_slug,
+            receiver_slug: receiver_slug,
             sender_name: sender_name,
             receiver_name: receiver_name,
             packet_title: packet_title,
@@ -51,8 +51,8 @@ class InboxLayout extends React.Component {
                         offer={this.state.offer} 
                         sender_avatar={this.state.sender_avatar}
                         receiver_avatar={this.state.receiver_avatar}
-                        sender={this.state.sender}
-                        receiver={this.state.receiver}
+                        sender_slug={this.state.sender_slug}
+                        receiver_slug={this.state.receiver_slug}
                         sender_name={this.state.sender_name}
                         receiver_name={this.state.receiver_name}
                         packet_title = {this.state.packet_title}

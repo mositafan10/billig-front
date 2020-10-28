@@ -76,7 +76,7 @@ class HeaderSection extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     {
-      token &&
+      token != null &&
         Axios.get(`${url}api/v1/account/userinfo/`, {
           headers: { Authorization: `Bearer ${token}` },
         })

@@ -30,14 +30,14 @@ class ChatContacs extends Component {
     this.componentDidMount()
   }
 
-  sendData = (chatid, offer, sender_avatar, receiver_avatar, sender, receiver, sender_name, receiver_name, packet_title, visible) => {
+  sendData = (chatid, offer, sender_avatar, receiver_avatar, sender_slug, receiver_slug, sender_name, receiver_name, packet_title, visible) => {
     this.props.parentCallback(
       chatid,
       offer,
       sender_avatar,
       receiver_avatar,
-      sender,
-      receiver,
+      sender_slug,
+      receiver_slug,
       sender_name,
       receiver_name,
       packet_title,
@@ -68,7 +68,7 @@ class ChatContacs extends Component {
               >
                 <List.Item.Meta
                   avatar={
-                    user == item.sender ? (
+                    user == item.sender_slug ? (
                       <Badge count={item.new_massage_sender}>
                         <Avatar
                           src={`${url}dstatic/media/${item.receiver_avatar}`}
@@ -83,17 +83,17 @@ class ChatContacs extends Component {
                     )
                   }
                   title={
-                    user == item.sender ? (
+                    user == item.sender_slug ? (
                       <Button
                         style={{ border: "hidden", fontSize: "12px" }}
                         onClick={() =>
                           this.sendData(
-                            item.id,
+                            item.slug,
                             item.offer_state,
                             item.sender_avatar,
                             item.receiver_avatar,
-                            item.sender,
-                            item.receiver,
+                            item.sender_slug,
+                            item.receiver_slug,
                             item.sender_name,
                             item.receiver_name,
                             item.packet_title,
@@ -109,12 +109,12 @@ class ChatContacs extends Component {
                         style={{ border: "hidden", fontSize: "12px" }}
                         onClick={() =>
                           this.sendData(
-                            item.id,
+                            item.slug,
                             item.offer_state,
                             item.sender_avatar,
                             item.receiver_avatar,
-                            item.sender,
-                            item.receiver,
+                            item.sender_slug,
+                            item.receiver_slug,
                             item.sender_name,
                             item.receiver_name,  
                             item.packet_title,

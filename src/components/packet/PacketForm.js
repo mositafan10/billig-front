@@ -234,8 +234,7 @@ class PackForm extends React.Component {
             justifyContent: "center",
           }}
         >
-          {" "}
-          راهنمای ثبت آگهی{" "}
+          راهنمای ثبت آگهی
         </Link>
         <br />
         <Row>

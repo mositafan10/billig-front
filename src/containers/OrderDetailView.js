@@ -156,7 +156,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        <Link to={"/users/" + user}>
+                        <Link to={"/users/" + this.state.order.owner_slug}>
                           {this.state.order.owner_name}{" "}
                         </Link>
                       </Col>
@@ -412,7 +412,7 @@ class OrderDetail extends React.Component {
                     lg={10}
                     xl={10}
                   >
-                    <Link to={"/users/" + user}>
+                    <Link to={"/users/" + this.state.order.owner_slug}>
                       {" "}
                       {this.state.order.owner_name}{" "}
                     </Link>

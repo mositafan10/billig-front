@@ -172,6 +172,7 @@ class ChatDetail extends Component {
  
   render() {
     const user = localStorage.getItem("user");
+    console.log(user)
     const chatid = this.props.data;
     const token = localStorage.getItem("token");
     const informatoin = (
@@ -196,8 +197,8 @@ class ChatDetail extends Component {
                     </Dropdown>
                     </Col>
                     <Col span={18} style={{display:"flex", justifyContent:"right"}}>
-                      {user == this.props.sender ? (
-                        <Link to={"/users/" + this.props.receiver}>
+                      {user == this.props.sender_slug ? (
+                        <Link to={"/users/" + this.props.receiver_slug}>
                           <Avatar
                             src={`${url}dstatic/media/${this.props.receiver_avatar}`}
                           />
@@ -208,7 +209,7 @@ class ChatDetail extends Component {
                           </span>
                         </Link>
                       ) : (
-                        <Link to={"/users/" + this.props.sender}>
+                        <Link to={"/users/" + this.props.sender_slug}>
                           <Avatar
                             src={`${url}dstatic/media/${this.props.sender_avatar}`}
                           />
@@ -328,7 +329,7 @@ class ChatDetail extends Component {
                           ? moment(item.create_at).format("dddd D MMM")
                           : ""}
                       </div>
-                      {user == item.ownerid ? (
+                      {user == item.owner_slug ? (
                         <List.Item>
                           <div style={right_test_style}>
                             {item.picture === null ? (
@@ -393,8 +394,8 @@ class ChatDetail extends Component {
                     </Dropdown>
                     </Col>
                     <Col span={18} style={{display:"flex", justifyContent:"right"}}>
-                      {user == this.props.sender ? (
-                        <Link to={"/users/" + this.props.receiver}>
+                      {user == this.props.sender_slug ? (
+                        <Link to={"/users/" + this.props.receiver_slug}>
                           <Avatar
                             src={`${url}dstatic/media/${this.props.receiver_avatar}`}
                           />
@@ -405,7 +406,7 @@ class ChatDetail extends Component {
                           </span>
                         </Link>
                       ) : (
-                        <Link to={"/users/" + this.props.sender}>
+                        <Link to={"/users/" + this.props.sender_slug}>
                           <Avatar
                             src={`${url}dstatic/media/${this.props.sender_avatar}`}
                           />
@@ -485,7 +486,7 @@ class ChatDetail extends Component {
                           ? moment(item.create_at).format("dddd D MMM")
                           : ""}
                       </div>
-                      {user == item.ownerid ? (
+                      {user == item.owner_slug ? (
                         <List.Item>
                           <div style={right_test_style}>
                             {item.picture == null ? (

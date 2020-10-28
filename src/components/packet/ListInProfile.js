@@ -174,12 +174,6 @@ class PacketUserList extends React.Component {
               <Spin />
             </div>
           ) : (
-            // <Table
-            //   scroll={{ x: 900 }}
-            //   columns={this.columns}
-            //   dataSource={this.state.packet_user}
-            //   locale={{ emptyText: "آگهی وجود ندارد" }}
-            // />
             <List
             grid={{
               xs: 1,

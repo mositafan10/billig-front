@@ -70,7 +70,7 @@ class OfferDetail extends React.Component {
         setTimeout(() => {
         notification['success']({
           message: 'پیشنهاد شما با موفقیت ثبت شد',
-          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
           duration:3,
         });
       }, 1500);
@@ -78,7 +78,7 @@ class OfferDetail extends React.Component {
       .catch((error) => {
       notification['error']({
         message: error.response.data.detail,
-        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%", fontSizeAdjust:"0.4"},
+        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", fontSizeAdjust:"0.4"},
         duration:3,
       });
     });

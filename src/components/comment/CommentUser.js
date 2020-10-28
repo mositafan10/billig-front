@@ -27,11 +27,12 @@ class CommentUser extends Component {
   render() {
     return (
       <div>
+        { this.state.comments.length != 0 &&
         <p> {this.state.comments.length} نقطه نظر درباره ایشان ثبت شده است.</p>
-
+        }
         <Breakpoint medium up>
           <List
-            locale={{ emptyText: "در مورد کاربر نظری ثبت نشده است" }}
+            locale={{ emptyText: "اظهارنظر انجام نشده است" }}
             style={{
               display: "flex",
               justifyContent: "center",

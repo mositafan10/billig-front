@@ -362,24 +362,13 @@ class UserOffer extends React.Component {
   call
   render() {
     return (
-      <div>
+      <div style={{display:"flex", justifyContent:"center"}}>
         <Breakpoint medium up>
           {this.state.loading ? (
             <div style={{ marginTop: "100px" }}>
               <Spin />
             </div>
           ) : (
-            // <Table
-            //   pagination={{
-            //     onChange: (page) => {
-            //     },
-            //     hideOnSinglePage: true,
-            //     size: "small",
-            //   }}
-            //   locale={{ emptyText: "پیشنهادی وجود ندارد" }}
-            //   columns={this.columns}
-            //   dataSource={this.state.offer}
-            // />
             <List
                 locale={{ emptyText: "پیشنهادی وجود ندارد" }}
                 grid={{
@@ -402,7 +391,6 @@ class UserOffer extends React.Component {
                     <Row
                       style={{
                         color: "black",
-                        boxShadow: "0 0 8px 0px",
                         border: "1px solid",
                         borderRadius: "10px",
                         margin: "25px 0px 25px 0px",
