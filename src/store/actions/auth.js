@@ -80,7 +80,11 @@ export const authLogin = (phone_number, password, otp, name) => {
         }
       })
       .catch((error) => {
-        message.error(error.response.data.detail);
+        notification['error']({
+          message: error.response.data.detail,
+          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", fontSizeAdjust:"0.5"},
+          duration:3,
+        });
         dispatch(authFail(error));
       });
   };
@@ -104,7 +108,7 @@ export const authSignup = (phone_number, password, name) => {
         localStorage.setItem("token", "notready");
         notification['error']({
           message: error.response.data.detail,
-          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"10%", fontSizeAdjust:"0.5"},
+          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", fontSizeAdjust:"0.5"},
           duration:3,
         });
       });

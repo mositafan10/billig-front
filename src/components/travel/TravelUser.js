@@ -39,7 +39,6 @@ class TravelList extends React.Component {
         textAlign: "right",
         float: "right",
         width: "max-content",
-        marginTop: "30%",
         fontSizeAdjust: "0.5",
       },
       duration: 2,

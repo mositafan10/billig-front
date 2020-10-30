@@ -3,12 +3,10 @@ import Axios from "axios";
 import {
   Row,
   Col,
-  Input,
   Button,
   Space,
   Divider,
   Select,
-  Checkbox,
   Spin,
 } from "antd";
 import { Link } from "react-router-dom";

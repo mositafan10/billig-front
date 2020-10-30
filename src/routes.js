@@ -19,7 +19,6 @@ import Faq from './pages/Faq';
 class BaseRouter extends React.Component {
     render(){
     return(
-        // <BrowserRouter  >             
             <Switch>
                 <Route exact path='/' render={(props) => <LandingPage {...this.props}/>} />
                 <Route exact path='/orders' render={(props) => <OrderList {...this.props}/> }/>
@@ -29,6 +28,7 @@ class BaseRouter extends React.Component {
                 <Route exact path='/travel/:travelID' component={this.props.isAuthenticated ? TravelDetail:AuthorizationFail} />
                 <Route exact path='/users/:userID' component={UserProfile} />
                 <Route exact path='/packet/:orderID' component={OrderDetail} />
+                <Route exact path='/packet/:title/:orderID/' component={OrderDetail} />
                 <Route exact path='/payment/verify' component={VerifyTransaction} />
                 <Route exact path='/about-us' component={AboutUs} />
                 <Route exact path='/how-billlig-work' component={HowToWork} />
@@ -39,7 +39,6 @@ class BaseRouter extends React.Component {
                 <Route component={PageNotFound} />
                 <Redirect from='/home' to='/'/>
             </Switch>
-        // </BrowserRouter>
         );
     }
 }

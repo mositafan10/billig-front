@@ -1,5 +1,13 @@
 import React from "react";
-import { Modal, Button, Form, notification, message, Select, InputNumber } from "antd";
+import {
+  Modal,
+  Button,
+  Form,
+  notification,
+  message,
+  Select,
+  InputNumber,
+} from "antd";
 import Axios from "axios";
 import TextArea from "antd/lib/input/TextArea";
 import { Link } from "react-router-dom";
@@ -36,6 +44,11 @@ class OfferDetail extends React.Component {
   };
 
   showModal = () => {
+    Axios.get(`${url}api/v1/advertise/travellist/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => this.setState({ travellist: res.data }))
+      .catch((error) => console.error(error));
     this.setState({
       visible: true,
     });
@@ -68,34 +81,37 @@ class OfferDetail extends React.Component {
           });
         }, 3000);
         setTimeout(() => {
-        notification['success']({
-          message: 'پیشنهاد شما با موفقیت ثبت شد',
-          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
-          duration:3,
-        });
-      }, 1500);
+          notification["success"]({
+            message: "پیشنهاد شما با موفقیت ثبت شد",
+            style: {
+              fontFamily: "VazirD",
+              textAlign: "right",
+              float: "right",
+              width: "max-content",
+            },
+            duration: 3,
+          });
+        }, 1500);
       })
       .catch((error) => {
-      notification['error']({
-        message: error.response.data.detail,
-        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", fontSizeAdjust:"0.4"},
-        duration:3,
+        notification["error"]({
+          message: error.response.data.detail,
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            fontSizeAdjust: "0.4",
+          },
+          duration: 3,
+        });
       });
-    });
   };
 
   handleCancel = (e) => {
     this.setState({
       visible: false,
     });
-  };
-
-  componentDidMount = () => {
-    Axios.get(`${url}api/v1/advertise/travellist/`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => this.setState({ travellist: res.data }))
-      .catch((error) => console.error(error));
   };
 
   callbackfunction = () => {
@@ -169,7 +185,7 @@ class OfferDetail extends React.Component {
                     ]}
                   >
                     <Select
-                      style={{ textAlign: "right", borderRadius: "10px"}}
+                      style={{ textAlign: "right", borderRadius: "10px" }}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
                       {this.state.travellist.map((e, key) => {
