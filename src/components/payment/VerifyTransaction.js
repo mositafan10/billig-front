@@ -31,7 +31,7 @@ class VerifyTransaction extends Component {
       {
         token: this.state.token,
       },
-      { headers: { Authorization: `Bearer ${token1}` } }
+      { headers: { Authorization: `Token ${token1}` } }
     )
       .then((res) => { 
           setTimeout(() => {

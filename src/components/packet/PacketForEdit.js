@@ -126,7 +126,7 @@ class PacketForEdit extends Component {
         buy: buy,
         status: status,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => {
         if (res.status == 200) {

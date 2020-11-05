@@ -223,17 +223,19 @@ class OrderList extends React.Component {
         </Row>
         <br />
         <Row>
-          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-            <Row>
-              <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+          <Col>
+            <Row >
+              <Col span={1}></Col>
+              <Col span={22}>
                 <Spin spinning={this.state.loading}>
                   <Orders
                     data={this.state.filteritems}
                     page={100}
                     pagesize={100}
-                  />
+                    />
                 </Spin>
               </Col>
+              <Col span={1}></Col>
             </Row>
           </Col>
         </Row>

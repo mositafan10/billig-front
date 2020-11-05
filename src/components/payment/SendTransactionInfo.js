@@ -22,7 +22,7 @@ class SendTransactionInfo extends Component {
              callback_url: callback_url,
              factorNumber: this.props.factorNumber,
             },
-            { headers: {"Authorization" : `Bearer ${token}`} })
+            { headers: {"Authorization" : `Token ${token}`} })
         .then( res => 
             {if (res.data.status === 1 ) 
             {  return (

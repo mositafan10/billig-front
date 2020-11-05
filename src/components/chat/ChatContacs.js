@@ -15,7 +15,7 @@ class ChatContacs extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/chat/chatlist/`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) =>
         this.setState({

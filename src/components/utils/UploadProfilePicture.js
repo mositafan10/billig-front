@@ -73,7 +73,7 @@ class UploadProfilePicture extends React.Component {
               className="avatar-uploader"
               showUploadList={false}
               action={`${url}api/v1/account/upload/`}
-              headers={{ Authorization: `Bearer ${token}` }}
+              headers={{ Authorization: `Token ${token}` }}
               beforeUpload={beforeUpload}
               onChange={this.handleChange}
             >

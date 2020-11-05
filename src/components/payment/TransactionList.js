@@ -34,7 +34,7 @@ class TransactionList extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/payment/list/`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) => {
         this.setState({

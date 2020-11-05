@@ -52,7 +52,7 @@ class TravelList extends React.Component {
   delete = (id) => {
     const token = localStorage.getItem("token");
     Axios.delete(`${url}api/v1/advertise/travel/${id}/`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) => {
         this.props.parentCallback();

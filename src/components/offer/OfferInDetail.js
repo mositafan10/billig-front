@@ -45,7 +45,7 @@ class OfferDetail extends React.Component {
 
   showModal = () => {
     Axios.get(`${url}api/v1/advertise/travellist/`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) => this.setState({ travellist: res.data }))
       .catch((error) => console.error(error));
@@ -70,7 +70,7 @@ class OfferDetail extends React.Component {
         description: this.state.description,
         packet: this.state.slug,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => {
         this.setState({ loading: true });

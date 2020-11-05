@@ -59,7 +59,7 @@ class CreateTravel extends React.Component {
                 flight_date_end : moment(values.flight_date2[1]).format('YYYY-MM-DD'),
                 description : values.description, 
             },
-            { headers: {"Authorization" : `Bearer ${token}`} })
+            { headers: {"Authorization" : `Token ${token}`} })
             .then(res => {
                 this.setState({confirmLoading:true})
                 setTimeout(() => {
@@ -73,7 +73,7 @@ class CreateTravel extends React.Component {
                     this.props.parentCallback(); }
                     notification['success']({
                         message: 'سفر شما با موفقیت ثبت شد',
-                        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+                        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
                         duration:2,
                       });
             })  
@@ -87,7 +87,7 @@ class CreateTravel extends React.Component {
                     flight_date_start : moment(values.flight_date._d).format('YYYY-MM-DD'), 
                     description : values.description, 
                 },
-                { headers: {"Authorization" : `Bearer ${token}`} })
+                { headers: {"Authorization" : `Token ${token}`} })
                 .then(res => {
                     this.setState({confirmLoading:true})
                     setTimeout(() => {
@@ -101,7 +101,7 @@ class CreateTravel extends React.Component {
                         this.props.parentCallback(); }
                         notification['success']({
                             message: 'سفر شما با موفقیت ثبت شد',
-                            style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"30%"},
+                            style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
                             duration:2,
                           });
                 })  

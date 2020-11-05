@@ -39,7 +39,7 @@ class RateAndComment extends Component {
             receiver: this.props.receiver,
             slug: this.props.data
         },
-        { headers: {"Authorization" : `Bearer ${token}`}})
+        { headers: {"Authorization" : `Token ${token}`}})
         .then( message.success("نظر شما با موفقیت ثبت شد."), this.props.signal())
         .catch(err => console.log(err.data))
     }

@@ -261,7 +261,7 @@ class PacketOffer extends React.Component {
         slug: data,
         status: 1,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then(() => {
         notification["success"]({
@@ -288,7 +288,7 @@ class PacketOffer extends React.Component {
         slug: data,
         status: 6,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then(() => {
         notification["success"]({
@@ -312,7 +312,7 @@ class PacketOffer extends React.Component {
   componentDidMount() {
     const orderID = this.props.data;
     Axios.get(`${url}api/v1/advertise/offer/${orderID}/`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) => {
         this.setState({

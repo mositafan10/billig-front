@@ -34,7 +34,7 @@ class ChangePassword_mobile extends Component {
                 current_password: current_password,
                 new_password: new_password,
             },
-            { headers: {"Authorization" : `Bearer ${token}`} })
+            { headers: {"Authorization" : `Token ${token}`} })
         .then(function (res) { if (res.status == 200){ message.success("رمز عبور با موفقیت تغییر کرد") }})
         .catch(error => message.error(error.response.data.detail));
     }

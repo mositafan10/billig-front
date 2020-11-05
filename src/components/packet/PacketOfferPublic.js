@@ -41,7 +41,7 @@ class PacketOffer extends React.Component {
     const token = localStorage.getItem('token');
     const orderID = this.props.data;
     Axios.get(`${url}api/v1/advertise/offer/${orderID}/`,
-        { headers: {"Authorization" : `Bearer ${token}`} })
+        { headers: {"Authorization" : `Token ${token}`} })
         .then(res => {
           this.setState({
             packet_offer: res.data

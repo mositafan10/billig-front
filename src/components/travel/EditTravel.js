@@ -18,7 +18,7 @@ class EditTravel extends Component {
         const token = localStorage.getItem('token');
         const travel_id = this.props.data;
         Axios.get(`${url}api/v1/advertise/travel/${travel_id}/`,
-        { headers: {"Authorization" : `Bearer ${token}`} })
+        { headers: {"Authorization" : `Token ${token}`} })
         .then(res => {
             this.setState({
                 travel: res.data,

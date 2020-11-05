@@ -6,8 +6,8 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import './index.css';
-
 import reducer from './store/reducers/auth';
+import {initializeFirebase, askForPermissioToReceiveNotifications} from './fcm/InitFcm';
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -21,8 +21,22 @@ const app = (
    </Provider>
 )
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("./firebase-messaging-sw.js")
+    .then(function(registration) {
+      console.log("Registration successful, scope is:", registration.scope);
+    })
+    .catch(function(err) {
+      console.log("Service worker registration failed, error:", err);
+    });
+}
+
+initializeFirebase();
+askForPermissioToReceiveNotifications();
+
 ReactDOM.render(app, document.getElementById('root'));
-serviceWorker.unregister();
+
 
 if (module.hot) {
   module.hot.accept();

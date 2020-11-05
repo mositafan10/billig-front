@@ -29,12 +29,12 @@ class SendMessage extends React.Component {
         receiver: person,
         offer: this.props.slug,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
 
       .then((res) => {
         Axios.get(`${url}api/v1/chat/conversation/${res.data.id}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Token ${token}` },
         }).then((res) => this.setState({ info: res.data }));
         this.setState({
           chatID: res.data.id,

@@ -28,7 +28,7 @@ var url = config.url.API_URL;
 const token = localStorage.getItem("token");
 
 const right_test_style = {
-  display: "inline",
+  display: "inline-block",
   border: "solid",
   borderRadius: "15px 10px 15px 10px ",
   backgroundColor: "#1890ff",
@@ -81,7 +81,7 @@ class ChatDetail extends Component {
         loading: true,
       });
       Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Token ${token}` },
       })
         .then((res) =>
           this.setState({
@@ -93,7 +93,7 @@ class ChatDetail extends Component {
       if (this.props.data !== prevProps.data) {
         this.state.interval = setInterval(() => {
           Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Token ${token}` },
           })
             .then((res) => {
               let a = res.data[res.data.length - 1].text;
@@ -156,7 +156,7 @@ class ChatDetail extends Component {
     const token = localStorage.getItem("token");
     const chatid = this.props.data;
     Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) =>
         this.setState({
@@ -273,7 +273,7 @@ class ChatDetail extends Component {
                     <Upload
                       action={`${url}api/v1/chat/messages/${chatid}`}
                       name="billig"
-                      headers={{ Authorization: `Bearer ${token}` }}
+                      headers={{ Authorization: `Token ${token}` }}
                       onChange={this.onChange}
                       fileList={this.fileList}
                       multiple="true"
@@ -431,7 +431,7 @@ class ChatDetail extends Component {
                   <Upload
                     action={`${url}api/v1/chat/messages/${chatid}`}
                     name="billig"
-                    headers={{ Authorization: `Bearer ${token}` }}
+                    headers={{ Authorization: `Token ${token}` }}
                     onChange={this.onChange}
                     fileList={this.fileList}
                     multiple="true"

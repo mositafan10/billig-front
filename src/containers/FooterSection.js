@@ -61,7 +61,7 @@ class FooterSection extends Component {
                         <Link to={'/how-billlig-work'}><p style={style_p}> راهنمای ارسال بسته</p></Link>
                         <Link to={'/how-billlig-work'}><p style={style_p}> راهنمای ثبت سفر</p></Link>
                         <Link to={'/how-billlig-work'}><p style={style_p}> توصیه‌های بیلیگ به کاربران</p></Link>
-                        <p style={style_p}>سوالات متداول</p>
+                        <Link to={'/faq'}><p style={style_p}>سوالات متداول</p></Link>
                     </Col>
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >

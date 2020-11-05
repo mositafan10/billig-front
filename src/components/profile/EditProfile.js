@@ -9,6 +9,7 @@ import EditProfileForm from "./EditProfileForm";
 import Axios from "axios";
 import { config } from "../../Constant";
 import { Link } from "react-router-dom";
+import ResetPassword from "./ResetPassword";
 
 var url = config.url.API_URL;
 
@@ -26,7 +27,7 @@ class EditProfile extends React.Component {
   componentDidMount() {
     const userID = localStorage.getItem("user");
     const token = localStorage.getItem("token");
-      Axios.get(`${url}api/v1/account/users/profile/pr/${userID}`,{ headers: {"Authorization" : `Bearer ${token}`} }).then((res) => {
+      Axios.get(`${url}api/v1/account/users/profile/pr/${userID}`,{ headers: {"Authorization" : `Token ${token}`} }).then((res) => {
       this.setState({
         user_profile: res.data,
       });
@@ -94,6 +95,23 @@ class EditProfile extends React.Component {
               { this.state.social[3] && this.setIcon(this.state.social[3].account_type ,this.state.social[0].address)  }
               </Space>
               <Divider/>
+              <div>
+              <Row style={style_right}>
+                <Col
+                  style={style_right}
+                  xs={14}
+                  sm={14}
+                  md={14}
+                  lg={14}
+                  xl={14}
+                >
+                  <h4>شماره موبایل</h4>
+                </Col>
+                <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                  {this.state.user_profile.phone_number}
+                </Col>
+              </Row>
+              </div>
               {this.state.user_profile.email &&
               <div>
               <Row style={style_right}>
@@ -174,6 +192,8 @@ class EditProfile extends React.Component {
                 social={this.state.social}
               />
             </Modal>
+            <br/><br/>
+            <ResetPassword />
           </Col>
         </Row>
       </div>

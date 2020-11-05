@@ -71,7 +71,7 @@ class EditProfileForm extends React.Component {
   deletesocial = (id) => {
     const token = localStorage.getItem("token");
     Axios.delete(`${url}api/v1/account/social/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     }).then((res) => {
       this.props.update();
     });
@@ -168,7 +168,7 @@ class EditProfileForm extends React.Component {
           ? values.last_name
           : this.props.data.last_name,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => {
         notification["success"]({
@@ -207,7 +207,7 @@ class EditProfileForm extends React.Component {
         account_type: values.type,
         address: values.address,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => {
         setTimeout(() => {

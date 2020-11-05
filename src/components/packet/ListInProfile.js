@@ -113,7 +113,7 @@ class PacketUserList extends React.Component {
     document.title = "بیلیگ - لیست آگهی‌های من";
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/advertise/user_packet/`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) => {
         this.setState({
@@ -143,7 +143,7 @@ class PacketUserList extends React.Component {
     const current_packet = this.state.packet_user;
     const token = localStorage.getItem("token");
     Axios.delete(`${url}api/v1/advertise/packet/${slug}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) => {
         this.setState({

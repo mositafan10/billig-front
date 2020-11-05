@@ -18,8 +18,6 @@ import LoginLayout from "./layout/LoginLayout";
 import "antd/dist/antd.css";
 
 
-
-
 class App extends Component {
   componentDidMount() {
     this.props.onTryAutoSignup();

@@ -68,7 +68,7 @@ class TravelEditForm extends Component {
             destination_city: destination_city,
             flight_date_start: flight_date_start,
             },
-            { headers: {"Authorization" : `Bearer ${token}`} })
+            { headers: {"Authorization" : `Token ${token}`} })
         .then( () => {
             this.props.cancle();
             this.props.signal();

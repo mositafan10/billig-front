@@ -40,7 +40,6 @@ class HeaderSection extends Component {
   };
 
   exit = () => {
-    console.log("logout");
     this.props.logout();
     this.setState({
       toDashboard: true,
@@ -78,7 +77,7 @@ class HeaderSection extends Component {
     {
       token != null &&
         Axios.get(`${url}api/v1/account/userinfo/`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Token ${token}` },
         })
           .then((res) => {
             this.setState({

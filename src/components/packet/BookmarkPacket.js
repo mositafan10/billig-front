@@ -56,7 +56,7 @@ class BookmarkPacket extends Component {
     const current_packet = this.state.bookmarks;
     const token = localStorage.getItem("token");
     Axios.delete(`${url}api/v1/advertise/bookmarks/${dataIndex}/`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) => {
         this.setState({
@@ -69,7 +69,7 @@ class BookmarkPacket extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/advertise/bookmarks/`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     }).then((res) => {
       this.setState({
         bookmarks: res.data,

@@ -17,7 +17,7 @@ class EditPacket extends Component {
         const token = localStorage.getItem('token');
         const packet_id = this.props.data;
         Axios.get(`${url}api/v1/advertise/packet/${packet_id}/`,
-        { headers: {"Authorization" : `Bearer ${token}`} })
+        { headers: {"Authorization" : `Token ${token}`} })
         .then(res => {
             this.setState({
                 packet: res.data,

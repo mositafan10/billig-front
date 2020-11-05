@@ -238,7 +238,7 @@ class UserOffer extends React.Component {
         price: price,
         status: 2,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then(()=>{
         notification["success"]({
@@ -266,7 +266,7 @@ class UserOffer extends React.Component {
         slug: data,
         status: 4,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then(()=> {
         notification["success"]({
@@ -294,7 +294,7 @@ class UserOffer extends React.Component {
         slug: data,
         status: 5,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then(()=> {
         notification["success"]({
@@ -322,7 +322,7 @@ class UserOffer extends React.Component {
         slug: data,
         status: 8,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then( ()=>{
         notification["success"]({
@@ -344,7 +344,7 @@ class UserOffer extends React.Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/advertise/getuseroffer/`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
       .then((res) =>
         this.setState({

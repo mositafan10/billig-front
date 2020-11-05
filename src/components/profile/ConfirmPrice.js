@@ -34,7 +34,7 @@ class ConfirmPrice extends React.Component {
         slug: this.props.data,
         price: price,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then(() => {
         this.props.parentfunction()

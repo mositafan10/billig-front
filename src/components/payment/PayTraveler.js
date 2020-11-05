@@ -19,7 +19,7 @@ class PayTraveler extends Component {
         amount: this.props.amount,
       },
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Token ${token}` },
       }
     )
       .then(() => {
@@ -59,7 +59,7 @@ class PayTraveler extends Component {
         account_owner: values.owner,
       },
       {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Token ${token}` },
       }
     )
       .then(() => {

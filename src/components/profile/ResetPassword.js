@@ -76,7 +76,8 @@ class ResetPassword extends React.Component {
 
   render() {
     return (
-      <Form.Item style={{ textAlign: "center", borderRadius: "20px" }}>
+      <div>
+      <Form.Item style={{ textAlign: "center", borderRadius: "20px"}}>
         <Button
           style={{ borderRadius: "10px", fontSize: "12px" }}
           onClick={this.showResetPass}
@@ -92,17 +93,17 @@ class ResetPassword extends React.Component {
           }}
           visible={this.state.reset_pass_visible}
           okText="ارسال"
-          width="340px"
+          width="350px"
           cancelText="انصراف"
           style={{
             borderRadius: "10px",
             overflow: "hidden",
             fontFamily: "VazirD",
+            height:"auto"
           }}
         >
           <p style={{ textAlign: "center", fontFamily: "VazirD" }}>
-            {" "}
-            بازیابی رمز عبور{" "}
+            بازیابی رمز عبور
           </p>
           <br />
           <Form name="reset_pass" onFinish={this.handleOk}>
@@ -115,7 +116,7 @@ class ResetPassword extends React.Component {
                 fontFamily: "VazirD",
               }}
             >
-              :شماره موبایل خود را وارد نمایید
+            شماره موبایل خود را وارد نمایید
             </label>
             <Form.Item
               name="phone_number"
@@ -131,6 +132,7 @@ class ResetPassword extends React.Component {
                 style={{
                   fontFamily: "VazirD",
                   borderRadius: "10px",
+                  direction:"ltr"
                 }}
                 country="ir"
                 placeholder=""
@@ -156,8 +158,7 @@ class ResetPassword extends React.Component {
               }}
             >
               <p style={{ textAlign: "center", fontFamily: "VazirD" }}>
-                {" "}
-                کد پیامک شده را وارد کنید{" "}
+                کد پیامک شده را وارد کنید
               </p>
               <Form name="reset_pass_otp" onFinish={this.handleOkotp}>
                 <Form.Item
@@ -175,6 +176,7 @@ class ResetPassword extends React.Component {
           </Form>
         </Modal>
       </Form.Item>
+      </div>
     );
   }
 }

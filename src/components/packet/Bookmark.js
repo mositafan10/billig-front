@@ -18,7 +18,7 @@ class Bookmark extends Component {
   // componentDidUpdate = (prevProps) => {
   //   if (this.props.data !== prevProps.data) {
   //     Axios.get(`${url}api/v1/advertise/bookmarks/${this.props.data}`, {
-  //       headers: { Authorization: `Bearer ${token}` },
+  //       headers: { Authorization: `Token ${token}` },
   //     }).then((res) => {
   //       if (res.data.bookmark == true) {
   //         this.setState({ bookmark: true });
@@ -29,7 +29,7 @@ class Bookmark extends Component {
 
   componentDidMount (){
     Axios.get(`${url}api/v1/advertise/bookmarks/${this.props.data}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Token ${token}` },
     }).then((res) => {
       if (res.data.bookmark == true) {
         this.setState({ bookmark: true });
@@ -48,7 +48,7 @@ class Bookmark extends Component {
     Axios.post(
       `${url}api/v1/advertise/bookmarks/`,
       { packet: this.props.data },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => {
           this.setState({ loading: false});

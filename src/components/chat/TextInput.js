@@ -30,7 +30,7 @@ class TextInput extends Component {
         owner: owner,
         text: value,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => this.props.handler())
       .catch((error) => console.error(error));

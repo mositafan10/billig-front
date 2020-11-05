@@ -8,12 +8,10 @@ import {
   Checkbox,
   Divider,
   Row,
+  Radio,
   Col,
   InputNumber,
-  Alert,
-  Slider,
   Tooltip,
-  Cascader,
   notification,
   Steps,
   message
@@ -29,6 +27,7 @@ const { Option } = Select;
 const { Step } = Steps;
 
 class PackForm extends React.Component {
+
   state = {
     countries: [],
     cities_origin: [],
@@ -41,6 +40,11 @@ class PackForm extends React.Component {
     category_other: false,
     loading: false,
     current: 0,
+    radio_value: false,
+    category: "",
+    weight: "",
+    dimension: "",
+
   };
 
   PacketCategory = [
@@ -54,32 +58,36 @@ class PackForm extends React.Component {
   ];
 
   DIMENSION = [
-    { value: "0", label: "خیلی کوچک" },
-    { value: "1", label: "کوچک" },
-    { value: "3", label: "متوسط" },
-    { value: "4", label: "بزرگ" },
-    { value: "5", label: "خیلی بزرگ" },
+    { value: "0", label: "کوچک" },
+    { value: "1", label: "متوسط" },
+    { value: "2", label: "بزرگ" },
   ];
 
-  steps = [
-    {
-      title: 'First',
-      content: 'First-content',
-    },
-    {
-      title: 'Second',
-      content: 'Second-content',
-    },
-    {
-      title: 'Last',
-      content: 'Last-content',
-    },
-  ];
+  radiochange = e => {
+    this.setState({
+      radio_value: e.target.value,
+    });
+  }
 
+  onChangedimension = (value) => {
+    this.setState({dimension:value})
+  }
+
+  next() {
+    const current = this.state.current + 1;
+    this.setState({ current });
+  }
+
+  prev() {
+    const current = this.state.current - 1;
+    this.setState({ current });
+  }
 
   onChange = current => {
     this.setState({ current });
   };
+
+
 
   callbackFunction = (childData) => {
     if (childData.length == 1) {
@@ -123,7 +131,7 @@ class PackForm extends React.Component {
   };
 
   changecategory = (value) => {
-    console.log(value);
+    this.setState({category:value})
     if (value === "6") {
       if (this.state.category_other === false) {
         this.setState({
@@ -177,11 +185,11 @@ class PackForm extends React.Component {
         description: description,
         buy: buy,
         picture: pic_id,
-        price: parcel_price,
+        price: parcel_price ? parcel_price : 0 ,
         link: buy_link,
         category_other: category_other,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Token ${token}` } }
     )
       .then(function (res) {
         setTimeout(() => {
@@ -216,6 +224,7 @@ class PackForm extends React.Component {
   };
 
   componentDidMount() {
+    document.title = "ثبت آگهی ـ بیلیگ "
     Axios.get(`${url}api/v1/account/countries/`).then((res) => {
       this.setState({
         countries: res.data,
@@ -224,6 +233,84 @@ class PackForm extends React.Component {
   }
 
   render() {
+
+    // const steps = [
+    //   {
+    //     title: 'نوع آگهی',
+    //     content: 
+    //     <div style={{justifyContent:"center", display:"center", textAlign:"center"}}>
+    //       <br/>
+    //     <p style={{fontSize:"16px"}}><b>در بیلیگ  هم‌ می‌توانید بسته خود را پست کنید و هم می‌توانید کالای مورد نظر خود را خریداری نمایید</b></p>
+    //     <p style={{fontSize:"16px"}}><b>ابتدا نوع آگهی خود را مشخص کنید</b></p>
+    //     <Radio.Group optionType="button" value={this.state.radio_value} onChange={this.radiochange.bind(this)} >
+    //         <Radio style={{fontSize:"16px"}} value={false}>پست</Radio>
+    //         <Radio style={{fontSize:"16px"}} value={true}>خرید</Radio>
+    //     </Radio.Group>
+    //     </div>
+    //   },
+    //   {
+    //     title: 'دسته بندی کالا',
+    //     content: <div style={{justifyContent:"center", display:"center", textAlign:"center"}}>
+    //     <br/>
+    //      <p style={{fontSize:"16px"}}><b>دسته بندی کالای خود را انتخاب کنید</b></p>
+    //     <Select 
+    //       defaultValue={this.state.category}
+    //       style={{width:"200px"}}
+    //       options={this.PacketCategory}
+    //       onChange={this.changecategory}
+    //       dropdownStyle={{ fontFamily: "VazirD" }}
+    //     />
+    //     <div
+    //       style={{
+    //         display: this.state.category_other ? "block" : "none",
+    //       }}
+    //     >
+    //       <Divider plain orientation="center">
+    //         توضیحات بیشتر
+    //       </Divider>
+    //         <Input style={{width:"200px"}}/>
+    //     </div>
+    //     </div>
+    //   },
+    //   {
+    //     title: 'مشخصات کالا',
+    //     content: 
+    //     <div style={{textAlign:"center"}}>
+    //       <br/>
+    //       <p style={{fontSize:"16px"}}><b>وزن بسته</b></p>
+    //       <p>وزن بسته باید عددی بین ۱۰۰ گرم تا ۳۰ کیلوگرم باشد</p>
+    //       <InputNumber
+    //         value={this.state.weight}
+    //         formatter={(value) =>
+    //           `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    //         }
+    //         parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+    //         style={{ textAlign: "right", width:"200px" }}
+    //         min={0}
+    //       />
+    //       <Divider/>
+    //       <p style={{fontSize:"16px"}}><b>ابعاد بسته</b></p>
+    //       <p>وزن بسته باید عددی بین ۱۰۰ گرم تا ۳۰ کیلوگرم باشد</p>
+    //       <Select
+    //         onChange={this.onChangedimension}
+    //         value={this.state.dimension}
+    //         style={{width:"200px"}}
+    //         options={this.DIMENSION}
+    //         dropdownStyle={{ fontFamily: "VazirD" }}
+    //       />
+    //       <Divider/>
+    //       <p style={{fontSize:"16px"}}><b>تصویر بسته</b></p>
+    //       <div style={{justifyContent:"center", display:"flex", textAlign:"center"}}>
+    //        <UploadFile parentCallback={this.callbackFunction} />
+    //        </div>
+    //     </div>
+    //   },
+    //   {
+    //     title: 'محل دریافت و تحویل',
+    //     content: 'Last-content',
+    //   },
+    // ];
+
     return (
       <div>
         <Link
@@ -485,7 +572,7 @@ class PackForm extends React.Component {
                   {" "}
                   لینک کالا / وبسایت فروشگاه / آدرس فروشگاه
                 </Divider>
-                <Tooltip title="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر شما مفید باشد">
+                <Tooltip title="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر شمابرای مسافر مفید باشد">
                   <Form.Item name="buy_link">
                     <Input />
                   </Form.Item>
@@ -504,9 +591,6 @@ class PackForm extends React.Component {
                     min={0}
                   />
                 </Form.Item>
-                <Checkbox style={{ display: "flex", justifyContent: "center" }}>
-                  قیمت کالا مشخص نیست
-                </Checkbox>
               </div>
               <Divider plain orientation="center">
                 {" "}
@@ -514,6 +598,18 @@ class PackForm extends React.Component {
               </Divider>
               <Form.Item name="description">
                 <TextArea style={{ textAlign: "right" }} />
+              </Form.Item>
+              <Divider plain orientation="center">
+                {" "}
+               تصویر کالا
+              </Divider>
+              <Form.Item
+                name="picture"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <div style={{display:"flex", justifyContent:"center"}}>
+                <UploadFile parentCallback={this.callbackFunction} />
+                </div>
               </Form.Item>
               <Form.Item
                 name="rule"
@@ -532,12 +628,8 @@ class PackForm extends React.Component {
                   با <a>قوانین و مقررات </a>بیلیگ پست موافقم *
                 </Checkbox>
               </Form.Item>
-              <Form.Item
-                name="picture"
-                style={{ display: "flex", justifyContent: "center" }}
-              >
-                <UploadFile parentCallback={this.callbackFunction} />
-              </Form.Item>
+              <Divider plain orientation="center">
+              </Divider>
               <Form.Item style={{ textAlign: "center" }}>
                 <Button
                   loading={this.state.loading}
@@ -553,32 +645,33 @@ class PackForm extends React.Component {
           <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6}></Col>
         </Row>
 
-{/* 
-<>
-        <Steps current={this.current}>
-          {this.steps.map(item => (
+
+{/* <div style={{padding:"50px"}}>
+   
+        <Steps current={this.state.current} onChange={this.onChange}>
+          {steps.map(item => (
             <Step key={item.title} title={item.title} />
           ))}
         </Steps>
-        <div className="steps-content">{this.steps[this.current].content}</div>
+        <div className="steps-content">{steps[this.state.current].content}</div>
         <div className="steps-action">
-          {this.current < this.steps.length - 1 && (
-            <Button type="primary" onClick={() => this.next()}>
-              Next
+          {this.state.current < steps.length - 1 && (
+            <Button style={{ margin: '25px 8px' }} type="primary" onClick={() => this.next()}>
+              مرحله بعد
             </Button>
           )}
-          {this.current === this.steps.length - 1 && (
-            <Button type="primary" onClick={() => message.success('Processing complete!')}>
-              Done
+          {this.state.current === steps.length - 1 && (
+            <Button style={{ margin: '25px 8px' }} type="primary" onClick={() => message.success('Processing complete!')}>
+              ثبت
             </Button>
           )}
-          {this.current > 0 && (
-            <Button style={{ margin: '0 8px' }} onClick={() => this.prev()}>
-              Previous
+          {this.state.current > 0 && (
+            <Button style={{ margin: '25px 8px' }} onClick={() => this.prev()}>
+              مرحله قبل
             </Button>
           )}
         </div>
-      </> */}
+      </div>  */}
 
       </div>
     );
