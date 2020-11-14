@@ -8,19 +8,22 @@ import TransactionList from '../components/payment/TransactionList';
 import InboxLayout from '../containers/InboxLayout';
 import BookmarkPacket from '../components/packet/BookmarkPacket';
 import PageNotFound from '../components/errors/PageNotFound';
+import CommentList from '../components/rating/CommentList';
 
 class ProfileRoutes extends React.Component {
     render(){
     return(          
         this.props.isAuthenticated ?   
         <Switch>
+            <Route exact path='/profile/' render={(props) => <EditProfile/> }/>
+            <Route exact path='/profile/comments' render={(props) => <CommentList/> }/>
             <Route exact path='/profile/mypacket' render={(props) =>  <PacketUserList/>} />
             <Route exact path='/profile/mytravel' render={(props) => <TravelProfile/> }/>
             <Route exact path='/profile/myoffer' render={(props) => <UserOffer/> }/>
-            <Route exact path='/profile/editprofile' render={(props) => <EditProfile/> }/>
             <Route exact path='/profile/inbox' render={(props) => <InboxLayout/> }/>
             <Route exact path='/profile/payment' render={(props) => <TransactionList/> }/>
             <Route exact path='/profile/bookmark' render={(props) => <BookmarkPacket/> }/>
+            <Route component={PageNotFound} />
         </Switch>
         :
         <Route component={PageNotFound} /> 

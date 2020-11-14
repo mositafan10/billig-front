@@ -22,6 +22,7 @@ class TextInput extends Component {
   };
 
   send = (value) => {
+    if (value != ""){
     const token = localStorage.getItem("token");
     const owner = localStorage.getItem("user");
     Axios.post(
@@ -37,7 +38,7 @@ class TextInput extends Component {
     this.setState({
       search: "",
     });
-  };
+  }};
 
   handleFields = (e) => this.setState({ [e.target.name]: e.target.value });
 

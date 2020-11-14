@@ -2,11 +2,9 @@ import React from 'react';
 import { Tabs, Row, Col } from 'antd';
 import { BookOutlined, DollarOutlined, MailOutlined, } from '@ant-design/icons';
 import PacketUserList from '../packet/ListInProfile';
-import EditProfile from './EditProfile';
 import UserOffer from '../offer/Useroffer';
 import InboxLayout from '../../containers/InboxLayout';
 import BookmarkPacket from '../packet/BookmarkPacket';
-import ChangePassword from './ChangePassword';
 import TravelProfile from '../../containers/TravelProfile';
 import TransactionList from '../payment/TransactionList';
 
@@ -59,12 +57,6 @@ class ProfileMenu extends React.Component {
               </TabPane>
               <TabPane key="7" tab={ <span><MailOutlined style={{fontSize:"16px"}}/> صندوق پیام</span>}>
                 <InboxLayout />
-              </TabPane>
-              <TabPane tab="ویرایش پروفایل" key="8">
-                    <EditProfile />
-              </TabPane>
-              <TabPane tab="تغییر رمز عبور" key="9">
-                    <ChangePassword />
               </TabPane>
             </Tabs>
           </Col>

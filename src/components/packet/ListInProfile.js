@@ -185,12 +185,6 @@ class PacketUserList extends React.Component {
             }}
             style={{display:"flex",}}
             locale={{ emptyText: "آگهی وجود ندارد" }}
-            pagination={{
-              onChange: (page) => {},
-              hideOnSinglePage: true,
-              simple: true,
-              hide: true,
-            }}
             dataSource={this.state.packet_user}
             renderItem={(item) => (
               <div>

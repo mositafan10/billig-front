@@ -13,10 +13,11 @@ import { Link } from "react-router-dom";
 import Orders from "../components/packet/Orders";
 import { config } from "../Constant";
 import billliger from "../media/Billliger.svg";
+import { LoadingOutlined } from '@ant-design/icons';
 
 var url = config.url.API_URL;
 const { Option } = Select;
-
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const style_text = {
   alignContent: "center",
   textAlign: "center",
@@ -25,13 +26,19 @@ const style_text = {
 };
 
 class OrderList extends React.Component {
-  state = {
-    orders: [],
-    countries: [],
-    filter: "none",
-    filteritems: [],
-    loading: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      orders: [],
+      countries: [],
+      filter: "none",
+      loading: false,
+      page: 1,
+      count: 0,
+      hasMore: true,
+    };
+  }
 
   PacketCategory = [
     { value: "مدارک و مستندات", label: "مدارک و مستندات" },
@@ -49,54 +56,31 @@ class OrderList extends React.Component {
 
   countryfilter = (e) => {
     this.setState({ loading: true });
-    const myItems = this.state.orders;
     this.props.history.replace(`/orders/${e}`);
-    const newArray = myItems.filter(
-      (item) =>
-        item.origin_country.eng_name === e || item.destination_country.eng_name === e
-    );
-    setTimeout(() => {
-      this.setState({
-        filteritems: newArray,
-        loading: false,
-      });
-    }, 1000);
-  };
-
-
-  componentDidMount() {
-    window.scrollTo(0, 0);
-    Axios.get(`${url}api/v1/advertise/packet/`)
-      .then((res) => {
+    Axios.get(`${url}api/v1/advertise/packets/${e}`)
+      .then((res) => {  
         this.setState({
-          orders: res.data,
-          filteritems: res.data,
+          orders: res.data.results,
+          loading: false,
+          page:2,
+          hasMore: true,
+          count: res.data.count
         });
       })
       .catch((error) => console.error(error));
+  };
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
     Axios.get(`${url}api/v1/account/countries/`).then((res) => {
       this.setState({
         countries: res.data,
       });
     });
-
-    const ini_filter = this.props.location.pathname;
-    const country = ini_filter.replace("/orders", "");
-    const p_country = country.replace("/", "");
-
-    if (country != "" && country != "/") {
-      this.setState({ loading: true });
-      setTimeout(() => {
-        this.countryfilter(p_country);
-      }, 1000);
-    }
   }
 
   canclefilter = () => {
-    this.setState({
-      filteritems: this.state.orders,
-    });
+    this.countryfilter("all")
   };
 
   showfilter = () => {
@@ -106,6 +90,30 @@ class OrderList extends React.Component {
       this.setState({ filter: "none" });
     }
   };
+
+  moreData = () => {
+      this.setState({hasMore:false})
+    setTimeout(()=>{
+      const page = this.state.page;
+      const ini_filter = this.props.location.pathname;
+      const country = ini_filter.replace("/orders", "");
+      const p_country = country.replace("/", "");
+      if (this.state.count == this.state.orders.length && this.state.count != 0 ){
+        this.setState({hasMore:false})
+        return;
+      }
+     Axios.get(`${url}api/v1/advertise/packets/${p_country?p_country:"all"}/?page=${page}`)
+      .then((res) => {  
+        this.setState((state) => ({
+          orders: state.orders.concat(res.data.results),
+          count: res.data.count,
+          page: state.page + 1,
+          hasMore:true
+        }));
+      })
+      .catch((error) => console.error(error));
+    },200);
+  }
 
   render() {
     return (
@@ -175,7 +183,8 @@ class OrderList extends React.Component {
               <Space>
                 <Select
                   placeholder="کشور"
-                  style={{ width: "100px" }}
+                  style={{ width: "150px" }}
+                  dropdownStyle={{fontFamily:"VazirD"}}
                   onChange={this.countryfilter.bind(this)}
                 >
                   {this.state.countries.map((e, key) => {
@@ -206,6 +215,7 @@ class OrderList extends React.Component {
               >
                 <Select
                   placeholder="کشور"
+                  dropdownStyle={{fontFamily:"VazirD"}}
                   style={{ width: "100px" }}
                   onChange={this.countryfilter.bind(this)}
                 >
@@ -222,22 +232,15 @@ class OrderList extends React.Component {
           </Col>
         </Row>
         <br />
-        <Row>
-          <Col>
-            <Row >
-              <Col span={1}></Col>
-              <Col span={22}>
+        <Row style={{display:"flex", justifyContent:"center"}}>
                 <Spin spinning={this.state.loading}>
                   <Orders
-                    data={this.state.filteritems}
-                    page={100}
-                    pagesize={100}
+                    data={this.state.orders}
+                    moredata={this.moreData}
+                    hasMore={this.state.hasMore}
                     />
                 </Spin>
-              </Col>
-              <Col span={1}></Col>
-            </Row>
-          </Col>
+                <Divider style={{opacity:0}}/>
         </Row>
       </div>
     );

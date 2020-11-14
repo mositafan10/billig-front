@@ -10,7 +10,7 @@ class ProfileRoutes extends React.Component {
     render(){
     return(             
         <Switch>
-            <Route path='/login' exact component={Login} />
+            <Route path='/login' render={(props) => <Login {...this.props}/>} />
             <Route path='/signup' exact component={Signup} />
             <Route path='/signup/complete' exact component={AfterSignup} />
         </Switch>

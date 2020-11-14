@@ -9,6 +9,7 @@ import {
   notification,
   Button,
   Tooltip,
+  Modal
 } from "antd";
 import OfferDetail from "../components/offer/OfferInDetail";
 import DownloadPic from "../components/utils/DownloadPic";
@@ -27,6 +28,7 @@ class OrderDetail extends React.Component {
   state = {
     order: [],
     loading: true,
+    phonenumbervisibility: false
   };
   myRef = React.createRef();
 
@@ -71,6 +73,14 @@ class OrderDetail extends React.Component {
     navigator.clipboard.writeText(shareurl);
   };
 
+  phonenumbervisible = () => {
+    this.setState({phonenumbervisibility:true})
+  }
+
+  canclephonenumbervisible = () => {
+    this.setState({phonenumbervisibility:false})
+  }
+
   render() {
     const picID = this.state.order && this.state.order.picture;
     const user = localStorage.getItem("user");
@@ -84,7 +94,7 @@ class OrderDetail extends React.Component {
               </div>
             ) : (
               <Row style={{ margin: "50px" }}>
-                <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+                <Col span={8}>
                   <Card
                     style={{ borderRadius: "20px" }}
                     title={this.state.order.title}
@@ -194,9 +204,9 @@ class OrderDetail extends React.Component {
                         </Link>
                       </Col>
                     </Row>
-                    <hr style={{ color: "aliceblue" }} />
-                    {this.state.order.buy ? (
+                    {this.state.order.buy && (
                       <div>
+                      <hr style={{ color: "aliceblue" }} />
                         <Row style={style_right}>
                           <Col
                             style={style_right}
@@ -217,7 +227,6 @@ class OrderDetail extends React.Component {
                             xl={10}
                           >
                             <span style={{ marginLeft: "5px" }}>
-                              {" "}
                               {this.state.order.parcel_price}{" "}
                             </span>
                             <span> تومان </span>
@@ -249,29 +258,67 @@ class OrderDetail extends React.Component {
                           </Col>
                         </Row>
                       </div>
-                    ) : (
-                      <Row style={style_right}>
-                        <Col
-                          style={style_right}
-                          xs={14}
-                          sm={14}
-                          md={14}
-                          lg={14}
-                          xl={14}
-                        >
-                          <h4>قابلیت خریداری</h4>
-                        </Col>
-                        <Col
-                          style={style_left}
-                          xs={10}
-                          sm={10}
-                          md={10}
-                          lg={10}
-                          xl={10}
-                        >
-                          ندارد
-                        </Col>
-                      </Row>
+                    )}
+                    {this.state.order.phonenumber_visible && (
+                    <div>
+                    <hr style={{ color: "aliceblue" }} />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>اطلاعات تماس</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}>نمایش</Button>
+                      </Col>
+                      <Modal
+                      visible={this.state.phonenumbervisibility}
+                      onCancel={this.canclephonenumbervisible}
+                      style={{fontFamily:"VazirD"}}
+                      cancelText="بازگشت"
+                      okButtonProps={{hidden:"true"}}
+                      title=" "
+                      closeIcon=" "
+                      >
+                        <p> توصیه ما این است که برای پیام دادن از چت درون سایت که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید تا مراحل بعدی با سهولت بیشتری انجام 
+                         پذیرد </p>
+                        <Row style={style_right}>
+                          <Col
+                            style={style_right}
+                            xs={14}
+                            sm={14} 
+                            md={14}
+                            lg={14}
+                            xl={14}
+                          >
+                            <h4>شماره تماس</h4>
+                          </Col>
+                          <Col
+                            style={style_left}
+                            xs={10}
+                            sm={10}
+                            md={10}
+                            lg={10}
+                            xl={10}
+                          >
+                            {this.state.order.phonenumber}
+                          </Col>
+                        </Row>
+                      </Modal>
+                    </Row> 
+                    </div>
                     )}
                     <hr style={{ color: "aliceblue" }} />
                     <br />
@@ -321,7 +368,7 @@ class OrderDetail extends React.Component {
                   </Card>
                   <br />
                 </Col>
-                <Col lg={12} xl={12} xxl={12}>
+                <Col span={16}>
                   <br />
                   <DownloadPic data={picID} size={400} />
                   <br />
@@ -350,7 +397,7 @@ class OrderDetail extends React.Component {
           <Breakpoint small down>
             <Row style={{ display: "flex", justifyContent: "center" }}>
               <Col>
-                <DownloadPic1 data={picID} size={200} />
+                <DownloadPic1 data={picID} size={250} />
                 <br />
                 <Row style={{ justifyContent: "center", display: "flex" }}>
                   <Bookmark data={this.state.order.slug} />

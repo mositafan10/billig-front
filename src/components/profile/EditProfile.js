@@ -13,7 +13,7 @@ import ResetPassword from "./ResetPassword";
 
 var url = config.url.API_URL;
 
-const style_left = { display: "flex", justifyContent: "left" , fontSize:"16px"};
+const style_left = { display: "flex", justifyContent: "flex-end" , fontSize:"16px"};
 const style_right = { display: "flex", justifyContent: "right", fontSize:"16px" };
 
 class EditProfile extends React.Component {
@@ -192,8 +192,6 @@ class EditProfile extends React.Component {
                 social={this.state.social}
               />
             </Modal>
-            <br/><br/>
-            <ResetPassword />
           </Col>
         </Row>
       </div>

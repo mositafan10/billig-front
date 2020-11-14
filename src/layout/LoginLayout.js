@@ -23,7 +23,7 @@ class LoginLayout extends Component {
                                 style={{width:"70%", height:"auto", marginTop:"50px"}}
                                 />
                             </Col>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12} style={{marginTop:"30px"}} >
+                            <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12} style={{display:"flex", justifyContent:"center", alignItems:"center"}}  > 
                                 <Row style={{display:"flex", justifyContent:"center"}}>
                                 {this.props.children}
                                 </Row>

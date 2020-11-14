@@ -16,7 +16,6 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import FormItem from "antd/lib/form/FormItem";
 import Timer from '../components/utils/Timer';
 
 class SignUpForm extends React.Component {
@@ -37,9 +36,9 @@ class SignUpForm extends React.Component {
   onFinish = (values) => {
     this.setState({loading:true})
     setTimeout(()=>{
-      const token = localStorage.getItem('token')
+      const signup = localStorage.getItem('signup')
       {
-        if( token == "ready") {
+        if( signup == "ready") {
         this.showModal();
         }
         this.setState({loading:false})
@@ -165,7 +164,7 @@ class SignUpForm extends React.Component {
             ]}
             hasFeedback
           >
-            <Input.Password style={{width: "300px", borderRadius: "10px" }} />
+          <Input.Password style={{width: "300px", borderRadius: "10px" }} />
           </Form.Item>
           <Form.Item
             style={{ alignItems: "center", textAlign: "center" }}

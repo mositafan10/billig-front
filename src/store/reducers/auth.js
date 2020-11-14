@@ -5,7 +5,8 @@ const initialState = {
     token: null,
     error: null,
     loading: false,
-    user: null
+    user: null,
+    signup: null
 }
 
 const authStart = (state, action) => {
@@ -29,7 +30,7 @@ const authFail = (state, action) => {
     return updateObject(state, {
         error: action.error,
         loading: false,
-        token: "notready"
+        signup: "notready"
     });
 }
 
@@ -41,7 +42,7 @@ const authLoguot = (state, action) => {
 
 const authReady = (state, action) => {
     return updateObject(state, {
-        token: "ready"
+        signup: "ready"
     });
 }
 

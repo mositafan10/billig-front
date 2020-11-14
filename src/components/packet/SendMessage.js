@@ -1,9 +1,7 @@
 import React from "react";
 import Axios from "axios";
-import { Button, Modal, Form, message } from "antd";
-import TextArea from "antd/lib/input/TextArea";
+import { Button } from "antd";
 import { config } from "../../Constant";
-import { Link } from "react-router-dom";
 import ChatDetail from "../chat/ChatDetail";
 
 var url = config.url.API_URL;
@@ -73,8 +71,8 @@ class SendMessage extends React.Component {
           offer={this.state.info.offer_state}
           sender_avatar={this.state.info.sender_avatar}
           receiver_avatar={this.state.info.receiver_avatar}
-          sender={this.state.info.sender}
-          receiver={this.state.info.receiver}
+          sender_slug={this.state.info.sender_slug}
+          receiver_slug={this.state.info.receiver_slug}
           sender_name={this.state.info.sender_name}
           receiver_name={this.state.info.receiver_name}
           packet_title = {this.state.info.packet_title}

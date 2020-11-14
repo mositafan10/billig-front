@@ -27,7 +27,7 @@ import {
 } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../Constant";
-
+const token = localStorage.getItem("token");
 var url = config.url.API_URL;
 
 class HeaderSection extends Component {
@@ -71,11 +71,11 @@ class HeaderSection extends Component {
       Drawernotification: false,
     });
   };
-
+  
   componentDidMount() {
     const token = localStorage.getItem("token");
     {
-      token != null &&
+      (token != null && token != "notready") &&
         Axios.get(`${url}api/v1/account/userinfo/`, {
           headers: { Authorization: `Token ${token}` },
         })
@@ -109,7 +109,7 @@ class HeaderSection extends Component {
         <Link to="/profile/bookmark">آگهی‌های نشان شده <HeartOutlined /></Link> 
       </Menu.Item>
       <Menu.Item key="7">
-        <Link to="/profile/editprofile">اطلاعات کاربری <ContainerOutlined /></Link>
+        <Link to="/profile/">اطلاعات کاربری <ContainerOutlined /></Link>
       </Menu.Item>
       <Menu.Item key="8" onClick={this.exit}>
       <Link to="/"> خروج <VerticalLeftOutlined /></Link>
@@ -129,12 +129,16 @@ class HeaderSection extends Component {
   );
 
   render() {
+    const token = localStorage.getItem("token");
+
     if (this.state.toDashboard) {
       this.setState({
         toDashboard: false,
       });
       return <Redirect to="/login" />;
     }
+
+    console.log("isauth...",this.props.isAuthenticated)
     return (
       <div style={{ boxShadow: "0 0 5px 1px", zIndex: 1 }}>
         <Breakpoint medium up>
@@ -144,8 +148,9 @@ class HeaderSection extends Component {
                 <div
                   style={{
                     float: "left",
-                    width: "200px",
+                    width: "max-content",
                     display: "flex",
+                    marginTop:"5px",
                   }}
                 >
                   <div
@@ -153,8 +158,9 @@ class HeaderSection extends Component {
                       borderRadius: "25px",
                       border: "solid",
                       borderWidth: "1.5px",
+                      padding:"0 10px 0 20px",
                       height: "45px",
-                      width: "100px",
+                      width: "max-content",
                       marginTop: "10px",
                       display: "flex",
                       justifyContent: "center",
@@ -163,7 +169,7 @@ class HeaderSection extends Component {
                   >
                     <Dropdown
                       overlay={
-                        this.props.isAuthenticated
+                        (this.props.isAuthenticated)
                           ? this.menu_login
                           : this.menu_logout
                       }
@@ -200,25 +206,12 @@ class HeaderSection extends Component {
                             color: "white",
                             borderColor: "white",
                           }}
-                        ></Button>
+                        >
+                        </Button>
+                        <span style={{marginLeft:"10px"}}> <a style={{color:"black"}}>{this.state.userinfo.user && this.state.userinfo.user.name} </a> </span> 
                       </div>
                     </Dropdown>
                   </div>
-                  {/* {this.props.isAuthenticated && (
-                    <div>
-                      <Badge dot={true}>
-                        <Button
-                          icon={<BellOutlined />}
-                          style={{
-                            border: "hidden",
-                            border: "1px solid",
-                            borderRadius: "15px",
-                            marginLeft: "10px",
-                          }}
-                        ></Button>
-                      </Badge>
-                    </div>
-                  )} */}
                 </div>
                 <Row>
                   <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={20}>
@@ -465,7 +458,7 @@ class HeaderSection extends Component {
                             <HeartOutlined />
                           </Menu.Item>
                           <Menu.Item key="7" onClick={this.onClose}>
-                            <Link to="/profile/editprofile">
+                            <Link to="/profile/">
                               اطلاعات کاربری
                             </Link>{" "}
                             <ContainerOutlined />

@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
     }
     render(){
     return (
-    <div style={{ display:"content", alignContent:"center", marginTop:"10px" }}>
+    <div style={{ display:"content", alignContent:"center", marginTop:"10px"}}>
         { 
         this.props.loading ?
         <div style={{margin:"100px"}}>
@@ -72,7 +72,7 @@ class LoginForm extends React.Component {
               preferredCountries={['ir' ]}
               enableSearch="true"
               disableSearchIcon="true"
-            />
+              searchPlaceholder=" "                  />
         </Form.Item>
         <Form.Item
             style={{alignItems:"center"}}
@@ -87,14 +87,14 @@ class LoginForm extends React.Component {
         >
         <Input.Password style={{borderRadius:"10px"}} />
         </Form.Item>
-        <Form.Item style={{textAlign:"center"}}><br/>
-            <Button type="primary" htmlType="submit" style={{borderRadius:"15px",}}>
-                ورود
-            </Button> 
-        </Form.Item>  
         <Form.Item>
             <ResetPassword />
         </Form.Item>
+        <Form.Item style={{textAlign:"center"}}><br/>
+            <Button type="primary" htmlType="submit" style={{borderRadius:"15px"}}>
+                ورود
+            </Button> 
+        </Form.Item>  
         <Form.Item style={{textAlign:"center"}}>
             <NavLink 
             style={{marginRight:'20px'}}

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Upload } from 'antd';
+import { Upload, notification } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { config } from '../../Constant'
 
 var url = config.url.API_URL
+
 const UploadFile = (props) => {
 
   const [fileList, setFileList] = useState([]);
@@ -11,6 +12,14 @@ const UploadFile = (props) => {
   const sendData = (newFileList) => { props.parentCallback(newFileList); };
 
   const onChange = ({ fileList: newFileList }) => {
+    console.log(newFileList)
+    if ( newFileList[0] && newFileList[0].status == "error"){
+      notification['error']({
+        message: newFileList[0].response,
+        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
+        duration:2,
+      });
+    }
     setFileList(newFileList);
     sendData(newFileList);
   };
@@ -24,7 +33,6 @@ const UploadFile = (props) => {
         reader.onload = () => resolve(reader.result);
       });
     }
-
     const image = new Image();
     image.src = src;
     const imgWindow = window.open(src);

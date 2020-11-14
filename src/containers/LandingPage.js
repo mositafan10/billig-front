@@ -11,6 +11,8 @@ import cheap_buy from "../media/Icon/cheap_buy.svg";
 import Orders from "../components/packet/Orders";
 import main_banner from "../media/main_banner.svg";
 import { config } from "../Constant";
+import CommentsBilllig from "../components/rating/CommentsBilllig";
+import CommentBillligCreate from '../components/rating/CommentBillligCreate';
 
 var url = config.url.API_URL;
 const { Meta } = Card;
@@ -50,10 +52,10 @@ class LandingPage extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     document.title = "بیلیگ-پلتفرم خرید و پست اشتراکی"
-    Axios.get(`${url}api/v1/advertise/packet/`)
+    Axios.get(`${url}api/v1/advertise/packets/all`)
       .then((res) => {
         this.setState({
-          orders: res.data,
+          orders: res.data.results,
           loading: false
         });
       })
@@ -191,7 +193,7 @@ class LandingPage extends React.Component {
             xxl={20}
             style={{ textAlign:"center" ,display: "flex", justifyContent:"center" }}
           >
-            <Orders data={this.state.orders} page={8} pagesize={8} loading={this.state.loading}/>
+            <Orders data={this.state.orders} loading={this.state.loading}/>
           </Col>
           <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
         </Row>
@@ -336,6 +338,41 @@ class LandingPage extends React.Component {
           </Col>
           <Col xs={24} sm={24} md={24} lg={3} xl={3} xxl={3}></Col>
         </Row>
+        <Row>
+          <Divider>
+            <h1
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "25px",
+              }}
+            >
+              آخرین نظرات
+            </h1>
+          </Divider>
+          <br />
+          <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
+          <Col
+            xs={24}
+            sm={24}
+            md={24}
+            lg={20}
+            xl={20}
+            xxl={20}
+            style={{ textAlign:"center" ,display: "flex", justifyContent:"center" }}
+          >
+            <CommentsBilllig count={5}/>
+          </Col>
+          <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
+        </Row>
+        <Row style={{ display: "flex", justifyContent: "center" }}>
+          <Divider style={{opacity:0}} />
+          {/* <Link to="/orders">
+            <Button style={{ borderRadius: "8px" }}>نمایش همه نظرات</Button>
+          </Link> */}
+          <CommentBillligCreate />
+        </Row>
+        <Divider/>
       </div>
     );
   }

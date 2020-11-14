@@ -7,9 +7,9 @@ import {
   message,
   Select,
   InputNumber,
+  Input
 } from "antd";
 import Axios from "axios";
-import TextArea from "antd/lib/input/TextArea";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { config } from "../../Constant";
@@ -21,6 +21,8 @@ const { Option } = Select;
 const token = localStorage.getItem("token");
 
 class OfferDetail extends React.Component {
+
+  defualt_description = "سلام. من تمایل دارم بسته شما را به مقصد برسانم. اگر موافق باشید به مذاکره ادامه بدیم" 
   state = {
     visible: false,
     slug: "",
@@ -44,7 +46,7 @@ class OfferDetail extends React.Component {
   };
 
   showModal = () => {
-    Axios.get(`${url}api/v1/advertise/travellist/`, {
+    Axios.get(`${url}api/v1/advertise/travels/`, {
       headers: { Authorization: `Token ${token}` },
     })
       .then((res) => this.setState({ travellist: res.data }))
@@ -55,9 +57,10 @@ class OfferDetail extends React.Component {
   };
 
   handleOk = (values) => {
+    const description = values.description ? values.description : this.defualt_description;
     this.setState({
       price: values.price,
-      description: values.description,
+      description: description,
       travel: values.travel,
       slug: this.props.data,
     });
@@ -218,7 +221,7 @@ class OfferDetail extends React.Component {
                     rules={[
                       {
                         required: true,
-                        message: "قیمت پیشنهادی خود را وارد کنید",
+                        message: "قیمت پیشنهادی خود را به انگلیسی وارد کنید",
                       },
                     ]}
                   >
@@ -239,10 +242,12 @@ class OfferDetail extends React.Component {
                       marginTop: "-30px",
                     }}
                   >
-                    توضیحات{" "}
+                  توضیحات
                   </label>
                   <Form.Item name="description">
-                    <TextArea style={{ borderRadius: "10px" }} />
+                    <textarea 
+                     defaultValue={this.state.description}
+                     style={{ borderRadius: "10px", border:"1px solid", borderColor:"gainsboro", padding:"10px", width:"-moz-available" }}  />
                   </Form.Item>
                 </Form>
               ) : (
@@ -259,7 +264,7 @@ class OfferDetail extends React.Component {
             </div>
           ) : (
             <p style={{ textAlign: "center" }}>
-              ابتدا <Link to="/login"> وارد </Link>سایت شوید{" "}
+              ابتدا <Link to="/login"> وارد </Link>سایت شوید
             </p>
           )}
         </Modal>

@@ -107,7 +107,6 @@ class UserOffer extends React.Component {
           cancelText="خیر"
         >
           <Button
-              // onClick={this.buydone.bind(this, dataIndex)}
               style={{
                 fontSize: "12px",
                 border: "hidden",
@@ -131,7 +130,6 @@ class UserOffer extends React.Component {
             cancelText="خیر"
           >
             <Button
-              // onClick={this.receivedone.bind(this, dataIndex)}
               style={{
                 fontSize: "12px",
                 border: "hidden",
@@ -176,7 +174,6 @@ class UserOffer extends React.Component {
             cancelText="خیر"
           >
             <Button
-              // onClick={this.confrim.bind(this, dataIndex, row.price)}
               style={{
                 fontSize: "12px",
                 border: "hidden",
@@ -249,7 +246,6 @@ class UserOffer extends React.Component {
             textAlign: "right",
             float: "right",
             width: "max-content",
-            marginTop: "50%",
           },
           duration: 5,
         });
@@ -277,7 +273,6 @@ class UserOffer extends React.Component {
             textAlign: "right",
             float: "right",
             width: "max-content",
-            marginTop: "50%",
           },
           duration: 5,
         });
@@ -305,7 +300,6 @@ class UserOffer extends React.Component {
             textAlign: "right",
             float: "right",
             width: "max-content",
-            marginTop: "50%",
           },
           duration: 5,
         });
@@ -332,7 +326,6 @@ class UserOffer extends React.Component {
             textAlign: "right",
             float: "right",
             width: "max-content",
-            marginTop: "50%",
           },
           duration: 5,
       });
@@ -379,12 +372,6 @@ class UserOffer extends React.Component {
                   xl: 3,
                   xxl: 3,
                 }}
-                pagination={{
-                  onChange: (page) => {},
-                  hideOnSinglePage: true,
-                  simple: true,
-                  hide: true,
-                }}
                 dataSource={this.state.offer}
                 renderItem={(item) => (
                   <div>
@@ -392,11 +379,11 @@ class UserOffer extends React.Component {
                       style={{
                         color: "black",
                         border: "1px solid",
-                        borderRadius: "10px",
-                        margin: "25px 0px 25px 0px",
-                        padding: "15px 15px 15px 15px",
-                        width: "100%",
-                        height: "auto",
+                        borderRadius: "15px",
+                        margin: "15px 25px 15px 15px",
+                        padding: "20px 20px 20px 20px",
+                        width: "250px",
+                        height: "230px",
                       }}
                     >
                       <Col
@@ -416,7 +403,6 @@ class UserOffer extends React.Component {
                           src={`${url}dstatic/media/${item.receiver_avatar}`}
                         ></Avatar>
                         <span> {item.receiver} </span>
-                        <p style={{margin:"8px 8px"}}>{item.description}</p>
                         <p style={{ textAlign: "left", marginTop: "20px" }}>
                           {item.price} تومان{" "}
                         </p><hr/>
@@ -518,7 +504,12 @@ class UserOffer extends React.Component {
                             </Popconfirm>
                             )}
                             {item.status === "انجام شده" && (
-                              <PayTraveler data={item.slug} />
+                              <RateAndComment
+                              signal={this.callbackfunction}
+                              data={item.slug}
+                              receiver={item.receiver_id}
+                              loc={"مسافر"}
+                            />
                             )}
                           </Col>
                         </Space>
@@ -684,7 +675,11 @@ class UserOffer extends React.Component {
                             </Popconfirm>
                             )}
                             {item.status === "انجام شده" && (
-                              <PayTraveler data={item.slug} />
+                              <RateAndComment
+                              signal={this.callbackfunction}
+                              data={item.slug}
+                              receiver={item.receiver_id}
+                              loc={"مسافر"} />
                             )}
                           </Col>
                         </Space>

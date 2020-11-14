@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { Comment, Avatar, Tooltip, List, Rate } from "antd";
-import moment from "moment";
+import { Comment, Avatar, List, Rate } from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
-import TimeDiff from "../utils/TimeDiff";
 import { Breakpoint } from "react-socks";
 
 const url = config.url.API_URL;
@@ -16,7 +14,8 @@ class CommentUser extends Component {
 
   componentDidMount() {
     this.setState({ loading: true });
-    Axios.get(`${url}api/v1/account/comments/${this.props.userID}`).then((res) =>
+    Axios.get(`${url}api/v1/account/rate_user_list/${this.props.userID}`)
+    .then((res) =>
       this.setState({
         comments: res.data,
         loading: false,

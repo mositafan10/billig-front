@@ -24,14 +24,14 @@ export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
     error: error,
-    token: "notready"
+    signup: "notready"
   };
 };
 
 export const authReady = () => {
   return {
     type: actionTypes.AUTH_READY,
-    token: "ready"
+    signup: "ready"
   };
 };
 
@@ -99,13 +99,13 @@ export const authSignup = (phone_number, password, name) => {
       .then((res) => {
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
         dispatch(authReady())
-        localStorage.setItem("token", "ready");
+        localStorage.setItem("signup", "ready");
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(checkAuthTimeout(3600));
       })
       .catch((error) => {
         dispatch(authFail(error));
-        localStorage.setItem("token", "notready");
+        localStorage.setItem("signup", "notready");
         notification['error']({
           message: error.response.data.detail,
           style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", fontSizeAdjust:"0.5"},

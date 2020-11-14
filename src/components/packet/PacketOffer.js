@@ -3,8 +3,6 @@ import {
   Button,
   Popconfirm,
   Table,
-  message,
-  Tooltip,
   List,
   Row,
   Col,
@@ -20,8 +18,6 @@ import { Link } from "react-router-dom";
 import SendTransactionInfo from "../payment/SendTransactionInfo";
 import { config } from "../../Constant";
 import RateAndComment from "../rating/RateAndComment";
-import PayTraveler from "../payment/PayTraveler";
-import ChatDetail from "../chat/ChatDetail";
 import { Breakpoint } from "react-socks";
 
 var url = config.url.API_URL;
@@ -140,7 +136,6 @@ class PacketOffer extends React.Component {
             >
               <Button
                 disabled={this.state.disableconfirm}
-                // onClick={this.confirmpayment.bind(this)}
                 style={{
                   fontSize: "12px",
                   border: "hidden",
@@ -166,7 +161,6 @@ class PacketOffer extends React.Component {
               cancelText="خیر"
             >
               <Button
-                // onClick={this.receiveconfirm.bind(this, dataIndex)}
                 style={{
                   fontSize: "12px",
                   border: "hidden",
@@ -184,6 +178,7 @@ class PacketOffer extends React.Component {
               signal={this.callbackFunction}
               data={dataIndex}
               receiver={row.receiver_id}
+              loc={"صاحب کالا"}
             />
           );
         } else {
@@ -501,6 +496,7 @@ class PacketOffer extends React.Component {
                             signal={this.callbackFunction}
                             data={item.slug}
                             receiver={item.receiver_id}
+                            loc={"صاحب کالا"}
                           />
                         )}
                       </Col>

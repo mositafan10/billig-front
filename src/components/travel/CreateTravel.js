@@ -99,13 +99,20 @@ class CreateTravel extends React.Component {
                         {this.props.loc === "offer" ?
                         this.props.parent() :
                         this.props.parentCallback(); }
+                        setTimeout(() => { 
                         notification['success']({
                             message: 'سفر شما با موفقیت ثبت شد',
                             style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
                             duration:2,
                           });
+                        },1000)
                 })  
-                .catch(error => message.warn(error.response.data.detail), this.setState({confirmLoading:false}))
+                .catch(error => notification['error']({
+                    message: error.response.data.detail,
+                    style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
+                    duration:2,
+                  }),
+                  this.setState({confirmLoading:false}))
             }
     }
     

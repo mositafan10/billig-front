@@ -5,21 +5,7 @@ import FooterSection from '../containers/FooterSection';
 import HeaderSection from '../containers/HeaderSection';
 
 const { Header, Content, Footer } = Layout;
-// const { location } = props;
-// const pathSnippets = location.pathname.split('/').filter(i => i);
-// const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-//   const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
-//   return (
-//     <Breadcrumb.Item key={url}>
-//       <Link to={url}>{breadcrumbNameMap[url]}</Link>
-//     </Breadcrumb.Item>
-//   );
-// });
-// const breadcrumbItems = [
-//   <Breadcrumb.Item key="home">
-//     <Link to="/">Home</Link>
-//   </Breadcrumb.Item>,
-// ].concat(extraBreadcrumbItems);
+
 
 class CustomLayout extends React.Component {
 
@@ -44,7 +30,6 @@ class CustomLayout extends React.Component {
           <Header style={{ position: 'fixed', zIndex: 2, width: '100%', backgroundColor:"white", padding:"0", height:"auto"  }} >
             <HeaderSection {...this.props} />
           </Header>
-          {/* <Breadcrumb>{breadcrumbItems}</Breadcrumb> */}
           <Content style={{margin:"0 15px 0 15px"}}>
               <Row style={{marginTop:"100px"}}>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>

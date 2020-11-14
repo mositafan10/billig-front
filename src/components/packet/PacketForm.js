@@ -14,7 +14,6 @@ import {
   Tooltip,
   notification,
   Steps,
-  message
 } from "antd";
 import UploadFile from "../utils/UploadPicture";
 import TextArea from "antd/lib/input/TextArea";
@@ -44,7 +43,7 @@ class PackForm extends React.Component {
     category: "",
     weight: "",
     dimension: "",
-
+    phone_number: false,
   };
 
   PacketCategory = [
@@ -88,7 +87,6 @@ class PackForm extends React.Component {
   };
 
 
-
   callbackFunction = (childData) => {
     if (childData.length == 1) {
       const pic_id =
@@ -122,13 +120,21 @@ class PackForm extends React.Component {
     });
   };
 
-  handleChange = () => {
+  handlebuy = () => {
     if (this.state.buy) {
       this.setState({ buy: false });
     } else {
       this.setState({ buy: true });
     }
   };
+
+  handlephonenumber = () => {
+    if (this.state.phone_number) {
+      this.setState({ phone_number: false });
+    } else {
+      this.setState({ phone_number: true });
+    }
+  }
 
   changecategory = (value) => {
     this.setState({category:value})
@@ -151,6 +157,7 @@ class PackForm extends React.Component {
 
   handleFormSubmit = (values) => {
     this.setState({ loading: true });
+    const token = localStorage.getItem("token");
     const title = values.title;
     const origin_country = values.origin_country;
     const origin_city = values.origin_city;
@@ -162,16 +169,15 @@ class PackForm extends React.Component {
     const suggested_price = values.suggested_price;
     const description = values.description;
     const buy = this.state.buy;
-    const token = localStorage.getItem("token");
+    const phone_number = this.state.phone_number;
     const pic_id = this.state.pic_id && this.state.pic_id;
     const buy_link = this.state.buy && values.buy_link;
     const parcel_price = this.state.buy && values.parcel_price;
     const category_other = this.state.category_other
       ? values.category_other
       : "";
-
     Axios.post(
-      `${url}api/v1/advertise/packet/`,
+      `${url}api/v1/advertise/packets/`,
       {
         title: title,
         origin_country: origin_country,
@@ -184,6 +190,7 @@ class PackForm extends React.Component {
         suggested_price: suggested_price,
         description: description,
         buy: buy,
+        phonenumber_visible: phone_number,
         picture: pic_id,
         price: parcel_price ? parcel_price : 0 ,
         link: buy_link,
@@ -192,9 +199,9 @@ class PackForm extends React.Component {
       { headers: { Authorization: `Token ${token}` } }
     )
       .then(function (res) {
-        setTimeout(() => {
-          window.location = "/profile/mypacket";
-        }, 3000);
+        // setTimeout(() => {
+        //   window.location = "/profile/mypacket";
+        // }, 3000);
         setTimeout(()=>{ notification["success"]({
           message: "آگهی شما با موفقیت ثبت شد",
           style: {
@@ -553,7 +560,7 @@ class PackForm extends React.Component {
                 </Col>
               </Row>
               <Form.Item name="buy" style={{ textAlign: "center" }}>
-                <Checkbox onChange={this.handleChange.bind()}>
+                <Checkbox onChange={this.handlebuy.bind(this)}>
                   بسته باید توسط مسافر خریداری شود
                 </Checkbox>
                 <br />
@@ -594,13 +601,6 @@ class PackForm extends React.Component {
               </div>
               <Divider plain orientation="center">
                 {" "}
-                توضیحات تکمیلی
-              </Divider>
-              <Form.Item name="description">
-                <TextArea style={{ textAlign: "right" }} />
-              </Form.Item>
-              <Divider plain orientation="center">
-                {" "}
                تصویر کالا
               </Divider>
               <Form.Item
@@ -610,6 +610,21 @@ class PackForm extends React.Component {
                 <div style={{display:"flex", justifyContent:"center"}}>
                 <UploadFile parentCallback={this.callbackFunction} />
                 </div>
+              </Form.Item>
+              <Form.Item
+                name="phone_number"
+                valuePropName="checked"
+                style={{ textAlign: "center" }}
+              >
+                <Checkbox onChange={this.handlephonenumber.bind(this)}  style={{ textAlign: "right" }}>
+                  شماره تماس من در‌ آگهی نمایش داده شود
+                </Checkbox>
+                </Form.Item>
+                <Divider plain orientation="center">
+                توضیحات تکمیلی
+              </Divider>
+              <Form.Item name="description">
+                <TextArea placeholder="نکاتی را که به واضح‌تر شدن درخواست برای بازدیدکننده آگهی کمک می‌کند، در اینجا یادداشت کنید." style={{ textAlign: "right" }} />
               </Form.Item>
               <Form.Item
                 name="rule"
