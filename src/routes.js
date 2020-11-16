@@ -15,6 +15,10 @@ import TravelGuide from './pages/TravelGuide';
 import SendParcelGuide from './pages/SendParcelGuide';
 import BuyGuide from './pages/BuyGuide';
 import Faq from './pages/Faq';
+import Privacy from './pages/privacy';
+import Terms from './pages/terms';
+import WhyBilllig from './pages/whybilllig';
+import Advices from './pages/Advices';
 
 class BaseRouter extends React.Component {
     render(){
@@ -36,6 +40,10 @@ class BaseRouter extends React.Component {
                 <Route exact path='/send-parcel-guide' component={SendParcelGuide} />
                 <Route exact path='/buy-guide' component={BuyGuide} />
                 <Route exact path='/faq' component={Faq} />
+                <Route exact path='/privacy' component={Privacy} />
+                <Route exact path='/terms' component={Terms} />
+                <Route exact path='/whybilllig' component={WhyBilllig} />
+                <Route exact path='/advices' component={Advices} />
                 <Route component={PageNotFound} />
                 <Redirect from='/home' to='/'/>
             </Switch>

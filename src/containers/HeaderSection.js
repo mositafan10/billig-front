@@ -137,8 +137,6 @@ class HeaderSection extends Component {
       });
       return <Redirect to="/login" />;
     }
-
-    console.log("isauth...",this.props.isAuthenticated)
     return (
       <div style={{ boxShadow: "0 0 5px 1px", zIndex: 1 }}>
         <Breakpoint medium up>
@@ -208,8 +206,10 @@ class HeaderSection extends Component {
                           }}
                         >
                         </Button>
+                        {this.props.isAuthenticated &&
                         <span style={{marginLeft:"10px"}}> <a style={{color:"black"}}>{this.state.userinfo.user && this.state.userinfo.user.name} </a> </span> 
-                      </div>
+                        }
+                        </div>
                     </Dropdown>
                   </div>
                 </div>

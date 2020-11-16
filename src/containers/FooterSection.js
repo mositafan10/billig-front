@@ -56,19 +56,19 @@ class FooterSection extends Component {
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>راهنمای کاربران</b></p><hr width="120" style={{float:"right"}}/><br/>
-                        <Link><p style={style_p}>چرا بیلیگ ؟</p></Link>
+                        <Link to={'/whybilllig'}><p style={style_p}>چرا بیلیگ ؟</p></Link>
                         <Link to={'/how-billlig-work'}><p style={style_p}> راهنمای ثبت آگهی خرید</p></Link>
                         <Link to={'/how-billlig-work'}><p style={style_p}> راهنمای ارسال بسته</p></Link>
                         <Link to={'/how-billlig-work'}><p style={style_p}> راهنمای ثبت سفر</p></Link>
-                        <Link to={'/how-billlig-work'}><p style={style_p}> توصیه‌های بیلیگ به کاربران</p></Link>
+                        <Link to={'/advices'}><p style={style_p}> توصیه‌های بیلیگ به کاربران</p></Link>
                         <Link to={'/faq'}><p style={style_p}>سوالات متداول</p></Link>
                     </Col>
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>خدمات  کاربران</b></p><hr width="120" style={{float:"right"}}/><br/>
                         <p style={style_p}>پشتیبانی</p>
-                        <p style={style_p}>پنل کاربران</p>
-                        <p style={style_p}>ثبت‌نام</p>
+                        <Link to={'/profile'}><p style={style_p}>پنل کاربران</p></Link>
+                        <Link to={'/signup'}><p style={style_p}>ثبت‌نام</p></Link>
                         <p style={style_p}>انتقادات و پیشنهادات</p>
                     </Col>
                     <hr/>
@@ -77,8 +77,8 @@ class FooterSection extends Component {
                         <a href={`${url}blog`}><p style={style_p}>بلاگ</p></a>
                         <Link to={'/about-us'}><p style={style_p}>درباره ما</p></Link>
                         <p style={style_p}>تماس با ما</p>
-                        <p style={style_p}>حریم خصوصی</p>
-                        <p style={style_p}>شرایط و ضوابط</p>
+                        <Link to={'/privacy'}><p style={style_p}>حریم خصوصی</p></Link>
+                        <Link to={'/terms'}><p style={style_p}>شرایط و ضوابط</p></Link>
                     </Col>
                     <hr/>
                         <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}>

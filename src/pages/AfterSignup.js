@@ -2,8 +2,7 @@ import React from "react";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
 
-class AfterSignup extends React.Component {
-  render() {
+const AfterSignup = () => {
     return (
       <div
         style={{
@@ -34,7 +33,6 @@ class AfterSignup extends React.Component {
         </div>
       </div>
     );
-  }
 }
 
 export default AfterSignup;

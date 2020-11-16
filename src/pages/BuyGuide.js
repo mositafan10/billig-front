@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Col, Row, Divider } from "antd";
 import ShoppingGuide from "../media/ShoppingGuide.svg";
 import insert from "../media/insert.svg";
@@ -8,11 +8,8 @@ import Delivery  from "../media/Delivery.svg";
 import buyer from '../media/buyer.svg';
 
 
-class SendParcelGuide extends Component {
-  componentDidMount(){
-    window.scrollTo(0, 0);
-  }
-  render() {
+const SendParcelGuide = () => {
+  window.scroll(0,0)
     return (
       <div>
         <Row>
@@ -343,7 +340,6 @@ class SendParcelGuide extends Component {
 
       </div>
     );
-  }
 }
 
 export default SendParcelGuide;

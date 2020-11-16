@@ -199,9 +199,9 @@ class PackForm extends React.Component {
       { headers: { Authorization: `Token ${token}` } }
     )
       .then(function (res) {
-        // setTimeout(() => {
-        //   window.location = "/profile/mypacket";
-        // }, 3000);
+        setTimeout(() => {
+          window.location = "/profile/mypacket";
+        }, 3000);
         setTimeout(()=>{ notification["success"]({
           message: "آگهی شما با موفقیت ثبت شد",
           style: {
