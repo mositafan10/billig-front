@@ -172,17 +172,9 @@ class HeaderSection extends Component {
                           : this.menu_logout
                       }
                       trigger={["click"]}
-                      overlayStyle={{ fontFamily: "VazirD" }}
+                      overlayStyle={{ fontFamily: "VazirD", textAlign:"right", display:"flex" }}
                     >
                       <div>
-                        <Button
-                          icon={<MenuOutlined />}
-                          style={{
-                            border: "hidden",
-                            color: "black",
-                            borderRadius: "15px",
-                          }}
-                        ></Button>
                         <Button
                           icon={
                             this.state.userinfo.picture ? (
@@ -206,8 +198,10 @@ class HeaderSection extends Component {
                           }}
                         >
                         </Button>
-                        {this.props.isAuthenticated &&
-                        <span style={{marginLeft:"10px"}}> <a style={{color:"black"}}>{this.state.userinfo.user && this.state.userinfo.user.name} </a> </span> 
+                        {this.props.isAuthenticated ?
+                        <span style={{marginLeft:"10px", marginRight:"10px"}}> <a style={{color:"black"}}>{this.state.userinfo.user && this.state.userinfo.user.name} </a> </span> 
+                        :
+                        <span style={{marginRight:"10px"}} ><a style={{color:"black"}}> حساب کاربری </a></span>
                         }
                         </div>
                     </Dropdown>
@@ -337,7 +331,7 @@ class HeaderSection extends Component {
               >
                 <a href="/">
                   <img
-                    style={{ width: "60%", height: "auto" }}
+                    style={{ width: "80%", height: "auto" }}
                     alt="billlig"
                     src={logo}
                   />

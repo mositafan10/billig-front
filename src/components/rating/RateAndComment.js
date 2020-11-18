@@ -79,7 +79,7 @@ class RateAndComment extends Component {
                         >
                         <Divider> امتیازی که به {this.props.loc} می‌دهید </Divider>
                         <Form.Item name="score">
-                            <Rate defaultValue={2}/>
+                            <Rate defaultValue={0}/>
                         </Form.Item>
                         <Divider> نظر خود را در مورد {this.props.loc} بیان کنید </Divider>
                         <Form.Item 

@@ -8,13 +8,14 @@ import {
   Checkbox,
   Divider,
   Row,
-  Radio,
   Col,
   InputNumber,
   Tooltip,
   notification,
-  Steps,
+  Popconfirm,
+  Space,
 } from "antd";
+import { InfoCircleOutlined } from '@ant-design/icons';
 import UploadFile from "../utils/UploadPicture";
 import TextArea from "antd/lib/input/TextArea";
 import { Link } from "react-router-dom";
@@ -23,7 +24,6 @@ import { config } from "../../Constant";
 var url = config.url.API_URL;
 
 const { Option } = Select;
-const { Step } = Steps;
 
 class PackForm extends React.Component {
 
@@ -240,84 +240,6 @@ class PackForm extends React.Component {
   }
 
   render() {
-
-    // const steps = [
-    //   {
-    //     title: 'نوع آگهی',
-    //     content: 
-    //     <div style={{justifyContent:"center", display:"center", textAlign:"center"}}>
-    //       <br/>
-    //     <p style={{fontSize:"16px"}}><b>در بیلیگ  هم‌ می‌توانید بسته خود را پست کنید و هم می‌توانید کالای مورد نظر خود را خریداری نمایید</b></p>
-    //     <p style={{fontSize:"16px"}}><b>ابتدا نوع آگهی خود را مشخص کنید</b></p>
-    //     <Radio.Group optionType="button" value={this.state.radio_value} onChange={this.radiochange.bind(this)} >
-    //         <Radio style={{fontSize:"16px"}} value={false}>پست</Radio>
-    //         <Radio style={{fontSize:"16px"}} value={true}>خرید</Radio>
-    //     </Radio.Group>
-    //     </div>
-    //   },
-    //   {
-    //     title: 'دسته بندی کالا',
-    //     content: <div style={{justifyContent:"center", display:"center", textAlign:"center"}}>
-    //     <br/>
-    //      <p style={{fontSize:"16px"}}><b>دسته بندی کالای خود را انتخاب کنید</b></p>
-    //     <Select 
-    //       defaultValue={this.state.category}
-    //       style={{width:"200px"}}
-    //       options={this.PacketCategory}
-    //       onChange={this.changecategory}
-    //       dropdownStyle={{ fontFamily: "VazirD" }}
-    //     />
-    //     <div
-    //       style={{
-    //         display: this.state.category_other ? "block" : "none",
-    //       }}
-    //     >
-    //       <Divider plain orientation="center">
-    //         توضیحات بیشتر
-    //       </Divider>
-    //         <Input style={{width:"200px"}}/>
-    //     </div>
-    //     </div>
-    //   },
-    //   {
-    //     title: 'مشخصات کالا',
-    //     content: 
-    //     <div style={{textAlign:"center"}}>
-    //       <br/>
-    //       <p style={{fontSize:"16px"}}><b>وزن بسته</b></p>
-    //       <p>وزن بسته باید عددی بین ۱۰۰ گرم تا ۳۰ کیلوگرم باشد</p>
-    //       <InputNumber
-    //         value={this.state.weight}
-    //         formatter={(value) =>
-    //           `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    //         }
-    //         parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-    //         style={{ textAlign: "right", width:"200px" }}
-    //         min={0}
-    //       />
-    //       <Divider/>
-    //       <p style={{fontSize:"16px"}}><b>ابعاد بسته</b></p>
-    //       <p>وزن بسته باید عددی بین ۱۰۰ گرم تا ۳۰ کیلوگرم باشد</p>
-    //       <Select
-    //         onChange={this.onChangedimension}
-    //         value={this.state.dimension}
-    //         style={{width:"200px"}}
-    //         options={this.DIMENSION}
-    //         dropdownStyle={{ fontFamily: "VazirD" }}
-    //       />
-    //       <Divider/>
-    //       <p style={{fontSize:"16px"}}><b>تصویر بسته</b></p>
-    //       <div style={{justifyContent:"center", display:"flex", textAlign:"center"}}>
-    //        <UploadFile parentCallback={this.callbackFunction} />
-    //        </div>
-    //     </div>
-    //   },
-    //   {
-    //     title: 'محل دریافت و تحویل',
-    //     content: 'Last-content',
-    //   },
-    // ];
-
     return (
       <div>
         <Link
@@ -345,14 +267,25 @@ class PackForm extends React.Component {
                   { required: true, message: "عنوان آگهی را وارد نمایید" },
                 ]}
               >
-                <Input style={{ textAlign: "right" }} />
+                <Input style={{ textAlign: "right"}} />
               </Form.Item>
               <Row>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
+                  <Popconfirm 
+                    overlayStyle={{fontFamily:"VazirD"}}
+                    cancelButtonProps={{hidden:"true"}}
+                    okText="متوجه شدم"
+                    title={
+                      <p>مبدا محلی است که کالا در حال حاضر در‌ آنجا قرار دارد</p>
+                  }
+                    >
+                      <InfoCircleOutlined/>
+                    </Popconfirm>
+                    <span style={{marginRight:"10px"}}>
                     کشور مبدا *
+                    </span>
                   </Divider>
-                  <Tooltip title="جایی که مسافر کالا را دریافت می ‌کند.">
                     <Form.Item
                       name="origin_country"
                       style={{ textAlign: "right" }}
@@ -373,7 +306,6 @@ class PackForm extends React.Component {
                         })}
                       </Select>
                     </Form.Item>
-                  </Tooltip>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
@@ -404,9 +336,20 @@ class PackForm extends React.Component {
               <Row>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
+                  <Popconfirm 
+                    overlayStyle={{fontFamily:"VazirD"}}
+                    cancelButtonProps={{hidden:"true"}}
+                    okText="متوجه شدم"
+                    title={
+                      <p>مقصد محلی است که کالا قرار است به آن ارسال شود</p>
+                  }
+                    >
+                      <InfoCircleOutlined/>
+                    </Popconfirm>
+                    <span style={{marginRight:"10px"}}>
                     کشور مقصد *
+                    </span>
                   </Divider>
-                  <Tooltip title="جایی که مسافر کالا را تحویل می‌دهد.">
                     <Form.Item
                       name="destination_country"
                       style={{ textAlign: "right" }}
@@ -427,7 +370,6 @@ class PackForm extends React.Component {
                         })}
                       </Select>
                     </Form.Item>
-                  </Tooltip>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
@@ -457,8 +399,24 @@ class PackForm extends React.Component {
               </Row>
               <Row>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                  <Divider plain orientation="center">
+                    <Divider plain orientation="center">
+                    <Popconfirm 
+                    overlayStyle={{fontFamily:"VazirD"}}
+                    cancelButtonProps={{hidden:"true"}}
+                    okText="متوجه شدم"
+                    title={
+                    <div>
+                      <p>کوچک :‌ بسته‌هایی که در جیب جا بشوند.</p>
+                      <p>متوسط :‌ بسته‌هایی که در کوله‌پشتی جا بشوند.</p>
+                      <p>بزرگ :‌ بسته‌هایی که در چمدان جا بشوند.</p>
+                    </div>
+                  }
+                    >
+                      <InfoCircleOutlined/>
+                    </Popconfirm>
+                   <span style={{marginRight:"10px"}}>
                     ابعاد بسته *
+                    </span>
                   </Divider>
                   <Form.Item
                     name="dimension"
@@ -496,7 +454,6 @@ class PackForm extends React.Component {
                     }}
                   >
                     <Divider plain orientation="center">
-                      {" "}
                       دسته بندی آگهی خود را وارد کنید
                     </Divider>
                     <Form.Item
@@ -511,15 +468,34 @@ class PackForm extends React.Component {
               <Row style={{ display: "flex", justifyContent: "center" }}>
                 <Col xs={24} sm={24} md={24} lg={20} xl={20} xxl={20}>
                   <Divider plain orientation="center">
+                  <Popconfirm 
+                    overlayStyle={{fontFamily:"VazirD"}}
+                    cancelButtonProps={{hidden:"true"}}
+                    okText="متوجه شدم"
+                    title="وزن بسته باید عددی بین ۱۰۰ گرم (۰.۱ کیلوگرم) تا ۳۰ کیلوگرم باشد">
+                      <InfoCircleOutlined/>
+                    </Popconfirm>
+                    <span style={{marginRight:"10px"}}>
                     وزن بسته (کیلوگرم) *
+                    </span>
                   </Divider>
                   <Form.Item
                     name="weight"
                     style={{ textAlign: "center" }}
                     rules={[
-                      { required: true, message: "وزن بسته را وارد کنید" },
+                      { required: true, message: "وزن بسته را با کیبورد انگلیسی وارد کنید" },
+                      ({ getFieldValue }) => ({
+                        validator(rule, value) {
+                          if (value <= 30 && value > 0) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject("وزن بسته باید عددی بین ۱۰۰ گرم تا ۳۰ کیلوگرم باشد");
+                        },
+                      }),
                     ]}
                   >
+                    <Space>
+                    
                     <InputNumber
                         formatter={(value) =>
                           `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -528,22 +504,34 @@ class PackForm extends React.Component {
                         style={{ textAlign: "right" }}
                         min={0}
                       />
+                    </Space>
                   </Form.Item>
                 </Col>
               </Row>
               <Row style={{ display: "flex", justifyContent: "center" }}>
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
-                    مبلغ پیشنهادی (تومان) *
+                  <Popconfirm 
+                    overlayStyle={{fontFamily:"VazirD"}}
+                    cancelButtonProps={{hidden:"true"}}
+                    okText="متوجه شدم"
+                    title={
+                      <p> مبلغی است که به صورت توافقی تعیین و به عنوان دستمزد به مسافر پرداخت می‌شود</p>
+                  }
+                    >
+                      <InfoCircleOutlined/>
+                    </Popconfirm>
+                   <span style={{marginRight:"10px"}}>
+                   مبلغ پیشنهادی (تومان) *
+                    </span>
                   </Divider>
-                  <Tooltip title="مبلغی که به مسافر به عنوان پاداش داده می‌شود">
                     <Form.Item
                       name="suggested_price"
                       style={{ textAlign: "center" }}
                       rules={[
                         {
                           required: true,
-                          message: "مبلغ پیشنهادی خود را وارد کنید",
+                          message: "مبلغ پیشنهادی خود را با کیبورد انگلیسی وارد کنید",
                         },
                       ]}
                     >
@@ -556,13 +544,29 @@ class PackForm extends React.Component {
                         min={0}
                       />
                     </Form.Item>
-                  </Tooltip>
                 </Col>
               </Row>
               <Form.Item name="buy" style={{ textAlign: "center" }}>
+              <Space>
+              <Popconfirm 
+                    overlayStyle={{fontFamily:"VazirD"}}
+                    cancelButtonProps={{hidden:"true"}}
+                    okText="متوجه شدم"
+                    title={
+                    <div>
+                      <p>زمانی که‌ می‌خواهید مسافر کالای مورد نظر را برای شما خریداری کند این گزینه را فعال کنید.</p>
+                      <p>در این حالت باید اطلاعات کالای مورد نظر را در کادری که باز می‌شود، وارد کرده و مبلغ آن را به علاوه بر دستمزد به سایت پرداخت کنید</p>
+                    </div>
+                  }
+                    >
+                      <InfoCircleOutlined/>
+                    </Popconfirm>
                 <Checkbox onChange={this.handlebuy.bind(this)}>
-                  بسته باید توسط مسافر خریداری شود
+                   <span style={{marginRight:"10px"}}>
+                   بسته باید توسط مسافر خریداری شود
+                    </span>
                 </Checkbox>
+                </Space>
                 <br />
               </Form.Item>
               <div
@@ -579,11 +583,9 @@ class PackForm extends React.Component {
                   {" "}
                   لینک کالا / وبسایت فروشگاه / آدرس فروشگاه
                 </Divider>
-                <Tooltip title="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر شمابرای مسافر مفید باشد">
                   <Form.Item name="buy_link">
-                    <Input />
+                    <Input placeholder="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر برای مسافر مفید باشد" />
                   </Form.Item>
-                </Tooltip>
                 <Divider plain orientation="center">
                   {" "}
                قیمت کالا (تومان)
@@ -599,8 +601,16 @@ class PackForm extends React.Component {
                   />
                 </Form.Item>
               </div>
+              <Form.Item
+                name="phone_number"
+                valuePropName="checked"
+                style={{ textAlign: "center" }}
+              >
+                <Checkbox onChange={this.handlephonenumber.bind(this)}  style={{ textAlign: "right" }}>
+                  شماره تماس من در‌ آگهی نمایش داده شود
+                </Checkbox>
+                </Form.Item>
               <Divider plain orientation="center">
-                {" "}
                تصویر کالا
               </Divider>
               <Form.Item
@@ -611,20 +621,11 @@ class PackForm extends React.Component {
                 <UploadFile parentCallback={this.callbackFunction} />
                 </div>
               </Form.Item>
-              <Form.Item
-                name="phone_number"
-                valuePropName="checked"
-                style={{ textAlign: "center" }}
-              >
-                <Checkbox onChange={this.handlephonenumber.bind(this)}  style={{ textAlign: "right" }}>
-                  شماره تماس من در‌ آگهی نمایش داده شود
-                </Checkbox>
-                </Form.Item>
                 <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>
               <Form.Item name="description">
-                <TextArea placeholder="نکاتی را که به واضح‌تر شدن درخواست برای بازدیدکننده آگهی کمک می‌کند، در اینجا یادداشت کنید." style={{ textAlign: "right" }} />
+                <TextArea placeholder="نکاتی را که به واضح‌تر شدن درخواست برای بازدیدکننده آگهی کمک می‌کند، در اینجا یادداشت کنید." style={{ textAlign: "right", padding:"10px" }} />
               </Form.Item>
               <Form.Item
                 name="rule"
@@ -640,7 +641,7 @@ class PackForm extends React.Component {
                 style={{ textAlign: "center" }}
               >
                 <Checkbox style={{ textAlign: "right" }}>
-                  با <a>قوانین و مقررات </a>بیلیگ پست موافقم *
+                  با <Link to="/terms">قوانین و مقررات </Link>بیلیگ پست موافقم *
                 </Checkbox>
               </Form.Item>
               <Divider plain orientation="center">
@@ -659,35 +660,6 @@ class PackForm extends React.Component {
           </Col>
           <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6}></Col>
         </Row>
-
-
-{/* <div style={{padding:"50px"}}>
-   
-        <Steps current={this.state.current} onChange={this.onChange}>
-          {steps.map(item => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
-        <div className="steps-content">{steps[this.state.current].content}</div>
-        <div className="steps-action">
-          {this.state.current < steps.length - 1 && (
-            <Button style={{ margin: '25px 8px' }} type="primary" onClick={() => this.next()}>
-              مرحله بعد
-            </Button>
-          )}
-          {this.state.current === steps.length - 1 && (
-            <Button style={{ margin: '25px 8px' }} type="primary" onClick={() => message.success('Processing complete!')}>
-              ثبت
-            </Button>
-          )}
-          {this.state.current > 0 && (
-            <Button style={{ margin: '25px 8px' }} onClick={() => this.prev()}>
-              مرحله قبل
-            </Button>
-          )}
-        </div>
-      </div>  */}
-
       </div>
     );
   }

@@ -27,19 +27,20 @@ class ConfirmPrice extends React.Component {
   onFinish = (values) => {
     this.setState({loading:true})
     const price = values.price;
+    const parcel_price = values.parcel_price;
     const token = localStorage.getItem("token");
     Axios.post(
       `${url}api/v1/advertise/offer/update/`,
       {
         slug: this.props.data,
         price: price,
+        parcel_price: parcel_price
       },
       { headers: { Authorization: `Token ${token}` } }
     )
       .then(() => {
         this.props.parentfunction()
           this.setState({ price_visible: false, loading:false });
-        
           notification["success"]({
             message: "مبلغ نهایی با موفقیت ثبت شد",
             description:"حال می‌توانید مبلغ را تایید نمایید",
@@ -48,7 +49,6 @@ class ConfirmPrice extends React.Component {
               textAlign: "right",
               float: "right",
               width: "max-content",
-              marginTop: "30%",
             },
             duration: 3,
           });
@@ -61,7 +61,6 @@ class ConfirmPrice extends React.Component {
             textAlign: "right",
             float: "right",
             width: "max-content",
-            marginTop: "30%",
           },
           duration: 3,
         });
@@ -70,19 +69,20 @@ class ConfirmPrice extends React.Component {
 
   render() {
     const price1 = this.props.price1;
+    const parcel_price = this.props.parcel_price;
+    const buy = this.props.buy;
     return (
       <div>
         <Button
           onClick={this.pricelistmodal}
           style={{ fontSize: "12px", border: "hidden", borderRadius: "10px" }}
         >
-          {" "}
           مبلغ نهایی
         </Button>
         <Breakpoint medium up>
           <Modal
             visible={this.state.price_visible}
-            title="مبلغ نهایی"
+            title="نهایی کردن مبلغ"
             onCancel={this.handleCancel}
             okText="ارسال"
             cancelText="انصراف"
@@ -98,10 +98,11 @@ class ConfirmPrice extends React.Component {
               overflow: "hidden",
               borderRadius: "10px",
             }}
-            width="50%"
+            width="30%"
             bodyStyle={{ borderRadius: "20px" }}
             maskStyle={{ borderRadius: "20px" }}
           >
+            <p>مبلغ توافق فعلی: {price1} تومان</p> 
             <Form
               size="middle"
               layout="vertical"
@@ -112,13 +113,14 @@ class ConfirmPrice extends React.Component {
               onFinish={this.onFinish}
               onFinishFailed={this.onFinishFailed}
             >
+              <p>دستمزدی را که پس از مذاکره با صاحب آگهی توافق کرده‌اید، وارد نمایید.</p>
               <Form.Item
                 name="price"
                 size="large"
                 rules={[
                   {
                     required: true,
-                    message: "مبلغ نهایی را وارد کنید",
+                    message: "مبلغ نهایی دستمزد را وارد کنید",
                   },
                 ]}
               >
@@ -127,17 +129,41 @@ class ConfirmPrice extends React.Component {
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
                   parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                  style={{ textAlign: "right" }}
+                  style={{ textAlign: "right", width:"200px" }}
                   min={0}
                 />
               </Form.Item>
+              {buy &&
+              <div>
+              <p>مبلغ فعلی کالا : {parcel_price ? parcel_price : 0 } تومان</p> 
+              <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
+              <Form.Item
+                name="parcel_price"
+                size="large"
+                rules={[
+                  {
+                    required: true,
+                    message: "مبلغ نهایی کالا را وارد کنید",
+                  },
+                ]}
+              >
+                <InputNumber
+                  formatter={(value) =>
+                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                  style={{ textAlign: "right", width:"200px" }}
+                  min={0}
+                />
+              </Form.Item>
+              </div>}
             </Form>
           </Modal>
         </Breakpoint>
         <Breakpoint small down>
           <Modal
+            title="نهایی کردن مبلغ"
             visible={this.state.price_visible}
-            // title="مبلغ نهایی"
             onCancel={this.handleCancel}
             okText="ارسال"
             cancelText="انصراف"
@@ -159,8 +185,7 @@ class ConfirmPrice extends React.Component {
             bodyStyle={{ borderRadius: "20px" }}
             maskStyle={{ borderRadius: "20px" }}
           >
-            <p>مبلغ توافق فعلی</p> {price1} تومان
-            <Divider >مبلغ نهایی را وارد نمایید (تومان)</Divider>
+            <p>مبلغ توافق فعلی: {price1} تومان</p> 
             <Form
               size="middle"
               layout="vertical"
@@ -171,13 +196,14 @@ class ConfirmPrice extends React.Component {
               onFinish={this.onFinish}
               onFinishFailed={this.onFinishFailed}
             >
+              <p>دستمزدی را که پس از مذاکره با صاحب آگهی توافق کرده‌اید، وارد نمایید.</p>
               <Form.Item
                 name="price"
                 size="large"
                 rules={[
                   {
                     required: true,
-                    message: "مبلغ نهایی را وارد کنید",
+                    message: "مبلغ نهایی دستمزد را وارد کنید",
                   },
                 ]}
               >
@@ -186,10 +212,34 @@ class ConfirmPrice extends React.Component {
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
                   parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                  style={{ textAlign: "right", width:"250px" }}
+                  style={{ textAlign: "right", width:"200px" }}
                   min={0}
                 />
               </Form.Item>
+              {buy &&
+              <div>
+              <p>مبلغ فعلی کالا : {parcel_price ? parcel_price : 0 } تومان</p> 
+              <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
+              <Form.Item
+                name="parcel_price"
+                size="large"
+                rules={[
+                  {
+                    required: true,
+                    message: "مبلغ نهایی کالا را وارد کنید",
+                  },
+                ]}
+              >
+                <InputNumber
+                  formatter={(value) =>
+                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                  style={{ textAlign: "right", width:"200px" }}
+                  min={0}
+                />
+              </Form.Item>
+              </div>}
             </Form>
           </Modal>
         </Breakpoint>

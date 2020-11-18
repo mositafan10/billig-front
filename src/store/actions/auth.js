@@ -49,7 +49,7 @@ export const checkAuthTimeout = (expirationTime) => {
   return (dispatch) => {
     setTimeout(() => {
       dispatch(logout());
-    }, expirationTime * 10000);
+    }, expirationTime * 1000);
   };
 };
 
@@ -67,12 +67,12 @@ export const authLogin = (phone_number, password, otp, name) => {
         const token = res.data.token;
         const user = res.data.user;
         const first_time = res.data.first_time;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        const expirationDate = new Date(new Date().getTime() + 36000 * 1000);
         localStorage.setItem("user", user);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token, user));
-        dispatch(checkAuthTimeout(3600));
+        dispatch(checkAuthTimeout(36000));
         {
           first_time
             ? (window.location = "/signup/complete/")
@@ -97,7 +97,7 @@ export const authSignup = (phone_number, password, name) => {
       phone_number: phone_number,
     })
       .then((res) => {
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        const expirationDate = new Date(new Date().getTime() + 36000 * 1000);
         dispatch(authReady())
         localStorage.setItem("signup", "ready");
         localStorage.setItem("expirationDate", expirationDate);
@@ -128,12 +128,12 @@ export const authSignup1 = (phone_number, password, otp, name) => {
           const token = res.data.token;
           const user = res.data.user;
           const first_time = res.data.first_time;
-          const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+          const expirationDate = new Date(new Date().getTime() + 36000 * 1000);
           localStorage.setItem("user", user);
           localStorage.setItem("token", token);
           localStorage.setItem("expirationDate", expirationDate);
           dispatch(authSuccess(token, user));
-          dispatch(checkAuthTimeout(3600));
+          dispatch(checkAuthTimeout(36000));
           {
             first_time
               ? (window.location = "/signup/complete/")

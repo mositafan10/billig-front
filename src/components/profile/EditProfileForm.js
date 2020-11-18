@@ -8,7 +8,6 @@ import {
   Select,
   Button,
   Input,
-  message,
   ConfigProvider,
   Modal,
   notification,
@@ -21,15 +20,12 @@ import {
   LinkedinOutlined,
   FacebookOutlined,
   IeOutlined,
-  UserOutlined,
-  DollarCircleOutlined,
-  PlusSquareOutlined,
   PlusOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
-
 import { config } from "../../Constant";
+
 var url = config.url.API_URL;
-const token = localStorage.getItem("token");
 const Option = { Select };
 
 class EditProfileForm extends React.Component {
@@ -39,6 +35,7 @@ class EditProfileForm extends React.Component {
     city_dis: true,
     socialmodal: false,
     loading: false,
+    mainloading: false
   };
 
   componentDidMount() {
@@ -89,9 +86,7 @@ class EditProfileForm extends React.Component {
             okText="بله"
             cancelText="خیر"
           >
-            <Button
-              style={{ border: "hidden" }}
-            >
+            <Button style={{ border: "hidden" }}>
               <LinkedinOutlined style={{ fontSize: "35px" }} />
             </Button>
           </Popconfirm>
@@ -106,9 +101,7 @@ class EditProfileForm extends React.Component {
             okText="بله"
             cancelText="خیر"
           >
-            <Button
-              style={{ border: "hidden" }}
-            >
+            <Button style={{ border: "hidden" }}>
               <TwitterOutlined style={{ fontSize: "35px" }} />
             </Button>
           </Popconfirm>
@@ -123,9 +116,7 @@ class EditProfileForm extends React.Component {
             okText="بله"
             cancelText="خیر"
           >
-            <Button
-              style={{ border: "hidden" }}
-            >
+            <Button style={{ border: "hidden" }}>
               <FacebookOutlined style={{ fontSize: "35px" }} />
             </Button>
           </Popconfirm>
@@ -152,36 +143,34 @@ class EditProfileForm extends React.Component {
 
   handleFormSubmit = (values) => {
     const token = localStorage.getItem("token");
+    this.setState({mainloading:true})
     Axios.post(
       `${url}api/v1/account/users/update/`,
       {
-        email: values.email ? values.email : this.props.data.email,
-        bio: values.bio ? values.bio : this.props.data.bio,
         country: values.living_country
-          ? values.living_country
-          : this.props.data.country.id,
-        city: values.living_city ? values.living_city : this.props.data.city.id,
-        first_name: values.first_name
-          ? values.first_name
-          : this.props.data.first_name,
-        last_name: values.last_name
-          ? values.last_name
-          : this.props.data.last_name,
+        ? values.living_country
+        : (this.props.data.country ? this.props.data.country.id : this.props.data.country),
+        city: values.living_city ? values.living_city : (this.props.data.city ? this.props.data.city.id : this.props.data.city),
+        name: values.name ? values.name : this.props.data.name,
+        email: values.email ? values.email : this.props.data.email,
       },
       { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => {
-        notification["success"]({
-          message: "با موفقیت انجام شد",
-          style: {
-            fontFamily: "VazirD",
-            textAlign: "right",
-            float: "right",
-            width: "max-content",
-          },
-          duration: 2,
-        });
-        this.props.update();
+        setTimeout(()=>{
+          notification["success"]({
+            message: "با موفقیت به روزرسانی شد",
+            style: {
+              fontFamily: "VazirD",
+              textAlign: "right",
+              float: "right",
+              width: "max-content",
+            },
+            duration: 3,
+          });
+          this.setState({mainloading:false})
+          this.props.update();
+        },1000)
       })
       .catch((error) => console.error(error));
   };
@@ -248,13 +237,107 @@ class EditProfileForm extends React.Component {
     return (
       <div>
         <ConfigProvider direction="rtl">
+          <Divider plain orientation="center">
+            شبکه‌های اجتماعی
+          </Divider>
+          <p style={{ textAlign: "center" }}>
+            شبکه‌های اجتماعی جهت شناخت بیشتر کاربران هنگام بازدید آنها از صفحه
+            پروفایل شما نمایش داده می‌شوند
+          </p>
+          <Row style={{ display: "flex", justifyContent: "center" }}>
+            {this.props.social.length != 4 && (
+              <Button
+                icon={<PlusOutlined />}
+                style={{ border: "hidden" }}
+                size="large"
+                onClick={this.showsocail}
+              ></Button>
+            )}
+            <Space>
+              {this.props.social[0] &&
+                this.setIcon(
+                  this.props.social[0].account_type,
+                  this.props.social[0].slug
+                )}
+              {this.props.social[1] &&
+                this.setIcon(
+                  this.props.social[1].account_type,
+                  this.props.social[1].slug
+                )}
+              {this.props.social[2] &&
+                this.setIcon(
+                  this.props.social[2].account_type,
+                  this.props.social[2].slug
+                )}
+              {this.props.social[3] &&
+                this.setIcon(
+                  this.props.social[3].account_type,
+                  this.props.social[3].slug
+                )}
+            </Space>
+          </Row>
+          <br />
+          {this.props.social.length != 0 && (
+            <p style={{ textAlign: "center" }}>
+              برای حذف اکانت روی آن کلیک کنید
+            </p>
+          )}
+          <Modal
+            confirmLoading={this.state.loading}
+            style={{ fontFamily: "VazirD" }}
+            okButtonProps={{
+              form: "socail",
+              key: "submit",
+              htmlType: "submit",
+            }}
+            title="اضافه کردن اکانت اجتماعی"
+            visible={this.state.socialmodal}
+            onCancel={this.cancelsocial}
+            cancelText="بازگشت"
+            okText="ثبت"
+          >
+            <Form name="socail" onFinish={this.handleOk}>
+              <label>نوع اکانت</label>
+              <Form.Item
+                name="type"
+                style={{ textAlign: "right", fontFamily: "VazirD" }}
+                rules={[
+                  {
+                    required: true,
+                    message: "نوع اکانت را وارد کنید",
+                  },
+                ]}
+              >
+                <Select dropdownStyle={{ fontFamily: "VazirD" }}>
+                  <Option value="0">لینکدین</Option>
+                  <Option value="1">فیسبوک</Option>
+                  <Option value="2">اینستاگرام</Option>
+                  <Option value="3">توییتر</Option>
+                </Select>
+              </Form.Item>
+              <label>آدرس اکانت</label>
+              <Form.Item
+                name="address"
+                style={{ textAlign: "right" }}
+                rules={[
+                  {
+                    required: true,
+                    message: "آدرس اکانت را وارد کنید",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="وارد کنید @example به شکل"
+                  style={{ direction: "ltr" }}
+                />
+              </Form.Item>
+            </Form>
+          </Modal>
           <Form
             size="middle"
             onFinish={(values) => this.handleFormSubmit(values)}
-            id="edit"
           >
-            <Row>
-              <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}></Col>
+            <Row style={{ display: "flex", justifyContent: "center" }}>
               <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}>
                 <Divider plain orientation="center">
                   <IeOutlined
@@ -264,113 +347,37 @@ class EditProfileForm extends React.Component {
                       justifyContent: "center",
                     }}
                   />
-                  ایمیل{" "}
+                  ایمیل
                 </Divider>
                 <Form.Item name="email">
                   <Input
                     defaultValue={this.props.data && this.props.data.email}
                     type="email"
-                    style={{ borderRadius: "8px", direction:"ltr" }}
+                    style={{ borderRadius: "8px", direction: "ltr" }}
                   />
                 </Form.Item>
               </Col>
-              <Col xs={4} sm={4} md={4} lg={4} xl={4} xxl={4}></Col>
             </Row>
-            <Divider plain orientation="center">
-              {" "}
-              شبکه‌های اجتماعی
-            </Divider>
-            <p style={{ textAlign: "center" }}>
-              {" "}
-              شبکه‌های اجتماعی جهت شناخت بیشتر کاربران هنگام بازدید آنها از صفحه
-              پروفایل شما نمایش داده می‌شوند
-            </p>
             <Row style={{ display: "flex", justifyContent: "center" }}>
-              {this.props.social.length != 4 && (
-                <Button
-                  icon={<PlusOutlined />}
-                  style={{ border: "hidden" }}
-                  size="large"
-                  onClick={this.showsocail}
-                ></Button>
-              )}
-              <Space>
-                {this.props.social[0] &&
-                  this.setIcon(
-                    this.props.social[0].account_type,
-                    this.props.social[0].id
-                  )}
-                {this.props.social[1] &&
-                  this.setIcon(
-                    this.props.social[1].account_type,
-                    this.props.social[1].id
-                  )}
-                {this.props.social[2] &&
-                  this.setIcon(
-                    this.props.social[2].account_type,
-                    this.props.social[2].id
-                  )}
-                {this.props.social[3] &&
-                  this.setIcon(
-                    this.props.social[3].account_type,
-                    this.props.social[3].id
-                  )}
-              </Space>
+              <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}>
+                <Divider plain orientation="center">
+                  <UserOutlined
+                    style={{
+                      fontSize: "30px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  />
+                  نام
+                </Divider>
+                <Form.Item name="name">
+                  <Input
+                    defaultValue={this.props.data && this.props.data.name}
+                    style={{ borderRadius: "8px", direction: "rtl" }}
+                  />
+                </Form.Item>
+              </Col>
             </Row>
-            <br />
-            {this.props.social.length != 0 && (
-              <p style={{ textAlign: "center" }}>
-                برای حذف اکانت روی آن کلیک کنید
-              </p>
-            )}
-            <Modal
-              confirmLoading={this.state.loading}
-              style={{ fontFamily: "VazirD" }}
-              okButtonProps={{
-                form: "socail",
-                key: "submit",
-                htmlType: "submit",
-              }}
-              title="اضافه کردن اکانت اجتماعی"
-              visible={this.state.socialmodal}
-              onCancel={this.cancelsocial}
-              cancelText="بازگشت"
-              okText="ثبت"
-            >
-              <Form name="socail" onFinish={this.handleOk}>
-                <label>نوع اکانت</label>
-                <Form.Item
-                  name="type"
-                  style={{ textAlign: "right", fontFamily: "VazirD" }}
-                  rules={[
-                    {
-                      required: true,
-                      message: "نوع اکانت را وارد کنید",
-                    },
-                  ]}
-                >
-                  <Select dropdownStyle={{ fontFamily: "VazirD" }}>
-                    <Option value="0">لینکدین</Option>
-                    <Option value="1">فیسبوک</Option>
-                    <Option value="2">اینستاگرام</Option>
-                    <Option value="3">توییتر</Option>
-                  </Select>
-                </Form.Item>
-                <label>آدرس اکانت</label>
-                <Form.Item
-                  name="address"
-                  style={{ textAlign: "right" }}
-                  rules={[
-                    {
-                      required: true,
-                      message: "آدرس اکانت را وارد کنید",
-                    },
-                  ]}
-                >
-                  <Input style={{direction:"ltr"}}/>
-                </Form.Item>
-              </Form>
-            </Modal>
             <Divider plain orientation="center">
               محل اقامت
             </Divider>
@@ -423,16 +430,15 @@ class EditProfileForm extends React.Component {
               </Col>
             </Row>
             <br />
-
             <Row>
               <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                 <Form.Item style={{ textAlign: "center" }}>
                   <Button
+                    loading={this.state.mainloading}
                     style={{ borderRadius: "8px" }}
                     type="primary"
                     htmlType="submit"
                   >
-                    {" "}
                     ویرایش
                   </Button>
                 </Form.Item>

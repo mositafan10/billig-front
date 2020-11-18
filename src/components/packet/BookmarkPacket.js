@@ -88,7 +88,7 @@ class BookmarkPacket extends Component {
         ) : (
           <Table
             scroll={{ x: 300 }}
-            locale={{ emptyText: "نشانی وجود ندارد" }}
+            locale={{ emptyText: "موردی نشان نشده است." }}
             style={{ padding: "30px 0 30px 0" }}
             columns={this.columns}
             dataSource={this.state.bookmarks}

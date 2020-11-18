@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Input, Form, message } from "antd";
+import { Button, Modal, Input, Form, message, notification } from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
 import PhoneInput from "react-phone-input-2";
@@ -65,7 +65,16 @@ class ResetPassword extends React.Component {
           loading_first: false,
           phone_number_otp: values.phone_number,
         });
-        message.success(res.data.detail)
+        notification["success"]({
+          message: <div><p>رمز عبور به کد ارسالی تغییر پیدا کرد. <br/>توصیه می‌شود در اسرع وقت رمز خود را تغییر دهید.</p></div>,
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+          },
+          duration: 4,
+        });
       })
       .catch((error) => {
         message.info({

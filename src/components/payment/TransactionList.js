@@ -18,7 +18,7 @@ class TransactionList extends Component {
       dataIndex: "create_at",
       key: "transId",
       align: "right",
-      render: (dataIndex) => <p>{moment(dataIndex).format("Do MMMM YYYY")}</p>,
+      render: (dataIndex) => <p>{moment(dataIndex).format("Do MMM YYYY")}</p>,
     },
     {
       title: "مقدار",

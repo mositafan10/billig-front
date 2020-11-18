@@ -36,10 +36,10 @@ class FooterSection extends Component {
                         بیلیگ را در شبکه‌های اجتماعی دنبال کنید
                         <Divider/>
                         <Space size="large">
-                            <TwitterOutlined style={{fontSize:"30px"}} />
-                            <InstagramOutlined style={{fontSize:"30px"}} />
-                            <LinkedinOutlined style={{fontSize:"30px"}} />
-                            <FacebookOutlined style={{fontSize:"30px"}} />
+                            <a style={{color:"black"}} href="https://twitter.com/Billlig1"><TwitterOutlined style={{fontSize:"30px"}} /></a>
+                            <a style={{color:"black"}} href="https://www.instagram.com/billligofficial/"><InstagramOutlined style={{fontSize:"30px"}} /></a>
+                            <a style={{color:"black"}} href="https://www.linkedin.com/in/billlig/"><LinkedinOutlined style={{fontSize:"30px"}} /></a>
+                            <a style={{color:"black"}} href="https://www.facebook.com/billligofficial"><FacebookOutlined style={{fontSize:"30px"}} /></a>
                         </Space>
                         <Divider/>
                         <p>از تخفیفات فروشگاه‌ها و جدیدترین‌های بیلیگ باخبر شوید:</p>

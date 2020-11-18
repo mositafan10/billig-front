@@ -48,8 +48,7 @@ class CreateTravel extends React.Component {
     handleOkTravel = (values) => {
         const token = localStorage.getItem('token');
         { this.state.radio_value
-            ? 
-            
+        ? 
         Axios.post(`${url}api/v1/advertise/travel/`, {
                 departure : values.origin_country, 
                 departure_city : values.origin_city, 
@@ -90,22 +89,20 @@ class CreateTravel extends React.Component {
                 { headers: {"Authorization" : `Token ${token}`} })
                 .then(res => {
                     this.setState({confirmLoading:true})
-                    setTimeout(() => {
-                        this.setState({
-                          createtravelvisible: false,
-                          confirmLoading: false,
-                        });
-                      }, 2000);
-                        {this.props.loc === "offer" ?
-                        this.props.parent() :
-                        this.props.parentCallback(); }
+                        setTimeout(() => {
+                            this.setState({
+                            createtravelvisible: false,
+                            confirmLoading: false,
+                            });
+                        }, 2000);
                         setTimeout(() => { 
                         notification['success']({
                             message: 'سفر شما با موفقیت ثبت شد',
                             style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
                             duration:2,
                           });
-                        },1000)
+                        },500)
+                        this.props.parentCallback();
                 })  
                 .catch(error => notification['error']({
                     message: error.response.data.detail,

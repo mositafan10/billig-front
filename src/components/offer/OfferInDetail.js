@@ -28,7 +28,7 @@ class OfferDetail extends React.Component {
     slug: "",
     price: "",
     travel: "",
-    description: "",
+    description: this.defualt_description,
     travellist: [],
     loading: false,
   };
@@ -85,14 +85,14 @@ class OfferDetail extends React.Component {
         }, 3000);
         setTimeout(() => {
           notification["success"]({
-            message: "پیشنهاد شما با موفقیت ثبت شد",
+            message: <div>پیشنهاد شما با موفقیت ثبت شد <br/> لیست پیشنهادهای خود را می‌توانید در پروفایل خود بخش «پیشنهادهای من»ملاحظه کنید</div>,
             style: {
               fontFamily: "VazirD",
               textAlign: "right",
               float: "right",
               width: "max-content",
             },
-            duration: 3,
+            duration: 6,
           });
         }, 1500);
       })
@@ -118,7 +118,7 @@ class OfferDetail extends React.Component {
   };
 
   callbackfunction = () => {
-    this.componentDidMount();
+    this.showModal();
   };
 
   render() {
@@ -166,7 +166,7 @@ class OfferDetail extends React.Component {
                     }}
                   >
                     ثبت پیشنهاد
-                  </p>{" "}
+                  </p>
                   <br />
                   <label
                     style={{
@@ -242,7 +242,7 @@ class OfferDetail extends React.Component {
                       marginTop: "-30px",
                     }}
                   >
-                  توضیحات
+                  متن پیشنهاد
                   </label>
                   <Form.Item name="description">
                     <textarea 
@@ -255,8 +255,7 @@ class OfferDetail extends React.Component {
                   <b>
                     برای ثبت پیشنهاد ابتدا باید سفر خود را ثبت نمایید
                     <CreateTravel
-                      loc={"offer"}
-                      parent={this.callbackfunction}
+                      parentCallback={this.callbackfunction}
                     />
                   </b>
                 </p>

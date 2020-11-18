@@ -57,7 +57,7 @@ class ChatContacs extends Component {
           <List
             itemLayout="horizontal"
             dataSource={this.state.contacs}
-            locale={{ emptyText: "مذاکره‌ای وجود ندارد" }}
+            locale={{ emptyText: <div>شما هنوز مذاکره‌ای آغاز نکرده‌اید<br/> مذاکره با ثبت پیشنهاد روی آگهی آغاز می شود.</div> }}
             renderItem={(item) => (
               <List.Item
                 style={{

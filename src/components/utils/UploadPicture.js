@@ -12,7 +12,6 @@ const UploadFile = (props) => {
   const sendData = (newFileList) => { props.parentCallback(newFileList); };
 
   const onChange = ({ fileList: newFileList }) => {
-    console.log(newFileList)
     if ( newFileList[0] && newFileList[0].status == "error"){
       notification['error']({
         message: newFileList[0].response,

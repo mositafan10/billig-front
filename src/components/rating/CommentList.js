@@ -31,7 +31,7 @@ class CommentList extends Component {
             </div>
           ) : (
         <List
-                locale={{ emptyText: "اظهارنظر وجود ندارد" }}
+                locale={{ emptyText: <div>دیگران هنوز در مورد شما اظهارنظر نکرده‌اند.</div> }}
                 grid={{
                   xs: 1,
                   sm: 1,

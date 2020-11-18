@@ -161,80 +161,119 @@ class PacketUserList extends React.Component {
 
   render() {
     return (
-      <div style={{display:"flex", justifyContent:"center"}}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <Breakpoint medium up>
           <Link to="/create-packet">
-            <Button icon={<PlusOutlined />} style={{ borderRadius: "8px" }}>
+            <br />
+            <br />
+            <Button
+              icon={<PlusOutlined />}
+              style={{ borderRadius: "8px", marginBottom: "10px" }}
+            >
               <b> ثبت آگهی جدید</b>
             </Button>
           </Link>
-          <Divider />
           {this.state.loading ? (
             <div style={{ marginTop: "100px" }}>
               <Spin />
             </div>
           ) : (
             <List
-            grid={{
-              xs: 1,
-              sm: 1,
-              md: 2,
-              lg: 3,
-              xl: 3,
-              xxl: 3,
-            }}
-            style={{display:"flex",}}
-            locale={{ emptyText: "آگهی وجود ندارد" }}
-            dataSource={this.state.packet_user}
-            renderItem={(item) => (
-              <div>
-                <Row
-                  style={{
-                    color: "black",
-                    border: "1px solid",
-                    borderRadius: "15px",
-                    margin: "25px 15px 25px 15px",
-                    padding: "15px 15px 15px 15px",
-                    width: "300px",
-                    height: "auto",
-                  }}
-                >
-                  <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                    <span style={{display:"flex", justifyContent:"center"}}> وضعیت آگهی : <span style={{ display: "flex", justifyContent:"center",color:"darkgreen", marginRight:"3px" }}> {item.status} </span></span>
-                    <hr/>
-                    <Row
-                      style={{ justifyContent: "center", display: "flex" }}
-                    >
-                      <Col>
-                        <div>
-                          <DownloadPic data={item.picture} size={140} />
-                        </div>
-                      </Col>
-                    </Row>
-                    <Row
-                      style={{ justifyContent: "center", display: "flex", marginTop:"10px" }}
-                    >
-                      <Col style={{ color: "black" }}>
-                        <Link
-                          to={`/packet/${item.slug}`}
-                          style={{ color: "black" }}
-                        >
-                          {item.title}
-                        </Link>
-                      </Col>
-                    </Row>
-                    
-                    <Row style={{display:"flex", justifyContent:"center", marginTop:"10px"}}>
-                      <OfferListModal data={item.slug} count={item.offer_count} />
-                  </Row>
-                  <hr/>
+              grid={{
+                xs: 1,
+                sm: 1,
+                md: 2,
+                lg: 3,
+                xl: 3,
+                xxl: 3,
+              }}
+              style={{ display: "flex" }}
+              locale={{ emptyText: "شما هنوز آگهی ثبت نکرده‌اید." }}
+              dataSource={this.state.packet_user}
+              renderItem={(item) => (
+                <div>
                   <Row
-                      
-                    >
-                      <Col span={12} style={{ justifyContent: "center", display: "flex", borderLeft:"1px solid" }}>
+                    style={{
+                      color: "black",
+                      border: "1px solid",
+                      borderRadius: "15px",
+                      margin: "25px 15px 25px 15px",
+                      padding: "15px 15px 15px 15px",
+                      width: "300px",
+                      height: "auto",
+                    }}
+                  >
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                      <span
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        وضعیت آگهی :
+                        <span
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            color: "darkgreen",
+                            marginRight: "3px",
+                          }}
+                        >
+                          {item.status}
+                        </span>
+                      </span>
+                      <hr />
+                      <Row
+                        style={{ justifyContent: "center", display: "flex" }}
+                      >
+                        <Col>
+                          <div>
+                            <DownloadPic data={item.picture} size={140} />
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row
+                        style={{
+                          justifyContent: "center",
+                          display: "flex",
+                          marginTop: "10px",
+                        }}
+                      >
+                        <Col style={{ color: "black" }}>
+                          <Link
+                            to={`/packet/${item.slug}`}
+                            style={{ color: "black" }}
+                          >
+                            {item.title}
+                          </Link>
+                        </Col>
+                      </Row>
+
+                      <Row
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          marginTop: "10px",
+                        }}
+                      >
+                        <OfferListModal
+                          data={item.slug}
+                          count={item.offer_count}
+                        />
+                      </Row>
+                      <hr />
+                      <Row>
+                        <Col
+                          span={12}
+                          style={{
+                            justifyContent: "center",
+                            display: "flex",
+                            borderLeft: "1px solid",
+                          }}
+                        >
                           <EditPacket data={item.slug} />
-                          </Col>
-                  <Col span={12} style={{display:"flex",justifyContent:"center",}}>
+                        </Col>
+                        <Col
+                          span={12}
+                          style={{ display: "flex", justifyContent: "center" }}
+                        >
                           <Popconfirm
                             overlayStyle={{ fontFamily: "VazirD" }}
                             title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -246,7 +285,7 @@ class PacketUserList extends React.Component {
                             <a>
                               <Button
                                 style={{
-                                  border:"hidden",
+                                  border: "hidden",
                                   fontSize: "14px",
                                   borderRadius: "10px",
                                 }}
@@ -256,17 +295,15 @@ class PacketUserList extends React.Component {
                               </Button>
                             </a>
                           </Popconfirm>
-                          </Col>
-                    </Row>
-                  </Col>
-                  
-                  <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                    
-                  </Col>
-                </Row>
-              </div>
-            )}
-          />
+                        </Col>
+                      </Row>
+                    </Col>
+
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}></Col>
+                  </Row>
+                </div>
+              )}
+            />
           )}
         </Breakpoint>
         <Breakpoint small down>
@@ -290,29 +327,43 @@ class PacketUserList extends React.Component {
               </Link>
               <List
                 locale={{ emptyText: "آگهی وجود ندارد" }}
-                pagination={{
-                  onChange: (page) => {},
-                  hideOnSinglePage: true,
-                  simple: true,
-                  hide: true,
-                }}
                 dataSource={this.state.packet_user}
                 renderItem={(item) => (
                   <div>
                     <Row
                       style={{
                         color: "black",
-                        boxShadow: "0 0 5px 1px",
+                        border: "1px solid",
                         borderRadius: "10px",
                         margin: "25px 15px 25px 15px",
                         padding: "15px 15px 15px 15px",
-                        width: "90%",
+                        width: "300px",
                         height: "auto",
+                        display: "flex",
+                        justifyContent: "center",
                       }}
                     >
-                      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                        <span style={{display:"flex", justifyContent:"center"}}> وضعیت آگهی : <span style={{ display: "flex", justifyContent:"center",color:"darkgreen", marginRight:"3px" }}> {item.status} </span></span>
-                        <hr/>
+                      <Col span={24}>
+                        <Row style={{display: "flex", justifyContent: "center" }}>
+                          <span
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            وضعیت آگهی :
+                            <span
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                color: "darkgreen",
+                                marginRight: "3px",
+                              }}
+                            >
+                              {item.status}
+                            </span>
+                          </span>
+                        </Row>
                         <Row
                           style={{ justifyContent: "center", display: "flex" }}
                         >
@@ -323,7 +374,11 @@ class PacketUserList extends React.Component {
                           </Col>
                         </Row>
                         <Row
-                          style={{ justifyContent: "center", display: "flex", marginTop:"10px" }}
+                          style={{
+                            justifyContent: "center",
+                            display: "flex",
+                            marginTop: "10px",
+                          }}
                         >
                           <Col style={{ color: "black" }}>
                             <Link
@@ -334,45 +389,60 @@ class PacketUserList extends React.Component {
                             </Link>
                           </Col>
                         </Row>
-                        
-                        <Row style={{display:"flex", justifyContent:"center", marginTop:"10px"}}>
-                          <OfferListModal data={item.slug} count={item.offer_count} />
-                      </Row>
-                      <hr/>
-                      <Row
-                          
+                        <Row
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: "10px",
+                          }}
                         >
-                          <Col span={12} style={{ justifyContent: "center", display: "flex", borderLeft:"1px solid" }}>
-                              <EditPacket data={item.slug} />
-                              </Col>
-                      <Col span={12} style={{display:"flex",justifyContent:"center",}}>
-                              <Popconfirm
-                                overlayStyle={{ fontFamily: "VazirD" }}
-                                title="آیا از حذف آگهی مطمئن هستید ؟"
-                                onConfirm={this.delete.bind(this, item.slug)}
-                                onCancel={this.cancel}
-                                okText="بله"
-                                cancelText="خیر"
-                              >
-                                <a>
-                                  <Button
-                                    style={{
-                                      border:"hidden",
-                                      fontSize: "14px",
-                                      borderRadius: "10px",
-                                    }}
-                                    onClick={this.offerlistmodal}
-                                  >
-                                    حذف
-                                  </Button>
-                                </a>
-                              </Popconfirm>
-                              </Col>
+                          <OfferListModal
+                            data={item.slug}
+                            count={item.offer_count}
+                          />
                         </Row>
-                      </Col>
-                      
-                      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                        
+                        <hr />
+                        <Row>
+                          <Col
+                            span={12}
+                            style={{
+                              justifyContent: "center",
+                              display: "flex",
+                              borderLeft: "1px solid",
+                            }}
+                          >
+                            <EditPacket data={item.slug} />
+                          </Col>
+                          <Col
+                            span={12}
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Popconfirm
+                              overlayStyle={{ fontFamily: "VazirD" }}
+                              title="آیا از حذف آگهی مطمئن هستید ؟"
+                              onConfirm={this.delete.bind(this, item.slug)}
+                              onCancel={this.cancel}
+                              okText="بله"
+                              cancelText="خیر"
+                            >
+                              <a>
+                                <Button
+                                  style={{
+                                    border: "hidden",
+                                    fontSize: "14px",
+                                    borderRadius: "10px",
+                                  }}
+                                  onClick={this.offerlistmodal}
+                                >
+                                  حذف
+                                </Button>
+                              </a>
+                            </Popconfirm>
+                          </Col>
+                        </Row>
                       </Col>
                     </Row>
                   </div>

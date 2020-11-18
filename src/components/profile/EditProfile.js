@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Button, Divider, Card, Modal, Rate, Tooltip, Space } from "antd";
+import { Row, Col, Button, Divider, Card, Modal, Rate, Space } from "antd";
 import { InstagramOutlined,
   TwitterOutlined,
   LinkedinOutlined,
@@ -8,8 +8,7 @@ import UploadProfilePicture from "../utils/UploadProfilePicture";
 import EditProfileForm from "./EditProfileForm";
 import Axios from "axios";
 import { config } from "../../Constant";
-import { Link } from "react-router-dom";
-import ResetPassword from "./ResetPassword";
+import ChangePassword from "./ChangePassword";
 
 var url = config.url.API_URL;
 
@@ -21,7 +20,8 @@ class EditProfile extends React.Component {
     user_profile: {},
     visible: false,
     modalvisible: false,
-    social: []
+    social: [],
+    passmodal: false
   };
 
   componentDidMount() {
@@ -57,6 +57,8 @@ class EditProfile extends React.Component {
   handleCancel = (e) => {
     this.setState({
       modalvisible: false,
+      visible:false,
+      passmodal: false
     });
   };
 
@@ -71,10 +73,10 @@ class EditProfile extends React.Component {
   render() {
     return (
       <div >
-        <Row>
-          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+        <Row style={{display:"flex", justifyContent:"center"}}>
+          <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
             <Row>
-              <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+              <Col xs={24} sm={24} md={24} lg={12} xl={24} xxl={24}>
                 <UploadProfilePicture
                   update={this.callbackFunction}
                   data={this.state.user_profile.picture}
@@ -84,17 +86,20 @@ class EditProfile extends React.Component {
             <br />
             <Card
               style={{ borderRadius: "20px"}}
-              title={this.state.user_profile.name}
-            > 
-              <Rate allowHalf value={this.state.user_profile.score} disabled={true} />
-              <br/><br/>
-              <Space>
+              title={
+              <div>
+                 {this.state.user_profile.name}<br/>
+                <Rate allowHalf value={this.state.user_profile.score} disabled={true} />
+                <br/><br/>
+                <Space>
               { this.state.social[0] && this.setIcon(this.state.social[0].account_type ,this.state.social[0].address)  }
               { this.state.social[1] && this.setIcon(this.state.social[1].account_type ,this.state.social[0].address)  }
               { this.state.social[2] && this.setIcon(this.state.social[2].account_type ,this.state.social[0].address)  }
               { this.state.social[3] && this.setIcon(this.state.social[3].account_type ,this.state.social[0].address)  }
               </Space>
-              <Divider/>
+                </div>
+                }
+            > 
               <div>
               <Row style={style_right}>
                 <Col
@@ -192,8 +197,19 @@ class EditProfile extends React.Component {
                 social={this.state.social}
               />
             </Modal>
+            <br/><br/>
+            <Button style={{ fontSize: "14px", borderRadius: "10px" }} onClick={()=>{this.setState({passmodal:true})}}>تغییر رمز عبور</Button>
+              <Modal 
+              style={{fontFamily:"VazirD"}} 
+              visible={this.state.passmodal}
+              onCancel={this.handleCancel}
+              cancelText="بازگشت"
+              okButtonProps={{ hidden: true }}>
+              <ChangePassword />
+              </Modal>
           </Col>
         </Row>
+        <Divider/>
       </div>
     );
   }

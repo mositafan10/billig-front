@@ -11,6 +11,8 @@ import {
 import { Link } from "react-router-dom";
 import HeaderSection from "../containers/HeaderSection";
 import { Breakpoint } from "react-socks";
+const menu_style = { color: "black" };
+const icon_style = { marginLeft: "10px" };
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -19,71 +21,109 @@ class ProfileLayout extends React.Component {
     return (
       <div style={{ fontFamily: "VazirD", overflow: "hidden" }}>
         <Breakpoint medium up>
-          <Layout style={{ backgroundColor: "white"}}>
+          <Layout style={{ backgroundColor: "aliceblue", height:"auto" }}>
             <Header
               style={{ backgroundColor: "white", padding: "0", height: "auto" }}
             >
               <HeaderSection {...this.props} />
             </Header>
-            <Divider style={{ opacity: "0" }} />
+            <Divider style={{ opacity: "0", backgroundColor: "white" }} />
             <Layout>
-            <Content
-                style={{ backgroundColor: "white", textAlign: "center" }}
+              <Content
+                style={{ backgroundColor: "white", textAlign: "center"}}
               >
-                <Row>
-                  <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
+                <Row style={{ display: "flex", justifyContent: "center" }}>
                   <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>
                     <div className="site-layout-content">
                       {this.props.children}
                     </div>
                   </Col>
-                  <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
                 </Row>
               </Content>
               <Sider
                 width={250}
-                style={{ backgroundColor: "white", position:"unset" }}
+                style={{
+                  height:"100vh",
+                  backgroundColor: "aliceblue",
+                  position: "unset",
+                  borderRadius: "20px",
+                }}
               >
-                <div>
                   <Menu
                     mode="inline"
                     theme="light"
-                    style={{ textAlign: "right" }}
+                    style={{
+                      textAlign: "right",
+                      backgroundColor: "aliceblue",
+                      color: "white",
+                    }}
                   >
                     <Menu.Item key="1">
-                      <Link to="/profile/mypacket"> آگهی‌های من </Link>{" "}
-                      <ShoppingOutlined />
+                      <Link to="/profile/mypacket">
+                        <p style={menu_style}>
+                          آگهی‌های من
+                          <ShoppingOutlined style={icon_style} />{" "}
+                        </p>{" "}
+                      </Link>
                     </Menu.Item>
                     <Menu.Item key="2">
-                      <Link to="/profile/mytravel"> سفرهای من </Link>{" "}
-                      <AimOutlined />
+                      <Link to="/profile/mytravel">
+                        {" "}
+                        <p style={menu_style}>
+                          سفرهای من
+                          <AimOutlined style={icon_style} />
+                        </p>{" "}
+                      </Link>
                     </Menu.Item>
                     <Menu.Item key="3">
-                      <Link to="/profile/myoffer"> پیشنهادهای من </Link>{" "}
-                      <ContainerOutlined />
+                      <Link to="/profile/myoffer">
+                        <p style={menu_style}>
+                          پیشنهادهای من
+                          <ContainerOutlined style={icon_style} />
+                        </p>{" "}
+                      </Link>
                     </Menu.Item>
                     <Menu.Item key="4">
-                      <Link to="/profile/inbox"> صندوق پیام </Link>{" "}
-                      <CommentOutlined />
+                      <Link to="/profile/inbox">
+                        <p style={menu_style}>
+                          {" "}
+                          صندوق پیام
+                          <CommentOutlined style={icon_style} />
+                        </p>
+                      </Link>
                     </Menu.Item>
                     <Menu.Item key="5">
-                      <Link to="/profile/payment">پرداخت </Link>{" "}
-                      <DollarCircleOutlined />
+                      <Link to="/profile/payment">
+                        <p style={menu_style}>
+                          پرداخت
+                          <DollarCircleOutlined style={icon_style} />
+                        </p>{" "}
+                      </Link>
                     </Menu.Item>
                     <Menu.Item key="6">
-                      <Link to="/profile/bookmark">آگهی‌های نشان شده </Link>{" "}
-                      <HeartOutlined />
+                      <Link to="/profile/bookmark">
+                        <p style={menu_style}>
+                          آگهی‌های نشان شده <HeartOutlined style={icon_style} />
+                        </p>
+                      </Link>
                     </Menu.Item>
                     <Menu.Item key="7">
-                      <Link to="/profile/comments">نظرات</Link>{" "}
-                      <CommentOutlined />
+                      <Link to="/profile/comments">
+                        <p style={menu_style}>
+                          نظرات
+                          <CommentOutlined style={icon_style} />
+                        </p>
+                      </Link>
                     </Menu.Item>
                     <Menu.Item key="8">
-                      <Link to="/profile/">اطلاعات کاربری</Link>{" "}
-                      <ContainerOutlined />
+                      <Link to="/profile/">
+                        <p style={menu_style}>
+                          اطلاعات کاربری
+                          <ContainerOutlined style={icon_style} />
+                        </p>
+                      </Link>
                     </Menu.Item>
                   </Menu>
-                </div>
               </Sider>
             </Layout>
           </Layout>
@@ -97,14 +137,12 @@ class ProfileLayout extends React.Component {
             </Header>
             <Divider style={{ opacity: "0" }} />
             <Content style={{ backgroundColor: "white", textAlign: "center" }}>
-              <Row>
-                <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
+              <Row style={{display:"flex", justifyContent:"center"}}>
                 <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>
                   <div className="site-layout-content">
                     {this.props.children}
                   </div>
                 </Col>
-                <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
               </Row>
             </Content>
           </Layout>

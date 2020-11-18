@@ -95,7 +95,7 @@ class UserOffer extends React.Component {
       align: "center",
       render: (dataIndex, row) => {
         if (row.status === "در انتظار تایید مسافر") {
-          return <ConfirmPrice data={dataIndex} />;
+          return <ConfirmPrice parcel_price={row.parcel_price} data={dataIndex} price1={row.price} parentfunction={this.callbackfunction} buy={row.buy} />;
         } else if (row.status === "در انتظار خرید") {
           return (
             <Popconfirm
@@ -363,7 +363,7 @@ class UserOffer extends React.Component {
             </div>
           ) : (
             <List
-                locale={{ emptyText: "پیشنهادی وجود ندارد" }}
+                locale={{ emptyText: <div>پیشنهادی وجود ندارد.<br/> برای ثبت پیشنهاد باید در لیست آگهی‌ها داخل‌ آگهی مورد نظر بروید.</div>  }}
                 grid={{
                   xs: 1,
                   sm: 1,
@@ -429,7 +429,7 @@ class UserOffer extends React.Component {
                           </Col>
                           <Col>
                             {item.status === "در انتظار تایید مسافر" && (
-                              <ConfirmPrice data={item.slug} price1={item.price} parentfunction={this.callbackfunction} />
+                              <ConfirmPrice data={item.slug} price1={item.price} parentfunction={this.callbackfunction} buy={item.buy} parcel_price={item.parcel_price  } />
                             )}
                             {item.status === "در انتظار خرید" && (
                               <Popconfirm
@@ -600,7 +600,7 @@ class UserOffer extends React.Component {
                           </Col>
                           <Col>
                             {item.status === "در انتظار تایید مسافر" && (
-                              <ConfirmPrice data={item.slug} price1={item.price} parentfunction={this.callbackfunction} />
+                              <ConfirmPrice parcel_price={item.parcel_price} data={item.slug} price1={item.price} parentfunction={this.callbackfunction} buy={item.buy} />
                             )}
                             {item.status === "در انتظار خرید" && (
                               <Popconfirm

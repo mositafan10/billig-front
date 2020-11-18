@@ -78,7 +78,7 @@ class TravelList extends React.Component {
                 xl: 3,
                 xxl: 3,
               }}
-              locale={{ emptyText: "سفری وجود ندارد" }}
+              locale={{ emptyText: "شما هنوز سفری ثبت نکرده‌اید" }}
               dataSource={this.props.data}
               style={{ display: "flex" }}
               renderItem={(item) => (

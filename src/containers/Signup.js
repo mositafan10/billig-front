@@ -11,7 +11,7 @@ import {
   Checkbox,
   Spin
 } from "antd";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
 import PhoneInput from "react-phone-input-2";
@@ -203,7 +203,7 @@ class SignUpForm extends React.Component {
                 style={{ textAlign: "center", direction:"rtl" }}
               >
                 <Checkbox style={{ textAlign: "right" }}>
-                  با <a>قوانین و مقررات </a>بیلیگ پست موافقم *
+                با <Link to="/terms">قوانین و مقررات </Link>بیلیگ پست موافقم *
                 </Checkbox>
               </Form.Item>
           <Form.Item style={{width: "300px", textAlign: "center" }}>
@@ -218,10 +218,10 @@ class SignUpForm extends React.Component {
           </Form.Item>
           <Form.Item style={{ textAlign: "center" }}>
             <br />
-            <NavLink style={{ marginRight: "20px" }} to="/login/">
+            <Link style={{ marginRight: "20px" }} to="/login/">
               {" "}
               ورود با حساب کاربری
-            </NavLink>
+            </Link>
           </Form.Item>
           <Modal
             onCancel={this.handleCancel}
@@ -237,8 +237,7 @@ class SignUpForm extends React.Component {
             style={{ fontFamily: "VazirD" }}
           >
             <p style={{ textAlign: "center", fontFamily: "IRANSans" }}>
-              {" "}
-              کد تایید خود را وارد نمایید{" "}
+              کد تایید خود را وارد نمایید
             </p>
             <Form name="otpInsert" onFinish={this.handleOk}>
               <Form.Item
@@ -247,7 +246,7 @@ class SignUpForm extends React.Component {
                 rules={[
                   {
                     required: true,
-                    message: "کد تایید را وارد کنید",
+                    message: "کد تایید را با کیبورد انگلیسی وارد کنید",
                   },
                 ]}
               >
