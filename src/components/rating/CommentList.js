@@ -24,7 +24,8 @@ class CommentList extends Component {
   }
 
   render() {
-    return <div>
+    return (
+    <div style={{display:"flex", justifyContent:"center"}}>
         {this.state.loading ? (
             <div style={{ marginTop: "100px" }}>
               <Spin />
@@ -47,38 +48,35 @@ class CommentList extends Component {
                       style={{
                         color: "black",
                         border: "1px solid",
+                        boxShadow:"0 0 12px -2px",
                         borderRadius: "10px",
-                        margin: "15px 25px 15px 15px",
-                        padding: "20px 20px 20px 20px",
-                        width: "auto",
-                        height: "auto",
+                        margin: "25px 25px 15px 15px",
+                        padding: "15px 15px 5px 15px",
+                        width: "240px",
+                        height: "250px",
                       }}
                     >
-                      <Col
-                        xs={24}
-                        sm={24}
-                        md={24}
-                        lg={24}
-                        xl={24}
-                        xxl={24}
-                        style={{ textAlign: "center" }}
-                      >
-                        <hr />
-                      </Col>
-                      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} style={{textAlign:"center"}}>
+                        <div>
+                        <a target="blank" href={`${url}users/` + item.owner_slug}>
                         <Avatar
-                          src={`${url}dstatic/media/${item.receiver_avatar}`}
+                          src={`${url}dstatic/media/${item.owner_avatar}`}
                         ></Avatar>
-                        <span> {item.receiver} </span>
-                        <p style={{ textAlign: "left", marginTop: "20px" }}>
-                        </p><hr/>
+                        </a>
+                        <p style={{marginTop:"5px"}}>  {item.owner_name} </p>
+                        </div> 
+                        <hr style={{color:"aliceblue"}}/>
+                        <p style={{ textAlign: "center", marginTop: "20px" }}>
+                          {item.text}
+                        </p>
                       </Col>
                     </Row>
                   </div>
                 )}
               />
           )}
-    </div>;
+    </div>
+    );
   }
 }
 

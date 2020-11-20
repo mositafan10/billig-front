@@ -27,7 +27,7 @@ class RateAndComment extends Component {
 
     handleOk = values => {
         const token = localStorage.getItem('token');    
-        const score = values.score ? values.score : 2;
+        const score = values.score ? values.score : null;
         const text = values.text;
         const text1 = values.rate_billlig;
         this.setState({
@@ -68,7 +68,7 @@ class RateAndComment extends Component {
                     okText="ارسال"       
                     okButtonProps={{form:'rating', key: 'submit', htmlType: 'submit',}}
                     onCancel={this.handleCancel}
-                    style={{fontFamily:"IRANSans", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
+                    style={{fontFamily:"VazirD", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
                     width="40%"
                     bodyStyle={{borderRadius:"20px"}}
                     maskStyle={{borderRadius:"20px"}}
@@ -106,7 +106,7 @@ class RateAndComment extends Component {
                     okText="ارسال"       
                     okButtonProps={{form:'rating', key: 'submit', htmlType: 'submit',}}
                     onCancel={this.handleCancel}
-                    style={{fontFamily:"IRANSans", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
+                    style={{fontFamily:"VazirD", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
                     width="90%"
                     bodyStyle={{borderRadius:"20px"}}
                     maskStyle={{borderRadius:"20px"}}

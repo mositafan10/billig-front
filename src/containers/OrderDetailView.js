@@ -131,7 +131,11 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
+                      {this.state.order.buy ?
+                        <h4>خرید کالا از </h4>
+                        :
                         <h4>دریافت کالا در </h4>
+                      }
                       </Col>
                       <Col
                         style={style_left}
@@ -143,8 +147,8 @@ class OrderDetail extends React.Component {
                       >
                         {this.state.order.origin_country
                           ? this.state.order.origin_country.name
-                          : ""}{" "}
-                        ,{" "}
+                          : ""}
+                        ,
                         {this.state.order.origin_city
                           ? this.state.order.origin_city.name
                           : ""}
@@ -172,8 +176,8 @@ class OrderDetail extends React.Component {
                       >
                         {this.state.order.destination_country
                           ? this.state.order.destination_country.name
-                          : ""}{" "}
-                        ,{" "}
+                          : ""}
+                        ,
                         {this.state.order.destination_city
                           ? this.state.order.destination_city.name
                           : ""}
@@ -252,9 +256,7 @@ class OrderDetail extends React.Component {
                             lg={10}
                             xl={10}
                           >
-                            <a href="https://www.amazon.com">
-                              {this.state.order.parcel_link}
-                            </a>
+                            {this.state.order.parcel_link}
                           </Col>
                         </Row>
                       </div>
@@ -456,7 +458,11 @@ class OrderDetail extends React.Component {
                       lg={14}
                       xl={14}
                     >
-                      <h4>دریافت کالا در </h4>
+                      {this.state.order.buy ?
+                        <h4>خرید کالا از </h4>
+                        :
+                        <h4>دریافت کالا در </h4>
+                      }
                     </Col>
                     <Col
                       style={style_left}
@@ -468,8 +474,8 @@ class OrderDetail extends React.Component {
                     >
                       {this.state.order.origin_country
                         ? this.state.order.origin_country.name
-                        : ""}{" "}
-                      ,{" "}
+                        : ""}
+                      ,
                       {this.state.order.origin_city
                         ? this.state.order.origin_city.name
                         : ""}
@@ -609,8 +615,68 @@ class OrderDetail extends React.Component {
                       </Col>
                     </Row>
                   )}
+                  {this.state.order.phonenumber_visible && (
+                    <div>
+                    <hr style={{ color: "aliceblue" }} />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>اطلاعات تماس</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}>نمایش</Button>
+                      </Col>
+                      <Modal
+                      visible={this.state.phonenumbervisibility}
+                      onCancel={this.canclephonenumbervisible}
+                      style={{fontFamily:"VazirD"}}
+                      cancelText="بازگشت"
+                      okButtonProps={{hidden:"true"}}
+                      title=" "
+                      closeIcon=" "
+                      >
+                        <p> توصیه ما این است که برای پیام دادن از چت درون سایت که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید تا مراحل بعدی با سهولت بیشتری انجام 
+                         پذیرد </p>
+                        <Row style={style_right}>
+                          <Col
+                            style={style_right}
+                            xs={14}
+                            sm={14} 
+                            md={14}
+                            lg={14}
+                            xl={14}
+                          >
+                            <h4>شماره تماس</h4>
+                          </Col>
+                          <Col
+                            style={style_left}
+                            xs={10}
+                            sm={10}
+                            md={10}
+                            lg={10}
+                            xl={10}
+                          >
+                            {this.state.order.phonenumber}
+                          </Col>
+                        </Row>
+                      </Modal>
+                    </Row> 
+                    </div>
+                    )}
                   <hr style={{ color: "aliceblue" }} />
-                  <br />
                   <p style={{ textAlign: "right" }}>
                     {this.state.order.description}
                   </p>

@@ -37,9 +37,8 @@ class OfferListModal extends React.Component {
             style={{ border: "hidden", fontSize: "12px", borderRadius: "10px" }}
             onClick={this.offerlistmodal}
           >
-            {" "}
-            پیشنهادها{" "}
-          </Button>{" "}
+            پیشنهادها
+          </Button>
           <span>{this.props.count}</span>
           <Modal
             visible={this.state.offer_visible}
@@ -69,7 +68,6 @@ class OfferListModal extends React.Component {
           >
           مشاهده پیشنهادها : <span style={{marginRight:"3px"}}> {this.props.count} </span>
           </Button>
-          
           <Modal
             title="پیشنهاد‌های آگهی"
             okText="بازگشت"

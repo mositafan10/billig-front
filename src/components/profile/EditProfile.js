@@ -68,6 +68,7 @@ class EditProfile extends React.Component {
 
   callbackFunction = () => {
     this.componentDidMount();
+    this.setState({modalvisible:false})
   };
 
   render() {

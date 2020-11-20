@@ -18,15 +18,18 @@ import CreateTravel from "../travel/CreateTravel";
 var url = config.url.API_URL;
 
 const { Option } = Select;
+const { TextArea } = Input;
 const token = localStorage.getItem("token");
 
 class OfferDetail extends React.Component {
 
+  
   defualt_description = "سلام. من تمایل دارم بسته شما را به مقصد برسانم. اگر موافق باشید به مذاکره ادامه بدیم" 
   state = {
     visible: false,
     slug: "",
     price: "",
+    parcelPrice: "",
     travel: "",
     description: this.defualt_description,
     travellist: [],
@@ -60,6 +63,7 @@ class OfferDetail extends React.Component {
     const description = values.description ? values.description : this.defualt_description;
     this.setState({
       price: values.price,
+      parcelPrice: values.parcelPrice,
       description: description,
       travel: values.travel,
       slug: this.props.data,
@@ -69,6 +73,7 @@ class OfferDetail extends React.Component {
       `${url}api/v1/advertise/offer/`,
       {
         price: this.state.price,
+        parcelPrice: this.state.parcelPrice,
         travel: this.state.travel,
         description: this.state.description,
         packet: this.state.slug,
@@ -85,7 +90,7 @@ class OfferDetail extends React.Component {
         }, 3000);
         setTimeout(() => {
           notification["success"]({
-            message: <div>پیشنهاد شما با موفقیت ثبت شد <br/> لیست پیشنهادهای خود را می‌توانید در پروفایل خود بخش «پیشنهادهای من»ملاحظه کنید</div>,
+            message: <div>پیشنهاد شما با موفقیت ثبت شد <br/> لیست پیشنهادهای خود را می‌توانید در پروفایل خود بخش «پیشنهادهای من» ملاحظه کنید</div>,
             style: {
               fontFamily: "VazirD",
               textAlign: "right",
@@ -122,6 +127,7 @@ class OfferDetail extends React.Component {
   };
 
   render() {
+    const defaultValue = this.state.description.toString();
     return (
       <div
         style={{
@@ -157,6 +163,7 @@ class OfferDetail extends React.Component {
                   layout="vertical"
                   name="offering"
                   onFinish={this.handleOk}
+                  initialValues={{ description: this.state.description }}
                 >
                   <p
                     style={{
@@ -209,7 +216,7 @@ class OfferDetail extends React.Component {
                       marginTop: "-30px",
                     }}
                   >
-                    قیمت پیشنهادی (تومان)
+                    دستمزد پیشنهادی (تومان)
                   </label>
                   <Form.Item
                     style={{
@@ -242,12 +249,44 @@ class OfferDetail extends React.Component {
                       marginTop: "-30px",
                     }}
                   >
+                    قیمت کالا (تومان)
+                  </label>
+                  <Form.Item
+                    style={{
+                      textAlign: "right",
+                      fontSize: "10px",
+                      width: "auto",
+                    }}
+                    name="parcelPrice"
+                    rules={[
+                      {
+                        required: true,
+                        message: "قیمت کالا را با اعداد انگلیسی وارد کنید",
+                      },
+                    ]}
+                  >
+                    <InputNumber
+                      formatter={(value) =>
+                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      }
+                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                      style={{ textAlign: "right", width: "auto" }}
+                      min={0}
+                    />
+                  </Form.Item>
+                  <br />
+                  <label
+                    style={{
+                      float: "right",
+                      textAlign: "right",
+                      marginTop: "-30px",
+                    }}
+                  >
                   متن پیشنهاد
                   </label>
                   <Form.Item name="description">
-                    <textarea 
-                     defaultValue={this.state.description}
-                     style={{ borderRadius: "10px", border:"1px solid", borderColor:"gainsboro", padding:"10px", width:"-moz-available" }}  />
+                    <TextArea
+                     style={{ borderRadius: "10px", border:"1px solid", borderColor:"gainsboro", padding:"10px", }}  />
                   </Form.Item>
                 </Form>
               ) : (

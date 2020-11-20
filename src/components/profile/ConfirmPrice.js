@@ -27,30 +27,33 @@ class ConfirmPrice extends React.Component {
   onFinish = (values) => {
     this.setState({loading:true})
     const price = values.price;
-    const parcel_price = values.parcel_price;
+    const parcelPrice = values.parcelPrice;
     const token = localStorage.getItem("token");
     Axios.post(
       `${url}api/v1/advertise/offer/update/`,
       {
         slug: this.props.data,
         price: price,
-        parcel_price: parcel_price
+        parcelPrice: parcelPrice,
+        status: 2
       },
       { headers: { Authorization: `Token ${token}` } }
     )
       .then(() => {
-        this.props.parentfunction()
-          this.setState({ price_visible: false, loading:false });
+          this.props.parentfunction()
+          setTimeout(()=>{
+            this.setState({ price_visible: false, loading:false });
+          },3000)
           notification["success"]({
-            message: "مبلغ نهایی با موفقیت ثبت شد",
-            description:"حال می‌توانید مبلغ را تایید نمایید",
+            message: "مبلغ با موفقیت ثبت شد",
+            description: "حال باید منتظر تایید و پرداخت مبلغ از سوی آگهی‌دهنده باشید",
             style: {
               fontFamily: "VazirD",
               textAlign: "right",
               float: "right",
               width: "max-content",
             },
-            duration: 3,
+            duration: 5,
           });
       })
       .catch((error) => {
@@ -69,22 +72,22 @@ class ConfirmPrice extends React.Component {
 
   render() {
     const price1 = this.props.price1;
-    const parcel_price = this.props.parcel_price;
+    const parcelPrice = this.props.parcel_price;
     const buy = this.props.buy;
     return (
       <div>
         <Button
           onClick={this.pricelistmodal}
-          style={{ fontSize: "12px", border: "hidden", borderRadius: "10px" }}
+          style={{ fontSize: "12px", backgroundColor:"green",color:"white", borderColor:"white", borderRadius: "10px" }}
         >
-          مبلغ نهایی
+          تایید مبلغ نهایی
         </Button>
         <Breakpoint medium up>
           <Modal
             visible={this.state.price_visible}
             title="نهایی کردن مبلغ"
             onCancel={this.handleCancel}
-            okText="ارسال"
+            okText="تایید"
             cancelText="انصراف"
             confirmLoading={this.state.loading}
             okButtonProps={{
@@ -135,10 +138,10 @@ class ConfirmPrice extends React.Component {
               </Form.Item>
               {buy &&
               <div>
-              <p>مبلغ فعلی کالا : {parcel_price ? parcel_price : 0 } تومان</p> 
+              <p>مبلغ فعلی کالا : {parcelPrice ? parcelPrice : 0 } تومان</p> 
               <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
               <Form.Item
-                name="parcel_price"
+                name="parcelPrice"
                 size="large"
                 rules={[
                   {
@@ -218,10 +221,10 @@ class ConfirmPrice extends React.Component {
               </Form.Item>
               {buy &&
               <div>
-              <p>مبلغ فعلی کالا : {parcel_price ? parcel_price : 0 } تومان</p> 
+              <p>مبلغ فعلی کالا : {parcelPrice ? parcelPrice : 0 } تومان</p> 
               <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
               <Form.Item
-                name="parcel_price"
+                name="parcelPrice"
                 size="large"
                 rules={[
                   {

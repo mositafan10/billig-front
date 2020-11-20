@@ -36,10 +36,10 @@ class FooterSection extends Component {
                         بیلیگ را در شبکه‌های اجتماعی دنبال کنید
                         <Divider/>
                         <Space size="large">
-                            <a style={{color:"black"}} href="https://twitter.com/Billlig1"><TwitterOutlined style={{fontSize:"30px"}} /></a>
-                            <a style={{color:"black"}} href="https://www.instagram.com/billligofficial/"><InstagramOutlined style={{fontSize:"30px"}} /></a>
-                            <a style={{color:"black"}} href="https://www.linkedin.com/in/billlig/"><LinkedinOutlined style={{fontSize:"30px"}} /></a>
-                            <a style={{color:"black"}} href="https://www.facebook.com/billligofficial"><FacebookOutlined style={{fontSize:"30px"}} /></a>
+                            <a target="blank" style={{color:"black"}} href="https://twitter.com/Billlig1"><TwitterOutlined style={{fontSize:"30px"}} /></a>
+                            <a target="blank" style={{color:"black"}} href="https://www.instagram.com/billligofficial/"><InstagramOutlined style={{fontSize:"30px"}} /></a>
+                            <a target="blank" style={{color:"black"}} href="https://www.linkedin.com/in/billlig/"><LinkedinOutlined style={{fontSize:"30px"}} /></a>
+                            <a target="blank" style={{color:"black"}} href="https://www.facebook.com/billligofficial"><FacebookOutlined style={{fontSize:"30px"}} /></a>
                         </Space>
                         <Divider/>
                         <p>از تخفیفات فروشگاه‌ها و جدیدترین‌های بیلیگ باخبر شوید:</p>
@@ -74,7 +74,7 @@ class FooterSection extends Component {
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>بیلیگ</b></p><hr width="80" style={{float:"right"}}/><br/>
-                        <a href={`${url}blog`}><p style={style_p}>بلاگ</p></a>
+                        <a target="blank" href={`${url}blog/`}><p style={style_p}>بلاگ</p></a>
                         <Link to={'/about-us'}><p style={style_p}>درباره ما</p></Link>
                         <p style={style_p}>تماس با ما</p>
                         <Link to={'/privacy'}><p style={style_p}>حریم خصوصی</p></Link>

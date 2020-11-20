@@ -237,9 +237,15 @@ class TravelList extends React.Component {
                               </Button>
                             }
                           </Row>
+                          <Row style={{justifyContent:"center", display:"flex"}}>
+                          <Button style={{justifyContent:"center", display:"flex", border:"hidden"}}>پیشنهادها</Button>
+                          </Row>
                           <hr style={{ margin: "15px 0 15px 0" }} />
                           <Row style={style_right}>
-                            <Col style={style_right} span={12}>
+                          <Col span={9}>
+                              <Button style={{justifyContent:"center", display:"flex", borderRadius:"10px"}}>پیشنهادها</Button>
+                            </Col>
+                            <Col style={style_right} span={7}>
                               <Popconfirm
                                 overlayStyle={{ fontFamily: "VazirD" }}
                                 title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -258,12 +264,13 @@ class TravelList extends React.Component {
                                 </Button>
                               </Popconfirm>
                             </Col>
-                            <Col style={style_left} span={12}>
+                            <Col style={style_left} span={8}>
                               <EditTravel
                                 signal={this.editsignal}
                                 data={item.slug}
                               />
                             </Col>
+                            
                           </Row>
                         </Col>
                       </Row>

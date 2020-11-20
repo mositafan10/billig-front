@@ -12,6 +12,8 @@ import {
   Spin,
   notification,
 } from "antd";
+import moment from 'moment';
+
 import Axios from "axios";
 import SendMessage from "./SendMessage";
 import { Link } from "react-router-dom";
@@ -46,28 +48,35 @@ class PacketOffer extends React.Component {
       key: "sender",
       width: 150,
       align: "center",
-      render: (key, row) => <Link to={"/users/" + row.sender_id}>{key}</Link>,
+      render: (key, row) => <a target="blank" href={`${url}users/` + row.sender_slug}>{key}</a>,
     },
     {
-      title: "قیمت (تومان)",
+      title: "اطلاعات سفر",
+      dataIndex: "travel_info",
+      key: "slug",
+      width: 300,
+      align: "center",
+      render: (dataIndex) => <div>{dataIndex.origin} / {dataIndex.origin_city} به {dataIndex.destination} / {dataIndex.destination_city} در {moment(dataIndex.flight_date).format("DD MMM")}</div>,
+    },
+    {
+      title: "دستمزد (تومان)",
       dataIndex: "price",
       key: "y",
       width: 150,
       align: "center",
     },
     {
-      title: "توضیحات",
-      dataIndex: "description",
-      key: "offer_count",
+      title: (row) => <div>{!row.buy && "قیمت کالا (تومان)"}</div>  ,
+      dataIndex: "parcel_price_offer",
+      key: "y",
+      width: 150,
       align: "center",
-      width: 600,
     },
     {
       title: " ",
       dataIndex: "slug",
       key: "",
       align: "center",
-      width: 50,
       render: (dataIndex, row) => {
         if (row.status === "انجام شده") {
           return (
@@ -87,8 +96,8 @@ class PacketOffer extends React.Component {
         } else {
           return (
             <SendMessage
-              sender={row.sender_id}
-              receiver={row.receiver_id}
+              sender={row.sender_slug}
+              receiver={row.receiver_slug}
               slug={dataIndex}
             />
           );
@@ -128,8 +137,8 @@ class PacketOffer extends React.Component {
           return (
             <Popconfirm
               overlayStyle={{ fontFamily: "VazirD" }}
-              title="آیا مبلغ نهایی مورد تایید است ؟"
-              onConfirm={this.confirmpayment.bind(this)}
+              title={<div>با رد شدن مبلغ، پیشنهاد به مرحله قبل بازمی‌گردد تا مسافر مبلغ را مجدد وارد نماید<br/>آیا پیشنهاد به مرحله قبل باز گردد؟</div>}
+              onConfirm={this.rejectpayment.bind(this,row.slug)}
               onCancel={this.cancel}
               okText="بله"
               cancelText="خیر"
@@ -140,13 +149,13 @@ class PacketOffer extends React.Component {
                   fontSize: "12px",
                   border: "hidden",
                   color: this.state.disableconfirm ? "transparent" : "white",
-                  backgroundColor: "green",
+                  backgroundColor: "red",
                   borderRadius: "10px",
                   textShadow:
                     this.state.disableconfirm && "0 0 5px rgba(0,0,0,0.5)",
                 }}
               >
-                <b>تایید</b>
+                <b>رد مبلغ وارد شده</b>
               </Button>
             </Popconfirm>
           );
@@ -177,8 +186,8 @@ class PacketOffer extends React.Component {
             <RateAndComment
               signal={this.callbackFunction}
               data={dataIndex}
-              receiver={row.receiver_id}
-              loc={"صاحب کالا"}
+              receiver={row.receiver_slug}
+              loc={"مسافر"}
             />
           );
         } else {
@@ -238,7 +247,6 @@ class PacketOffer extends React.Component {
         textAlign: "right",
         float: "right",
         width: "max-content",
-        marginTop: "50%",
       },
       duration: 5,
     });
@@ -248,6 +256,32 @@ class PacketOffer extends React.Component {
       disablepayment: false,
     });
   };
+
+  rejectpayment = (data) => {
+    Axios.post(
+      `${url}api/v1/advertise/offer/update/`,
+      {
+        slug: data,
+        status: 1,
+      },
+      { headers: { Authorization: `Token ${token}` } }
+    )
+      .then(() => {
+        notification["success"]({
+          message: "پیشنهاد با موفقیت تایید شد",
+          description: "حال باید منتظر تایید مبلغ از سوی مسافر باشید",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+          },
+          duration: 5,
+        });
+        this.componentDidMount();
+      })
+      .catch((error) => console.error(error));
+  }
 
   accept(data) {
     Axios.post(
@@ -267,7 +301,6 @@ class PacketOffer extends React.Component {
             textAlign: "right",
             float: "right",
             width: "max-content",
-            marginTop: "50%",
           },
           duration: 5,
         });
@@ -295,7 +328,6 @@ class PacketOffer extends React.Component {
             textAlign: "right",
             float: "right",
             width: "max-content",
-            marginTop: "50%",
           },
           duration: 5,
         });
@@ -372,8 +404,7 @@ class PacketOffer extends React.Component {
                     style={{ textAlign: "center" }}
                   >
                     <p>
-                      {" "}
-                      وضعیت :{" "}
+                      وضعیت :
                       <span style={{ color: "blue" }}>{item.status}</span>
                     </p>
                     <hr />
@@ -384,11 +415,10 @@ class PacketOffer extends React.Component {
                     ></Avatar>
                     <span>
                       <Link
-                        to={`/users/${item.sender_id}`}
+                        to={`/users/${item.sender_slug}`}
                         style={{ color: "black", fontSize: "14px" }}
                       >
-                        {" "}
-                        {item.sender}{" "}
+                        {item.sender}
                       </Link>
                     </span>
                     <Divider style={{ marginTop: "5px", opacity: "0" }} />
@@ -414,8 +444,8 @@ class PacketOffer extends React.Component {
                           </Button>
                         ) : (
                           <SendMessage
-                            sender={item.sender_id}
-                            receiver={item.receiver_id}
+                            sender={item.sender_slug}
+                            receiver={item.receiver_slug}
                             slug={item.slug}
                           />
                         )}
@@ -454,7 +484,6 @@ class PacketOffer extends React.Component {
                           >
                             <Button
                               disabled={this.state.disableconfirm}
-                              // onClick={this.confirmpayment.bind(this)}
                               style={{
                                 fontSize: "12px",
                                 border: "hidden",
@@ -495,8 +524,8 @@ class PacketOffer extends React.Component {
                           <RateAndComment
                             signal={this.callbackFunction}
                             data={item.slug}
-                            receiver={item.receiver_id}
-                            loc={"صاحب کالا"}
+                            receiver={item.receiver_slug}
+                            loc={"مسافر"}
                           />
                         )}
                       </Col>

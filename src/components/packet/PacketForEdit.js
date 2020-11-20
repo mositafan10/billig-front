@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Form, Col, Button, Row, Divider, Select, Input, Checkbox } from "antd";
+import { Form, Col, Button, Row, Divider, Select, Input, Checkbox, notification } from "antd";
 import Axios from "axios";
+import UploadFile from "../utils/UploadPicture";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;
+const { TextArea } = Input
 const { Option } = Select;
 
 class PacketForEdit extends Component {
@@ -13,30 +15,29 @@ class PacketForEdit extends Component {
     cities_destination: [],
     city_origin_dis: true,
     city_destination_dis: true,
-    pic_id: [],
+    pic_id: 1,
     buy: false,
+    loading: false
   };
 
   PacketCategory = [
-    { value: "0", label: "مدارک و مستندات" },
-    { value: "1", label: "کتاب و مجله" },
-    { value: "2", label: "لوازم الکترونیکی" },
-    { value: "3", label: "کفش و پوشاک" },
-    { value: "4", label: "لوازم آرایشی و بهداشتی" },
-    { value: "5", label: "سایر موارد" },
+    { value: 0 , label: "مدارک و مستندات" },
+    { value: 1 , label: "کتاب و مجله" },
+    { value: 2 , label: "لوازم الکترونیکی" },
+    { value: 3 , label: "کفش و پوشاک" },
+    { value: 4 , label: "لوازم آرایشی و بهداشتی" },
+    { value: 5 , label: "سایر موارد" },
   ];
 
   Dimension = [
-    { value: "0", label: "خیلی کوچک" },
-    { value: "1", label: "کوچک" },
-    { value: "2", label: "متوسط" },
-    { value: "3", label: "بزرگ" },
-    { value: "4", label: "خیلی بزرگ" },
+    { value: 0 , label: "کوچک" },
+    { value: 1 , label: "متوسط" },
+    { value: 2 , label: "بزرگ" },
   ];
 
   search(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
-      if (myArray[i].name === nameKey) {
+      if (myArray[i].label === nameKey) {
         return myArray[i].value;
       }
     }
@@ -52,8 +53,12 @@ class PacketForEdit extends Component {
     });
   };
 
-  handleChange = () => {
-    this.setState({ buy: true });
+  handlebuy = () => {
+    if (this.state.buy) {
+      this.setState({ buy: false });
+    } else {
+      this.setState({ buy: true });
+    }
   };
 
   handleChangevalue = (event) => {
@@ -75,6 +80,7 @@ class PacketForEdit extends Component {
   };
 
   handleFormSubmit = (values) => {
+    this.setState({loading:true})
     const packet_id = this.props.data.slug;
     const title = values.title ? values.title : this.props.data.title;
     const origin_country = values.origin_country
@@ -125,12 +131,27 @@ class PacketForEdit extends Component {
         description: description,
         buy: buy,
         status: status,
+        description: description
       },
       { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => {
         if (res.status == 200) {
+         setTimeout(()=>{
+          this.setState({loading:false})
           this.props.cancle();
+          notification["success"]({
+            message: "آگهی با موفقیت ویرایش شد",
+            style: {
+              fontFamily: "VazirD",
+              textAlign: "right",
+              float: "right",
+              width: "max-content",
+            },
+            duration: 3,
+          });
+         },1000)
+         
           this.props.updatelist();
         }
       })
@@ -142,20 +163,43 @@ class PacketForEdit extends Component {
       this.setState({
         countries: res.data,
       });
-      console.log(res.data);
     });
   };
+
+  callbackFunction = (childData) => {
+    if (childData.length == 1) {
+      const pic_id =
+        childData[0] &&
+        childData[0].response &&
+        childData[0].response &&
+        childData[0].response.id;
+      this.setState({
+        pic_id: pic_id,
+      });
+    } else {
+      return null;
+    }
+  };
+
 
   render() {
     return (
       <div style={{fontFamily:"VazirD"}}>
-        <Row>
-          <Col xs={0} sm={0} md={0} lg={0} xl={6} xxl={6}></Col>
-          <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
+        <Row style={{justifyContent:"center", display:"flex"}}>
+          <Col xs={24} sm={24} md={24} lg={16} xl={16} xxl={16}>
             <Form
+              initialValues={{description: this.props.data.description}}
               onFinish={(values) => this.handleFormSubmit(values)}
               id="edit"
             >
+              <Form.Item name="buy" style={{ textAlign: "center" }}>
+              <Checkbox onChange={this.handlebuy.bind(this)}>
+                    <span style={{ marginRight: "10px" }}>
+                      بسته باید توسط مسافر خریداری شود
+                    </span>
+                  </Checkbox>
+                <br />
+              </Form.Item>
               <Divider plain orientation="center">
                 عنوان آگهی
               </Divider>
@@ -320,28 +364,27 @@ class PacketForEdit extends Component {
                   </Form.Item>
                 </Col>
               </Row>
-              <Form.Item name="buy" style={{ textAlign: "center" }}>
-                <Checkbox
-                  checked={this.props.data.buy}
-                  onChange={this.handleChange.bind()}
-                >
-                  بسته می‌تواند توسط مسافر خریداری شود
-                </Checkbox>
-                <br />
+              <Form.Item
+                name="picture"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <UploadFile parentCallback={this.callbackFunction} picture={this.props.data.picture} />
+                </div>
               </Form.Item>
               <Divider plain orientation="center">
-                {" "}
                 توضیحات تکمیلی
               </Divider>
               <Form.Item name="description">
-                <textarea
-                  defaultValue={this.props.data.description}
+                <TextArea
+                  initialValues={this.props.data.description}
                   style={{ textAlign: "right", padding: "10px" }}
                   rows="4"
                 />
               </Form.Item>
               <Form.Item style={{ textAlign: "center" }}>
                 <Button
+                  loading={this.state.loading}
                   style={{ borderRadius: "8px" }}
                   type="primary"
                   htmlType="submit"
@@ -351,7 +394,6 @@ class PacketForEdit extends Component {
               </Form.Item>
             </Form>
           </Col>
-          <Col xs={0} sm={0} md={0} lg={0} xl={6} xxl={6}></Col>
         </Row>
       </div>
     );

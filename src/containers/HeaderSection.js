@@ -109,9 +109,12 @@ class HeaderSection extends Component {
         <Link to="/profile/bookmark">آگهی‌های نشان شده <HeartOutlined /></Link> 
       </Menu.Item>
       <Menu.Item key="7">
+          <Link to="/profile/comments">نظرات <CommentOutlined /></Link>
+      </Menu.Item>
+      <Menu.Item key="8">
         <Link to="/profile/">اطلاعات کاربری <ContainerOutlined /></Link>
       </Menu.Item>
-      <Menu.Item key="8" onClick={this.exit}>
+      <Menu.Item key="9" onClick={this.exit}>
       <Link to="/"> خروج <VerticalLeftOutlined /></Link>
       </Menu.Item>
     </Menu>
@@ -452,12 +455,18 @@ class HeaderSection extends Component {
                             <HeartOutlined />
                           </Menu.Item>
                           <Menu.Item key="7" onClick={this.onClose}>
+                            <Link to="/profile/comments">
+                             نظرات
+                            </Link>{" "}
+                            <CommentOutlined />
+                          </Menu.Item>
+                          <Menu.Item key="8" onClick={this.onClose}>
                             <Link to="/profile/">
                               اطلاعات کاربری
                             </Link>{" "}
                             <ContainerOutlined />
                           </Menu.Item>
-                          <Menu.Item key="8" onClick={this.exit}>
+                          <Menu.Item key="9" onClick={this.exit}>
                             خروج <VerticalLeftOutlined />
                           </Menu.Item>
                         </Menu>

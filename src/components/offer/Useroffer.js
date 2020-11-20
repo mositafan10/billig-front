@@ -95,7 +95,7 @@ class UserOffer extends React.Component {
       align: "center",
       render: (dataIndex, row) => {
         if (row.status === "در انتظار تایید مسافر") {
-          return <ConfirmPrice parcel_price={row.parcel_price} data={dataIndex} price1={row.price} parentfunction={this.callbackfunction} buy={row.buy} />;
+          return <ConfirmPrice parcel_price={row.parcel_price_offer} data={dataIndex} price1={row.price} parentfunction={this.callbackfunction} buy={row.buy} />;
         } else if (row.status === "در انتظار خرید") {
           return (
             <Popconfirm
@@ -226,34 +226,6 @@ class UserOffer extends React.Component {
     },
   ];
 
-  confrim = (data, price) => {
-    const token = localStorage.getItem("token");
-    Axios.post(
-      `${url}api/v1/advertise/offer/update/`,
-      {
-        slug: data,
-        price: price,
-        status: 2,
-      },
-      { headers: { Authorization: `Token ${token}` } }
-    )
-      .then(()=>{
-        notification["success"]({
-          message: "مبلغ با موفقیت تایید شد",
-          description: "حال باید منتظر پرداخت مبلغ از سوی خریدار باشید",
-          style: {
-            fontFamily: "VazirD",
-            textAlign: "right",
-            float: "right",
-            width: "max-content",
-          },
-          duration: 5,
-        });
-        this.componentDidMount()
-      })
-      .catch((error) => console.log(error));
-  };
-
   buydone = (data) => {
     const token = localStorage.getItem("token");
     Axios.post(
@@ -349,10 +321,9 @@ class UserOffer extends React.Component {
   }
 
   callbackfunction = () => {
-    this.componentDidMount()
+    this.componentDidMount();
   }
 
-  call
   render() {
     return (
       <div style={{display:"flex", justifyContent:"center"}}>
@@ -429,7 +400,8 @@ class UserOffer extends React.Component {
                           </Col>
                           <Col>
                             {item.status === "در انتظار تایید مسافر" && (
-                              <ConfirmPrice data={item.slug} price1={item.price} parentfunction={this.callbackfunction} buy={item.buy} parcel_price={item.parcel_price  } />
+                              <ConfirmPrice data={item.slug} price1={item.price} parentfunction={this.callbackfunction}
+                               buy={item.buy} parcel_price={item.parcel_price_offer} />
                             )}
                             {item.status === "در انتظار خرید" && (
                               <Popconfirm
@@ -478,7 +450,7 @@ class UserOffer extends React.Component {
                             )}
                           </Col>
                           <Col>
-                            {item.status === "در انتظار تایید مسافر" && (
+                            {/* {item.status === "در انتظار تایید مسافر" && (
                               <Popconfirm
                               overlayStyle={{fontFamily:"VazirD"}}
                               title="آیا مبلغ نهایی مورد تایید است؟"
@@ -502,13 +474,13 @@ class UserOffer extends React.Component {
                                 تایید
                               </Button>
                             </Popconfirm>
-                            )}
+                            )} */}
                             {item.status === "انجام شده" && (
                               <RateAndComment
                               signal={this.callbackfunction}
                               data={item.slug}
-                              receiver={item.receiver_id}
-                              loc={"مسافر"}
+                              receiver={item.receiver_slug}
+                              loc={"آگهی‌دهنده"}
                             />
                             )}
                           </Col>
@@ -600,7 +572,7 @@ class UserOffer extends React.Component {
                           </Col>
                           <Col>
                             {item.status === "در انتظار تایید مسافر" && (
-                              <ConfirmPrice parcel_price={item.parcel_price} data={item.slug} price1={item.price} parentfunction={this.callbackfunction} buy={item.buy} />
+                              <ConfirmPrice parcel_price={item.parcel_price_offer} data={item.slug} price1={item.price} parentfunction={this.callbackfunction} buy={item.buy} />
                             )}
                             {item.status === "در انتظار خرید" && (
                               <Popconfirm
@@ -678,8 +650,8 @@ class UserOffer extends React.Component {
                               <RateAndComment
                               signal={this.callbackfunction}
                               data={item.slug}
-                              receiver={item.receiver_id}
-                              loc={"مسافر"} />
+                              receiver={item.receiver_slug}
+                              loc={"آگهی‌دهنده"} />
                             )}
                           </Col>
                         </Space>

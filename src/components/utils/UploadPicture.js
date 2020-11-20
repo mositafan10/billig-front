@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Upload, notification } from 'antd';
+import { Upload, notification, Button } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { config } from '../../Constant'
+import DownloadPic from '../utils/DownloadPic';
 
 var url = config.url.API_URL
 
@@ -41,6 +42,21 @@ const UploadFile = (props) => {
 
   return (
     <div style={{display:"flex", justifyContent:"center"}}>
+      {props.picture ?
+      <div>
+        <DownloadPic size={150} data={props.picture}/>
+        {/* <Upload 
+        action={`${url}api/v1/advertise/upload/`}
+        name="billig"
+        listType="picture-card"
+        onChange={onChange}
+        onPreview={onPreview}
+        fileList={fileList}
+        >
+          <Button style={{fontSize:"14px", borderRadius:"10px"}}>تغییر تصویر</Button>
+        </Upload> */}
+      </div>
+      : 
     <ImgCrop rotate>
       <Upload 
         action={`${url}api/v1/advertise/upload/`}
@@ -53,6 +69,7 @@ const UploadFile = (props) => {
         {fileList.length < 1 && '+ Upload'}
       </Upload>
     </ImgCrop>
+    }
     </div>
   );
 };

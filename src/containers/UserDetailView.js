@@ -33,6 +33,7 @@ class UserProfile extends React.Component {
   };
 
   componentDidMount() {
+    window.scroll(0,0)
     const userID = this.props.match.params.userID;
     Axios.get(`${url}api/v1/account/users/profile/${userID}`).then((res) => {
       this.setState({

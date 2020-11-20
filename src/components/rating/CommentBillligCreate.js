@@ -79,7 +79,6 @@ class CommentBillligCreate extends Component {
                 </Modal>
                 </Breakpoint>
                 <Breakpoint small down>
-                <Button onClick={this.offerlistmodal} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}>امتیازدهی</Button>
                 <Modal
                     visible={this.state.visible}
                     title="امتیازدهی"

@@ -1,6 +1,6 @@
 import React from "react";
 import Axios from "axios";
-import { Row, Col, Divider, Button, Card } from "antd";
+import { Row, Col, Divider, Button, Card, Carousel } from "antd";
 import { Link } from "react-router-dom";
 import bag from "../media/Icon/022-bag.svg";
 import secure_payment from "../media/Icon/secure_payment.svg";
@@ -10,9 +10,18 @@ import best_offer from "../media/Icon/best_offer.svg";
 import cheap_buy from "../media/Icon/cheap_buy.svg";
 import Orders from "../components/packet/Orders";
 import main_banner from "../media/main_banner.svg";
+import add_trip from "../media/traveler_guide/add_trip.svg";
+import chat from "../media/traveler_guide/chat.svg";
+import make_offer from "../media/traveler_guide/make_offer.svg";
+import deliverd from "../media/traveler_guide/deliverd.svg";
+import buy from "../media/traveler_guide/buy.svg";
+import Offer_accept from "../media/Packet_guide/Offer_accept.svg";
+import Payment from "../media/Packet_guide/Payment.svg";
+import Receive_parcel from "../media/Packet_guide/Receive_parcel.svg";
+import Register from "../media/Packet_guide/Register.svg";
 import { config } from "../Constant";
 import CommentsBilllig from "../components/rating/CommentsBilllig";
-import CommentBillligCreate from '../components/rating/CommentBillligCreate';
+import CommentBillligCreate from "../components/rating/CommentBillligCreate";
 
 var url = config.url.API_URL;
 const { Meta } = Card;
@@ -30,6 +39,7 @@ const style_center = {
   color: "black",
   textAlign: "justify",
 };
+
 const card_style = {
   borderRadius: "20px 10px 20px 10px",
   border: "solid",
@@ -37,26 +47,57 @@ const card_style = {
   borderColor: "#707070",
   padding: "20px 20px 20px 20px",
   backgroundColor: "white",
+  color: "white",
   textAlign: "justify",
   lineHeight: "25px",
   height: "auto",
 };
+
+const card_style_travel = {
+  borderRadius: "20px 10px 20px 10px",
+  border: "solid",
+  borderWidth: "0.5px",
+  borderColor: "#707070",
+  padding: "20px 20px 20px 20px",
+  backgroundColor: "#46A0AE",
+  color: "white",
+  textAlign: "justify",
+  lineHeight: "25px",
+  height: "auto",
+};
+
+const card_style_packet = {
+  borderRadius: "20px 10px 20px 10px",
+  border: "solid",
+  borderWidth: "0.5px",
+  borderColor: "#707070",
+  padding: "20px 20px 20px 20px",
+  backgroundColor: "#FCA468",
+  color: "white",
+  textAlign: "justify",
+  lineHeight: "25px",
+  height: "auto",
+};
+
+const travel_guide = { color: "white" };
+
 const style_icon = { width: "50px", display: "inline" };
+const style_icon1 = { width: "30%", display: "inline" };
 
 class LandingPage extends React.Component {
   state = {
     orders: [],
-    loading: true
+    loading: true,
   };
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    document.title = "بیلیگ-پلتفرم خرید و پست اشتراکی"
+    document.title = "بیلیگ-پلتفرم خرید و پست اشتراکی";
     Axios.get(`${url}api/v1/advertise/packets/all`)
       .then((res) => {
         this.setState({
           orders: res.data.results,
-          loading: false
+          loading: false,
         });
       })
       .catch((error) => console.error(error));
@@ -82,51 +123,20 @@ class LandingPage extends React.Component {
             xl={12}
             xxl={12}
           >
-            <Row>
-              <Row>
-                <Col
-                  xs={0}
-                  sm={0}
-                  md={0}
-                  lg={24}
-                  xl={24}
-                  xxl={24}
-                  style={{ padding: "0 100px", fontFamily: "Vazir" }}
-                >
-                  <h1 style={{ fontSize: 33, textAlign: "right" }}>
-                    از هر جا می‌خوای
-                    <span style={{ color: "#46a0ae" }}> خرید</span> کن
-                    <br />
-                    به هر جا می‌خوای
-                    <span style={{ color: "#46a0ae" }}> سفر</span> کن
-                  </h1>
-                </Col>
-                <Col
-                  xs={24}
-                  sm={24}
-                  md={24}
-                  lg={0}
-                  xl={0}
-                  xxl={0}
-                  style={{ textAlign: "center" }}
-                >
-                  <Divider />
-                  <h1 style={{ fontSize: 20 }}>
-                    از هر جا می‌خوای
-                    <span style={{ color: "#46a0ae" }}> خرید</span> کن
-                    <br />
-                    به هر جا می‌خوای
-                    <span style={{ color: "#46a0ae" }}> سفر</span> کن
-                  </h1>
-                </Col>
-              </Row>
-              <br />
+            <Row style={{ display: "flex", justifyContent: "center" }}>
               <Row>
                 <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
-                  <h3 style={{ fontSize: "14px", textAlign: "right" }}>
-                    بیلیگ مسافرانی که فضای اضافی در چمدان دارند رو به کسانی که
-                    به خرید و یا پست از خارج از کشور دارند متصل می‌کند
-                  </h3>
+                  <h1 style={{ fontSize: "20px", textAlign: "center" }}>
+                    <span style={{ fontSize: "30px" }}>بیلیگ</span>
+                    <br />
+                    <span>
+                      {" "}
+                      یک پلتفرم پست اشتراکی است که{" "}
+                      <span style={{ color: "#FCA468" }}>صاحب‌بسته </span>را به{" "}
+                      <span style={{ color: "#46A0AE" }}>مسافر </span>وصل
+                      می‌کند.
+                    </span>
+                  </h1>
                 </Col>
                 <Col
                   xs={0}
@@ -137,37 +147,329 @@ class LandingPage extends React.Component {
                   xxl={24}
                   style={{ padding: "0 100px" }}
                 >
-                  <h3 style={{ fontSize: "18px", textAlign: "right" }}>
-                    بیلیگ مسافرانی که فضای اضافی در چمدان دارند رو به کسانی که
-                    به خرید و یا پست از خارج از کشور دارند متصل می‌کند.{" "}
-                  </h3>
+                  <h1 style={{ fontSize: "24px", textAlign: "right" }}>
+                    <span style={{ fontSize: "30px" }}>بیلیگ؛</span>
+                    <br />
+                    <span>
+                      {" "}
+                      یک پلتفرم پست اشتراکی است که{" "}
+                      <span style={{ color: "#FCA468" }}>صاحب‌بسته </span>را به{" "}
+                      <span style={{ color: "#46A0AE" }}>مسافر </span>وصل
+                      می‌کند.
+                    </span>
+                  </h1>
                 </Col>
               </Row>
-              <Row>
+              <Row
+                style={{
+                  justifyContent: "center",
+                  display: "flex",
+                  textAlign: "center",
+                }}
+              >
                 <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
                   <Divider plain orientation="center">
                     <Link to={"/how-billlig-work"}>
-                      <span>بیلیگ چگونه کار می‌کند؟</span>
+                      <Button
+                        size="large"
+                        style={{
+                          borderRadius: "15px",
+                          backgroundColor: "#46A0AE",
+                          color: "white",
+                          borderColor: "white",
+                        }}
+                      >
+                        راهنمای استفاده از بیلیگ
+                      </Button>
                     </Link>
                   </Divider>
                 </Col>
-                <Col
-                  xs={0}
-                  sm={0}
-                  md={0}
-                  lg={24}
-                  xl={24}
-                  xxl={24}
-                  style={{ padding: "0 85px" }}
-                >
+                <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24}>
                   <Divider plain orientation="center">
                     <Link to={"/how-billlig-work"}>
-                      بیلیگ‌پست چگونه کار می‌کند؟
+                      <Button
+                        size="large"
+                        style={{
+                          borderRadius: "15px",
+                          backgroundColor: "#46A0AE",
+                          color: "white",
+                          borderColor: "white",
+                        }}
+                      >
+                        راهنمای استفاده از بیلیگ
+                      </Button>
                     </Link>
                   </Divider>
                 </Col>
               </Row>
             </Row>
+          </Col>
+        </Row>
+        <Row style={{ justifyContent: "center", display: "flex" }}>
+          <Col span={2}>
+            <h1
+              style={{
+                backgroundColor: "#46A0AE",
+                color: "white",
+                fontSize: "26px",
+                textAlign: "center",
+                border: "2px solid",
+                borderRadius: "20px",
+                padding: "5px",
+              }}
+            >
+              مسافر
+            </h1>
+          </Col>
+          <Col span={24}>
+            <h2 style={{ textAlign: "center" }}>
+              {" "}
+              می‌خواهم بسته دیگران را به مقصد برسانم.
+            </h2>
+          </Col>
+        </Row>
+        <Divider style={{ opacity: "0" }} />
+        <Row style={{ textAlign: "center" }}>
+          <Col span={2}></Col>
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={
+                <img alt="billlig.com" src={add_trip} style={style_icon1} />
+              }
+            >
+              <h3 style={{ paddingBottom: "5px" }}>
+                مرحله۱: ثبت نام و ثبت سفر
+              </h3>
+              <Meta
+                style={card_style_travel}
+                description={
+                  <div style={travel_guide}>
+                    در سایت ثبت نام کن و بعد سفرت رو ثبت کن.
+                  </div>
+                }
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={
+                <img alt="billlig.com" src={make_offer} style={style_icon1} />
+              }
+            >
+              <h3 style={{ paddingBottom: "5px" }}>مرحله۲: پیشنهاد بذار</h3>
+              <Meta
+                style={card_style_travel}
+                description={
+                  <div style={travel_guide}>
+                    حالا باید لیست آگهی‌ها رو ببینی و روی آگهی‌ای که می‌خوای
+                    پیشنهاد بذاری
+                  </div>
+                }
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={<img alt="billlig.com" src={chat} style={style_icon1} />}
+            >
+              <h3 style={{ paddingBottom: "5px" }}>مرحله ۳: مذاکره </h3>
+              <Meta
+                style={card_style_travel}
+                description={
+                  <div style={travel_guide}>
+                    حالا باید باتوجه به نیاز آگهی‌دهنده یا یک بسته رو از
+                    صاحب‌بسته تحویل بگیری و با خودت بیاری یا اگه لازم باشه خودت
+                    بخریش و بیاریش .
+                  </div>
+                }
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={<img alt="billlig.com" src={buy} style={style_icon1} />}
+            >
+              <h3 style={{ paddingBottom: "5px" }}>مرحله۴: دریافت و حمل </h3>
+              <Meta
+                style={card_style_travel}
+                description={
+                  <div style={travel_guide}>
+                    حالا باید باتوجه به نیاز آگهی‌دهنده یا یک بسته رو از
+                    صاحب‌بسته تحویل بگیری و با خودت بیاری یا اگه لازم باشه خودت
+                    بخریش و بیاریش.
+                  </div>
+                }
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={
+                <img alt="billlig.com" src={deliverd} style={style_icon1} />
+              }
+            >
+              <h3 style={{ paddingBottom: "5px" }}>
+                مرحله۵: تحویل و دریافت دستمزد{" "}
+              </h3>
+
+              <Meta
+                style={card_style_travel}
+                description={
+                  <div style={travel_guide}>
+                    حالا باید بسته رو به صاحبش تحویل بدی و دستمزدت رو از بیلیگ
+                    دریافت کنی{" "}
+                  </div>
+                }
+              />
+            </Card>
+          </Col>
+        </Row>
+        <Divider style={{ opacity: "0" }} />
+        <Row style={{ justifyContent: "center", display: "flex" }}>
+          <Col span={2}>
+            <h1
+              style={{
+                backgroundColor: "#FCA468",
+                color: "white",
+                fontSize: "26px",
+                textAlign: "center",
+                border: "2px solid",
+                borderRadius: "20px",
+                padding: "5px",
+              }}
+            >
+              آگهی‌دهنده
+            </h1>
+          </Col>
+          <Col span={24}>
+            <h2 style={{ textAlign: "center" }}>
+              {" "}
+              می‌خواهم بسته‌ای را پست کنم.
+            </h2>
+          </Col>
+        </Row>
+        <Divider style={{ opacity: "0" }} />
+        <Row
+          style={{
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={
+                <img alt="billlig.com" src={Register} style={style_icon1} />
+              }
+            >
+              <h3 style={{ paddingBottom: "5px" }}>
+                مرحله۱: ثبت نام و ثبت آگهی{" "}
+              </h3>
+              <Meta
+                style={card_style_packet}
+                description={
+                  <div style={travel_guide}>
+                    در سایت ثبت نام کن و آگهی خودت رو ثبت کن..
+                  </div>
+                }
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={
+                <img alt="billlig.com" src={Offer_accept} style={style_icon1} />
+              }
+            >
+              <h3 style={{ paddingBottom: "5px" }}>
+                مرحله۲: دریافت پیشنهاد و مذاکره{" "}
+              </h3>
+              <Meta
+                style={card_style_packet}
+                description={
+                  <div style={travel_guide}>
+                    حالا باید صبر کنی تا مسافرها روی آگهیت پیشنهاد بذارن و
+                    باهاشون سر قیمت و بقیه مسائل توافق کنی
+                  </div>
+                }
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={<img alt="billlig.com" src={chat} style={style_icon1} />}
+            >
+              <h3 style={{ paddingBottom: "5px" }}>مرحله ۳: مذاکره </h3>
+              <Meta
+                style={card_style_packet}
+                description={
+                  <div style={travel_guide}>
+                    درصورتی که پیشنهاد مسافر رو قبول کنید حالا باید در مورد
+                    دستمزد، محل تحویل و ... مذاکره کنید و به توافق برسید..
+                  </div>
+                }
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={
+                <img alt="billlig.com" src={Payment} style={style_icon1} />
+              }
+            >
+              <h3 style={{ paddingBottom: "5px" }}>مرحله۴: پرداخت </h3>
+              <Meta
+                style={card_style_packet}
+                description={
+                  <div style={travel_guide}>
+                    همان‌طور که می‌دانید بسیاری از فروشگاه‌های خارجی باشد تا
+                    کالاهای اورجینال را با تخفیف بالا بخرید.
+                  </div>
+                }
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+            <Card
+              style={{ backgroundColor: "ghostwhite" }}
+              bordered={false}
+              cover={
+                <img
+                  alt="billlig.com"
+                  src={Receive_parcel}
+                  style={style_icon1}
+                />
+              }
+            >
+              <h3 style={{ paddingBottom: "5px" }}>مرحله۵: دریافت بسته </h3>
+              <Meta
+                style={card_style_packet}
+                description={
+                  <div style={travel_guide}>
+                    حالا باید منتظر بمونی تا به زودی مسافر از راه برسه و بسته رو
+                    برات بیاره
+                  </div>
+                }
+              />
+            </Card>
           </Col>
         </Row>
         <Row>
@@ -191,14 +493,18 @@ class LandingPage extends React.Component {
             lg={20}
             xl={20}
             xxl={20}
-            style={{ textAlign:"center" ,display: "flex", justifyContent:"center" }}
+            style={{
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            <Orders data={this.state.orders} loading={this.state.loading}/>
+            <Orders data={this.state.orders} loading={this.state.loading} />
           </Col>
           <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
         </Row>
         <Row style={{ display: "flex", justifyContent: "center" }}>
-          <Divider style={{opacity:0}} />
+          <Divider style={{ opacity: 0 }} />
           <Link to="/orders">
             <Button style={{ borderRadius: "8px" }}>نمایش همه آگهی</Button>
           </Link>
@@ -359,20 +665,21 @@ class LandingPage extends React.Component {
             lg={20}
             xl={20}
             xxl={20}
-            style={{ textAlign:"center" ,display: "flex", justifyContent:"center" }}
+            style={{
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            <CommentsBilllig count={5}/>
+            <CommentsBilllig count={5} />
           </Col>
           <Col xs={0} sm={0} md={0} lg={2} xl={2} xxl={2}></Col>
         </Row>
         <Row style={{ display: "flex", justifyContent: "center" }}>
-          <Divider style={{opacity:0}} />
-          {/* <Link to="/orders">
-            <Button style={{ borderRadius: "8px" }}>نمایش همه نظرات</Button>
-          </Link> */}
+          <Divider style={{ opacity: 0 }} />
           <CommentBillligCreate />
         </Row>
-        <Divider/>
+        <Divider />
       </div>
     );
   }
