@@ -6,7 +6,7 @@ import DownloadPic from "../utils/DownloadPic";
 import TimeDiff from "../utils/TimeDiff";
 import { config } from "../../Constant";
 import InfiniteScroll from "react-infinite-scroller";
-import { LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined, GlobalOutlined } from "@ant-design/icons";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -59,11 +59,15 @@ class Orders extends React.Component {
                   <Col xs={11} sm={11} md={11} lg={11} xl={11} xxl={11}>
                     <Row>
                       <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
+                        {item.origin_country == null ?
+                        <GlobalOutlined style={{fontSize:"25px", marginRight:"10px"}} />
+                        :
                         <img
                           src={`${url}dstatic/${item.origin_country.icon}`}
                           width={50}
                           style={{ borderRadius: "5px" }}
                         />
+                        }
                       </Col>
                       <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
                         <img

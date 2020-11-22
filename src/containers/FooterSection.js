@@ -36,10 +36,10 @@ class FooterSection extends Component {
                         بیلیگ را در شبکه‌های اجتماعی دنبال کنید
                         <Divider/>
                         <Space size="large">
-                            <a target="blank" style={{color:"black"}} href="https://twitter.com/Billlig1"><TwitterOutlined style={{fontSize:"30px"}} /></a>
-                            <a target="blank" style={{color:"black"}} href="https://www.instagram.com/billligofficial/"><InstagramOutlined style={{fontSize:"30px"}} /></a>
-                            <a target="blank" style={{color:"black"}} href="https://www.linkedin.com/in/billlig/"><LinkedinOutlined style={{fontSize:"30px"}} /></a>
-                            <a target="blank" style={{color:"black"}} href="https://www.facebook.com/billligofficial"><FacebookOutlined style={{fontSize:"30px"}} /></a>
+                            <a target="_blank" style={{color:"black"}} href="https://twitter.com/Billlig1"><TwitterOutlined style={{fontSize:"30px"}} /></a>
+                            <a target="_blank" style={{color:"black"}} href="https://www.instagram.com/billligofficial/"><InstagramOutlined style={{fontSize:"30px"}} /></a>
+                            <a target="_blank" style={{color:"black"}} href="https://www.linkedin.com/in/billlig/"><LinkedinOutlined style={{fontSize:"30px"}} /></a>
+                            <a target="_blank" style={{color:"black"}} href="https://www.facebook.com/billligofficial"><FacebookOutlined style={{fontSize:"30px"}} /></a>
                         </Space>
                         <Divider/>
                         <p>از تخفیفات فروشگاه‌ها و جدیدترین‌های بیلیگ باخبر شوید:</p>
@@ -57,9 +57,8 @@ class FooterSection extends Component {
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>راهنمای کاربران</b></p><hr width="120" style={{float:"right"}}/><br/>
                         <Link to={'/whybilllig'}><p style={style_p}>چرا بیلیگ ؟</p></Link>
-                        <Link to={'/how-billlig-work'}><p style={style_p}> راهنمای ثبت آگهی خرید</p></Link>
-                        <Link to={'/how-billlig-work'}><p style={style_p}> راهنمای ارسال بسته</p></Link>
-                        <Link to={'/how-billlig-work'}><p style={style_p}> راهنمای ثبت سفر</p></Link>
+                        <Link to={'/billliger'}><p style={style_p}> راهنمای بیلیگر</p></Link>
+                        <Link to={'/traveler'}><p style={style_p}> راهنمای مسافر</p></Link>
                         <Link to={'/advices'}><p style={style_p}> توصیه‌های بیلیگ به کاربران</p></Link>
                         <Link to={'/faq'}><p style={style_p}>سوالات متداول</p></Link>
                     </Col>
@@ -74,7 +73,7 @@ class FooterSection extends Component {
                     <hr/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>بیلیگ</b></p><hr width="80" style={{float:"right"}}/><br/>
-                        <a target="blank" href={`${url}blog/`}><p style={style_p}>بلاگ</p></a>
+                        <a target="_blank" href={`${url}blog/`}><p style={style_p}>بلاگ</p></a>
                         <Link to={'/about-us'}><p style={style_p}>درباره ما</p></Link>
                         <p style={style_p}>تماس با ما</p>
                         <Link to={'/privacy'}><p style={style_p}>حریم خصوصی</p></Link>

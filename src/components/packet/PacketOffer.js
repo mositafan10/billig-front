@@ -28,7 +28,6 @@ const token = localStorage.getItem("token");
 class PacketOffer extends React.Component {
   state = {
     packet_offer: [],
-    disablepayment: true,
     disableconfirm: false,
     visible: false,
     loading: true,
@@ -66,7 +65,7 @@ class PacketOffer extends React.Component {
       align: "center",
     },
     {
-      title: (row) => <div>{!row.buy && "قیمت کالا (تومان)"}</div>  ,
+      title: (row) => <div>{row.buy && "قیمت کالا (تومان)"}</div>  ,
       dataIndex: "parcel_price_offer",
       key: "y",
       width: 150,
@@ -144,15 +143,12 @@ class PacketOffer extends React.Component {
               cancelText="خیر"
             >
               <Button
-                disabled={this.state.disableconfirm}
                 style={{
                   fontSize: "12px",
                   border: "hidden",
-                  color: this.state.disableconfirm ? "transparent" : "white",
+                  color: "white",
                   backgroundColor: "red",
                   borderRadius: "10px",
-                  textShadow:
-                    this.state.disableconfirm && "0 0 5px rgba(0,0,0,0.5)",
                 }}
               >
                 <b>رد مبلغ وارد شده</b>
@@ -213,7 +209,6 @@ class PacketOffer extends React.Component {
         if (row.status === "در انتظار پرداخت") {
           return (
             <SendTransactionInfo
-              disabled={this.state.disablepayment}
               amount={row.price + row.parcel_price}
               factorNumber={dataIndex}
             />
@@ -238,25 +233,6 @@ class PacketOffer extends React.Component {
     this.componentDidMount();
   };
 
-  confirmpayment = () => {
-    notification["success"]({
-      message: "مبلغ پرداخت توسط شما تایید شد",
-      description: "حال می‌توانید پرداخت خود را انجام دهید",
-      style: {
-        fontFamily: "VazirD",
-        textAlign: "right",
-        float: "right",
-        width: "max-content",
-      },
-      duration: 5,
-    });
-    this.componentDidMount();
-    this.setState({
-      disableconfirm: true,
-      disablepayment: false,
-    });
-  };
-
   rejectpayment = (data) => {
     Axios.post(
       `${url}api/v1/advertise/offer/update/`,
@@ -267,9 +243,9 @@ class PacketOffer extends React.Component {
       { headers: { Authorization: `Token ${token}` } }
     )
       .then(() => {
-        notification["success"]({
-          message: "پیشنهاد با موفقیت تایید شد",
-          description: "حال باید منتظر تایید مبلغ از سوی مسافر باشید",
+        notification["warn"]({
+          message: "مبلغ پیشنهاد شده تایید نشد",
+          description: "در مورد مبلغ مورد نظر خودتان با مسافر مذاکره کنید تا مبلغ پیشنهادی اصلاح شود",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -475,26 +451,25 @@ class PacketOffer extends React.Component {
                         )}
                         {item.status === "در انتظار پرداخت" && (
                           <Popconfirm
-                            overlayStyle={{ fontFamily: "VazirD" }}
-                            title="آیا مبلغ نهایی مورد تایید شما است ؟"
-                            onConfirm={this.confirmpayment.bind(this)}
-                            onCancel={this.cancel}
-                            okText="بله"
-                            cancelText="خیر"
+                          overlayStyle={{ fontFamily: "VazirD" }}
+                          title={<div>با رد شدن مبلغ، پیشنهاد به مرحله قبل بازمی‌گردد تا مسافر مبلغ را مجدد وارد نماید<br/>آیا پیشنهاد به مرحله قبل باز گردد؟</div>}
+                          onConfirm={this.rejectpayment.bind(this,item.slug)}
+                          onCancel={this.cancel}
+                          okText="بله"
+                          cancelText="خیر"
+                        >
+                          <Button
+                            style={{
+                              fontSize: "12px",
+                              border: "hidden",
+                              color: "white",
+                              backgroundColor: "red",
+                              borderRadius: "10px",
+                            }}
                           >
-                            <Button
-                              disabled={this.state.disableconfirm}
-                              style={{
-                                fontSize: "12px",
-                                border: "hidden",
-                                color: "white",
-                                backgroundColor: "green",
-                                borderRadius: "10px",
-                              }}
-                            >
-                              <b>تایید</b>
-                            </Button>
-                          </Popconfirm>
+                            <b>رد مبلغ وارد شده</b>
+                          </Button>
+                        </Popconfirm>
                         )}
                         {item.status === "در انتظار تایید خریدار" && (
                           <Popconfirm
@@ -532,7 +507,6 @@ class PacketOffer extends React.Component {
                       <Col>
                         {item.status === "در انتظار پرداخت" && (
                           <SendTransactionInfo
-                            disabled={this.state.disablepayment}
                             amount={item.price + item.parcel_price}
                             factorNumber={item.slug}
                           />

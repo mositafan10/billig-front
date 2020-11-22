@@ -9,7 +9,7 @@ const callback_url = "https://billlig.com/payment/verify/"
 class SendTransactionInfo extends Component {
 
     state = {
-        token:""
+        token: "",
     }
     
     sendapi = () => {
@@ -35,11 +35,7 @@ class SendTransactionInfo extends Component {
     render() {
         return (
             <div>
-                { this.props.disabled ?
-               <Tooltip title="ابتدا پیشنهاد را تایید کنید"><Button onClick={this.sendapi.bind(this)} disabled={this.props.disabled ? true : false} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>پرداخت</Button></Tooltip> 
-               :
-               <Button onClick={this.sendapi.bind(this)} disabled={this.props.disabled ? true : false} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>پرداخت</Button>
-                }
+               <Button onClick={this.sendapi.bind(this)} disabled={this.props.disabled ? true : false} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>تایید و پرداخت</Button> 
             </div>
         );
     }

@@ -48,7 +48,7 @@ class UploadProfilePicture extends React.Component {
     const token = localStorage.getItem("token");
     return (
       <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
+        style={{ display: "flex", justifyContent: "center", marginTop: "25px" }}
       >
         <Row>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
@@ -62,7 +62,7 @@ class UploadProfilePicture extends React.Component {
                 src={`${url}dstatic/${this.props.data}`}
                 alt="avatar"
                 width={200}
-                style={{ borderRadius: "15px", marginTop: "30px" }}
+                style={{ borderRadius: "100px", marginTop: "30px" }}
               />
               :
               <UserOutlined style={{fontSize:"100px"}} />

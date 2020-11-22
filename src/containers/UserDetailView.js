@@ -10,6 +10,7 @@ import {
   TwitterOutlined,
   LinkedinOutlined,
   FacebookOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 
 const style_left = {
@@ -91,11 +92,15 @@ class UserProfile extends React.Component {
       <div>
         <Breakpoint medium up>
           <div style={{ textAlign: "center" }}>
+            {this.state.user_profile.picture ?
             <img
-              width={300}
-              style={{ borderRadius: "10px" }}
+              width={200}
+              style={{ borderRadius: "100px" }}
               src={`${url}dstatic/${this.state.user_profile.picture}`}
             />
+            :
+            <UserOutlined style={{fontSize:"100px"}}/>
+            }
             <Card bordered={false}>
               <h3>{this.state.user_profile.name}</h3>
               <Rate
@@ -188,11 +193,15 @@ class UserProfile extends React.Component {
         </Breakpoint>
         <Breakpoint small down>
           <div style={{ textAlign: "center" }}>
+          {this.state.user_profile.picture ?
             <img
-              width={300}
-              style={{ borderRadius: "10px" }}
+              width={200}
+              style={{ borderRadius: "100px" }}
               src={`${url}dstatic/${this.state.user_profile.picture}`}
             />
+            :
+            <UserOutlined style={{fontSize:"80px"}}/>
+            }
             <br />
             <Card bordered={false}>
               <h3>{this.state.user_profile.name}</h3>

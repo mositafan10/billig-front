@@ -17,6 +17,8 @@ import moment from "moment";
 import EditTravel from "./EditTravel";
 import { config } from "../../Constant";
 import PayTraveler from "../payment/PayTraveler";
+import Modal from "antd/lib/modal/Modal";
+import UserOffer from '../offer/Useroffer';
 
 var url = config.url.API_URL;
 const style_left = {
@@ -29,6 +31,7 @@ const style_right = { display: "flex", justifyContent: "right" };
 class TravelList extends React.Component {
   state = {
     travel_user: [],
+    visible: false
   };
 
   cancel(e) {
@@ -59,6 +62,14 @@ class TravelList extends React.Component {
       })
       .catch((error) => console.error(error));
   };
+
+  offermodal = () => {
+    this.setState({visible:true})
+  }
+
+  offermodalcancle = () => {
+    this.setState({visible:false})
+  }
 
   render() {
     return (
@@ -208,22 +219,11 @@ class TravelList extends React.Component {
                           >
                             <br />
                             { item.income != 0 ?
-                            (item.status != 4 && item.status != 8 ? (
+                            (item.status == 4 && (
                               <PayTraveler
                                 travel={item.slug}
                                 amount={item.income}
                               />
-                            ) : (
-                              <span
-                                style={{
-                                  border: "hidden",
-                                  padding: "5px",
-                                  borderRadius: "10px",
-                                  backgroundColor: "aliceblue",
-                                }}
-                              >
-                                در انتظار تسویه
-                              </span>
                             ))
                             :
                             <Button
@@ -237,15 +237,30 @@ class TravelList extends React.Component {
                               </Button>
                             }
                           </Row>
-                          <Row style={{justifyContent:"center", display:"flex"}}>
-                          <Button style={{justifyContent:"center", display:"flex", border:"hidden"}}>پیشنهادها</Button>
-                          </Row>
                           <hr style={{ margin: "15px 0 15px 0" }} />
                           <Row style={style_right}>
                           <Col span={9}>
-                              <Button style={{justifyContent:"center", display:"flex", borderRadius:"10px"}}>پیشنهادها</Button>
+                              <Button onClick={this.offermodal} style={{justifyContent:"center", display:"flex", borderRadius:"10px"}}>پیشنهادها</Button>
                             </Col>
-                            <Col style={style_right} span={7}>
+                            <Modal
+                            visible={this.state.visible}
+                            onCancel={this.offermodalcancle}
+                            onOk={this.offermodal}
+                            title="لیست پیشنهادهای ارسالی"
+                            width="90%"
+                            closable={false}
+                            okText="بازگشت"
+                            cancelButtonProps={{ hidden: "true" }}
+                            style={{
+                              fontFamily: "VazirD",
+                              textAlign: "center",
+                              overflow: "hidden",
+                              borderRadius: "20px",
+                            }}
+                            >
+                            <UserOffer/>
+                            </Modal>
+                            <Col style={style_right} span={6}>
                               <Popconfirm
                                 overlayStyle={{ fontFamily: "VazirD" }}
                                 title="آیا از حذف آگهی مطمئن هستید ؟"

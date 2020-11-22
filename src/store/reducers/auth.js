@@ -6,7 +6,7 @@ const initialState = {
     error: null,
     loading: false,
     user: null,
-    signup: null
+    signup: null,
 }
 
 const authStart = (state, action) => {

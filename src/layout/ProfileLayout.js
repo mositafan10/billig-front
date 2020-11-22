@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu, Row, Col, Button, Divider } from "antd";
+import { Layout, Menu, Row, Col, Button, Divider, Badge } from "antd";
 import {
   ContainerOutlined,
   CommentOutlined,
@@ -14,7 +14,7 @@ import { Breakpoint } from "react-socks";
 const menu_style = { color: "black" };
 const icon_style = { marginLeft: "10px" };
 
-const { Header, Sider, Content, Footer } = Layout;
+const { Header, Sider, Content } = Layout;
 
 class ProfileLayout extends React.Component {
   render() {
@@ -62,31 +62,22 @@ class ProfileLayout extends React.Component {
                       <Link to="/profile/mypacket">
                         <p style={menu_style}>
                           آگهی‌های من
-                          <ShoppingOutlined style={icon_style} />{" "}
-                        </p>{" "}
+                          <ShoppingOutlined style={icon_style} />
+                        </p>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="2">
                       <Link to="/profile/mytravel">
-                        {" "}
+                        
                         <p style={menu_style}>
                           سفرهای من
                           <AimOutlined style={icon_style} />
-                        </p>{" "}
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item key="3">
-                      <Link to="/profile/myoffer">
-                        <p style={menu_style}>
-                          پیشنهادهای من
-                          <ContainerOutlined style={icon_style} />
-                        </p>{" "}
+                        </p>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="4">
                       <Link to="/profile/inbox">
                         <p style={menu_style}>
-                          {" "}
                           صندوق پیام
                           <CommentOutlined style={icon_style} />
                         </p>
@@ -97,7 +88,7 @@ class ProfileLayout extends React.Component {
                         <p style={menu_style}>
                           پرداخت
                           <DollarCircleOutlined style={icon_style} />
-                        </p>{" "}
+                        </p>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="6">

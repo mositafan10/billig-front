@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Col, Row, Divider, Button, Space } from "antd";
 import image from "../media/HowtoWork.svg";
-import { Breakpoint } from "react-socks";
 
 const HowToWork = () => {
   window.scrollTo(0, 0);
@@ -58,87 +57,30 @@ const HowToWork = () => {
             <b>برای آشنایی با مراحل کار به لینک‌های زیر مراجعه فرمایید:</b>
           </p>
           <div>
-            <Breakpoint medium up>
-              <Space
-                direction="horizontal"
-                style={{ display: "flex", justifyContent: "center" }}
-              >
-                <Link to={"/travel-guide"}>
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      backgroundColor: "#46a0ae",
-                      color: "white",
-                    }}
-                  >
-                    قصد سفر دارم{" "}
-                  </Button>
-                </Link>
-                <Link to={"/send-parcel-guide"}>
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      backgroundColor: "#46a0ae",
-                      color: "white",
-                    }}
-                  >
-                    قصد ارسال بسته دارم{" "}
-                  </Button>
-                </Link>
-                <Link to={"/buy-guide"}>
-                  {" "}
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      backgroundColor: "#46a0ae",
-                      color: "white",
-                    }}
-                  >
-                    قصد خرید دارم{" "}
-                  </Button>
-                </Link>
-              </Space>
-            </Breakpoint>
-            <Breakpoint small down>
-              <Space
-                direction="vertical"
-                style={{ display: "flex", textAlign: "center" }}
-              >
-                <Link to={"/send-parcel-guide"}>
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      backgroundColor: "#46a0ae",
-                      color: "white",
-                    }}
-                  >
-                    قصد ارسال بسته دارم{" "}
-                  </Button>
-                </Link>
-                <Link to={"/buy-guide"}>
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      backgroundColor: "#46a0ae",
-                      color: "white",
-                    }}
-                  >
-                    قصد خرید دارم{" "}
-                  </Button>
-                </Link>
-                <Link to={"/travel-guide"}>
-                  <Button
-                    style={{
-                      borderRadius: "10px",
-                      backgroundColor: "#46a0ae",
-                      color: "white",
-                    }}
-                  >
-                    قصد سفر دارم{" "}
-                  </Button>
-                </Link>
-              </Space>
-            </Breakpoint>
+            <Space style={{ display: "flex", textAlign: "center" }}>
+              <Link to={"/traveler"}>
+                <Button
+                  style={{
+                    borderRadius: "10px",
+                    backgroundColor: "#46A0AE",
+                    color: "white",
+                  }}
+                >
+                  راهنمای مسافر
+                </Button>
+              </Link>
+              <Link to={"/billliger"}>
+                <Button
+                  style={{
+                    borderRadius: "10px",
+                    backgroundColor: "#FCA468",
+                    color: "white",
+                  }}
+                >
+                  راهنمای بیلیگر
+                </Button>
+              </Link>
+            </Space>
             <Divider style={{ opacity: "0" }} />
           </div>
         </Col>

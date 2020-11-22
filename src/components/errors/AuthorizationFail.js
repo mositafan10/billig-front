@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Result, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { config } from '../../Constant';
+
+var url = config.url.API_URL;
 
 const style={
     borderRadius:"15px",
@@ -16,8 +18,7 @@ class AuthorizationFail extends Component {
                  subTitle="لطفا ابتدا وارد سایت شوید"
                  />
                  <div style={{display:"flex",justifyContent:"center"}}>
-                 {/* <Link to='/'><Button style={style} type="primary">بازگشت صفحه اصلی</Button></Link> */}
-                 <Link to='/login'><Button style={style} type="primary">ورود به سایت</Button></Link>
+                 <a href={`${url}/login`}><Button style={style} type="primary">ورود به سایت</Button></a>
                  </div>
                  <br/>
             </div>

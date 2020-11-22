@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Button, notification } from "antd";
-import { BookOutlined } from "@ant-design/icons"; 
 import Axios from "axios";
 import { config } from "../../Constant";
 import Modal from "antd/lib/modal/Modal";
+
+import BookmarkNot from '../../media/small_icon/Bookmark.png'
+import BookmarkYes from '../../media/small_icon/bookmarked.png'
 var url = config.url.API_URL; 
 const token = localStorage.getItem("token");
 
@@ -15,26 +17,18 @@ class Bookmark extends Component {
     visible: false
   };
 
-  // componentDidUpdate = (prevProps) => {
-  //   if (this.props.data !== prevProps.data) {
-  //     Axios.get(`${url}api/v1/advertise/bookmarks/${this.props.data}`, {
-  //       headers: { Authorization: `Token ${token}` },
-  //     }).then((res) => {
-  //       if (res.data.bookmark == true) {
-  //         this.setState({ bookmark: true });
-  //       }
-  //     });
-  //   }
-  // };
 
   componentDidMount (){
-    Axios.get(`${url}api/v1/advertise/bookmarks/${this.props.data}`, {
-      headers: { Authorization: `Token ${token}` },
-    }).then((res) => {
-      if (res.data.bookmark == true) {
-        this.setState({ bookmark: true });
-      }
-    });
+    setTimeout(()=>{
+      Axios.get(`${url}api/v1/advertise/bookmarks/${this.props.data}`, {
+        headers: { Authorization: `Token ${token}` },
+      }).then((res) => {
+        if (res.data.bookmark == true) {
+          this.setState({ bookmark: true });
+        }
+      });
+    },1000)
+   
   }
 
   bookmark = () => {
@@ -67,7 +61,7 @@ class Bookmark extends Component {
         }
           else if(res.status ==204) {
             notification["success"]({
-              message: "از لیست نشان حذف شد",
+              message: "آگهی از لیست نشان حذف شد",
               style: {
                 fontFamily: "VazirD",
                 textAlign: "right",
@@ -115,7 +109,7 @@ class Bookmark extends Component {
             onClick={this.bookmark.bind(this)}
             loading={this.state.loading}
           >
-            <BookOutlined  style={{fontSize:"20px", color:"red"}}/>
+            <img src={BookmarkYes} width={30} style={{marginTop:"-7px"}}/>
           </Button>
         ) : (
           <Button
@@ -123,7 +117,7 @@ class Bookmark extends Component {
             onClick={this.bookmark.bind(this)}
             loading={this.state.loading}
           >
-            <BookOutlined  style={{fontSize:"20px"}}/>
+            <img src={BookmarkNot} width={30} style={{marginTop:"-7px"}}/>
           </Button>
         )}
         <Modal 

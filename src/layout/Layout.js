@@ -30,7 +30,7 @@ class CustomLayout extends React.Component {
           <Header style={{ position: 'fixed', zIndex: 2, width: '100%', backgroundColor:"white", padding:"0", height:"auto"  }} >
             <HeaderSection {...this.props} />
           </Header>
-          <Content style={{margin:"0 15px 0 15px", backgroundColor:"ghostwhite"}}>
+          <Content style={{margin:"0 15px 0 15px"}}>
               <Row style={{marginTop:"100px"}}>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <div className="site-layout-content">

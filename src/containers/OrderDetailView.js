@@ -9,7 +9,8 @@ import {
   notification,
   Button,
   Tooltip,
-  Modal
+  Modal,
+  Divider
 } from "antd";
 import OfferDetail from "../components/offer/OfferInDetail";
 import DownloadPic from "../components/utils/DownloadPic";
@@ -33,7 +34,7 @@ class OrderDetail extends React.Component {
   myRef = React.createRef();
 
   componentDidMount() {
-    window.scrollTo({
+    window.scroll({
       top: 0,
       behavior: "smooth",
     });
@@ -45,26 +46,36 @@ class OrderDetail extends React.Component {
           loading: false,
         });
         document.title =
+        this.state.order.no_matter_origin ?
+        (
+          this.state.order.title +
+          "_" +
+          this.state.order.category +
+          "_بیلیگ"
+        )
+        :
+        (
           this.state.order.title +
           "_" +
           this.state.order.category +
           "_" +
           this.state.order.origin_country.name +
-          "_بیلیگ";
+          "_بیلیگ"
+        )
         this.props.history.push(`/packet/${document.title}/${orderID}/`);
       })
-      .catch((error) => {
-        notification["success"]({
-          message: error.response.data.detail,
-          style: {
-            fontFamily: "VazirD",
-            textAlign: "right",
-            float: "right",
-            width: "max-content",
-          },
-          duration: 5,
-        });
-      });
+      // .catch((error) => {
+      //   notification["success"]({
+      //     message: error.response.data.detail,
+      //     style: {
+      //       fontFamily: "VazirD",
+      //       textAlign: "right",
+      //       float: "right",
+      //       width: "max-content",
+      //     },
+      //     duration: 5,
+      //   });
+      // });
   }
 
   shareurl = () => {
@@ -144,14 +155,18 @@ class OrderDetail extends React.Component {
                         md={10}
                         lg={10}
                         xl={10}
-                      >
-                        {this.state.order.origin_country
+                      > {this.state.order.no_matter_origin ?
+                        <Tooltip title="امکان خرید کالا از هر کشوری فراهم است" overlayStyle={{fontFamily:"VazirD"}}><span>فرقی نمی‌کند</span></Tooltip>
+                        :
+                        (
+                        this.state.order.origin_country
                           ? this.state.order.origin_country.name
-                          : ""}
+                          : ""
                         ,
-                        {this.state.order.origin_city
+                        this.state.order.origin_city
                           ? this.state.order.origin_city.name
-                          : ""}
+                          : "")
+                        }
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />
@@ -204,7 +219,7 @@ class OrderDetail extends React.Component {
                         xl={10}
                       >
                         <Link to={"/users/" + this.state.order.owner_slug}>
-                          {this.state.order.owner_name}{" "}
+                          {this.state.order.owner_name}
                         </Link>
                       </Col>
                     </Row>
@@ -283,7 +298,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}>نمایش</Button>
+                        <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}><a>نمایش</a></Button>
                       </Col>
                       <Modal
                       visible={this.state.phonenumbervisibility}
@@ -294,8 +309,9 @@ class OrderDetail extends React.Component {
                       title=" "
                       closeIcon=" "
                       >
-                        <p> توصیه ما این است که برای پیام دادن از چت درون سایت که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید تا مراحل بعدی با سهولت بیشتری انجام 
+                        <p style={{textAlign:"justify"}}> توصیه ما این است که برای پیام دادن از چت درون سایت که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید تا مراحل بعدی با سهولت بیشتری انجام 
                          پذیرد </p>
+                         <Divider/>
                         <Row style={style_right}>
                           <Col
                             style={style_right}
@@ -345,7 +361,7 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                        درآمد
+                        دستمزد این بسته
                       </Col>
                       <Col
                         style={style_left}
@@ -356,15 +372,14 @@ class OrderDetail extends React.Component {
                         xl={10}
                       >
                         <p style={{ marginLeft: "5px" }}>
-                          {" "}
                           {this.state.order.suggested_price}
                         </p>
                         <p> تومان </p>
                       </Col>
                     </Row>
                     <OfferDetail
-                      style
                       data={this.state.order.slug}
+                      buy={this.state.order.buy}
                       {...this.props}
                     ></OfferDetail>
                   </Card>
@@ -472,13 +487,18 @@ class OrderDetail extends React.Component {
                       lg={10}
                       xl={10}
                     >
-                      {this.state.order.origin_country
-                        ? this.state.order.origin_country.name
-                        : ""}
-                      ,
-                      {this.state.order.origin_city
-                        ? this.state.order.origin_city.name
-                        : ""}
+                      {this.state.order.no_matter_origin ?
+                        <Tooltip title="امکان خرید کالا از هر کشوری فراهم است" overlayStyle={{fontFamily:"VazirD"}}><span>فرقی نمی‌کند</span></Tooltip>
+                        :
+                        (
+                        this.state.order.origin_country
+                          ? this.state.order.origin_country.name
+                          : ""
+                        ,
+                        this.state.order.origin_city
+                          ? this.state.order.origin_city.name
+                          : "")
+                        }
                     </Col>
                   </Row>
                   <hr style={{ color: "aliceblue" }} />
@@ -585,9 +605,7 @@ class OrderDetail extends React.Component {
                           lg={10}
                           xl={10}
                         >
-                          <a href="https://www.amazon.com">
-                            {this.state.order.parcel_link}
-                          </a>
+                        <span>  {this.state.order.parcel_link}</span>
                         </Col>
                       </Row>
                     </div>
@@ -637,7 +655,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}>نمایش</Button>
+                      <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}><a>نمایش</a> </Button>
                       </Col>
                       <Modal
                       visible={this.state.phonenumbervisibility}
@@ -648,8 +666,9 @@ class OrderDetail extends React.Component {
                       title=" "
                       closeIcon=" "
                       >
-                        <p> توصیه ما این است که برای پیام دادن از چت درون سایت که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید تا مراحل بعدی با سهولت بیشتری انجام 
+                        <p style={{textAlign:"justify"}}> توصیه ما این است که برای پیام دادن از چت درون سایت که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید تا مراحل بعدی با سهولت بیشتری انجام 
                          پذیرد </p>
+                         <Divider></Divider>
                         <Row style={style_right}>
                           <Col
                             style={style_right}
@@ -698,7 +717,7 @@ class OrderDetail extends React.Component {
                       lg={14}
                       xl={14}
                     >
-                      درآمد
+                      دستمزد این بسته
                     </Col>
                     <Col
                       style={style_left}

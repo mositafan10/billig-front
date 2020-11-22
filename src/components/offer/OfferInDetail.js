@@ -127,7 +127,6 @@ class OfferDetail extends React.Component {
   };
 
   render() {
-    const defaultValue = this.state.description.toString();
     return (
       <div
         style={{
@@ -241,6 +240,8 @@ class OfferDetail extends React.Component {
                       min={0}
                     />
                   </Form.Item>
+                  {this.props.buy &&
+                  <div>
                   <br />
                   <label
                     style={{
@@ -274,6 +275,7 @@ class OfferDetail extends React.Component {
                       min={0}
                     />
                   </Form.Item>
+                  </div>}
                   <br />
                   <label
                     style={{
@@ -286,7 +288,7 @@ class OfferDetail extends React.Component {
                   </label>
                   <Form.Item name="description">
                     <TextArea
-                     style={{ borderRadius: "10px", border:"1px solid", borderColor:"gainsboro", padding:"10px", }}  />
+                     rows={5} style={{ borderRadius: "10px", border:"1px solid", borderColor:"gainsboro", padding:"10px", }}  />
                   </Form.Item>
                 </Form>
               ) : (

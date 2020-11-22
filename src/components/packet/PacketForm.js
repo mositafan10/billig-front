@@ -125,7 +125,7 @@ class PackForm extends React.Component {
     if (this.state.no_matter_country) {
       this.setState({ no_matter_country: false });
     } else {
-      this.setState({ no_matter_country: true });
+      this.setState({ no_matter_country: true , city_origin_dis: true});
     }
   }
 
@@ -188,6 +188,7 @@ class PackForm extends React.Component {
         price: parcel_price ? parcel_price : 0,
         link: buy_link,
         category_other: category_other,
+        no_matter_country: this.state.no_matter_country
       },
       { headers: { Authorization: `Token ${token}` } }
     )
@@ -236,7 +237,7 @@ class PackForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{margin:"30px"}}>
         <Link
           to={"/how-billlig-work"}
           style={{
@@ -291,80 +292,8 @@ class PackForm extends React.Component {
                   { required: true, message: "عنوان آگهی را وارد نمایید" },
                 ]}
               >
-                <Input style={{ textAlign: "right" }} />
+                <Input maxLength={50} style={{ textAlign: "right" }} />
               </Form.Item>
-              <Row>
-                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                  <Divider plain orientation="center">
-                    <Popconfirm
-                      overlayStyle={{ fontFamily: "VazirD" }}
-                      cancelButtonProps={{ hidden: "true" }}
-                      okText="متوجه شدم"
-                      title={
-                        <p>
-                          مبدا محلی است که کالا در حال حاضر در‌ آنجا قرار دارد
-                        </p>
-                      }
-                    >
-                      <InfoCircleOutlined />
-                    </Popconfirm>
-                    <span style={{ marginRight: "10px" }}>
-                      {this.state.buy ?
-                      <span>خرید کالا از</span>
-                      :
-                      <span>دریافت کالا در</span>
-                      } 
-                      </span>
-                  </Divider>
-                  <Form.Item
-                  
-                    name="origin_country"
-                    style={{ textAlign: "right" }}
-                    rules={[
-                      { required: true, message: "کشور مبدا را انتخاب کنید" },
-                    ]}
-                  >
-                    <Select
-                      disabled={this.state.no_matter_country}
-                      onChange={this.get_city_origin.bind()}
-                      dropdownStyle={{ fontFamily: "VazirD" }}
-                    >
-                      {this.state.countries.map((e, key) => {
-                        return (
-                          <Option key={key} value={e.id}>
-                            {e.name}
-                          </Option>
-                        );
-                      })}
-                    </Select>
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                  <Divider plain orientation="center">
-                    شهر مبدا 
-                  </Divider>
-                  <Form.Item
-                    name="origin_city"
-                    style={{ textAlign: "right" }}
-                    rules={[
-                      { required: true, message: "شهر مبدا را انتخاب کنید" },
-                    ]}
-                  >
-                    <Select
-                      disabled={this.state.city_origin_dis }
-                      dropdownStyle={{ fontFamily: "VazirD" }}
-                    >
-                      {this.state.cities_origin.map((e, key) => {
-                        return (
-                          <Option key={key} value={e.id}>
-                            {e.name}
-                          </Option>
-                        );
-                      })}
-                    </Select>
-                  </Form.Item>
-                </Col>
-              </Row>
               {this.state.buy && 
               <div>
               <Form.Item
@@ -393,7 +322,7 @@ class PackForm extends React.Component {
                     onChange={this.handlenomattercountry.bind(this)}
                     style={{ textAlign: "right" }}
                   >
-                    کشور مبدا فرقی نمی‌کند
+                    محل خرید کالا فرقی نمی‌کند
                   </Checkbox>
                 </Space>
               </Form.Item>
@@ -407,12 +336,101 @@ class PackForm extends React.Component {
                       cancelButtonProps={{ hidden: "true" }}
                       okText="متوجه شدم"
                       title={
-                        <p>مقصد محلی است که کالا قرار است به آن ارسال شود</p>
+                        this.state.buy ?
+                          <span>مبدا محلی است که کالا از آنجا خریداری می‌شود</span>
+                          :
+                          <span>مبدا محلی است که بسته در حال حاضر در‌ آنجا قرار دارد</span>
                       }
                     >
                       <InfoCircleOutlined />
                     </Popconfirm>
-                    <span style={{ marginRight: "10px" }}>تحویل کالا در *</span>
+                    <span style={{ marginRight: "10px" }}>
+                      {this.state.buy ?
+                      <span>خرید کالا از کشور</span>
+                      :
+                      <span>دریافت بسته در کشور</span>
+                      } 
+                      </span>
+                  </Divider>
+                  <Form.Item
+                    name="origin_country"
+                    style={{ textAlign: "right" }}
+                    rules={[
+                       this.state.no_matter_country ? 
+                       ({ required: false })
+                        :
+                       ({ required: true, message: "کشور مبدا را انتخاب کنید" })
+                    ]}
+                  >
+                    <Select
+                      disabled={this.state.no_matter_country}
+                      onChange={this.get_city_origin.bind()}
+                      dropdownStyle={{ fontFamily: "VazirD" }}
+                    >
+                      {this.state.countries.map((e, key) => {
+                        return (
+                          <Option key={key} value={e.id}>
+                            {e.name}
+                          </Option>
+                        );
+                      })}
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                  <Divider plain orientation="center">
+                  {this.state.buy ?
+                      <span>خرید کالا از شهر</span>
+                      :
+                      <span>دریافت بسته در شهر</span>
+                      }  
+                  </Divider>
+                  <Form.Item
+                    name="origin_city"
+                    style={{ textAlign: "right" }}
+                    rules={[
+                      this.state.no_matter_country ? 
+                      ({ required: false })
+                       :
+                      ({ required: true, message: "شهر مبدا را انتخاب کنید" })
+                   ]}
+                  >
+                    <Select
+                      disabled={this.state.city_origin_dis }
+                      dropdownStyle={{ fontFamily: "VazirD" }}
+                    >
+                      {this.state.cities_origin.map((e, key) => {
+                        return (
+                          <Option key={key} value={e.id}>
+                            {e.name}
+                          </Option>
+                        );
+                      })}
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                  <Divider plain orientation="center">
+                    <Popconfirm
+                      overlayStyle={{ fontFamily: "VazirD" }}
+                      cancelButtonProps={{ hidden: "true" }}
+                      okText="متوجه شدم"
+                      title={
+                        this.state.buy ?
+                          <span style={{ marginRight: "10px" }}> محلی است که کالا قرار است در آنجا تحویل گیرنده داده شود *</span>
+                          :
+                          <span style={{ marginRight: "10px" }}> محلی است که بسته قرار است در آنجا تحویل گیرنده داده شود *</span>
+                      }
+                    >
+                      <InfoCircleOutlined />
+                    </Popconfirm>
+                    {this.state.buy ?
+                      <span style={{ marginRight: "10px" }}>تحویل کالا در کشور *</span>
+                      :
+                      <span style={{ marginRight: "10px" }}>تحویل بسته در کشور *</span>
+                      }  
                   </Divider>
                   <Form.Item
                     name="destination_country"
@@ -437,7 +455,11 @@ class PackForm extends React.Component {
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
-                    شهر مقصد *
+                  {this.state.buy ?
+                      <span style={{ marginRight: "10px" }}>تحویل کالا در شهر *</span>
+                      :
+                      <span style={{ marginRight: "10px" }}>تحویل بسته در شهر *</span>
+                      }  
                   </Divider>
                   <Form.Item
                     name="destination_city"
@@ -478,7 +500,11 @@ class PackForm extends React.Component {
                     >
                       <InfoCircleOutlined />
                     </Popconfirm>
-                    <span style={{ marginRight: "10px" }}>ابعاد بسته *</span>
+                    {this.state.buy ?
+                      <span style={{ marginRight: "10px" }}> ابعاد کالا *</span>
+                      :
+                      <span style={{ marginRight: "10px" }}> ابعاد بسته *</span>
+                      }  
                   </Divider>
                   <Form.Item
                     name="dimension"
@@ -522,7 +548,7 @@ class PackForm extends React.Component {
                       name="category_other"
                       style={{ textAlign: "right" }}
                     >
-                      <Input />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </div>
                 </Col>
@@ -538,9 +564,11 @@ class PackForm extends React.Component {
                     >
                       <InfoCircleOutlined />
                     </Popconfirm>
-                    <span style={{ marginRight: "10px" }}>
-                      وزن حدودی بسته (کیلوگرم) *
-                    </span>
+                    {this.state.buy ?
+                      <span style={{ marginRight: "10px" }}> وزن حدودی کالا (کیلوگرم) *</span>
+                      :
+                      <span style={{ marginRight: "10px" }}> وزن حدودی بسته (کیلوگرم) *</span>
+                      }  
                   </Divider>
                   <Form.Item
                     name="weight"
@@ -582,7 +610,6 @@ class PackForm extends React.Component {
                       okText="متوجه شدم"
                       title={
                         <p>
-                          {" "}
                           مبلغی است که به صورت توافقی تعیین و به عنوان دستمزد به
                           مسافر پرداخت می‌شود
                         </p>
@@ -619,7 +646,7 @@ class PackForm extends React.Component {
               <div
                 style={{
                   display: this.state.buy ? "block" : "none",
-                  padding: "30px",
+                  padding: "10px",
                   borderRadius: "15px",
                   marginBottom: "10px",
                   textAlign: "center",
@@ -629,7 +656,7 @@ class PackForm extends React.Component {
                   لینک کالا / وبسایت فروشگاه / آدرس فروشگاه
                 </Divider>
                 <Form.Item name="buy_link">
-                  <TextArea placeholder="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر برای مسافر مفید باشد" />
+                  <TextArea rows={5} placeholder="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر برای مسافر مفید باشد" />
                 </Form.Item>
                 <Divider plain orientation="center">
                   <Popconfirm
@@ -640,7 +667,7 @@ class PackForm extends React.Component {
                       <div>
                         چنانچه قیمت کالا به صورت دقیق مشخص نیست،‌ مبلغ حدودی آن
                         را وارد نمایید. <br />
-                        در مراحل بعدی مذاکره، قیمت دقیق کالا توسط مسافر وارد ‌می شود.
+                        در مراحل بعدی مذاکره، قیمت دقیق کالا مشخص خواهد شد.
                       </div>
                     }
                   >
@@ -672,7 +699,11 @@ class PackForm extends React.Component {
                 </Checkbox>
               </Form.Item>
               <Divider plain orientation="center">
-                تصویر کالا
+              {this.state.buy ?
+                      <span style={{ marginRight: "10px" }}> تصویر کالا</span>
+                      :
+                      <span style={{ marginRight: "10px" }}> تصویر بسته</span>
+                      }  
               </Divider>
               <Form.Item
                 name="picture"
@@ -687,8 +718,9 @@ class PackForm extends React.Component {
               </Divider>
               <Form.Item name="description">
                 <TextArea
-                  placeholder="نکاتی را که به واضح‌تر شدن درخواست برای بازدیدکننده آگهی کمک می‌کند، در اینجا یادداشت کنید."
+                  placeholder="نکاتی را که به واضح‌تر شدن درخواست شما برای بازدیدکننده آگهی کمک می‌کند، در اینجا یادداشت نمایید."
                   style={{ textAlign: "right", padding: "10px" }}
+                  rows={5}
                 />
               </Form.Item>
               <Divider plain orientation="center"></Divider>

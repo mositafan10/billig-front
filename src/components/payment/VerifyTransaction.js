@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { Button, Divider, message, notification } from "antd";
+import { Button, Divider, Col, Row, notification, Card } from "antd";
 import { config } from "../../Constant";
 import { Link } from "react-router-dom";
 
 var url = config.url.API_URL;
+const style_left = { display: "flex", justifyContent: "flex-end" };
+const style_right = { display: "flex", justifyContent: "right" };
+
 
 class VerifyTransaction extends Component {
   state = {
@@ -40,11 +43,17 @@ class VerifyTransaction extends Component {
         }, 4000);
         notification['success']({
           message: 'پرداخت شما با موفقیت انجام شد',
-          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", marginTop:"70px"},
+          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
           duration:3.5,
         });
       })
-      .catch((error) => message.error(error.response.data.error));
+      .catch((error) => 
+      notification['errors']({
+        message: error.response.data.detail,
+        style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
+        duration:3.5,
+      })
+      );
   };
 
   render() {
@@ -102,6 +111,53 @@ class VerifyTransaction extends Component {
           >
             تکمیل فرآیند خرید
           </Button>
+          <Card
+              style={{ borderRadius: "20px"}}
+              title="اطلاعات پرداخت"
+            > 
+              <Row style={style_right}>
+                <Col
+                  style={style_right}
+                  xs={14}
+                  sm={14}
+                  md={14}
+                  lg={14}
+                  xl={14}
+                >
+                  <h4>شماره پیگیری</h4>
+                </Col>
+                <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                </Col>
+              </Row>
+              <Row style={style_right}>
+                <Col
+                  style={style_right}
+                  xs={14}
+                  sm={14}
+                  md={14}
+                  lg={14}
+                  xl={14}
+                >
+                  <h4>مبلغ تراکنش</h4>
+                </Col>
+                <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                </Col>
+              </Row>
+              <Row style={style_right}>
+                <Col
+                  style={style_right}
+                  xs={14}
+                  sm={14}
+                  md={14}
+                  lg={14}
+                  xl={14}
+                >
+                  <h4>تاریخ تراکنش</h4>
+                </Col>
+                <Col style={style_left} xs={10} sm={10} md={10} lg={10} xl={10}>
+                </Col>
+              </Row>
+            </Card>
         </div>
       );
     }

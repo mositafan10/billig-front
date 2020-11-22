@@ -26,9 +26,8 @@ export const askForPermissioToReceiveNotifications = async () => {
   try {
     if (token1 != null) {
       const messaging = firebase.messaging();
-      // await messaging.requestPermission();
+      await messaging.requestPermission();
       const token = await messaging.getToken();
-      console.log("token do usuário:", token);
       Axios.post(`${url}api/v1/chat/notifications/`, {
         token: token,
       }, 
@@ -38,6 +37,5 @@ export const askForPermissioToReceiveNotifications = async () => {
       return token;
     }
   } catch (error) {
-    console.error(error);
   }
 };

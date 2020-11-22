@@ -69,13 +69,13 @@ class ChatContacs extends Component {
                 <List.Item.Meta
                   avatar={
                     user == item.sender_slug ? (
-                      <Badge count={item.new_massage_sender}>
+                      <Badge count={item.not_seen}>
                         <Avatar
                           src={`${url}dstatic/media/${item.receiver_avatar}`}
                         />
                       </Badge>
                     ) : (
-                      <Badge count={item.new_massage_receiver}>
+                      <Badge count={item.not_seen}>
                         <Avatar
                           src={`${url}dstatic/media/${item.sender_avatar}`}
                         />

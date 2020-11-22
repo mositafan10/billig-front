@@ -9,7 +9,6 @@ import {
   Tooltip,
   Upload,
   Button,
-  Modal,
   Card,
   message,
   Badge,
@@ -27,7 +26,10 @@ import {
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
-import DownloadPic from "../utils/DownloadPic";
+import CheckMarkWhite  from '../../media/small_icon/CheckMarkWhite.png';
+import CheckMark  from '../../media/small_icon/CheckMark.png';
+import SingleCheck  from '../../media/small_icon/SingleCheck.png';
+import SingleBlueCheck  from '../../media/small_icon/SingleBlueCheck.png';
 
 var url = config.url.API_URL;
 const token = localStorage.getItem("token");
@@ -368,14 +370,16 @@ class ChatDetail extends Component {
                                     src={`${url}dstatic/${item.picture}`}
                                     style={{
                                       borderRadius: "10px",
-                                      margin: "5px",
+                                      margin: "5px 5px 0 5px",
                                     }}
                                     width={150}
                                   />
                                 </div>
                               )}
                               <br />
-                              {moment(item.create_at).format("HH:mm")}
+                              {moment(item.create_at).format("HH:mm")} 
+                              {item.is_seen ? <img src={CheckMarkWhite} width={20} /> : <img src={SingleCheck} width={20}/> }
+
                             </div>
                           </List.Item>
                         ) : (
@@ -396,7 +400,8 @@ class ChatDetail extends Component {
                                 </div>
                               )}
                               <br />
-                              {moment(item.create_at).format("HH:mm")}
+                              {moment(item.create_at).format("HH:mm")} 
+                              {item.is_seen ? <img src={CheckMark} width={20} /> : <img src={SingleBlueCheck} width={20}/> }
                             </div>
                           </List.Item>
                         )}
@@ -542,7 +547,7 @@ class ChatDetail extends Component {
                                     src={`${url}dstatic/${item.picture}`}
                                     style={{
                                       borderRadius: "10px",
-                                      margin: "5px",
+                                      margin: "5px 5px 0 5px",
                                     }}
                                     width={150}
                                   />

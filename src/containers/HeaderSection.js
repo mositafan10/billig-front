@@ -96,9 +96,6 @@ class HeaderSection extends Component {
       <Menu.Item key="2">
         <Link to="/profile/mytravel"> سفرهای من <AimOutlined /></Link> 
       </Menu.Item>
-      <Menu.Item key="3">
-        <Link to="/profile/myoffer"> پیشنهادهای من <ContainerOutlined /></Link> 
-      </Menu.Item>
       <Menu.Item key="4">
         <Link to="/profile/inbox"> صندوق پیام <CommentOutlined /></Link> 
       </Menu.Item>
@@ -402,7 +399,7 @@ class HeaderSection extends Component {
                           )}
                           <Divider style={{ margin: "5px", opacity: "0" }} />
                           <p style={{ color: "white" }}>
-                            {" "}
+                            
                             {this.state.userinfo.user &&
                               this.state.userinfo.user.name}
                           </p>
@@ -429,41 +426,37 @@ class HeaderSection extends Component {
                           style={{ textAlign: "right" }}
                         >
                           <Menu.Item key="1" onClick={this.onClose}>
-                            <Link to="/profile/mypacket"> آگهی‌های من </Link>{" "}
+                            <Link to="/profile/mypacket"> آگهی‌های من </Link>
                             <ShoppingOutlined />
                           </Menu.Item>
                           <Menu.Item key="2" onClick={this.onClose}>
-                            <Link to="/profile/mytravel"> سفرهای من </Link>{" "}
+                            <Link to="/profile/mytravel"> سفرهای من </Link>
                             <AimOutlined />
                           </Menu.Item>
-                          <Menu.Item key="3" onClick={this.onClose}>
-                            <Link to="/profile/myoffer"> پیشنهادهای من </Link>{" "}
-                            <ContainerOutlined />
-                          </Menu.Item>
                           <Menu.Item key="4" onClick={this.onClose}>
-                            <Link to="/profile/inbox"> صندوق پیام </Link>{" "}
+                            <Link to="/profile/inbox"> صندوق پیام </Link>
                             <CommentOutlined />
                           </Menu.Item>
                           <Menu.Item key="5" onClick={this.onClose}>
-                            <Link to="/profile/payment">پرداخت </Link>{" "}
+                            <Link to="/profile/payment">پرداخت </Link>
                             <DollarCircleOutlined />
                           </Menu.Item>
                           <Menu.Item key="6" onClick={this.onClose}>
                             <Link to="/profile/bookmark">
-                              آگهی‌های نشان شده{" "}
-                            </Link>{" "}
+                              آگهی‌های نشان شده
+                            </Link>
                             <HeartOutlined />
                           </Menu.Item>
                           <Menu.Item key="7" onClick={this.onClose}>
                             <Link to="/profile/comments">
                              نظرات
-                            </Link>{" "}
+                            </Link>
                             <CommentOutlined />
                           </Menu.Item>
                           <Menu.Item key="8" onClick={this.onClose}>
                             <Link to="/profile/">
                               اطلاعات کاربری
-                            </Link>{" "}
+                            </Link>
                             <ContainerOutlined />
                           </Menu.Item>
                           <Menu.Item key="9" onClick={this.exit}>

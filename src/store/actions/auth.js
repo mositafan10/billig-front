@@ -67,7 +67,7 @@ export const authLogin = (phone_number, password, otp, name) => {
         const token = res.data.token;
         const user = res.data.user;
         const first_time = res.data.first_time;
-        const expirationDate = new Date(new Date().getTime() + 36000 * 1000);
+        const expirationDate = new Date(new Date().getTime() + 360000 * 1000);
         localStorage.setItem("user", user);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
@@ -97,7 +97,7 @@ export const authSignup = (phone_number, password, name) => {
       phone_number: phone_number,
     })
       .then((res) => {
-        const expirationDate = new Date(new Date().getTime() + 36000 * 1000);
+        const expirationDate = new Date(new Date().getTime() + 360000 * 1000);
         dispatch(authReady())
         localStorage.setItem("signup", "ready");
         localStorage.setItem("expirationDate", expirationDate);
@@ -128,7 +128,7 @@ export const authSignup1 = (phone_number, password, otp, name) => {
           const token = res.data.token;
           const user = res.data.user;
           const first_time = res.data.first_time;
-          const expirationDate = new Date(new Date().getTime() + 36000 * 1000);
+          const expirationDate = new Date(new Date().getTime() + 360000 * 1000);
           localStorage.setItem("user", user);
           localStorage.setItem("token", token);
           localStorage.setItem("expirationDate", expirationDate);

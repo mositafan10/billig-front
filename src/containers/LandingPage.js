@@ -233,7 +233,7 @@ class LandingPage extends React.Component {
           <Col span={2}></Col>
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={
                 <img alt="billlig.com" src={add_trip} style={style_icon1} />
@@ -254,7 +254,7 @@ class LandingPage extends React.Component {
           </Col>
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={
                 <img alt="billlig.com" src={make_offer} style={style_icon1} />
@@ -274,7 +274,7 @@ class LandingPage extends React.Component {
           </Col>
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={<img alt="billlig.com" src={chat} style={style_icon1} />}
             >
@@ -293,7 +293,7 @@ class LandingPage extends React.Component {
           </Col>
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={<img alt="billlig.com" src={buy} style={style_icon1} />}
             >
@@ -312,7 +312,7 @@ class LandingPage extends React.Component {
           </Col>
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={
                 <img alt="billlig.com" src={deliverd} style={style_icon1} />
@@ -368,7 +368,7 @@ class LandingPage extends React.Component {
         >
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={
                 <img alt="billlig.com" src={Register} style={style_icon1} />
@@ -389,7 +389,7 @@ class LandingPage extends React.Component {
           </Col>
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={
                 <img alt="billlig.com" src={Offer_accept} style={style_icon1} />
@@ -411,7 +411,7 @@ class LandingPage extends React.Component {
           </Col>
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={<img alt="billlig.com" src={chat} style={style_icon1} />}
             >
@@ -429,7 +429,7 @@ class LandingPage extends React.Component {
           </Col>
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={
                 <img alt="billlig.com" src={Payment} style={style_icon1} />
@@ -449,7 +449,7 @@ class LandingPage extends React.Component {
           </Col>
           <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
             <Card
-              style={{ backgroundColor: "ghostwhite" }}
+              style={{ backgroundColor: "white" }}
               bordered={false}
               cover={
                 <img

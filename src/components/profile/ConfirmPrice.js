@@ -128,6 +128,7 @@ class ConfirmPrice extends React.Component {
                 ]}
               >
                 <InputNumber
+                placeholder="مبلغ را به تومان وارد کنید"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
@@ -141,6 +142,7 @@ class ConfirmPrice extends React.Component {
               <p>مبلغ فعلی کالا : {parcelPrice ? parcelPrice : 0 } تومان</p> 
               <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
               <Form.Item
+               placeholder="مبلغ را به تومان وارد کنید"
                 name="parcelPrice"
                 size="large"
                 rules={[
