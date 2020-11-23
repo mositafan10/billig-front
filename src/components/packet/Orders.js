@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { List, Row, Col, Divider, Spin, message } from "antd";
+import { List, Row, Col, Divider, Spin } from "antd";
 import airplane from "../../media/airplane.png";
 import DownloadPic from "../utils/DownloadPic";
 import TimeDiff from "../utils/TimeDiff";
@@ -50,7 +50,7 @@ class Orders extends React.Component {
                     color: "black",
                     border: "1px solid",
                     borderRadius: "10px",
-                    margin: "15px 15px 15px 15px",
+                    margin: "15px 0 15px 25px",
                     padding: "15px 15px 10px 5px",
                     width: "340px",
                     height: "170px",
@@ -59,7 +59,7 @@ class Orders extends React.Component {
                   <Col xs={11} sm={11} md={11} lg={11} xl={11} xxl={11}>
                     <Row>
                       <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
-                        {item.origin_country == null ?
+                        {item.no_matter_country == null ?
                         <GlobalOutlined style={{fontSize:"25px", marginRight:"10px"}} />
                         :
                         <img

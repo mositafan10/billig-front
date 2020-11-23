@@ -10,7 +10,8 @@ import {
   Button,
   Tooltip,
   Modal,
-  Divider
+  Divider,
+  Popconfirm
 } from "antd";
 import OfferDetail from "../components/offer/OfferInDetail";
 import DownloadPic from "../components/utils/DownloadPic";
@@ -19,7 +20,7 @@ import Bookmark from "../components/packet/Bookmark";
 import { Link } from "react-router-dom";
 import { config } from "../Constant";
 import { Breakpoint } from "react-socks";
-import { ShareAltOutlined } from "@ant-design/icons";
+import { ShareAltOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 var url = config.url.API_URL;
 
 const style_left = { display: "flex", justifyContent: "flex-end" };
@@ -34,10 +35,7 @@ class OrderDetail extends React.Component {
   myRef = React.createRef();
 
   componentDidMount() {
-    window.scroll({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scroll(0,0);
     const orderID = this.props.match.params.orderID;
     Axios.get(`${url}api/v1/advertise/packet/${orderID}`)
       .then((res) => {
@@ -90,6 +88,11 @@ class OrderDetail extends React.Component {
 
   canclephonenumbervisible = () => {
     this.setState({phonenumbervisibility:false})
+  }
+
+  currency = (value) => {
+      const p =  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      return p
   }
 
   render() {
@@ -155,17 +158,20 @@ class OrderDetail extends React.Component {
                         md={10}
                         lg={10}
                         xl={10}
-                      > {this.state.order.no_matter_origin ?
-                        <Tooltip title="امکان خرید کالا از هر کشوری فراهم است" overlayStyle={{fontFamily:"VazirD"}}><span>فرقی نمی‌کند</span></Tooltip>
-                        :
-                        (
+                      > 
+                      { this.state.order.no_matter_origin ?
+                      <div>
+                      <span> فرقی نمی‌کند <QuestionCircleOutlined /></span>
+                      </div>
+                      : <div>{
                         this.state.order.origin_country
                           ? this.state.order.origin_country.name
-                          : ""
-                        ,
-                        this.state.order.origin_city
+                          : ""}
+                        {" "},{" "}
+                        {this.state.order.origin_city
                           ? this.state.order.origin_city.name
-                          : "")
+                          : ""
+                        }</div>
                         }
                       </Col>
                     </Row>
@@ -192,7 +198,7 @@ class OrderDetail extends React.Component {
                         {this.state.order.destination_country
                           ? this.state.order.destination_country.name
                           : ""}
-                        ,
+                        {" "},{" "}
                         {this.state.order.destination_city
                           ? this.state.order.destination_city.name
                           : ""}
@@ -246,7 +252,7 @@ class OrderDetail extends React.Component {
                             xl={10}
                           >
                             <span style={{ marginLeft: "5px" }}>
-                              {this.state.order.parcel_price}{" "}
+                              {this.currency(this.state.order.parcel_price)}
                             </span>
                             <span> تومان </span>
                           </Col>
@@ -372,7 +378,7 @@ class OrderDetail extends React.Component {
                         xl={10}
                       >
                         <p style={{ marginLeft: "5px" }}>
-                          {this.state.order.suggested_price}
+                          {this.currency(this.state.order.suggested_price)}
                         </p>
                         <p> تومان </p>
                       </Col>
@@ -488,7 +494,21 @@ class OrderDetail extends React.Component {
                       xl={10}
                     >
                       {this.state.order.no_matter_origin ?
-                        <Tooltip title="امکان خرید کالا از هر کشوری فراهم است" overlayStyle={{fontFamily:"VazirD"}}><span>فرقی نمی‌کند</span></Tooltip>
+                      <div>
+                        <Popconfirm
+                        overlayStyle={{ fontFamily: "VazirD" }}
+                        cancelButtonProps={{ hidden: "true" }}
+                        okText="متوجه شدم"
+                        
+                        title={
+                          <div>
+                            <p>
+به معنای آن است که فرقی‌ نمی‌کند کالا از کدام کشور خریداری شود</p>
+<p>مسافر می‌تواند از هر جایی که مقدور است کالا را خریداری نماید</p>
+                          </div>
+                        }
+                      ><QuestionCircleOutlined /></Popconfirm> {""} <span>فرقی نمی‌کند</span>
+                        </div>
                         :
                         (
                         this.state.order.origin_country
@@ -734,7 +754,9 @@ class OrderDetail extends React.Component {
                       <p> تومان </p>
                     </Col>
                   </Row>
-                  <OfferDetail data={this.state.order.slug} {...this.props} />
+                  <OfferDetail data={this.state.order.slug}
+                      buy={this.state.order.buy}
+                      {...this.props} />
                 </Card>
                 <br />
               </Col>

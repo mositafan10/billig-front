@@ -7,8 +7,11 @@ import {
   message,
   Select,
   InputNumber,
-  Input
+  Input,
+  Spin,
+  Popconfirm
 } from "antd";
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -22,9 +25,8 @@ const { TextArea } = Input;
 const token = localStorage.getItem("token");
 
 class OfferDetail extends React.Component {
-
-  
-  defualt_description = "سلام. من تمایل دارم بسته شما را به مقصد برسانم. اگر موافق باشید به مذاکره ادامه بدیم" 
+  defualt_description =
+    "سلام. من تمایل دارم بسته شما را به مقصد برسانم. اگر موافق باشید به مذاکره ادامه بدیم";
   state = {
     visible: false,
     slug: "",
@@ -34,12 +36,11 @@ class OfferDetail extends React.Component {
     description: this.defualt_description,
     travellist: [],
     loading: false,
+    spinning: true
   };
 
   offer = () => {
-    {
-      this.showModal();
-    }
+    this.showModal();
   };
 
   success = () => {
@@ -52,7 +53,7 @@ class OfferDetail extends React.Component {
     Axios.get(`${url}api/v1/advertise/travels/`, {
       headers: { Authorization: `Token ${token}` },
     })
-      .then((res) => this.setState({ travellist: res.data }))
+      .then((res) => this.setState({ travellist: res.data, spinning:false }))
       .catch((error) => console.error(error));
     this.setState({
       visible: true,
@@ -60,7 +61,9 @@ class OfferDetail extends React.Component {
   };
 
   handleOk = (values) => {
-    const description = values.description ? values.description : this.defualt_description;
+    const description = values.description
+      ? values.description
+      : this.defualt_description;
     this.setState({
       price: values.price,
       parcelPrice: values.parcelPrice,
@@ -90,7 +93,7 @@ class OfferDetail extends React.Component {
         }, 3000);
         setTimeout(() => {
           notification["success"]({
-            message: <div>پیشنهاد شما با موفقیت ثبت شد <br/> لیست پیشنهادهای خود را می‌توانید در پروفایل خود بخش «پیشنهادهای من» ملاحظه کنید</div>,
+            message: <div>پیشنهاد شما با موفقیت ثبت شد</div>,
             style: {
               fontFamily: "VazirD",
               textAlign: "right",
@@ -157,6 +160,12 @@ class OfferDetail extends React.Component {
           {token ? (
             <div>
               <br />
+              {this.state.spinning ? 
+              <div style={{ margin: "100px" }}>
+                <Spin size="large" />
+              </div>
+             : 
+              <div>
               {this.state.travellist.length ? (
                 <Form
                   layout="vertical"
@@ -215,7 +224,17 @@ class OfferDetail extends React.Component {
                       marginTop: "-30px",
                     }}
                   >
-                    دستمزد پیشنهادی (تومان)
+                    دستمزد پیشنهادی (تومان) <Popconfirm
+                        overlayStyle={{ fontFamily: "VazirD" }}
+                        cancelButtonProps={{ hidden: "true" }}
+                        okText="متوجه شدم"
+                        
+                        title={
+                          <div>
+                            <p>دستمزدی که در نظر دارید از آگهی دهنده دریافت کنید</p>
+                          </div>
+                        }
+                      ><QuestionCircleOutlined /></Popconfirm> 
                   </label>
                   <Form.Item
                     style={{
@@ -240,8 +259,54 @@ class OfferDetail extends React.Component {
                       min={0}
                     />
                   </Form.Item>
-                  {this.props.buy &&
-                  <div>
+                  {this.props.buy && (
+                    <div>
+                      <br />
+                      <label
+                        style={{
+                          float: "right",
+                          textAlign: "right",
+                          marginTop: "-30px",
+                        }}
+                      >
+                        قیمت کالا (تومان) <Popconfirm
+                        overlayStyle={{ fontFamily: "VazirD" }}
+                        cancelButtonProps={{ hidden: "true" }}
+                        okText="متوجه شدم"
+                        
+                        title={
+                          <div>
+                            <p>قیمت کالایی که قرار است خریداری شود را جستجو کرده و در اینجا وارد نمایید</p>
+
+                          </div>
+                        }
+                      ><QuestionCircleOutlined /></Popconfirm> 
+                      </label>
+                      <Form.Item
+                        style={{
+                          textAlign: "right",
+                          fontSize: "10px",
+                          width: "auto",
+                        }}
+                        name="parcelPrice"
+                        rules={[
+                          {
+                            required: true,
+                            message: "قیمت کالا را با اعداد انگلیسی وارد کنید",
+                          },
+                        ]}
+                      >
+                        <InputNumber
+                          formatter={(value) =>
+                            `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                          }
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                          style={{ textAlign: "right", width: "auto" }}
+                          min={0}
+                        />
+                      </Form.Item>
+                    </div>
+                  )}
                   <br />
                   <label
                     style={{
@@ -250,57 +315,29 @@ class OfferDetail extends React.Component {
                       marginTop: "-30px",
                     }}
                   >
-                    قیمت کالا (تومان)
-                  </label>
-                  <Form.Item
-                    style={{
-                      textAlign: "right",
-                      fontSize: "10px",
-                      width: "auto",
-                    }}
-                    name="parcelPrice"
-                    rules={[
-                      {
-                        required: true,
-                        message: "قیمت کالا را با اعداد انگلیسی وارد کنید",
-                      },
-                    ]}
-                  >
-                    <InputNumber
-                      formatter={(value) =>
-                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                      }
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                      style={{ textAlign: "right", width: "auto" }}
-                      min={0}
-                    />
-                  </Form.Item>
-                  </div>}
-                  <br />
-                  <label
-                    style={{
-                      float: "right",
-                      textAlign: "right",
-                      marginTop: "-30px",
-                    }}
-                  >
-                  متن پیشنهاد
+                    متن پیشنهاد
                   </label>
                   <Form.Item name="description">
                     <TextArea
-                     rows={5} style={{ borderRadius: "10px", border:"1px solid", borderColor:"gainsboro", padding:"10px", }}  />
+                      rows={5}
+                      style={{
+                        borderRadius: "10px",
+                        border: "1px solid",
+                        borderColor: "gainsboro",
+                        padding: "10px",
+                      }}
+                    />
                   </Form.Item>
                 </Form>
               ) : (
                 <p style={{ textAlign: "center" }}>
                   <b>
                     برای ثبت پیشنهاد ابتدا باید سفر خود را ثبت نمایید
-                    <CreateTravel
-                      parentCallback={this.callbackfunction}
-                    />
+                    <CreateTravel parentCallback={this.callbackfunction} />
                   </b>
                 </p>
               )}
+              </div>}
             </div>
           ) : (
             <p style={{ textAlign: "center" }}>

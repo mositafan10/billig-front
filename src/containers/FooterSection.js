@@ -63,19 +63,17 @@ class FooterSection extends Component {
                         <Link to={'/faq'}><p style={style_p}>سوالات متداول</p></Link>
                     </Col>
                     <hr/>
-                    <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
+                    {/* <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>خدمات  کاربران</b></p><hr width="120" style={{float:"right"}}/><br/>
                         <p style={style_p}>پشتیبانی</p>
-                        <Link to={'/profile'}><p style={style_p}>پنل کاربران</p></Link>
                         <Link to={'/signup'}><p style={style_p}>ثبت‌نام</p></Link>
-                        <p style={style_p}>انتقادات و پیشنهادات</p>
                     </Col>
-                    <hr/>
+                    <hr/> */}
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>بیلیگ</b></p><hr width="80" style={{float:"right"}}/><br/>
                         <a target="_blank" href={`${url}blog/`}><p style={style_p}>بلاگ</p></a>
                         <Link to={'/about-us'}><p style={style_p}>درباره ما</p></Link>
-                        <p style={style_p}>تماس با ما</p>
+                        {/* <Link to={'/contact-us'}><p style={style_p}>تماس با ما</p></Link> */}
                         <Link to={'/privacy'}><p style={style_p}>حریم خصوصی</p></Link>
                         <Link to={'/terms'}><p style={style_p}>شرایط و ضوابط</p></Link>
                     </Col>

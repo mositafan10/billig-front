@@ -1,11 +1,22 @@
 import React, { Component } from "react";
-import { Form, Col, Button, Row, Divider, Select, Input, Checkbox, notification } from "antd";
+import {
+  Form,
+  Col,
+  Button,
+  Row,
+  Divider,
+  Select,
+  Input,
+  Checkbox,
+  notification,
+  InputNumber,
+} from "antd";
 import Axios from "axios";
 import UploadFile from "../utils/UploadPicture";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;
-const { TextArea } = Input
+const { TextArea } = Input;
 const { Option } = Select;
 
 class PacketForEdit extends Component {
@@ -16,23 +27,27 @@ class PacketForEdit extends Component {
     city_origin_dis: true,
     city_destination_dis: true,
     pic_id: 1,
-    buy: false,
-    loading: false
+    buy: this.props.data.buy,
+    loading: false,
+    phonenumber_visible: this.props.data.phonenumber_visible,
+    no_matter_origin: this.props.data.no_matter_origin,
+    parcel_price: this.props.data.parcel_price,
+    parcel_link: this.props.data.parcel_link,
   };
 
   PacketCategory = [
-    { value: 0 , label: "مدارک و مستندات" },
-    { value: 1 , label: "کتاب و مجله" },
-    { value: 2 , label: "لوازم الکترونیکی" },
-    { value: 3 , label: "کفش و پوشاک" },
-    { value: 4 , label: "لوازم آرایشی و بهداشتی" },
-    { value: 5 , label: "سایر موارد" },
+    { value: 0, label: "مدارک و مستندات" },
+    { value: 1, label: "کتاب و مجله" },
+    { value: 2, label: "لوازم الکترونیکی" },
+    { value: 3, label: "کفش و پوشاک" },
+    { value: 4, label: "لوازم آرایشی و بهداشتی" },
+    { value: 5, label: "سایر موارد" },
   ];
 
   Dimension = [
-    { value: 0 , label: "کوچک" },
-    { value: 1 , label: "متوسط" },
-    { value: 2 , label: "بزرگ" },
+    { value: 0, label: "کوچک" },
+    { value: 1, label: "متوسط" },
+    { value: 2, label: "بزرگ" },
   ];
 
   search(nameKey, myArray) {
@@ -42,6 +57,14 @@ class PacketForEdit extends Component {
       }
     }
   }
+
+  handlenomattercountry = () => {
+    if (this.state.no_matter_origin) {
+      this.setState({ no_matter_origin: false });
+    } else {
+      this.setState({ no_matter_origin: true, city_origin_dis: true });
+    }
+  };
 
   get_city_destination = (e) => {
     console.log("country", e);
@@ -58,6 +81,15 @@ class PacketForEdit extends Component {
       this.setState({ buy: false });
     } else {
       this.setState({ buy: true });
+    }
+  };
+
+
+  handlephonenumber = () => {
+    if (this.state.phonenumber_visible) {
+      this.setState({ phonenumber_visible: false });
+    } else {
+      this.setState({ phonenumber_visible: true });
     }
   };
 
@@ -80,7 +112,7 @@ class PacketForEdit extends Component {
   };
 
   handleFormSubmit = (values) => {
-    this.setState({loading:true})
+    this.setState({ loading: true });
     const packet_id = this.props.data.slug;
     const title = values.title ? values.title : this.props.data.title;
     const origin_country = values.origin_country
@@ -113,7 +145,10 @@ class PacketForEdit extends Component {
       ? values.description
       : this.props.data.description;
     const buy = this.state.buy;
-    const status = this.props.data.status;
+    const phonenumber_visible = this.state.phonenumber_visible;
+    const no_matter_origin = this.state.no_matter_origin;
+    const parcel_price = values.parcel_price ? values.parcel_price : this.state.parcel_price;
+    const parcel_link = values.buy_link ? values.buy_link : this.state.parcel_link;
     const token = localStorage.getItem("token");
 
     Axios.put(
@@ -130,16 +165,16 @@ class PacketForEdit extends Component {
         suggested_price: suggested_price,
         description: description,
         buy: buy,
-        status: status,
-        description: description
+        phonenumber_visible: phonenumber_visible,
+        no_matter_origin: no_matter_origin,
+        description: description,
+        parcel_price: parcel_price,
+        parcel_link: parcel_link,
       },
       { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => {
-        if (res.status == 200) {
-         setTimeout(()=>{
-          this.setState({loading:false})
-          this.props.cancle();
+        setTimeout(() => {
           notification["success"]({
             message: "آگهی با موفقیت ویرایش شد",
             style: {
@@ -150,12 +185,25 @@ class PacketForEdit extends Component {
             },
             duration: 3,
           });
-         },1000)
-         
+          this.setState({ loading: false });
+          this.props.cancle();
           this.props.updatelist();
-        }
+        }, 1000);
       })
-      .catch((error) => console.error(error));
+      .catch(
+        (error) => {
+          notification["warn"]({
+            message: error.response.data.detail,
+            style: {
+              fontFamily: "VazirD",
+              textAlign: "right",
+              float: "right",
+              width: "max-content",
+            },
+            duration: 3,
+          });
+        this.setState({ loading: false })
+        });
   };
 
   componentDidMount = () => {
@@ -181,35 +229,67 @@ class PacketForEdit extends Component {
     }
   };
 
-
   render() {
     return (
-      <div style={{fontFamily:"VazirD"}}>
-        <Row style={{justifyContent:"center", display:"flex"}}>
+      <div style={{ fontFamily: "VazirD" }}>
+        <Row style={{ justifyContent: "center", display: "flex" }}>
           <Col xs={24} sm={24} md={24} lg={16} xl={16} xxl={16}>
             <Form
-              initialValues={{description: this.props.data.description}}
+              initialValues={{
+                title: this.props.data.title,
+                description: this.props.data.description,
+                weight: this.props.data.weight,
+                suggested_price: this.props.data.suggested_price,
+                buy_link: this.props.data.parcel_link,
+                parcel_price: this.props.data.parcel_price,
+              }}
               onFinish={(values) => this.handleFormSubmit(values)}
               id="edit"
             >
-              <Form.Item name="buy" style={{ textAlign: "center" }}>
-              <Checkbox onChange={this.handlebuy.bind(this)}>
-                    <span style={{ marginRight: "10px" }}>
-                      بسته باید توسط مسافر خریداری شود
-                    </span>
-                  </Checkbox>
+              <Form.Item name="buy" style={{ textAlign: "center"}}>
+                <Checkbox onChange={this.handlebuy.bind(this)} defaultChecked={this.state.buy}>
+                  <span style={{ marginRight: "10px" }}>
+                    بسته باید توسط مسافر خریداری شود
+                  </span>
+                </Checkbox>
                 <br />
               </Form.Item>
               <Divider plain orientation="center">
                 عنوان آگهی
               </Divider>
-              <Form.Item name="title" style={{ textAlign: "right" }}>
+              <Form.Item
+                name="title"
+                style={{ textAlign: "right" }}
+                rules={[
+                  { required: true, message: "عنوان آگهی را وارد نمایید" },
+                  {
+                    max: 50,
+                    message: "عنوان آگهی نباید بیشتر از ۵۰ کاراکتر باشد",
+                  },
+                ]}
+              >
                 <Input
-                  defaultValue={this.props.data.title}
                   onChange={this.handleChangevalue}
                   style={{ textAlign: "right" }}
                 />
               </Form.Item>
+              {this.state.buy && (
+                <div>
+                  <Form.Item
+                    name="no_matter_origin"
+                    // valuePropName="checked"
+                    style={{ textAlign: "center" }}
+                  >
+                      <Checkbox
+                        defaultChecked = {this.state.no_matter_origin}
+                        onChange={this.handlenomattercountry.bind(this)}
+                        style={{ textAlign: "right" }}
+                      >
+                        محل خرید کالا فرقی نمی‌کند
+                      </Checkbox>
+                  </Form.Item>
+                </div>
+              )}
               <Row>
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
@@ -220,6 +300,7 @@ class PacketForEdit extends Component {
                     style={{ textAlign: "right" }}
                   >
                     <Select
+                      disabled={this.state.no_matter_origin}
                       defaultValue={
                         this.props.data.origin_country
                           ? this.props.data.origin_country.name
@@ -337,41 +418,114 @@ class PacketForEdit extends Component {
                   </Form.Item>
                 </Col>
               </Row>
-              <Row>
-                <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-                  <Divider plain orientation="center">
-                    مبلغ پیشنهادی
-                  </Divider>
-                  <Form.Item
-                    name="suggested_price"
-                    style={{ textAlign: "right" }}
-                  >
-                    <Input
-                      defaultValue={this.props.data.suggested_price}
-                      style={{ textAlign: "right" }}
-                    />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-                  <Divider plain orientation="center">
-                    وزن بسته
-                  </Divider>
-                  <Form.Item name="weight" style={{ textAlign: "right" }}>
-                    <Input
-                      defaultValue={this.props.data.weight}
-                      style={{ textAlign: "right" }}
-                    ></Input>
-                  </Form.Item>
-                </Col>
+              <Row style={{ justifyContent: "center", display: "flex" }}>
+                <Divider plain orientation="center">
+                  مبلغ پیشنهادی (تومان)
+                </Divider>
+                <Form.Item
+                  name="suggested_price"
+                  style={{ textAlign: "right" }}
+                >
+                  <InputNumber
+                    formatter={(value) =>
+                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                    style={{ textAlign: "right", width: "200px" }}
+                    min={0}
+                  />
+                </Form.Item>
               </Row>
+              <Row style={{ justifyContent: "center", display: "flex" }}>
+                <Divider plain orientation="center">
+                  وزن بسته (کیلوگرم)
+                </Divider>
+                <Form.Item
+                  name="weight"
+                  style={{ textAlign: "center" }}
+                  rules={[
+                    {
+                      required: true,
+                      message: "وزن بسته را با کیبورد انگلیسی وارد کنید",
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(rule, value) {
+                        if (value <= 30 && value > 0) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          "وزن بسته باید عددی بین ۱۰۰ گرم تا ۳۰ کیلوگرم باشد"
+                        );
+                      },
+                    }),
+                  ]}
+                >
+                  <InputNumber
+                    formatter={(value) =>
+                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                    style={{ textAlign: "right", width: "200px" }}
+                    min={0}
+                  />
+                </Form.Item>
+              </Row>
+              <div
+                style={{
+                  display: this.state.buy ? "block" : "none",
+                  padding: "10px",
+                  borderRadius: "15px",
+                  marginBottom: "10px",
+                  textAlign: "center",
+                }}
+              >
+                <Divider plain orientation="center">
+                  لینک کالا / وبسایت فروشگاه / آدرس فروشگاه
+                </Divider>
+                <Form.Item name="buy_link">
+                  <TextArea
+                    rows={5}
+                    placeholder="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر برای مسافر مفید باشد"
+                  />
+                </Form.Item>
+                <Divider plain orientation="center">
+                  <span style={{ marginRight: "10px" }}>قیمت کالا (تومان)</span>
+                </Divider>
+                <Form.Item name="parcel_price">
+                  <InputNumber
+
+                    formatter={(value) =>
+                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                    style={{ textAlign: "center", width: "200px" }}
+                    min={0}
+                  />
+                </Form.Item>
+              </div>
               <Form.Item
+                name="phonenumber_visible"
+                style={{ textAlign: "center" }}
+              >
+                <Checkbox
+                  onChange={this.handlephonenumber.bind(this)}
+                  defaultChecked={this.props.data.phonenumber_visible}
+                  style={{ textAlign: "right" }}
+                >
+                  شماره تماس من در‌ آگهی نمایش داده شود
+                </Checkbox>
+              </Form.Item>
+              {/* <Form.Item
                 name="picture"
                 style={{ display: "flex", justifyContent: "center" }}
               >
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <UploadFile parentCallback={this.callbackFunction} picture={this.props.data.picture} />
+                  <UploadFile
+                    parentCallback={this.callbackFunction}
+                    picture={this.props.data.picture}
+                  />
                 </div>
-              </Form.Item>
+              </Form.Item> */}
               <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>

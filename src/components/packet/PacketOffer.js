@@ -63,13 +63,15 @@ class PacketOffer extends React.Component {
       key: "y",
       width: 150,
       align: "center",
+      render: (dataIndex) => this.currency(dataIndex)
     },
     {
-      title: (row) => <div>{row.buy && "قیمت کالا (تومان)"}</div>  ,
+      title: this.props.buy && "قیمت کالا (تومان)",
       dataIndex: "parcel_price_offer",
       key: "y",
       width: 150,
       align: "center",
+      render: (dataIndex) => this.props.buy && this.currency(dataIndex)
     },
     {
       title: " ",
@@ -228,6 +230,11 @@ class PacketOffer extends React.Component {
       },
     },
   ];
+
+  currency = (value) => {
+    const p =  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return p
+}
 
   callbackFunction = () => {
     this.componentDidMount();

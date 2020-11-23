@@ -401,7 +401,6 @@ class ChatDetail extends Component {
                               )}
                               <br />
                               {moment(item.create_at).format("HH:mm")} 
-                              {item.is_seen ? <img src={CheckMark} width={20} /> : <img src={SingleBlueCheck} width={20}/> }
                             </div>
                           </List.Item>
                         )}
@@ -555,6 +554,7 @@ class ChatDetail extends Component {
                               )}
                               <br />
                               {moment(item.create_at).format("HH:mm")}
+                              {item.is_seen ? <img src={CheckMarkWhite} width={20} /> : <img src={SingleCheck} width={20}/> }
                             </div>
                           </List.Item>
                         ) : (

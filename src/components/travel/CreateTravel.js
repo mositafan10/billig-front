@@ -139,6 +139,10 @@ class CreateTravel extends React.Component {
         });
       };
 
+    disabledDate(current) {
+        return current && current < moment().endOf('day');
+    }
+
     render(){
         return(
             <div>
@@ -242,7 +246,7 @@ class CreateTravel extends React.Component {
                                 message:"تاریخ پرواز خود را انتخاب کنید"
                                 },
                         ]}>
-                            <RangePicker placeholder="" style={{display:"flex"}}/>
+                            <RangePicker placeholder="" style={{display:"flex"}} disabledDate={this.disabledDate}/>
                         </Form.Item> 
                         :
                         <Form.Item 
@@ -254,7 +258,7 @@ class CreateTravel extends React.Component {
                                 message:"تاریخ پرواز خود را انتخاب کنید"
                                 },
                         ]}>
-                            <DatePicker placeholder="" style={{display:"flex"}}/>
+                            <DatePicker placeholder="" style={{display:"flex"}} disabledDate={this.disabledDate}/>
                         </Form.Item> 
                         }
                     </Form>

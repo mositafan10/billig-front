@@ -8,7 +8,7 @@ var url = config.url.API_URL;
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START,
-    token: null
+    token: null,
   };
 };
 
@@ -24,14 +24,14 @@ export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
     error: error,
-    signup: "notready"
+    signup: "notready",
   };
 };
 
 export const authReady = () => {
   return {
     type: actionTypes.AUTH_READY,
-    signup: "ready"
+    signup: "ready",
   };
 };
 
@@ -42,7 +42,6 @@ export const logout = () => {
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
-
 };
 
 export const checkAuthTimeout = (expirationTime) => {
@@ -80,10 +79,16 @@ export const authLogin = (phone_number, password, otp, name) => {
         }
       })
       .catch((error) => {
-        notification['error']({
+        notification["error"]({
           message: error.response.data.detail,
-          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", fontSizeAdjust:"0.5"},
-          duration:3,
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            fontSizeAdjust: "0.5",
+          },
+          duration: 3,
         });
         dispatch(authFail(error));
       });
@@ -95,10 +100,11 @@ export const authSignup = (phone_number, password, name) => {
     dispatch(authStart());
     Axios.post(`${url}api/v1/account/signup/`, {
       phone_number: phone_number,
+      password: password,
     })
       .then((res) => {
         const expirationDate = new Date(new Date().getTime() + 360000 * 1000);
-        dispatch(authReady())
+        dispatch(authReady());
         localStorage.setItem("signup", "ready");
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(checkAuthTimeout(3600));
@@ -106,10 +112,16 @@ export const authSignup = (phone_number, password, name) => {
       .catch((error) => {
         dispatch(authFail(error));
         localStorage.setItem("signup", "notready");
-        notification['error']({
-          message: error.response.data.detail,
-          style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content", fontSizeAdjust:"0.5"},
-          duration:3,
+        notification["error"]({
+          message: error.response.data,
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            fontSizeAdjust: "0.5",
+          },
+          duration: 3,
         });
       });
   };
@@ -124,29 +136,28 @@ export const authSignup1 = (phone_number, password, otp, name) => {
       otp: otp,
       name: name,
     })
-        .then((res) => {
-          const token = res.data.token;
-          const user = res.data.user;
-          const first_time = res.data.first_time;
-          const expirationDate = new Date(new Date().getTime() + 360000 * 1000);
-          localStorage.setItem("user", user);
-          localStorage.setItem("token", token);
-          localStorage.setItem("expirationDate", expirationDate);
-          dispatch(authSuccess(token, user));
-          dispatch(checkAuthTimeout(36000));
-          {
-            first_time
-              ? (window.location = "/signup/complete/")
-              : (window.location = "/");
-          }
-        })
-        .catch((error) => {
-          message.error(error.response.data.detail);
-          dispatch(authFail(error));
-        })
-      };
+      .then((res) => {
+        const token = res.data.token;
+        const user = res.data.user;
+        const first_time = res.data.first_time;
+        const expirationDate = new Date(new Date().getTime() + 360000 * 1000);
+        localStorage.setItem("user", user);
+        localStorage.setItem("token", token);
+        localStorage.setItem("expirationDate", expirationDate);
+        dispatch(authSuccess(token, user));
+        dispatch(checkAuthTimeout(36000));
+        {
+          first_time
+            ? (window.location = "/signup/complete/")
+            : (window.location = "/");
+        }
+      })
+      .catch((error) => {
+        message.error(error.response.data.detail);
+        dispatch(authFail(error));
+      });
   };
-
+};
 
 export const authCheckState = () => {
   return (dispatch) => {
@@ -162,7 +173,8 @@ export const authCheckState = () => {
         dispatch(authSuccess(token, user));
         dispatch(
           checkAuthTimeout(
-            (expirationDate.getTime() - new Date().getTime()) / 1000)
+            (expirationDate.getTime() - new Date().getTime()) / 1000
+          )
         );
       }
     }

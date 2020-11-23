@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Input, Form, InputNumber, notification, Divider } from "antd";
+import { Button, Modal, Input, Form, InputNumber, notification, Divider, Popconfirm } from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
@@ -11,6 +11,11 @@ class ConfirmPrice extends React.Component {
     price_visible: false,
     loading:false
   };
+
+  currency = (value) => {
+    const p =  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return p
+  }
 
   pricelistmodal = () => {
     this.setState({
@@ -46,7 +51,7 @@ class ConfirmPrice extends React.Component {
           },3000)
           notification["success"]({
             message: "مبلغ با موفقیت ثبت شد",
-            description: "حال باید منتظر تایید و پرداخت مبلغ از سوی آگهی‌دهنده باشید",
+            description: "منتظر تایید و پرداخت مبلغ از سوی آگهی‌دهنده باشید",
             style: {
               fontFamily: "VazirD",
               textAlign: "right",
@@ -87,7 +92,7 @@ class ConfirmPrice extends React.Component {
             visible={this.state.price_visible}
             title="نهایی کردن مبلغ"
             onCancel={this.handleCancel}
-            okText="تایید"
+            okText="تایید و ارسال"
             cancelText="انصراف"
             confirmLoading={this.state.loading}
             okButtonProps={{
@@ -105,7 +110,7 @@ class ConfirmPrice extends React.Component {
             bodyStyle={{ borderRadius: "20px" }}
             maskStyle={{ borderRadius: "20px" }}
           >
-            <p>مبلغ توافق فعلی: {price1} تومان</p> 
+            <p>مبلغ توافق فعلی: {this.currency(price1)} تومان</p> 
             <Form
               size="middle"
               layout="vertical"
@@ -139,7 +144,7 @@ class ConfirmPrice extends React.Component {
               </Form.Item>
               {buy &&
               <div>
-              <p>مبلغ فعلی کالا : {parcelPrice ? parcelPrice : 0 } تومان</p> 
+              <p>مبلغ فعلی کالا : {parcelPrice ? this.currency(parcelPrice) : 0 } تومان</p> 
               <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
               <Form.Item
                placeholder="مبلغ را به تومان وارد کنید"
@@ -170,7 +175,7 @@ class ConfirmPrice extends React.Component {
             title="نهایی کردن مبلغ"
             visible={this.state.price_visible}
             onCancel={this.handleCancel}
-            okText="ارسال"
+            okText="تایید و ارسال"
             cancelText="انصراف"
             confirmLoading={this.state.loading}
             okButtonProps={{
@@ -190,7 +195,7 @@ class ConfirmPrice extends React.Component {
             bodyStyle={{ borderRadius: "20px" }}
             maskStyle={{ borderRadius: "20px" }}
           >
-            <p>مبلغ توافق فعلی: {price1} تومان</p> 
+            <p>مبلغ توافق فعلی: {this.currency(price1)} تومان</p> 
             <Form
               size="middle"
               layout="vertical"
@@ -223,7 +228,7 @@ class ConfirmPrice extends React.Component {
               </Form.Item>
               {buy &&
               <div>
-              <p>مبلغ فعلی کالا : {parcelPrice ? parcelPrice : 0 } تومان</p> 
+              <p>مبلغ فعلی کالا : {parcelPrice ? this.currency(parcelPrice) : 0 } تومان</p> 
               <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
               <Form.Item
                 name="parcelPrice"

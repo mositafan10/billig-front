@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Row } from "antd";
+import Advise from '../media/Advise.svg';
 
 const Advices = () => {
   window.scroll(0, 0);
@@ -12,6 +13,9 @@ const Advices = () => {
         textAlign: "justify",
       }}
     >
+        <Row style={{display:"flex",justifyContent:"center"}}>
+          <img src={Advise} width={400} />
+          </Row>
       <Row style={{ justifyContent: "center", display: "flex" }}>
         <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <h1 style={{ textAlign: "center" }}>
@@ -48,7 +52,7 @@ const Advices = () => {
             </p>
           </li>
           <li>
-            از سیستم Rating سایت استفاده کنید:
+            از سیستم امتیازدهی سایت استفاده کنید:
             <p>
               سیستم ریتینگ سایت برای بالا بردن اعتمادپذیری کاربران به یکدیگر
               ایجاد شده است بنابراین توصیه می‌شود حتما از این سیستم استفاده کنید
@@ -98,9 +102,10 @@ const Advices = () => {
               لطفاً مورد را به تیم پشتیبانی بیلیگ اطلاع دهید.
             </p>
           </li>
-          <h2 style={{ textAlign: "center" }}>
+          <h3 >
             زنگ خطرها در توافق: زمانی که باید بیشتر احتیاط کنید
-          </h2>
+          </h3>
+          <ul>
           <li>قیمت دستمزد و شرایط ارائه شده بیش از حد عالی به نظر می رسد.</li>
           <li>
             مسافر قبل از تحویل کالا به هر عنوانی درخواست بیعانه داشته باشد.
@@ -114,6 +119,7 @@ const Advices = () => {
             سفارش دهنده خود را از نماینده معتبر و تأیید شده توسط سایت بیلیگ
             معرفی می‌کند.
           </li>
+          </ul>
         </Col>
       </Row>
     </div>

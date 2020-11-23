@@ -245,12 +245,11 @@ class TravelList extends React.Component {
                             <Modal
                             visible={this.state.visible}
                             onCancel={this.offermodalcancle}
-                            onOk={this.offermodal}
-                            title="لیست پیشنهادهای ارسالی"
+                            closable={true}
+                            title=" پیشنهادهای ارسالی"
                             width="90%"
-                            closable={false}
-                            okText="بازگشت"
-                            cancelButtonProps={{ hidden: "true" }}
+                            cancelText="بازگشت"
+                            okButtonProps={{ hidden: "true" }}
                             style={{
                               fontFamily: "VazirD",
                               textAlign: "center",
@@ -258,7 +257,7 @@ class TravelList extends React.Component {
                               borderRadius: "20px",
                             }}
                             >
-                            <UserOffer/>
+                              <UserOffer/>
                             </Modal>
                             <Col style={style_right} span={6}>
                               <Popconfirm

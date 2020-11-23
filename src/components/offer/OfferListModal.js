@@ -42,7 +42,7 @@ class OfferListModal extends React.Component {
           <span>{this.props.count}</span>
           <Modal
             visible={this.state.offer_visible}
-            title=" پیشنهادها"
+            title="پیشنهادهای دریافتی"
             onOk={this.handleCancel}
             onCancel={this.handleCancel}
             closable={false}
@@ -58,15 +58,15 @@ class OfferListModal extends React.Component {
             width="80%"
             bodyStyle={{ borderRadius: "20px"}}
           >
-            <PacketOffer data={this.props.data} />
+            <PacketOffer data={this.props.data} buy={this.props.buy} />
           </Modal>
         </Breakpoint>
         <Breakpoint small down>
           <Button
-            style={{fontSize: "14px", borderRadius: "10px" }}
+            style={{border: "hidden", fontSize: "14px", borderRadius: "10px" }}
             onClick={this.drawerofferlist}
           >
-          مشاهده پیشنهادها : <span style={{marginRight:"3px"}}> {this.props.count} </span>
+          پیشنهادها : <span style={{marginRight:"3px"}}> {this.props.count} </span>
           </Button>
           <Modal
             title="پیشنهاد‌های آگهی"
@@ -80,7 +80,7 @@ class OfferListModal extends React.Component {
             style={{ textAlign: "right", fontFamily: "VazirD" }}
           >
             <div>
-              <PacketOffer data={this.props.data} />
+              <PacketOffer data={this.props.data} buy={this.props.buy} />
             </div>
           </Modal>
         </Breakpoint>

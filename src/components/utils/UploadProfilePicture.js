@@ -58,12 +58,14 @@ class UploadProfilePicture extends React.Component {
               </div>
             ) : (
               this.props.data ?
+              <div style={{width:"auto", height:"100%"}}>
               <img
                 src={`${url}dstatic/${this.props.data}`}
                 alt="avatar"
                 width={200}
-                style={{ borderRadius: "100px", marginTop: "30px" }}
+                style={{ borderRadius: "50%", marginTop: "30px" }}
               />
+              </div>
               :
               <UserOutlined style={{fontSize:"100px"}} />
             )}

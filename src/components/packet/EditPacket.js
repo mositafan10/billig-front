@@ -9,7 +9,7 @@ var url = config.url.API_URL;
 
 class EditPacket extends Component {
   state = {
-    offer_visible: false,
+    edit_visible: false,
     packet: {},
   };
 
@@ -17,12 +17,12 @@ class EditPacket extends Component {
     const token = localStorage.getItem("token");
     const packet_id = this.props.data;
     Axios.get(`${url}api/v1/advertise/packet/${packet_id}/`, {
-      headers: { Authorization: `Token ${token}` },
+      headers: { Authorization: `Token ${token}`},
     })
       .then((res) => {
         this.setState({
           packet: res.data,
-          offer_visible: true,
+          edit_visible: true,
         });
       })
       .catch((error) => console.error(error));
@@ -30,7 +30,7 @@ class EditPacket extends Component {
 
   handleCancel = () => {
     this.setState({
-      offer_visible: false,
+      edit_visible: false,
     });
   };
   
@@ -49,7 +49,7 @@ class EditPacket extends Component {
         </Button>
         <Breakpoint medium up>
           <Modal
-            visible={this.state.offer_visible}
+            visible={this.state.edit_visible}
             title="ویرایش آگهی"
             onOk={this.handleCancel}
             onCancel={this.handleCancel}
@@ -75,7 +75,7 @@ class EditPacket extends Component {
         </Breakpoint>
         <Breakpoint small down>
           <Modal
-            visible={this.state.offer_visible}
+            visible={this.state.edit_visible}
             title="ویرایش آگهی"
             onOk={this.handleCancel}
             onCancel={this.handleCancel}

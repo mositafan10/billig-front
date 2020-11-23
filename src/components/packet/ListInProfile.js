@@ -69,14 +69,14 @@ class PacketUserList extends React.Component {
       dataIndex: "slug",
       key: "slug",
       width: 10,
-      render: (dataIndex) => <OfferListModal data={dataIndex} />,
+      render: (row, dataIndex) => <OfferListModal data={dataIndex} buy={row.buy} count={row.offer_count} />,
     },
     {
       title: "",
       dataIndex: "slug",
       key: "slug",
       width: 10,
-      render: (dataIndex) => <EditPacket data={dataIndex} />,
+      render: (dataIndex) => <EditPacket data={dataIndex} update={this.update} />,
     },
     {
       title: "",
@@ -159,6 +159,10 @@ class PacketUserList extends React.Component {
     this.componentDidMount();
   };
 
+  update = () => {
+    this.componentDidMount()
+  }
+
   render() {
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -225,7 +229,10 @@ class PacketUserList extends React.Component {
                       >
                         <Col>
                           <div>
+                            <Link to={`/packet/${item.slug}`}
+                            style={{ color: "black" }}>
                             <DownloadPic data={item.picture} size={140} />
+                            </Link>
                           </div>
                         </Col>
                       </Row>
@@ -256,6 +263,7 @@ class PacketUserList extends React.Component {
                         <OfferListModal
                           data={item.slug}
                           count={item.offer_count}
+                          buy={item.buy}
                         />
                       </Row>
                       <hr />
@@ -268,7 +276,7 @@ class PacketUserList extends React.Component {
                             borderLeft: "1px solid",
                           }}
                         >
-                          <EditPacket data={item.slug} />
+                          <EditPacket data={item.slug} update={this.update}/>
                         </Col>
                         <Col
                           span={12}
@@ -368,7 +376,10 @@ class PacketUserList extends React.Component {
                         >
                           <Col>
                             <div>
+                            <Link to={`/packet/${item.slug}`}
+                            style={{ color: "black" }}>
                               <DownloadPic data={item.picture} size={140} />
+                              </Link>
                             </div>
                           </Col>
                         </Row>
@@ -398,6 +409,7 @@ class PacketUserList extends React.Component {
                           <OfferListModal
                             data={item.slug}
                             count={item.offer_count}
+                            buy={item.buy}
                           />
                         </Row>
                         <hr />
@@ -410,7 +422,7 @@ class PacketUserList extends React.Component {
                               borderLeft: "1px solid",
                             }}
                           >
-                            <EditPacket data={item.slug} />
+                            <EditPacket data={item.slug} update={this.update} />
                           </Col>
                           <Col
                             span={12}

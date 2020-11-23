@@ -1,19 +1,11 @@
 import React from "react";
 import Axios from "axios";
-import {
-  Row,
-  Col,
-  Button,
-  Space,
-  Divider,
-  Select,
-  Spin,
-} from "antd";
+import { Row, Col, Button, Space, Divider, Select, Spin } from "antd";
 import { Link } from "react-router-dom";
 import Orders from "../components/packet/Orders";
 import { config } from "../Constant";
 import billliger from "../media/Billliger.svg";
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from "@ant-design/icons";
 
 var url = config.url.API_URL;
 const { Option } = Select;
@@ -23,6 +15,7 @@ const style_text = {
   textAlign: "center",
   display: "flex",
   alignItems: "center",
+  marginTop:"20px"
 };
 
 class OrderList extends React.Component {
@@ -58,13 +51,13 @@ class OrderList extends React.Component {
     this.setState({ loading: true });
     this.props.history.replace(`/orders/${e}`);
     Axios.get(`${url}api/v1/advertise/packets/${e}`)
-      .then((res) => {  
+      .then((res) => {
         this.setState({
           orders: res.data.results,
           loading: false,
-          page:2,
+          page: 2,
           hasMore: true,
-          count: res.data.count
+          count: res.data.count,
         });
       })
       .catch((error) => console.error(error));
@@ -80,7 +73,7 @@ class OrderList extends React.Component {
   }
 
   canclefilter = () => {
-    this.countryfilter("all")
+    this.countryfilter("all");
   };
 
   showfilter = () => {
@@ -92,33 +85,55 @@ class OrderList extends React.Component {
   };
 
   moreData = () => {
-      this.setState({hasMore:false})
-    setTimeout(()=>{
+    this.setState({ hasMore: false });
+    setTimeout(() => {
       const page = this.state.page;
       const ini_filter = this.props.location.pathname;
       const country = ini_filter.replace("/orders", "");
       const p_country = country.replace("/", "");
-      if (this.state.count == this.state.orders.length && this.state.count != 0 ){
-        this.setState({hasMore:false})
+      if (
+        this.state.count == this.state.orders.length &&
+        this.state.count != 0
+      ) {
+        this.setState({ hasMore: false });
         return;
       }
-     Axios.get(`${url}api/v1/advertise/packets/${p_country?p_country:"all"}/?page=${page}`)
-      .then((res) => {  
-        this.setState((state) => ({
-          orders: state.orders.concat(res.data.results),
-          count: res.data.count,
-          page: state.page + 1,
-          hasMore:true
-        }));
-      })
-      .catch((error) => console.error(error));
-    },200);
-  }
+      Axios.get(
+        `${url}api/v1/advertise/packets/${
+          p_country ? p_country : "all"
+        }/?page=${page}`
+      )
+        .then((res) => {
+          this.setState((state) => ({
+            orders: state.orders.concat(res.data.results),
+            count: res.data.count,
+            page: state.page + 1,
+            hasMore: true,
+          }));
+        })
+        .catch((error) => console.error(error));
+    }, 200);
+  };
 
   render() {
     return (
-      <div style={{ padding: "0 30px 0 30px" }}>
-        <Row>
+      <div style={{ padding: "0 30px 0 30px", direction: "rtl" }}>
+        <Row >
+          <Col
+            xs={24}
+            sm={24}
+            md={24}
+            lg={24}
+            xl={12}
+            xxl={12}
+            style={{ textAlign: "center" }}
+          >
+            <img
+              alt="billlig.com"
+              src={billliger}
+              style={{ width: "80%", height: "auto" }}
+            />
+          </Col>
           <Col
             xs={24}
             sm={24}
@@ -128,18 +143,27 @@ class OrderList extends React.Component {
             xxl={12}
             style={style_text}
           >
-            <Row>
-              <Col>
-                <p style={{ fontSize: "18px" }}>
-                  در هر سفر می‌توانید هزینه‌های خود را با خرید و یا جابه‌جایی
-                  بسته‌ها هزینه خود را کاهش دهید
+            <Row style={{ display: "flex", justifyContent: "center" }}>
+              <Col  xs={24}
+            sm={24}
+            md={24}
+            lg={12}
+            xl={12}
+            xxl={12} 
+            style={{textAlign:"right"}}>
+                <h1 style={{ textAlign: "right" }}>از سفرت درآمد کسب کن!</h1>
+                <p style={{ fontSize: "18px", textAlign: "justify" }}>
+                  با عضویت در پلتفرم بیلیگ می‌تونی به‌عنوان
+                  <span style={{ color: "#46A0AE" }}> مسافر </span> برای دیگران
+                  بسته جابه‌جا کنی و یا خرید انجام بدی و از سفرت درآمد کسب کنی.
+                  فقط کافیه عضو سایت بشی، سفرت رو ثبت کنی و بعد روی آگهی‌ها،
+                  دست‌مزدی که می‌خوای بگیری رو پیشنهاد بدی.
                 </p>
-              </Col>
-              <Col>
+
                 <Space>
-                  <Link to="/travel-guide">
+                  <Link to="/traveler">
                     <Button size={"medium"} style={{ borderRadius: "15px" }}>
-                      راهنمای پذیرش آگهی
+                      راهنمای مسافر
                     </Button>
                   </Link>
                   <Link to="/profile/mytravel">
@@ -156,25 +180,10 @@ class OrderList extends React.Component {
                   </Link>
                 </Space>
                 <Divider style={{ opacity: "0" }} />
-              </Col>
+                </Col>
             </Row>
           </Col>
           <br />
-          <Col
-            xs={24}
-            sm={24}
-            md={24}
-            lg={24}
-            xl={12}
-            xxl={12}
-            style={{ textAlign: "center" }}
-          >
-            <img
-              alt="billlig.com"
-              src={billliger}
-              style={{ width: "80%", height: "auto" }}
-            />
-          </Col>
         </Row>
         <Divider />
         <Row style={{ display: "flex", justifyContent: "center" }}>
@@ -184,7 +193,7 @@ class OrderList extends React.Component {
                 <Select
                   placeholder="کشور"
                   style={{ width: "150px" }}
-                  dropdownStyle={{fontFamily:"VazirD"}}
+                  dropdownStyle={{ fontFamily: "VazirD" }}
                   onChange={this.countryfilter.bind(this)}
                 >
                   {this.state.countries.map((e, key) => {
@@ -215,7 +224,7 @@ class OrderList extends React.Component {
               >
                 <Select
                   placeholder="کشور"
-                  dropdownStyle={{fontFamily:"VazirD"}}
+                  dropdownStyle={{ fontFamily: "VazirD" }}
                   style={{ width: "100px" }}
                   onChange={this.countryfilter.bind(this)}
                 >
@@ -232,15 +241,15 @@ class OrderList extends React.Component {
           </Col>
         </Row>
         <br />
-        <Row style={{display:"flex", justifyContent:"center"}}>
-                <Spin spinning={this.state.loading}>
-                  <Orders
-                    data={this.state.orders}
-                    moredata={this.moreData}
-                    hasMore={this.state.hasMore}
-                    />
-                </Spin>
-                <Divider style={{opacity:0}}/>
+        <Row style={{ display: "flex", justifyContent: "center" }}>
+          <Spin spinning={this.state.loading}>
+            <Orders
+              data={this.state.orders}
+              moredata={this.moreData}
+              hasMore={this.state.hasMore}
+            />
+          </Spin>
+          <Divider style={{ opacity: 0 }} />
         </Row>
       </div>
     );
