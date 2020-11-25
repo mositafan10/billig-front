@@ -100,7 +100,7 @@ class OfferDetail extends React.Component {
               float: "right",
               width: "max-content",
             },
-            duration: 6,
+            duration: 3,
           });
         }, 1500);
       })

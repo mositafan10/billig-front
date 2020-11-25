@@ -145,10 +145,11 @@ class PayTraveler extends Component {
         <Button
           onClick={this.showmodal}
           style={{
-            fontSize: "14px",
             border: "hidden",
-            backgroundColor: "aliceblue",
+            backgroundColor: "green",
+            color:"white",
             borderRadius: "10px",
+            fontSize:"12px"
           }}
         >
           تسویه حساب

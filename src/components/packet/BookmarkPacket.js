@@ -18,7 +18,6 @@ class BookmarkPacket extends Component {
       dataIndex: "packet_title",
       key: "packet_slug",
       align: "right",
-      width:140,
       render: (dataIndex, row) => (
         <Link to={`/packet/${row.packet_slug}`}>{dataIndex}</Link>
       ),
@@ -38,14 +37,16 @@ class BookmarkPacket extends Component {
           cancelText="خیر"
         >
           <Button
-          size="middle"
+            size="middle"
             style={{
-              border:"hidden",
+              border: "hidden",
               borderRadius: "10px",
               fontSize: "13px",
+              backgroundColor: "red",
+              color: "white",
             }}
           >
-            حذف
+            <b>حذف</b>
           </Button>
         </Popconfirm>
       ),
@@ -91,6 +92,10 @@ class BookmarkPacket extends Component {
             locale={{ emptyText: "موردی نشان نشده است." }}
             style={{ padding: "30px 0 30px 0" }}
             columns={this.columns}
+            pagination={{
+              hideOnSinglePage: true,
+              size: "small",
+            }}
             dataSource={this.state.bookmarks}
           />
         )}

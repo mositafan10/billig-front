@@ -4,21 +4,20 @@ import airplane from "../../media/airplane.png";
 import {
   Button,
   Popconfirm,
-  message,
   Row,
   Col,
   List,
-  ConfigProvider,
   Spin,
-  Divider,
   notification,
+  Space
 } from "antd";
 import moment from "moment";
 import EditTravel from "./EditTravel";
 import { config } from "../../Constant";
 import PayTraveler from "../payment/PayTraveler";
 import Modal from "antd/lib/modal/Modal";
-import UserOffer from '../offer/Useroffer';
+import UserOffer from "../offer/Useroffer";
+import Experience from './Experience';
 
 var url = config.url.API_URL;
 const style_left = {
@@ -31,7 +30,7 @@ const style_right = { display: "flex", justifyContent: "right" };
 class TravelList extends React.Component {
   state = {
     travel_user: [],
-    visible: false
+    visible: false,
   };
 
   cancel(e) {
@@ -64,12 +63,12 @@ class TravelList extends React.Component {
   };
 
   offermodal = () => {
-    this.setState({visible:true})
-  }
+    this.setState({ visible: true });
+  };
 
   offermodalcancle = () => {
-    this.setState({visible:false})
-  }
+    this.setState({ visible: false });
+  };
 
   render() {
     return (
@@ -98,7 +97,7 @@ class TravelList extends React.Component {
                     border: "solid",
                     borderWidth: "0.5px",
                     borderRadius: "15px 15px 15px 15px",
-                    margin: "15px 25px 15px 15px",
+                    margin: "15px 25px 0 15px",
                     padding: "20px 20px 20px 20px",
                     width: "320px",
                     height: "auto",
@@ -159,7 +158,9 @@ class TravelList extends React.Component {
                             </Col>
                           </Row>
                         </Col>
-                        <hr style={{backgroundColor:"white", color:"white"}}/>
+                        <hr
+                          style={{ backgroundColor: "white", color: "white" }}
+                        />
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                           <Row style={style_right}>
                             <Col
@@ -184,7 +185,9 @@ class TravelList extends React.Component {
                             </Col>
                           </Row>
                         </Col>
-                        <hr style={{backgroundColor:"white", color:"white"}}/>
+                        <hr
+                          style={{ backgroundColor: "white", color: "white" }}
+                        />
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                           <Row style={style_right}>
                             <Col
@@ -218,48 +221,63 @@ class TravelList extends React.Component {
                             }}
                           >
                             <br />
-                            { item.income != 0 ?
-                            (item.status == 4 && (
-                              <PayTraveler
-                                travel={item.slug}
-                                amount={item.income}
-                              />
-                            ))
-                            :
-                            <Button
-                                style={{
-                                  border: "hidden",
-                                  padding: "5px",
-                                  borderRadius: "10px",
-                                  backgroundColor: "aliceblue",
-                                }}
-                              >
-                              </Button>
-                            }
+                            {item.income != 0 && (
+                              item.status == 4 && (
+                                <div>
+                                
+                                </div>
+                              )
+                            )}
                           </Row>
                           <hr style={{ margin: "15px 0 15px 0" }} />
                           <Row style={style_right}>
-                          <Col span={9}>
-                              <Button onClick={this.offermodal} style={{justifyContent:"center", display:"flex", borderRadius:"10px"}}>پیشنهادها</Button>
+                            <Space size="small">
+                            <Col >
+                              <Button
+                                onClick={this.offermodal}
+                                style={{
+                                  borderRadius: "10px",
+                                  fontSize:"12px"
+                                }}
+                              >
+                                پیشنهادها
+                              </Button>
                             </Col>
                             <Modal
-                            visible={this.state.visible}
-                            onCancel={this.offermodalcancle}
-                            closable={true}
-                            title=" پیشنهادهای ارسالی"
-                            width="90%"
-                            cancelText="بازگشت"
-                            okButtonProps={{ hidden: "true" }}
-                            style={{
-                              fontFamily: "VazirD",
-                              textAlign: "center",
-                              overflow: "hidden",
-                              borderRadius: "20px",
-                            }}
+                              visible={this.state.visible}
+                              onCancel={this.offermodalcancle}
+                              closable={true}
+                              title=" پیشنهادهای ارسالی"
+                              width="90%"
+                              cancelText="بازگشت"
+                              okButtonProps={{ hidden: "true" }}
+                              style={{
+                                fontFamily: "VazirD",
+                                textAlign: "center",
+                                overflow: "hidden",
+                                borderRadius: "20px",
+                              }}
                             >
-                              <UserOffer/>
+                              <UserOffer />
                             </Modal>
-                            <Col style={style_right} span={6}>
+                            <Col >
+                            {item.status == 4 ? (
+                               <PayTraveler
+                               travel={item.slug}
+                               amount={item.income}
+                             /> )
+                              :
+                              ( item.status == 8 ?
+                              <span>در انتظار تسویه</span>  
+                                :
+                              <EditTravel
+                                signal={this.editsignal}
+                                data={item.slug}
+                              />
+                              )}
+                            </Col>
+                            <Col >
+                              {(item.status == 0 || item.status == 2 || item.status == 3 ) &&
                               <Popconfirm
                                 overlayStyle={{ fontFamily: "VazirD" }}
                                 title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -271,20 +289,19 @@ class TravelList extends React.Component {
                                 <Button
                                   style={{
                                     borderRadius: "10px",
-                                    fontSize: "14px",
+                                    fontSize: "12px",
+                                    backgroundColor:"red",
+                                    color:"white",
                                   }}
                                 >
+                                  <b>
                                   حذف
+                                  </b>
                                 </Button>
                               </Popconfirm>
+                              }
                             </Col>
-                            <Col style={style_left} span={8}>
-                              <EditTravel
-                                signal={this.editsignal}
-                                data={item.slug}
-                              />
-                            </Col>
-                            
+                            </Space>
                           </Row>
                         </Col>
                       </Row>

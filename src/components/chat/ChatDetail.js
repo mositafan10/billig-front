@@ -27,17 +27,15 @@ import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
 import CheckMarkWhite  from '../../media/small_icon/CheckMarkWhite.png';
-import CheckMark  from '../../media/small_icon/CheckMark.png';
 import SingleCheck  from '../../media/small_icon/SingleCheck.png';
-import SingleBlueCheck  from '../../media/small_icon/SingleBlueCheck.png';
 
 var url = config.url.API_URL;
 const token = localStorage.getItem("token");
 
 const right_test_style = {
-  display: "inline-block",
+  textAlign: "right",
   border: "solid",
-  borderRadius: "15px 10px 15px 10px ",
+  borderRadius: "15px 15px 15px 15px ",
   backgroundColor: "#1890ff",
   borderColor: "white ",
   padding: "10px 10px 10px 10px",
@@ -47,7 +45,21 @@ const right_test_style = {
   color: "white",
 };
 
+const center_test_style = {
+  display: "inline-block",
+  border: "solid",
+  borderRadius: "15px 10px 15px 10px ",
+  backgroundColor: "green",
+  borderColor: "white ",
+  padding: "10px 10px 10px 10px",
+  width: "auto",
+  maxWidth: "70%",
+  height: "auto",
+  color: "white",
+};
+
 const left_test_style = {
+  textAlign: "right",
   marginBottom: "15px",
   float: "left",
   border: "solid",
@@ -131,17 +143,17 @@ class ChatDetail extends Component {
     }
   };
 
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
-  };
+  // showDrawer = () => {
+  //   this.setState({
+  //     visible: true,
+  //   });
+  // };
 
   onClose = () => {
     this.setState({
       visible: false,
     });
-    this.props.parentCallback();
+    // this.props.parentCallback();
     this.componentWillUnmount();
   };
 
@@ -352,13 +364,24 @@ class ChatDetail extends Component {
                         style={{
                           borderColor: "#9cd3ee",
                           padding: "0 5px 0 5px",
+                          textAlign:"center"
                         }}
                       >
-                        <div style={{ textAlign: "center" }}>
+                        <div>
                           {item.first_day
                             ? moment(item.create_at).format("dddd D MMM")
                             : ""}
-                        </div>
+                        </div>  
+
+                          
+                        {item.type_text == 1 ?
+                          <div style={center_test_style}>
+                            {item.text}
+                            <br/>
+                            {moment(item.create_at).format("HH:mm - MMM DD ")}
+                          </div>
+                          :
+                          <div>
                         {user == item.owner_slug ? (
                           <List.Item>
                             <div style={right_test_style}>
@@ -377,9 +400,10 @@ class ChatDetail extends Component {
                                 </div>
                               )}
                               <br />
+                              <div style={{textAlign:"right"}}>
                               {moment(item.create_at).format("HH:mm")} 
                               {item.is_seen ? <img src={CheckMarkWhite} width={20} /> : <img src={SingleCheck} width={20}/> }
-
+                              </div>
                             </div>
                           </List.Item>
                         ) : (
@@ -400,10 +424,14 @@ class ChatDetail extends Component {
                                 </div>
                               )}
                               <br />
+                              <div style={{textAlign:"left"}}>
                               {moment(item.create_at).format("HH:mm")} 
+                              </div>
                             </div>
                           </List.Item>
                         )}
+                        </div>
+                      }
                       </Col>
                     </Row>
                   )}
@@ -517,7 +545,7 @@ class ChatDetail extends Component {
                   dataSource={this.state.massages}
                   locale={{ emptyText: " پیامی وجود ندارد" }}
                   renderItem={(item) => (
-                    <Row>
+                    <Row >
                       <Col
                         xs={24}
                         sm={24}
@@ -528,17 +556,27 @@ class ChatDetail extends Component {
                         style={{
                           borderColor: "#9cd3ee",
                           padding: "0 5px 0 5px",
+                          textAlign:"center"
                         }}
                       >
-                        <div style={{ textAlign: "center" }}>
+                        <div >
                           {item.first_day
                             ? moment(item.create_at).format("dddd D MMM")
                             : ""}
                         </div>
+
+                        {item.type_text == 1 ?
+                          <div style={center_test_style}>
+                            {item.text}
+                            <br/>
+                            {moment(item.create_at).format("HH:mm - MMM DD ")}
+                          </div>
+                          :
+                          <div>
                         {user == item.owner_slug ? (
                           <List.Item>
                             <div style={right_test_style}>
-                              {item.picture == null ? (
+                              {item.picture === null ? (
                                 item.text
                               ) : (
                                 <div>
@@ -553,14 +591,16 @@ class ChatDetail extends Component {
                                 </div>
                               )}
                               <br />
-                              {moment(item.create_at).format("HH:mm")}
+                              <div style={{textAlign:"right"}}>
+                              {moment(item.create_at).format("HH:mm")} 
                               {item.is_seen ? <img src={CheckMarkWhite} width={20} /> : <img src={SingleCheck} width={20}/> }
+                              </div>
                             </div>
                           </List.Item>
                         ) : (
                           <List.Item style={left_test_style}>
                             <div>
-                              {item.picture == null ? (
+                              {item.picture === null ? (
                                 item.text
                               ) : (
                                 <div>
@@ -575,10 +615,14 @@ class ChatDetail extends Component {
                                 </div>
                               )}
                               <br />
-                              {moment(item.create_at).format("HH:mm")}
+                              <div style={{textAlign:"left"}}>
+                              {moment(item.create_at).format("HH:mm")} 
+                              </div>
                             </div>
                           </List.Item>
                         )}
+                        </div>
+                      }
                       </Col>
                     </Row>
                   )}

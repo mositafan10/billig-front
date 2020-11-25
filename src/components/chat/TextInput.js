@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Input } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 import Axios from "axios";
 import { config } from "../../Constant";
 
@@ -10,6 +11,7 @@ const { Search } = Input;
 class TextInput extends Component {
   state = {
     search: "",
+    loading: false
   };
 
   handleReset = () => {
@@ -23,6 +25,7 @@ class TextInput extends Component {
 
   send = (value) => {
     if (value != ""){
+    this.setState({loading:true})
     const token = localStorage.getItem("token");
     const owner = localStorage.getItem("user");
     Axios.post(
@@ -33,7 +36,10 @@ class TextInput extends Component {
       },
       { headers: { Authorization: `Token ${token}` } }
     )
-      .then((res) => this.props.handler())
+      .then((res) => 
+      this.setState({loading:false}),
+      this.props.handler()
+      )
       .catch((error) => console.error(error));
     this.setState({
       search: "",
@@ -53,7 +59,7 @@ class TextInput extends Component {
           onChange={this.handleFields}
           placeholder="پیام خود را وارد کنید"
           onSearch={(value) => this.send(value)}
-          enterButton={"ارسال"}
+          enterButton={this.state.loading ? <LoadingOutlined style={{margin:"5px 7px"}}/> : "ارسال"}
           autoSize
           autoFocus
         />

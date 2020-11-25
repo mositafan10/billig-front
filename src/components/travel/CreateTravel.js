@@ -104,7 +104,7 @@ class CreateTravel extends React.Component {
                         },500)
                         this.props.parentCallback();
                 })  
-                .catch(error => notification['error']({
+                .catch(error => notification['warn']({
                     message: error.response.data.detail,
                     style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
                     duration:2,

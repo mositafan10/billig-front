@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { List, Avatar, Button, Badge, Spin } from "antd";
+import { List, Avatar, Button, Badge } from "antd";
+import { MoreOutlined, UserOutlined } from '@ant-design/icons';
 import Axios from "axios";
 import { config } from "../../Constant";
 
@@ -49,12 +50,8 @@ class ChatContacs extends Component {
     const user = localStorage.getItem("user");
     return (
       <div style={{ marginTop: "40px" }}>
-        {this.state.loading ? (
-          <div style={{ marginTop: "100px" }}>
-            <Spin />
-          </div>
-        ) : (
           <List
+            loading={this.state.loading}
             itemLayout="horizontal"
             dataSource={this.state.contacs}
             locale={{ emptyText: <div>شما هنوز مذاکره‌ای آغاز نکرده‌اید<br/> مذاکره با ثبت پیشنهاد روی آگهی آغاز می شود.</div> }}
@@ -69,21 +66,32 @@ class ChatContacs extends Component {
                 <List.Item.Meta
                   avatar={
                     user == item.sender_slug ? (
+                    item.receiver_avatar ?
                       <Badge count={item.not_seen}>
                         <Avatar
                           src={`${url}dstatic/media/${item.receiver_avatar}`}
                         />
                       </Badge>
+                      :
+                      <Avatar >
+                      <UserOutlined style={{backgroundColor:"white", color:"black", border:"1px solid"}}/>
+                      </Avatar>
                     ) : (
+                      item.sender_avatar ?
                       <Badge count={item.not_seen}>
                         <Avatar
                           src={`${url}dstatic/media/${item.sender_avatar}`}
                         />
                       </Badge>
+                       :
+                       <Avatar style={{backgroundColor:"white", color:"black", border:"1px solid"}}>
+                       <UserOutlined />
+                       </Avatar>
                     )
                   }
                   title={
                     user == item.sender_slug ? (
+                      <div>
                       <Button
                         style={{ border: "hidden", fontSize: "12px" }}
                         onClick={() =>
@@ -101,10 +109,11 @@ class ChatContacs extends Component {
                           )
                         }
                       >
-                        <p style={{fontSize:"14px",textAlign:"right"}}>{item.receiver_name}</p>
-                        <p style={{textAlign:"right"}}>در آگهی {item.packet_title}</p>
+                        <span style={{fontSize:"14px",textAlign:"right"}}> {item.receiver_name} </span>
                       </Button>
+                      </div>
                     ) : (
+                      <div>
                       <Button
                         style={{ border: "hidden", fontSize: "12px" }}
                         onClick={() =>
@@ -122,16 +131,16 @@ class ChatContacs extends Component {
                           )
                         }
                       >
-                        <p style={{fontSize:"14px",textAlign:"right"}}>{item.sender_name}</p>
-                        <p style={{textAlign:"right"}}>در آگهی {item.packet_title}</p>
+                        <span style={{fontSize:"14px",textAlign:"right"}}> {item.sender_name} </span>
                       </Button>
+                      </div>
                     )
                   }
                 />
+                <Button style={{border:"hidden"}} size="large" icon={<MoreOutlined style={{ fontSize: "larger" }} />} ></Button>
               </List.Item>
             )}
           />
-        )}
       </div>
     );
   }

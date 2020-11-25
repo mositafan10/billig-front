@@ -398,7 +398,7 @@ class OrderDetail extends React.Component {
                   <Row style={{ justifyContent: "center", display: "flex" }}>
                     <Bookmark data={this.state.order.slug} />
                     <Tooltip
-                      title="کپی شد"
+                      title="لینک آگهی کپی شد"
                       trigger="click"
                       overlayStyle={{ fontFamily: "VazirD" }}
                     >
@@ -425,7 +425,7 @@ class OrderDetail extends React.Component {
                 <Row style={{ justifyContent: "center", display: "flex" }}>
                   <Bookmark data={this.state.order.slug} />
                   <Tooltip
-                    title="کپی شد"
+                    title="لینک آگهی کپی شد"
                     trigger="click"
                     overlayStyle={{ fontFamily: "VazirD" }}
                   >

@@ -11,6 +11,7 @@ class RateAndComment extends Component {
 
     state = {
         visible: false,
+        loading: false
     }
 
     offerlistmodal = () => {
@@ -31,7 +32,7 @@ class RateAndComment extends Component {
         const text = values.text;
         const text1 = values.rate_billlig;
         this.setState({
-            visible: false
+            loading: true
         });
         Axios.post(`${url}api/v1/account/comments_billlig/`,{
             text: text1,
@@ -45,15 +46,19 @@ class RateAndComment extends Component {
             slug: this.props.data
         },
         { headers: {"Authorization" : `Token ${token}`}})
-        .then( 
+        .then(() => {
             notification['success']({
                 message: 'نظر شما با موفقیت ثبت شد',
                 style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
                 duration:2,
-              }),
-            this.props.signal(),
-            window.location.reload())
-        .catch(err => console.log(err.data))
+              })
+            setTimeout(() => {
+                this.setState({visible: false, loading:false})
+                this.props.signal()
+                window.location.reload()
+            }, 1000)
+         })
+        .catch(err => this.setState({loading:false}))
     }
 
     render() {
@@ -63,6 +68,7 @@ class RateAndComment extends Component {
                 <Button onClick={this.offerlistmodal} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}>امتیازدهی</Button>
                 <Modal
                     visible={this.state.visible}
+                    confirmLoading={this.state.loading}
                     title="امتیازدهی"
                     cancelText="انصراف"
                     okText="ارسال"       
@@ -101,6 +107,7 @@ class RateAndComment extends Component {
                 <Button onClick={this.offerlistmodal} style={{fontSize:"12px", border:"hidden", color:"white", backgroundColor:"green", borderRadius:"10px"}}>امتیازدهی</Button>
                 <Modal
                     visible={this.state.visible}
+                    confirmLoading={this.state.loading}
                     title="امتیازدهی"
                     cancelText="انصراف"
                     okText="ارسال"       

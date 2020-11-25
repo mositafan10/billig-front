@@ -232,6 +232,7 @@ class PackForm extends React.Component {
 
   componentDidMount() {
     document.title = "ثبت آگهی ـ بیلیگ ";
+    window.scroll(0,0)
     Axios.get(`${url}api/v1/account/countries/`).then((res) => {
       this.setState({
         countries: res.data,

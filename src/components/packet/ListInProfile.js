@@ -276,12 +276,20 @@ class PacketUserList extends React.Component {
                             borderLeft: "1px solid",
                           }}
                         >
+                          { (item.status === "منتشر شده" || item.status === "دارای پیشنهاد") ?
                           <EditPacket data={item.slug} update={this.update}/>
+                          :
+                          <Button style={{
+                            border: "hidden",
+                            fontSize: "14px",
+                            borderRadius: "10px"}} disabled={true}>ویرایش</Button>
+                          }
                         </Col>
                         <Col
                           span={12}
                           style={{ display: "flex", justifyContent: "center" }}
                         >
+                          { (item.status === "منتشر شده" || item.status === "دارای پیشنهاد") ?
                           <Popconfirm
                             overlayStyle={{ fontFamily: "VazirD" }}
                             title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -303,6 +311,12 @@ class PacketUserList extends React.Component {
                               </Button>
                             </a>
                           </Popconfirm>
+                          :
+                          <Button style={{
+                            border: "hidden",
+                            fontSize: "14px",
+                            borderRadius: "10px"}} disabled={true}>حذف</Button>
+                          }
                         </Col>
                       </Row>
                     </Col>

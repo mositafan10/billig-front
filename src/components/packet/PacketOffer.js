@@ -40,6 +40,16 @@ class PacketOffer extends React.Component {
       key: "status",
       width: 150,
       align: "center",
+      render: (dataIndex) => {
+        if (dataIndex == "تمام شده") {
+          return (
+            <div style={{ backgroundColor: "green", color: "white" }}>
+              {dataIndex}
+            </div>
+          );
+        }
+        else { return dataIndex}
+      },
     },
     {
       title: "پیشنهاد دهنده",
@@ -76,25 +86,10 @@ class PacketOffer extends React.Component {
     {
       title: " ",
       dataIndex: "slug",
-      key: "",
+      key: "slug",
       align: "center",
       render: (dataIndex, row) => {
-        if (row.status === "انجام شده") {
-          return (
-            <Button
-              disabled={true}
-              style={{
-                fontSize: "12px",
-                backgroundColor: "white",
-                color: "transparent",
-                textShadow: "0 0 5px rgba(0,0,0,0.5)",
-                borderRadius: "10px",
-              }}
-            >
-              چت
-            </Button>
-          );
-        } else {
+        if (row.status != "تمام شده") {
           return (
             <SendMessage
               sender={row.sender_slug}
@@ -108,14 +103,14 @@ class PacketOffer extends React.Component {
     {
       title: " ",
       dataIndex: "slug",
-      key: "",
+      key: "slug",
       align: "center",
       render: (dataIndex, row) => {
         if (row.status === "در انتظار پاسخ") {
           return (
             <Popconfirm
               overlayStyle={{ fontFamily: "VazirD" }}
-              title="آیا از قبول پیشنهاد مطمئن هستید ؟"
+              title="آیا از تایید اولیه پیشنهاد مطمئن هستید ؟"
               onConfirm={this.accept.bind(this, dataIndex)}
               onCancel={this.cancel}
               okText="بله"
@@ -130,7 +125,7 @@ class PacketOffer extends React.Component {
                   borderRadius: "10px",
                 }}
               >
-                <b>قبول</b>
+                <b>تایید اولیه</b>
               </Button>
             </Popconfirm>
           );
@@ -153,7 +148,7 @@ class PacketOffer extends React.Component {
                   borderRadius: "10px",
                 }}
               >
-                <b>رد مبلغ وارد شده</b>
+                <b>رد مبلغ پیشنهادی</b>
               </Button>
             </Popconfirm>
           );
@@ -171,11 +166,12 @@ class PacketOffer extends React.Component {
                 style={{
                   fontSize: "12px",
                   border: "hidden",
-                  backgroundColor: "aliceblue",
+                  backgroundColor: "green",
+                  color:"white",
                   borderRadius: "10px",
                 }}
               >
-                تایید تحویل
+               تحویل گرفتم
               </Button>
             </Popconfirm>
           );
@@ -187,17 +183,6 @@ class PacketOffer extends React.Component {
               receiver={row.receiver_slug}
               loc={"مسافر"}
             />
-          );
-        } else {
-          return (
-            <Button
-              style={{
-                fontSize: "12px",
-                border: "hidden",
-                backgroundColor: "aliceblue",
-                borderRadius: "10px",
-              }}
-            ></Button>
           );
         }
       },
@@ -214,17 +199,6 @@ class PacketOffer extends React.Component {
               amount={row.price + row.parcel_price}
               factorNumber={dataIndex}
             />
-          );
-        } else {
-          return (
-            <Button
-              style={{
-                fontSize: "12px",
-                border: "hidden",
-                backgroundColor: "aliceblue",
-                borderRadius: "10px",
-              }}
-            ></Button>
           );
         }
       },
@@ -304,15 +278,14 @@ class PacketOffer extends React.Component {
       .then(() => {
         notification["success"]({
           message: "دریافت کالا از سوی شما تایید شد",
-          description:
-            "حال می‌توانید نظر خود را در مورد مسافر بیان کنید و به ایشان امتیاز دهید. امتیاز شما می‌تواند به کابران دیگر کمک کند",
+          description:<div>حال می‌توانید نظر خود را در مورد مسافر بیان کنید و به ایشان امتیاز دهید. <br/>امتیاز شما می‌تواند به کاربران دیگر کمک کند</div>,
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
             float: "right",
             width: "max-content",
           },
-          duration: 5,
+          duration: 8,
         });
         this.componentDidMount();
       })
@@ -412,32 +385,19 @@ class PacketOffer extends React.Component {
                   <Col style={{ display: "flex", justifyContent: "center" }}>
                     <Space>
                       <Col>
-                        {item.status === "انجام شده" ? (
-                          <Button
-                            disabled={true}
-                            style={{
-                              fontSize: "12px",
-                              backgroundColor: "white",
-                              color: "transparent",
-                              textShadow: "0 0 5px rgba(0,0,0,0.5)",
-                              borderRadius: "10px",
-                            }}
-                          >
-                            چت
-                          </Button>
-                        ) : (
-                          <SendMessage
-                            sender={item.sender_slug}
-                            receiver={item.receiver_slug}
-                            slug={item.slug}
-                          />
-                        )}
+                      {item.status != "تمام شده" && (
+                              <SendMessage
+                                sender={item.sender_slug}
+                                receiver={item.receiver_slug}
+                                slug={item.slug}
+                              />
+                            )}
                       </Col>
                       <Col>
                         {item.status === "در انتظار پاسخ" && (
                           <Popconfirm
                             overlayStyle={{ fontFamily: "VazirD" }}
-                            title="آیا از قبول پیشنهاد مطمئن هستید ؟"
+                            title="آیا از تایید اولیه پیشنهاد مطمئن هستید ؟"
                             onConfirm={this.accept.bind(this, item.slug)}
                             onCancel={this.cancel}
                             okText="بله"
@@ -452,7 +412,7 @@ class PacketOffer extends React.Component {
                                 borderRadius: "10px",
                               }}
                             >
-                              <b>قبول</b>
+                              <b>تایید اولیه</b>
                             </Button>
                           </Popconfirm>
                         )}
@@ -474,7 +434,7 @@ class PacketOffer extends React.Component {
                               borderRadius: "10px",
                             }}
                           >
-                            <b>رد مبلغ وارد شده</b>
+                            <b>رد مبلغ پیشنهادی</b>
                           </Button>
                         </Popconfirm>
                         )}
@@ -494,11 +454,12 @@ class PacketOffer extends React.Component {
                               style={{
                                 fontSize: "12px",
                                 border: "hidden",
-                                backgroundColor: "aliceblue",
+                                backgroundColor: "green",
+                                color: "white",
                                 borderRadius: "10px",
                               }}
                             >
-                              تایید تحویل
+                              تحویل گرفتم
                             </Button>
                           </Popconfirm>
                         )}

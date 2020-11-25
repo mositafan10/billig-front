@@ -25,7 +25,7 @@ class CommentList extends Component {
 
   render() {
     return (
-    <div style={{display:"flex", justifyContent:"center"}}>
+    <div style={{display:"flex", justifyContent:"center", marginTop:"30px"}}>
         {this.state.loading ? (
             <div style={{ marginTop: "100px" }}>
               <Spin />

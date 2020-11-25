@@ -32,7 +32,7 @@ class ConfirmPrice extends React.Component {
   onFinish = (values) => {
     this.setState({loading:true})
     const price = values.price;
-    const parcelPrice = values.parcelPrice;
+    const parcelPrice = values.parcelPrice ;
     const token = localStorage.getItem("token");
     Axios.post(
       `${url}api/v1/advertise/offer/update/`,
@@ -45,13 +45,13 @@ class ConfirmPrice extends React.Component {
       { headers: { Authorization: `Token ${token}` } }
     )
       .then(() => {
+        setTimeout(()=>{
           this.props.parentfunction()
-          setTimeout(()=>{
             this.setState({ price_visible: false, loading:false });
           },3000)
           notification["success"]({
             message: "مبلغ با موفقیت ثبت شد",
-            description: "منتظر تایید و پرداخت مبلغ از سوی آگهی‌دهنده باشید",
+            description: "منتظر تایید و پرداخت مبلغ از سوی بیلیگر باشید",
             style: {
               fontFamily: "VazirD",
               textAlign: "right",
@@ -85,7 +85,7 @@ class ConfirmPrice extends React.Component {
           onClick={this.pricelistmodal}
           style={{ fontSize: "12px", backgroundColor:"green",color:"white", borderColor:"white", borderRadius: "10px" }}
         >
-          تایید مبلغ نهایی
+          تعیین مبلغ نهایی
         </Button>
         <Breakpoint medium up>
           <Modal
@@ -133,7 +133,7 @@ class ConfirmPrice extends React.Component {
                 ]}
               >
                 <InputNumber
-                placeholder="مبلغ را به تومان وارد کنید"
+                placeholder="به تومان وارد کنید"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
@@ -147,7 +147,6 @@ class ConfirmPrice extends React.Component {
               <p>مبلغ فعلی کالا : {parcelPrice ? this.currency(parcelPrice) : 0 } تومان</p> 
               <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
               <Form.Item
-               placeholder="مبلغ را به تومان وارد کنید"
                 name="parcelPrice"
                 size="large"
                 rules={[
@@ -158,6 +157,7 @@ class ConfirmPrice extends React.Component {
                 ]}
               >
                 <InputNumber
+                  placeholder="به تومان وارد کنید"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
@@ -218,6 +218,7 @@ class ConfirmPrice extends React.Component {
                 ]}
               >
                 <InputNumber
+                  placeholder="به تومان وارد کنید"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
@@ -241,6 +242,7 @@ class ConfirmPrice extends React.Component {
                 ]}
               >
                 <InputNumber
+                  placeholder="به تومان وارد کنید"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }

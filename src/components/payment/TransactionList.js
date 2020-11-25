@@ -6,6 +6,7 @@ import { Table, Spin } from "antd";
 
 var url = config.url.API_URL;
 
+
 class TransactionList extends Component {
   state = {
     transactions: [],
@@ -24,6 +25,7 @@ class TransactionList extends Component {
       title: "مقدار",
       dataIndex: "amount",
       key: "transId",
+      render: (dataIndex) => <p>{this.currency(dataIndex)}</p>
     },
     {
       title: "شماره تراکنش",
@@ -31,6 +33,7 @@ class TransactionList extends Component {
       key: "transId",
     },
   ];
+
   componentDidMount() {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/payment/list/`, {
@@ -44,6 +47,12 @@ class TransactionList extends Component {
       })
       .catch((error) => console.error(error));
   }
+
+  currency = (value) => {
+    const p = `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return p;
+  };
+
   render() {
     return (
       <div>

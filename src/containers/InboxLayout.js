@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, Drawer } from 'antd';
+import { Col, Row } from 'antd';
 import ChatContacs from '../components/chat/ChatContacs';
 import ChatDetail from '../components/chat/ChatDetail';
 import chat from '../media/chat.svg';

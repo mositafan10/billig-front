@@ -100,16 +100,16 @@ class HeaderSection extends Component {
         <Link to="/profile/inbox"> صندوق پیام <CommentOutlined /></Link> 
       </Menu.Item>
       <Menu.Item key="5">
-        <Link to="/profile/payment">پرداخت <DollarCircleOutlined /></Link> 
+        <Link to="/profile/payment"> پرداخت <DollarCircleOutlined /></Link> 
       </Menu.Item>
       <Menu.Item key="6">
-        <Link to="/profile/bookmark">آگهی‌های نشان شده <HeartOutlined /></Link> 
+        <Link to="/profile/bookmark"> آگهی‌های نشان شده <HeartOutlined /></Link> 
       </Menu.Item>
       <Menu.Item key="7">
-          <Link to="/profile/comments">نظرات <CommentOutlined /></Link>
+          <Link to="/profile/comments"> نظرات <CommentOutlined /></Link>
       </Menu.Item>
       <Menu.Item key="8">
-        <Link to="/profile/">اطلاعات کاربری <ContainerOutlined /></Link>
+        <Link to="/profile/"> اطلاعات کاربری <ContainerOutlined /></Link>
       </Menu.Item>
       <Menu.Item key="9" onClick={this.exit}>
       <Link to="/"> خروج <VerticalLeftOutlined /></Link>
@@ -438,24 +438,24 @@ class HeaderSection extends Component {
                             <CommentOutlined />
                           </Menu.Item>
                           <Menu.Item key="5" onClick={this.onClose}>
-                            <Link to="/profile/payment">پرداخت </Link>
+                            <Link to="/profile/payment"> پرداخت </Link>
                             <DollarCircleOutlined />
                           </Menu.Item>
                           <Menu.Item key="6" onClick={this.onClose}>
                             <Link to="/profile/bookmark">
-                              آگهی‌های نشان شده
+                               آگهی‌های نشان شده {" "}
                             </Link>
                             <HeartOutlined />
                           </Menu.Item>
                           <Menu.Item key="7" onClick={this.onClose}>
                             <Link to="/profile/comments">
-                             نظرات
+                              نظرات{" "} 
                             </Link>
                             <CommentOutlined />
                           </Menu.Item>
                           <Menu.Item key="8" onClick={this.onClose}>
                             <Link to="/profile/">
-                              اطلاعات کاربری
+                               اطلاعات کاربری {" "}
                             </Link>
                             <ContainerOutlined />
                           </Menu.Item>

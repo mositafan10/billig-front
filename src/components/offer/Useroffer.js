@@ -17,7 +17,6 @@ import ConfirmPrice from "../profile/ConfirmPrice";
 import SendMessage from "../packet/SendMessage";
 import { config } from "../../Constant";
 import RateAndComment from "../rating/RateAndComment";
-import PayTraveler from "../payment/PayTraveler";
 import { Breakpoint } from "react-socks";
 var url = config.url.API_URL;
 
@@ -39,6 +38,16 @@ class UserOffer extends React.Component {
       key: "slug",
       width: 200,
       align: "center",
+      render: (dataIndex) => {
+        if (dataIndex == "تمام شده") {
+          return (
+            <div style={{ backgroundColor: "green", color: "white" }}>
+              {dataIndex}
+            </div>
+          );
+        }
+        else { return dataIndex}
+      },
     },
     {
       title: "آگهی",
@@ -82,22 +91,7 @@ class UserOffer extends React.Component {
       key: "slug",
       align: "center",
       render: (dataIndex, row) => {
-        if (row.status === "انجام شده") {
-          return (
-            <Button
-              disabled={true}
-              style={{
-                fontSize: "12px",
-                backgroundColor: "white",
-                color: "transparent",
-                textShadow: "0 0 5px rgba(0,0,0,0.5)",
-                borderRadius: "10px",
-              }}
-            >
-              چت
-            </Button>
-          );
-        } else {
+        if (row.status != "تمام شده") {
           return (
             <SendMessage
               sender={row.sender_slug}
@@ -128,7 +122,13 @@ class UserOffer extends React.Component {
           return (
             <Popconfirm
               overlayStyle={{ fontFamily: "VazirD" }}
-              title="آیا کالای مورد نظر تحویل گرفته یا خریداری شده است ؟"
+              title={
+                row.buy ? (
+                  <div>آیا کالای مورد نظر را خریداری کرده‌اید ؟</div>
+                ) : (
+                  <div>"آیا بسته مورد نظر را تحویل گرفته‌اید ؟" </div>
+                )
+              }
               onConfirm={this.buydone.bind(this, dataIndex)}
               onCancel={this.cancel}
               okText="بله"
@@ -143,7 +143,7 @@ class UserOffer extends React.Component {
                   borderRadius: "10px",
                 }}
               >
-                خریداری شد
+                خریداری کردم
               </Button>
             </Popconfirm>
           );
@@ -151,7 +151,13 @@ class UserOffer extends React.Component {
           return (
             <Popconfirm
               overlayStyle={{ fontFamily: "VazirD" }}
-              title="آیا کالای مورد نظر تحویل داده شده است ؟"
+              title={
+                row.buy ? (
+                  <div>آیا کالای مورد نظر را تحویل داده‌اید ؟</div>
+                ) : (
+                  <div>"آیا بسته مورد نظر را تحویل داده‌اید ؟" </div>
+                )
+              }
               onConfirm={this.receivedone.bind(this, dataIndex)}
               onCancel={this.cancel}
               okText="بله"
@@ -166,20 +172,18 @@ class UserOffer extends React.Component {
                   borderRadius: "10px",
                 }}
               >
-                تحویل شد
+                تحویل دادم
               </Button>
             </Popconfirm>
           );
-        } else {
+        } else if (row.status === "انجام شده") {
           return (
-            <Button
-              style={{
-                fontSize: "12px",
-                border: "hidden",
-                backgroundColor: "aliceblue",
-                borderRadius: "10px",
-              }}
-            ></Button>
+            <RateAndComment
+              signal={this.callbackfunction}
+              data={row.slug}
+              receiver={row.receiver_slug}
+              loc={"آگهی‌دهنده"}
+            />
           );
         }
       },
@@ -190,50 +194,34 @@ class UserOffer extends React.Component {
       key: "slug",
       align: "center",
       render: (dataIndex, row) => {
-        if (row.status === "انجام شده") {
-          return <PayTraveler data={dataIndex} />;
-        } else {
+        if (row.status != "تمام شده") {
           return (
-            <Button
-              style={{
-                fontSize: "12px",
-                border: "hidden",
-                backgroundColor: "aliceblue",
-                borderRadius: "10px",
-              }}
-            ></Button>
+            <Popconfirm
+              overlayStyle={{ fontFamily: "VazirD" }}
+              title="آیا از حذف پیشنهاد مطمئن هستید ؟"
+              onConfirm={this.delete.bind(this, dataIndex)}
+              onCancel={this.cancel}
+              okText="بله"
+              cancelText="خیر"
+            >
+              <a>
+                <Button
+                  style={{
+                    border: "hidden",
+                    fontSize: "12px",
+                    borderRadius: "10px",
+                    color: "white",
+                    backgroundColor: "red",
+                  }}
+                  onClick={this.offerlistmodal}
+                >
+                  <b>حذف</b>
+                </Button>
+              </a>
+            </Popconfirm>
           );
         }
       },
-    },
-    {
-      title: " ",
-      dataIndex: "slug",
-      key: "slug",
-      align: "center",
-      render: (dataIndex) => (
-        <Popconfirm
-          overlayStyle={{ fontFamily: "VazirD" }}
-          title="آیا از حذف پیشنهاد مطمئن هستید ؟"
-          onConfirm={this.delete.bind(this, dataIndex)}
-          onCancel={this.cancel}
-          okText="بله"
-          cancelText="خیر"
-        >
-          <a>
-            <Button
-              style={{
-                border: "hidden",
-                fontSize: "12px",
-                borderRadius: "10px",
-              }}
-              onClick={this.offerlistmodal}
-            >
-              حذف
-            </Button>
-          </a>
-        </Popconfirm>
-      ),
     },
   ];
 
@@ -250,7 +238,7 @@ class UserOffer extends React.Component {
       .then(() => {
         notification["success"]({
           message: "خریداری کالا با موفقیت انجام شد",
-          description: "حالا باید کالا را به خریدار تحویل دهید",
+          description: "حالا باید کالا را به بیلیگر تحویل دهید",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -277,15 +265,20 @@ class UserOffer extends React.Component {
       .then(() => {
         notification["success"]({
           message: "تحویل کالا با موفقیت انجام شد",
-          description:
-            "لطفا نسبت به تایید تحویل کالا توسط خریدار اطمینان حاصل نمایید تا سپس مراحل تسویه با شما انجام پذیرد",
+          description: (
+            <div>
+              حالا از بیلیگر بخواهید که تحویل کالا را تایید کند.
+              <br />
+              تسویه حساب سفر شما بعد از تایید بیلیگر انجام می‌گیرد
+            </div>
+          ),
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
             float: "right",
             width: "max-content",
           },
-          duration: 5,
+          duration: 10,
         });
         this.componentDidMount();
       })
@@ -350,7 +343,7 @@ class UserOffer extends React.Component {
                 hideOnSinglePage: true,
                 size: "small",
               }}
-              locale={{ emptyText: "پیشنهادی ارسالی نشده است" }}
+              locale={{ emptyText: "در حال حاضر پیشنهادی وجود ندارد" }}
               columns={this.columns}
               dataSource={this.state.offer}
             />
@@ -402,7 +395,7 @@ class UserOffer extends React.Component {
                         style={{ textAlign: "center" }}
                       >
                         <p>
-                          وضعیت :‌{" "}
+                    وضعیت : {" "}‌
                           <span style={{ color: "#46a0ae" }}>
                             {item.status}
                           </span>
@@ -423,20 +416,7 @@ class UserOffer extends React.Component {
                       <Col>
                         <Space>
                           <Col>
-                            {item.status === "انجام شده" ? (
-                              <Button
-                                disabled={true}
-                                style={{
-                                  fontSize: "12px",
-                                  backgroundColor: "white",
-                                  color: "transparent",
-                                  textShadow: "0 0 5px rgba(0,0,0,0.5)",
-                                  borderRadius: "10px",
-                                }}
-                              >
-                                چت
-                              </Button>
-                            ) : (
+                            {item.status != "تمام شده" && (
                               <SendMessage
                                 sender={item.sender_slug}
                                 receiver={item.receiver_slug}
@@ -457,7 +437,17 @@ class UserOffer extends React.Component {
                             {item.status === "در انتظار خرید" && (
                               <Popconfirm
                                 overlayStyle={{ fontFamily: "VazirD" }}
-                                title="آیا کالا خریداری شده است؟"
+                                title={
+                                  item.buy ? (
+                                    <div>
+                                      آیا کالای مورد نظر را خریداری کرده‌اید ؟
+                                    </div>
+                                  ) : (
+                                    <div>
+                                      "آیا بسته مورد نظر را تحویل گرفته‌اید ؟"{" "}
+                                    </div>
+                                  )
+                                }
                                 onConfirm={this.buydone.bind(this, item.slug)}
                                 onCancel={this.cancel}
                                 okText="بله"
@@ -472,14 +462,24 @@ class UserOffer extends React.Component {
                                     borderRadius: "10px",
                                   }}
                                 >
-                                  خریداری شد
+                                  خریداری کردم
                                 </Button>
                               </Popconfirm>
                             )}
                             {item.status === "در انتظار تحویل" && (
                               <Popconfirm
                                 overlayStyle={{ fontFamily: "VazirD" }}
-                                title="آیا کالا تحویل شده است؟"
+                                title={
+                                  item.buy ? (
+                                    <div>
+                                      آیا کالای مورد نظر را تحویل داده‌اید ؟
+                                    </div>
+                                  ) : (
+                                    <div>
+                                      "آیا بسته مورد نظر را تحویل داده‌اید ؟"{" "}
+                                    </div>
+                                  )
+                                }
                                 onConfirm={this.receivedone.bind(
                                   this,
                                   item.slug
@@ -497,12 +497,10 @@ class UserOffer extends React.Component {
                                     borderRadius: "10px",
                                   }}
                                 >
-                                  تحویل شد
+                                  تحویل دادم
                                 </Button>
                               </Popconfirm>
                             )}
-                          </Col>
-                          <Col>
                             {item.status === "انجام شده" && (
                               <RateAndComment
                                 signal={this.callbackfunction}
@@ -510,6 +508,33 @@ class UserOffer extends React.Component {
                                 receiver={item.receiver_slug}
                                 loc={"آگهی‌دهنده"}
                               />
+                            )}
+                          </Col>
+                          <Col>
+                            {item.status != "تمام شده" && (
+                              <Popconfirm
+                                overlayStyle={{ fontFamily: "VazirD" }}
+                                title="آیا از حذف پیشنهاد مطمئن هستید ؟"
+                                onConfirm={this.delete.bind(this, item.slug)}
+                                onCancel={this.cancel}
+                                okText="بله"
+                                cancelText="خیر"
+                              >
+                                <a>
+                                  <Button
+                                    style={{
+                                      border: "hidden",
+                                      fontSize: "12px",
+                                      borderRadius: "10px",
+                                      color: "white",
+                                      backgroundColor: "red",
+                                    }}
+                                    onClick={this.offerlistmodal}
+                                  >
+                                    <b>حذف</b>
+                                  </Button>
+                                </a>
+                              </Popconfirm>
                             )}
                           </Col>
                         </Space>
