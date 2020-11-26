@@ -120,7 +120,7 @@ class ChatDetail extends Component {
             headers: { Authorization: `Token ${token}` },
           })
             .then((res) => {
-              let a = res.data.results[res.data.results.length - 1].text;
+              let a = res.data[res.data.length - 1].text;
               let b =
                 this.state.massages[this.state.massages.length - 1] &&
                 this.state.massages[this.state.massages.length - 1].text;
@@ -193,8 +193,6 @@ class ChatDetail extends Component {
     }, 600);
   };
 
-
-
   render() {
     const user = localStorage.getItem("user");
     const chatid = this.props.data;
@@ -203,8 +201,8 @@ class ChatDetail extends Component {
       <Card
         style={{ textAlign: "right", padding: "10px", fontFamily: "VazirD" }}
       >
-        <p>آگهی : {this.props.packet_title} </p>
-        <p>وضعیت آگهی : {this.props.offer}</p>
+        {/* <p>آگهی : {this.props.packet_title} </p>
+        <p>وضعیت آگهی : {this.props.offer}</p> */}
       </Card>
     );
 

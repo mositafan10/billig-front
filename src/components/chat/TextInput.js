@@ -44,6 +44,7 @@ class TextInput extends Component {
       <div>
         <Search
           size="large"
+          autoComplete={false}
           id="search"
           name="search"
           value={this.state.search}
