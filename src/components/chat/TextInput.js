@@ -14,15 +14,6 @@ class TextInput extends Component {
     loading: false
   };
 
-  handleReset = () => {
-    Array.from(document.querySelectorAll("Search")).forEach(
-      (input) => (input.value = "")
-    );
-    this.setState({
-      itemvalues: [{}],
-    });
-  };
-
   send = (value) => {
     if (value != ""){
     this.setState({loading:true})

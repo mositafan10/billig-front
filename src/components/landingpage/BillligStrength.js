@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Card, Divider } from "antd";
+import { Col, Row, Card, Divider, Carousel } from "antd";
 import bag from "../../media/Icon/022-bag.svg";
 import secure_payment from "../../media/Icon/secure_payment.svg";
 import send_parcel from "../../media/Icon/send_parcel.svg";

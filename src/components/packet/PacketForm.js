@@ -17,7 +17,6 @@ import {
 import { InfoCircleOutlined } from "@ant-design/icons";
 import UploadFile from "../utils/UploadPicture";
 import TextArea from "antd/lib/input/TextArea";
-import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;
@@ -230,6 +229,7 @@ class PackForm extends React.Component {
       });
   };
 
+  
   componentDidMount() {
     document.title = "ثبت آگهی ـ بیلیگ ";
     window.scroll(0,0)

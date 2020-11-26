@@ -165,7 +165,7 @@ class HeaderSection extends Component {
                       alignItems: "center",
                     }}
                   >
-                    <Dropdown
+                    {/* <Dropdown
                       overlay={
                         (this.props.isAuthenticated)
                           ? this.menu_login
@@ -173,7 +173,8 @@ class HeaderSection extends Component {
                       }
                       trigger={["click"]}
                       overlayStyle={{ fontFamily: "VazirD", textAlign:"right", display:"flex" }}
-                    >
+                    > */}
+                    <Link to={this.props.isAuthenticated ? '/profile' : '/login'}>
                       <div>
                         <Button
                           icon={
@@ -201,10 +202,11 @@ class HeaderSection extends Component {
                         {this.props.isAuthenticated ?
                         <span style={{marginLeft:"10px", marginRight:"10px"}}> <a style={{color:"black"}}>{this.state.userinfo.user && this.state.userinfo.user.name} </a> </span> 
                         :
-                        <span style={{marginRight:"10px"}} ><a style={{color:"black"}}> حساب کاربری </a></span>
+                        <span style={{marginRight:"10px"}} ><a style={{color:"black"}}> ورود به حساب کاربری </a></span>
                         }
                         </div>
-                    </Dropdown>
+                        </Link>
+                    {/* </Dropdown> */}
                   </div>
                 </div>
                 <Row>

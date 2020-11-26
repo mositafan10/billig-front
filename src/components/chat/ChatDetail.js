@@ -143,17 +143,17 @@ class ChatDetail extends Component {
     }
   };
 
-  // showDrawer = () => {
-  //   this.setState({
-  //     visible: true,
-  //   });
-  // };
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
 
   onClose = () => {
     this.setState({
       visible: false,
     });
-    // this.props.parentCallback();
+    this.props.parentCallback();
     this.componentWillUnmount();
   };
 
@@ -424,7 +424,7 @@ class ChatDetail extends Component {
                                 </div>
                               )}
                               <br />
-                              <div style={{textAlign:"left"}}>
+                              <div style={{textAlign:"right"}}>
                               {moment(item.create_at).format("HH:mm")} 
                               </div>
                             </div>

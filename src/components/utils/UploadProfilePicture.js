@@ -2,6 +2,7 @@ import React from "react";
 import { Upload, message, Row, Col, Spin, Button } from "antd";
 import { LoadingOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
 import { config } from "../../Constant";
+import { Image } from "react-bootstrap";
 
 var url = config.url.API_URL;
 
@@ -57,19 +58,21 @@ class UploadProfilePicture extends React.Component {
                 <Spin size="large" />
               </div>
             ) : (
-              this.props.data ?
+              this.props.data ? (
               <div style={{width:"auto", height:"100%"}}>
               <img
                 src={`${url}dstatic/${this.props.data}`}
                 alt="avatar"
                 width={200}
-                style={{ borderRadius: "50%", marginTop: "30px" }}
+                style={{ borderRadius: "10px", marginTop: "30px" }}
               />
-              </div>
-              :
+              </div> )
+              : (
               <UserOutlined style={{fontSize:"100px"}} />
-            )}
+            ))}
             <br />
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <Upload
               name="billlig"
               className="avatar-uploader"
@@ -82,7 +85,7 @@ class UploadProfilePicture extends React.Component {
               <br />
               <Button style={{fontSize:"14px", borderRadius:"10px"}}>تغییر تصویر</Button>
             </Upload>
-          </Col>
+            </Col>
         </Row>
       </div>
     );

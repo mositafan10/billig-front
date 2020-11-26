@@ -243,7 +243,7 @@ class SignUpForm extends React.Component {
               onCancel={this.handleCancel}
               cancelText="انصراف"
               okText="ارسال"
-              confirmLoading={this.setState.otploading}
+              confirmLoading={this.state.otploading}
               okButtonProps={{
                 form: "otpInsert",
                 key: "submit",
