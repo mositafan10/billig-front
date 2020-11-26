@@ -36,7 +36,7 @@ class TextInput extends Component {
       });
   }};
 
-  // handleFields = (e) => this.setState({ [e.target.name]: e.target.value });
+  handleFields = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     return (
@@ -46,7 +46,7 @@ class TextInput extends Component {
           id="search"
           name="search"
           value={this.state.search}
-          // onChange={this.handleFields}
+          onChange={this.handleFields}
           placeholder="پیام خود را وارد کنید"
           onSearch={(value) => this.send(value)}
           enterButton={this.state.loading ? <LoadingOutlined style={{margin:"5px 7px"}}/> : "ارسال"}
