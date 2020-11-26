@@ -85,8 +85,6 @@ class ChatDetail extends Component {
       fileList: [],
       interval: 1,
       new_mass_vis: false,
-      count: 0,
-      page: 0
     };
   }
 
@@ -95,9 +93,6 @@ class ChatDetail extends Component {
   componentDidUpdate = (prevProps) => {
     const chatid = this.props.data;
     if (this.props.visible !== prevProps.visible) {
-      setTimeout(() => {
-        this.scrollToMyRef();
-      }, 500);
       this.setState({
         offer: this.props.offer,
         visible: this.props.visible,
@@ -110,12 +105,15 @@ class ChatDetail extends Component {
           this.setState({
             massages: res.data,
             loading: false,
-            count: res.data.count,
-          })
+          }),
+          setTimeout(() => {
+            this.scrollToMyRef();
+          }, 500)
         )
-        .catch((error) => message.error(error.response.data.detail));
+
+      // REFRESH CHAT EACH 5 SECOND AND CHECK NEW MASSAGE
       if (this.props.data !== prevProps.data) {
-        this.state.interval = setInterval(() => {
+          this.state.interval = setInterval(() => {
           Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
             headers: { Authorization: `Token ${token}` },
           })
@@ -124,17 +122,16 @@ class ChatDetail extends Component {
               let b =
                 this.state.massages[this.state.massages.length - 1] &&
                 this.state.massages[this.state.massages.length - 1].text;
-              if (a !== b && b != undefined) {
-                this.setState({
-                  massages: res.data,
-                  count: res.data.count,
-                });
+                  if (a !== b && b != undefined) {
+                    this.setState({
+                      massages: res.data,
+                    }); 
 
-                if (res.data.count > 8) {
-                  this.setState({
-                    new_mass_vis: true,
-                  });
-                }
+                  if (res.data.length > 8) {
+                    this.setState({
+                      new_mass_vis: true,
+                    });
+                  }
               }
             })
             .catch((error) => console.log(error));
@@ -187,10 +184,9 @@ class ChatDetail extends Component {
           massages: res.data,
         })
       )
-      .catch((error) => console.log(error));
     setTimeout(() => {
       this.scrollToMyRef();
-    }, 600);
+    }, 500);
   };
 
   render() {
@@ -201,8 +197,6 @@ class ChatDetail extends Component {
       <Card
         style={{ textAlign: "right", padding: "10px", fontFamily: "VazirD" }}
       >
-        {/* <p>آگهی : {this.props.packet_title} </p>
-        <p>وضعیت آگهی : {this.props.offer}</p> */}
       </Card>
     );
 

@@ -240,7 +240,7 @@ class TravelList extends React.Component {
                                   fontSize:"12px"
                                 }}
                               >
-                                پیشنهادها
+                                پیشنهادها  ( {item.offer_count} )
                               </Button>
                             </Col>
                             <Modal

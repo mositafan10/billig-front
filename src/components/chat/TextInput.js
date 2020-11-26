@@ -16,44 +16,43 @@ class TextInput extends Component {
 
   send = (value) => {
     if (value != ""){
-    this.setState({loading:true})
-    const token = localStorage.getItem("token");
-    const owner = localStorage.getItem("user");
-    Axios.post(
-      `${url}api/v1/chat/messages/${this.props.data}`,
-      {
-        owner: owner,
-        text: value,
-      },
-      { headers: { Authorization: `Token ${token}` } }
-    )
-      .then((res) => 
-      this.setState({loading:false}),
-      this.props.handler()
+      const token = localStorage.getItem("token");
+      const owner = localStorage.getItem("user");
+      this.setState({loading:true})
+      Axios.post(
+        `${url}api/v1/chat/messages/${this.props.data}`,
+        {
+          owner: owner,
+          text: value,
+        },
+        { headers: { Authorization: `Token ${token}` } }
       )
-      .catch((error) => console.error(error));
-    this.setState({
-      search: "",
-    });
+        .then((res) => 
+          this.setState({loading:false}),
+          this.props.handler()
+        )
+      this.setState({
+        search: "",
+      });
   }};
 
-  handleFields = (e) => this.setState({ [e.target.name]: e.target.value });
+  // handleFields = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     return (
       <div>
         <Search
           size="large"
-          autoComplete={false}
           id="search"
           name="search"
           value={this.state.search}
-          onChange={this.handleFields}
+          // onChange={this.handleFields}
           placeholder="پیام خود را وارد کنید"
           onSearch={(value) => this.send(value)}
           enterButton={this.state.loading ? <LoadingOutlined style={{margin:"5px 7px"}}/> : "ارسال"}
+          autoComplete={false}
           autoSize
-          autoFocus
+          // autoFocus
         />
       </div>
     );

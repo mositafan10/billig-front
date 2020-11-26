@@ -9,11 +9,12 @@ var url = config.url.API_URL;
 class ChatContacs extends Component {
   state = {
     contacs: [],
-    loading: true,
+    loading: false,
     visible: true
   };
 
   componentDidMount() {
+    this.setState({loading:true})
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/chat/chatlist/`, {
       headers: { Authorization: `Token ${token}` },
@@ -58,8 +59,6 @@ class ChatContacs extends Component {
             renderItem={(item) => (
               <List.Item
                 style={{
-                  borderRight: "solid",
-                  borderRightColor: "aliceblue",
                   margin: "0 20px 0 0",
                 }}
               >
@@ -73,8 +72,8 @@ class ChatContacs extends Component {
                         />
                       </Badge>
                       :
-                      <Avatar >
-                      <UserOutlined style={{backgroundColor:"white", color:"black", border:"1px solid"}}/>
+                      <Avatar style={{backgroundColor:"white", color:"black", border:"1px solid"}}>
+                      <UserOutlined />
                       </Avatar>
                     ) : (
                       item.sender_avatar ?
