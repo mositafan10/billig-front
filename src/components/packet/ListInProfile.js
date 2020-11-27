@@ -5,13 +5,10 @@ import { Spin } from "antd";
 import {
   Popconfirm,
   notification,
-  Table,
   List,
   Row,
   Col,
-  Space,
   Button,
-  Divider,
 } from "antd";
 import OfferListModal from "../offer/OfferListModal";
 import EditPacket from "./EditPacket";
@@ -225,7 +222,7 @@ class PacketUserList extends React.Component {
                       </span>
                       <hr />
                       <Row
-                        style={{ justifyContent: "center", display: "flex" }}
+                        style={style_center}
                       >
                         <Col>
                           <div>
@@ -276,7 +273,7 @@ class PacketUserList extends React.Component {
                             borderLeft: "1px solid",
                           }}
                         >
-                          { (item.status === "منتشر شده" || item.status === "دارای پیشنهاد") ?
+                          { (item.status === "منتشر شده" || item.status === "دارای پیشنهاد" || item.status === "در انتظار تایید") ?
                           <EditPacket data={item.slug} update={this.update}/>
                           :
                           <Button style={{
@@ -289,7 +286,7 @@ class PacketUserList extends React.Component {
                           span={12}
                           style={{ display: "flex", justifyContent: "center" }}
                         >
-                          { (item.status === "منتشر شده" || item.status === "دارای پیشنهاد") ?
+                          { (item.status === "منتشر شده" || item.status === "دارای پیشنهاد" || item.status === "در انتظار تایید" ) ?
                           <Popconfirm
                             overlayStyle={{ fontFamily: "VazirD" }}
                             title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -386,7 +383,7 @@ class PacketUserList extends React.Component {
                           </span>
                         </Row>
                         <Row
-                          style={{ justifyContent: "center", display: "flex" }}
+                          style={style_center}
                         >
                           <Col>
                             <div>

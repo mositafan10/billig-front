@@ -214,6 +214,52 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
+                        <h4>وزن حدودی</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                           {this.state.order.weight}<span style={{marginRight:"5px"}}> کیلوگرم </span>
+                      </Col>
+                    </Row>
+                    <hr style={{ color: "aliceblue" }} />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>ابعاد بسته</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                          {this.state.order.dimension}
+                      </Col>
+                    </Row>
+                    <hr style={{ color: "aliceblue" }} />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
                         <h4>آگهی دهنده</h4>
                       </Col>
                       <Col
@@ -304,7 +350,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}><a>نمایش</a></Button>
+                        <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}><Link>نمایش</Link>  </Button>
                       </Col>
                       <Modal
                       visible={this.state.phonenumbervisibility}

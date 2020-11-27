@@ -12,7 +12,7 @@ class VerifyTransaction extends Component {
   state = {
     payment_status: "",
     token: "",
-    loading: false,
+    loading: true,
     paymentDate: "",
     cardNumber: "",
     transId: "",
@@ -42,24 +42,25 @@ class VerifyTransaction extends Component {
       { headers: { Authorization: `Token ${token1}` } }
     )
       .then((res) => {
-        setTimeout((res) => {
+        setTimeout(() => {
           this.setState({ 
             amount: res.data.amount,
-            transID: res.data.transID,
+            transId: res.data.transId,
             cardNumber: res.data.cardNumber,
             paymentDate: res.data.paymentDate,
             loading: false });
+          notification["success"]({
+              message: "پرداخت شما با موفقیت انجام شد",
+              style: {
+                fontFamily: "VazirD",
+                textAlign: "right",
+                float: "right",
+                width: "max-content",
+              },
+              duration: 3.5,
+            });
         }, 4000);
-        notification["success"]({
-          message: "پرداخت شما با موفقیت انجام شد",
-          style: {
-            fontFamily: "VazirD",
-            textAlign: "right",
-            float: "right",
-            width: "max-content",
-          },
-          duration: 3.5,
-        });
+        
       })
       .catch((error) =>
         notification["errors"]({
@@ -74,6 +75,16 @@ class VerifyTransaction extends Component {
         })
       );
   };
+
+  currency = (value) => {
+    const p =  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return p
+  }
+
+  cardnumber = (value) => {
+    const p =  `${value}`.replace(/\B(?=(\d{4})+(?!\d))/g, " - ")
+    return p
+  }
 
   render() {
     if (this.state.payment_status !== "OK") {
@@ -114,7 +125,7 @@ class VerifyTransaction extends Component {
       return (
         <div >
           {this.state.loading ? (
-            <div style={{ marginTop: "100px" }}>
+            <div style={{ margin: "100px 0 100px", display:"flex", justifyContent:"center" }}>
               <Spin />
             </div>
           ) : (
@@ -168,7 +179,7 @@ class VerifyTransaction extends Component {
                     lg={10}
                     xl={10}
                   >
-                    {this.state.transID}
+                    {this.state.transId}
                   </Col>
                 </Row>
                 <Divider/>
@@ -181,7 +192,7 @@ class VerifyTransaction extends Component {
                     lg={14}
                     xl={14}
                   >
-                    <h4>مبلغ تراکنش</h4>
+                    <h4>مبلغ تراکنش (تومان)</h4>
                   </Col>
                   <Col
                     style={style_left}
@@ -191,30 +202,30 @@ class VerifyTransaction extends Component {
                     lg={10}
                     xl={10}
                   >
-                    {this.state.amount}
+                    {this.currency(this.state.amount)}
                   </Col>
                 </Row>
                 <Divider/>
                 <Row style={style_right}>
                   <Col
                     style={style_right}
-                    xs={14}
-                    sm={14}
-                    md={14}
-                    lg={14}
-                    xl={14}
+                    xs={10}
+                    sm={10}
+                    md={10}
+                    lg={10}
+                    xl={10}
                   >
                     <h4>شماره کارت</h4>
                   </Col>
                   <Col
                     style={style_left}
-                    xs={10}
-                    sm={10}
-                    md={10}
-                    lg={10}
-                    xl={10}
+                    xs={14}
+                    sm={14}
+                    md={14}
+                    lg={14}
+                    xl={14}
                   >
-                    {this.state.cardNumber}
+                    {this.cardnumber(this.state.cardNumber)}
                   </Col>
                 </Row>
                 <Divider/>

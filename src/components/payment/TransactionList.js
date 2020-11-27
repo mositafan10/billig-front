@@ -15,14 +15,14 @@ class TransactionList extends Component {
 
   columns = [
     {
-      title: "تاریخ",
+      title: "تاریخ پرداخت",
       dataIndex: "create_at",
       key: "transId",
       align: "right",
-      render: (dataIndex) => <p>{moment(dataIndex).format("Do MMM YYYY")}</p>,
+      render: (dataIndex) => <p>{moment(dataIndex).format("Do MMM")}</p>,
     },
     {
-      title: "مقدار",
+      title: "مبلغ (تومان)",
       dataIndex: "amount",
       key: "transId",
       render: (dataIndex) => <p>{this.currency(dataIndex)}</p>

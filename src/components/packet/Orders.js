@@ -63,6 +63,7 @@ class Orders extends React.Component {
                         <GlobalOutlined style={{fontSize:"25px", marginRight:"10px"}} />
                         :
                         <img
+                          loading="lazy"
                           src={`${url}dstatic/${item.origin_country.icon}`}
                           width={50}
                           style={{ borderRadius: "5px" }}
@@ -78,6 +79,7 @@ class Orders extends React.Component {
                       </Col>
                       <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
                         <img
+                          loading="lazy"
                           src={`${url}dstatic/${item.destination_country.icon}`}
                           width={50}
                           style={{ borderRadius: "5px" }}

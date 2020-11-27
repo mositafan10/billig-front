@@ -12,7 +12,6 @@ import {
   InputNumber,
 } from "antd";
 import Axios from "axios";
-import UploadFile from "../utils/UploadPicture";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;
@@ -26,6 +25,7 @@ class PacketForEdit extends Component {
     cities_destination: [],
     city_origin_dis: true,
     city_destination_dis: true,
+    category: [],
     pic_id: 1,
     buy: this.props.data.buy,
     loading: false,
@@ -34,15 +34,6 @@ class PacketForEdit extends Component {
     parcel_price: this.props.data.parcel_price,
     parcel_link: this.props.data.parcel_link,
   };
-
-  PacketCategory = [
-    { value: 0, label: "مدارک و مستندات" },
-    { value: 1, label: "کتاب و مجله" },
-    { value: 2, label: "لوازم الکترونیکی" },
-    { value: 3, label: "کفش و پوشاک" },
-    { value: 4, label: "لوازم آرایشی و بهداشتی" },
-    { value: 5, label: "سایر موارد" },
-  ];
 
   Dimension = [
     { value: 0, label: "کوچک" },
@@ -84,7 +75,6 @@ class PacketForEdit extends Component {
     }
   };
 
-
   handlephonenumber = () => {
     if (this.state.phonenumber_visible) {
       this.setState({ phonenumber_visible: false });
@@ -97,7 +87,6 @@ class PacketForEdit extends Component {
     const target = event.target;
     const name = target.name;
     this.setState({ [name]: target.value });
-    console.log(this.state.title);
   };
 
   get_city_origin = (e) => {
@@ -107,7 +96,6 @@ class PacketForEdit extends Component {
         cities_origin: res.data,
         city_origin_dis: false,
       });
-      console.log(res.data);
     });
   };
 
@@ -133,7 +121,9 @@ class PacketForEdit extends Component {
       : "";
     const category = values.category
       ? values.category
-      : this.search(this.props.data.category, this.PacketCategory);
+      : this.props.data.category
+      ? this.props.data.category.id
+      : "";
     const weight = values.weight ? values.weight : this.props.data.weight;
     const dimension = values.dimension
       ? values.dimension
@@ -212,6 +202,11 @@ class PacketForEdit extends Component {
         countries: res.data,
       });
     });
+    Axios.get(`${url}api/v1/advertise/categoryList/1`).then((res) => {
+      this.setState({
+        category: res.data,
+      });
+    });
   };
 
   callbackFunction = (childData) => {
@@ -277,7 +272,6 @@ class PacketForEdit extends Component {
                 <div>
                   <Form.Item
                     name="no_matter_origin"
-                    // valuePropName="checked"
                     style={{ textAlign: "center" }}
                   >
                       <Checkbox
@@ -407,14 +401,21 @@ class PacketForEdit extends Component {
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
-                    نوع بسته
+                    دسته‌بندی
                   </Divider>
                   <Form.Item name="category" style={{ textAlign: "right" }}>
                     <Select
-                      defaultValue={this.props.data.category}
-                      options={this.PacketCategory}
+                      defaultValue={this.props.data.category.name}
                       dropdownStyle={{ fontFamily: "VazirD" }}
-                    />
+                    >
+                      {this.state.category.map((e, key) => {
+                        return (
+                          <Option key={key} value={e.id}>
+                            {e.name}
+                          </Option>
+                        );
+                      })}
+                    </Select>
                   </Form.Item>
                 </Col>
               </Row>
@@ -438,7 +439,7 @@ class PacketForEdit extends Component {
               </Row>
               <Row style={{ justifyContent: "center", display: "flex" }}>
                 <Divider plain orientation="center">
-                  وزن بسته (کیلوگرم)
+                  وزن حدودی بسته (کیلوگرم)
                 </Divider>
                 <Form.Item
                   name="weight"

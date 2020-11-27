@@ -11,7 +11,6 @@ import { config } from "../../Constant";
 import ChangePassword from "./ChangePassword";
 
 var url = config.url.API_URL;
-
 const style_left = { display: "flex", justifyContent: "flex-end" , fontSize:"16px"};
 const style_right = { display: "flex", justifyContent: "right", fontSize:"16px" };
 
@@ -58,7 +57,6 @@ class EditProfile extends React.Component {
     this.setState({
       modalvisible: false,
       visible:false,
-      passmodal: false
     });
   };
 
@@ -199,15 +197,7 @@ class EditProfile extends React.Component {
               />
             </Modal>
             <br/><br/>
-            <Button style={{ fontSize: "14px", borderRadius: "10px" }} onClick={()=>{this.setState({passmodal:true})}}>تغییر رمز عبور</Button>
-              <Modal 
-              style={{fontFamily:"VazirD"}} 
-              visible={this.state.passmodal}
-              onCancel={this.handleCancel}
-              cancelText="بازگشت"
-              okButtonProps={{ hidden: true }}>
-              <ChangePassword />
-              </Modal>
+          <ChangePassword />
           </Col>
         </Row>
         <Divider/>

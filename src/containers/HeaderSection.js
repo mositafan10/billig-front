@@ -5,16 +5,14 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
 import {
   Button,
-  Dropdown,
   Menu,
   Row,
   Col,
-  Badge,
   Drawer,
   Avatar,
   Divider,
 } from "antd";
-import { UserOutlined, MenuOutlined, BellOutlined } from "@ant-design/icons";
+import { UserOutlined, MenuOutlined } from "@ant-design/icons";
 import logo from "../media/billlig.png";
 import {
   ContainerOutlined,
@@ -165,15 +163,6 @@ class HeaderSection extends Component {
                       alignItems: "center",
                     }}
                   >
-                    {/* <Dropdown
-                      overlay={
-                        (this.props.isAuthenticated)
-                          ? this.menu_login
-                          : this.menu_logout
-                      }
-                      trigger={["click"]}
-                      overlayStyle={{ fontFamily: "VazirD", textAlign:"right", display:"flex" }}
-                    > */}
                     <Link to={this.props.isAuthenticated ? '/profile' : '/login'}>
                       <div>
                         <Button
@@ -206,7 +195,6 @@ class HeaderSection extends Component {
                         }
                         </div>
                         </Link>
-                    {/* </Dropdown> */}
                   </div>
                 </div>
                 <Row>
@@ -257,10 +245,10 @@ class HeaderSection extends Component {
         <Breakpoint small down>
           <div
             style={{
-              position: "fixed",
-              zIndex: 2,
+              zIndex: 1,
               backgroundColor: "white",
               boxShadow: "0 0 5px 1px",
+              width:"-moz-available",
             }}
           >
             <Row>
@@ -333,7 +321,7 @@ class HeaderSection extends Component {
               >
                 <a href="/">
                   <img
-                    style={{ width: "80%", height: "auto" }}
+                    style={{ width: "70%", height: "auto" }}
                     alt="billlig"
                     src={logo}
                   />

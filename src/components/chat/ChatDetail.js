@@ -10,7 +10,6 @@ import {
   Upload,
   Button,
   Card,
-  message,
   Badge,
   Dropdown,
 } from "antd";
@@ -28,6 +27,7 @@ import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
 import CheckMarkWhite  from '../../media/small_icon/CheckMarkWhite.png';
 import SingleCheck  from '../../media/small_icon/SingleCheck.png';
+import DownloadPic1 from "../utils/DownloadPic1";
 
 var url = config.url.API_URL;
 const token = localStorage.getItem("token");
@@ -381,14 +381,7 @@ class ChatDetail extends Component {
                                 item.text
                               ) : (
                                 <div>
-                                  <img
-                                    src={`${url}dstatic/${item.picture}`}
-                                    style={{
-                                      borderRadius: "10px",
-                                      margin: "5px 5px 0 5px",
-                                    }}
-                                    width={150}
-                                  />
+                                   <DownloadPic1 size={200} data={item.picture} />
                                 </div>
                               )}
                               <br />
@@ -405,14 +398,7 @@ class ChatDetail extends Component {
                                 item.text
                               ) : (
                                 <div>
-                                  <img
-                                    src={`${url}dstatic/${item.picture}`}
-                                    style={{
-                                      borderRadius: "10px",
-                                      margin: "5px",
-                                    }}
-                                    width={150}
-                                  />
+                                  <DownloadPic1 size={200} data={item.picture} />
                                 </div>
                               )}
                               <br />
@@ -572,14 +558,7 @@ class ChatDetail extends Component {
                                 item.text
                               ) : (
                                 <div>
-                                  <img
-                                    src={`${url}dstatic/${item.picture}`}
-                                    style={{
-                                      borderRadius: "10px",
-                                      margin: "5px 5px 0 5px",
-                                    }}
-                                    width={150}
-                                  />
+                                 <DownloadPic1 size={150} data={item.picture} />
                                 </div>
                               )}
                               <br />
@@ -596,14 +575,7 @@ class ChatDetail extends Component {
                                 item.text
                               ) : (
                                 <div>
-                                  <img
-                                    src={`${url}dstatic/${item.picture}`}
-                                    style={{
-                                      borderRadius: "10px",
-                                      margin: "5px",
-                                    }}
-                                    width={150}
-                                  />
+                                  <DownloadPic1 size={150} data={item.picture} />
                                 </div>
                               )}
                               <br />

@@ -30,31 +30,29 @@ class PackForm extends React.Component {
     cities_destination: [],
     city_origin_dis: true,
     city_destination_dis: true,
+    category: [],
     pic_id: 1,
     buy: false,
-    ocv: "",
     category_other: false,
     loading: false,
-    current: 0,
+    loadingCity: false,
     radio_value: false,
-    category: "",
     weight: "",
     dimension: "",
     phonenumber_visible: false,
     no_matter_origin: false,
-    popvisble: false,
+    infovisible1: false,
+    infovisible2: false,
+    infovisible3: false,
+    infovisible4: false,
+    infovisible5: false,
+    infovisible6: false,
+    infovisible7: false,
+    infovisible8: false,
+    destination_city_select: []
   };
 
-  PacketCategory = [
-    { value: "0", label: "مدارک و مستندات" },
-    { value: "1", label: "کتاب و مجله" },
-    { value: "2", label: "لوازم الکترونیکی" },
-    { value: "3", label: "کفش و پوشاک" },
-    { value: "4", label: "لوازم آرایشی و بهداشتی" },
-    { value: "5", label: "دارو" },
-    { value: "6", label: "سایر موارد" },
-  ];
-
+ 
   DIMENSION = [
     { value: "0", label: "کوچک" },
     { value: "1", label: "متوسط" },
@@ -66,6 +64,65 @@ class PackForm extends React.Component {
       radio_value: e.target.value,
     });
   };
+
+  handleOkinfo = (e) => {
+    this.setState({
+      infovisible1: false,
+      infovisible2: false,
+      infovisible3: false,
+      infovisible4: false,
+      infovisible5: false,
+      infovisible6: false,
+      infovisible7: false,
+      infovisible8: false,
+    })
+  }
+
+  showPopconfirm1 = () => {
+    this.setState({
+      infovisible1: true
+    }) 
+  }
+  showPopconfirm2 = () => {
+    this.setState({
+      infovisible2: true
+    }) 
+  }
+  showPopconfirm3 = () => {
+    this.setState({
+      infovisible3: true
+    }) 
+  }
+  showPopconfirm3 = () => {
+    this.setState({
+      infovisible3: true
+    }) 
+  }
+  showPopconfirm4 = () => {
+    this.setState({
+      infovisible4: true
+    }) 
+  }
+  showPopconfirm5 = () => {
+    this.setState({
+      infovisible5: true
+    }) 
+  }
+  showPopconfirm6 = () => {
+    this.setState({
+      infovisible6: true
+    }) 
+  }
+  showPopconfirm7 = () => {
+    this.setState({
+      infovisible7: true
+    }) 
+  }
+  showPopconfirm8 = () => {
+    this.setState({
+      infovisible8: true
+    }) 
+  }
 
   onChangedimension = (value) => {
     this.setState({ dimension: value });
@@ -101,7 +158,9 @@ class PackForm extends React.Component {
         cities_destination: res.data,
         city_destination_dis: false,
       });
+      this.setState({loadingCity:false})
     });
+    this.setState({loadingCity: true, destination_city_select:" "})
   };
 
   handlebuy = () => {
@@ -128,6 +187,7 @@ class PackForm extends React.Component {
     }
   };
 
+  // should fix dut to new model 
   changecategory = (value) => {
     this.setState({ category: value });
     if (value === "6") {
@@ -238,6 +298,11 @@ class PackForm extends React.Component {
         countries: res.data,
       });
     });
+    Axios.get(`${url}api/v1/advertise/categoryList/1`).then((res) => {
+      this.setState({
+        category: res.data,
+      });
+    });
   }
 
   render() {
@@ -256,6 +321,8 @@ class PackForm extends React.Component {
                   <Popconfirm
                     overlayStyle={{ fontFamily: "VazirD" }}
                     cancelButtonProps={{ hidden: "true" }}
+                    visible={this.state.infovisible1}
+                    onConfirm={this.handleOkinfo}
                     okText="متوجه شدم"
                     title={
                       <div>
@@ -266,7 +333,7 @@ class PackForm extends React.Component {
                       </div>
                     }
                   >
-                    <InfoCircleOutlined />
+                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm1}><InfoCircleOutlined /></Button>
                   </Popconfirm>
                   <Checkbox onChange={this.handlebuy.bind(this)}>
                     <span style={{ marginRight: "10px" }}>
@@ -301,6 +368,8 @@ class PackForm extends React.Component {
                   >
                     <Space>
                       <Popconfirm
+                        visible={this.state.infovisible2}
+                        onConfirm={this.handleOkinfo}
                         overlayStyle={{ fontFamily: "VazirD" }}
                         cancelButtonProps={{ hidden: "true" }}
                         okText="متوجه شدم"
@@ -314,7 +383,7 @@ class PackForm extends React.Component {
                           </div>
                         }
                       >
-                        <InfoCircleOutlined />
+                  <Button  style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm2}><InfoCircleOutlined /></Button>
                       </Popconfirm>
                       <Checkbox
                         onChange={this.handlenomattercountry.bind(this)}
@@ -330,6 +399,10 @@ class PackForm extends React.Component {
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
                     <Popconfirm
+                  
+                      className="info3"
+                      visible={this.state.infovisible3}
+                      onConfirm={this.handleOkinfo}
                       overlayStyle={{ fontFamily: "VazirD" }}
                       cancelButtonProps={{ hidden: "true" }}
                       okText="متوجه شدم"
@@ -345,7 +418,7 @@ class PackForm extends React.Component {
                         )
                       }
                     >
-                      <InfoCircleOutlined />
+                  <Button className="info3" style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm3}><InfoCircleOutlined /></Button>
                     </Popconfirm>
                     <span style={{ marginRight: "10px" }}>
                       {this.state.buy ? (
@@ -405,6 +478,7 @@ class PackForm extends React.Component {
                     <Select
                       disabled={this.state.city_origin_dis}
                       dropdownStyle={{ fontFamily: "VazirD" }}
+                      loading={this.state.loadingCity}
                     >
                       {this.state.cities_origin.map((e, key) => {
                         return (
@@ -421,6 +495,8 @@ class PackForm extends React.Component {
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
                     <Popconfirm
+                      visible={this.state.infovisible4}
+                      onConfirm={this.handleOkinfo}
                       overlayStyle={{ fontFamily: "VazirD" }}
                       cancelButtonProps={{ hidden: "true" }}
                       okText="متوجه شدم"
@@ -438,7 +514,7 @@ class PackForm extends React.Component {
                         )
                       }
                     >
-                      <InfoCircleOutlined />
+                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm4}><InfoCircleOutlined /></Button>
                     </Popconfirm>
                     {this.state.buy ? (
                       <span style={{ marginRight: "10px" }}>
@@ -484,6 +560,7 @@ class PackForm extends React.Component {
                     )}
                   </Divider>
                   <Form.Item
+
                     name="destination_city"
                     style={{ textAlign: "right" }}
                     rules={[
@@ -491,12 +568,14 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
-                      disabled={this.state.city_destination_dis}
+                      value={this.state.destination_city_select}
+                      onChange={this.changeCityDestination}
+x                     disabled={this.state.city_destination_dis}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
-                      {this.state.cities_destination.map((e, key) => {
+                      {this.state.cities_destination.map((e) => {
                         return (
-                          <Option key={key} value={e.id}>
+                          <Option key={e.id} value={e.id}>
                             {e.name}
                           </Option>
                         );
@@ -509,6 +588,8 @@ class PackForm extends React.Component {
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
                     <Popconfirm
+                      visible={this.state.infovisible5}
+                      onConfirm={this.handleOkinfo}
                       overlayStyle={{ fontFamily: "VazirD" }}
                       cancelButtonProps={{ hidden: "true" }}
                       okText="متوجه شدم"
@@ -520,7 +601,7 @@ class PackForm extends React.Component {
                         </div>
                       }
                     >
-                      <InfoCircleOutlined />
+                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm5}><InfoCircleOutlined /></Button>
                     </Popconfirm>
                     {this.state.buy ? (
                       <span style={{ marginRight: "10px" }}> ابعاد کالا *</span>
@@ -553,10 +634,17 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
-                      options={this.PacketCategory}
-                      onChange={this.changecategory}
+                      // onChange={this.changecategory}
                       dropdownStyle={{ fontFamily: "VazirD" }}
-                    />
+                    >
+                      {this.state.category.map((e, key) => {
+                        return (
+                          <Option key={key} value={e.id}>
+                            {e.name}
+                          </Option>
+                        );
+                      })}
+                    </Select>
                   </Form.Item>
                   <div
                     style={{
@@ -579,12 +667,14 @@ class PackForm extends React.Component {
                 <Col xs={24} sm={24} md={24} lg={20} xl={20} xxl={20}>
                   <Divider plain orientation="center">
                     <Popconfirm
+                      visible={this.state.infovisible6}
+                      onConfirm={this.handleOkinfo}
                       overlayStyle={{ fontFamily: "VazirD" }}
                       cancelButtonProps={{ hidden: "true" }}
                       okText="متوجه شدم"
-                      title="وزن بسته باید عددی بین ۱۰۰ گرم (۰.۱ کیلوگرم) تا ۳۰ کیلوگرم باشد"
+                      title="وزن بسته باید عددی بین ۰.۱ تا ۳۰ کیلوگرم باشد"
                     >
-                      <InfoCircleOutlined />
+                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm6}><InfoCircleOutlined /></Button>
                     </Popconfirm>
                     {this.state.buy ? (
                       <span style={{ marginRight: "10px" }}>
@@ -631,6 +721,8 @@ class PackForm extends React.Component {
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
                     <Popconfirm
+                      visible={this.state.infovisible7}
+                      onConfirm={this.handleOkinfo}
                       overlayStyle={{ fontFamily: "VazirD" }}
                       cancelButtonProps={{ hidden: "true" }}
                       okText="متوجه شدم"
@@ -641,7 +733,7 @@ class PackForm extends React.Component {
                         </p>
                       }
                     >
-                      <InfoCircleOutlined />
+                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm7}><InfoCircleOutlined /></Button>
                     </Popconfirm>
                     <span style={{ marginRight: "10px" }}>
                       مبلغ دستمزد (تومان) *
@@ -681,7 +773,15 @@ class PackForm extends React.Component {
                 <Divider plain orientation="center">
                   لینک کالا / وبسایت فروشگاه / آدرس فروشگاه
                 </Divider>
-                <Form.Item name="buy_link">
+                <Form.Item 
+                rules={[
+                  {
+                    required: this.state.buy ? true : false ,
+                    message:
+                      "مشخصات محل خرید کالا را وارد نمایید",
+                  },
+                ]}
+                name="buy_link">
                   <TextArea
                     rows={5}
                     placeholder="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر برای مسافر مفید باشد"
@@ -689,6 +789,8 @@ class PackForm extends React.Component {
                 </Form.Item>
                 <Divider plain orientation="center">
                   <Popconfirm
+                    visible={this.state.infovisible8}
+                    onConfirm={this.handleOkinfo}
                     overlayStyle={{ fontFamily: "VazirD" }}
                     cancelButtonProps={{ hidden: "true" }}
                     okText="متوجه شدم"
@@ -700,7 +802,7 @@ class PackForm extends React.Component {
                       </div>
                     }
                   >
-                    <InfoCircleOutlined />
+                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm8}><InfoCircleOutlined /></Button>
                   </Popconfirm>
                   <span style={{ marginRight: "10px" }}>قیمت کالا (تومان)</span>
                 </Divider>

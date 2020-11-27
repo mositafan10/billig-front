@@ -175,7 +175,7 @@ class SignUpForm extends React.Component {
                 },
               ]}
               hasFeedback
-              validateTrigger="onFinishField"
+              validateTrigger={this.onFinish}
             >
               <Input.Password
                 style={{ width: "300px", borderRadius: "10px" }}
@@ -197,7 +197,7 @@ class SignUpForm extends React.Component {
                     if (!value || getFieldValue("password") === value) {
                       return Promise.resolve();
                     }
-                    return Promise.reject("تکرار رمز عبور را مجدد وارد نمایید");
+                    return Promise.reject("تکرار رمز مطابقت ندارد");
                   },
                 }),
               ]}

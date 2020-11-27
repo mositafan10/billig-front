@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, message, Tooltip } from 'antd';  
+import { Button, message, Popconfirm } from 'antd';  
 import Axios from 'axios';
 import { config } from '../../Constant';
 
@@ -10,9 +10,19 @@ class SendTransactionInfo extends Component {
 
     state = {
         token: "",
+        visible: false
     }
     
+    handleOkinfo = () => {
+        this.setState({visible:false})
+    }
+
+    showInfo= () => {
+        this.setState({visible:true})
+    }
+
     sendapi = () => {
+        this.setState({visible:true})
         const token = localStorage.getItem('token');
         const amount_w = this.props.amount;
         const net_amount = ( 1 + 5/100 ) * amount_w * 10 ;
@@ -35,7 +45,20 @@ class SendTransactionInfo extends Component {
     render() {
         return (
             <div>
-               <Button onClick={this.sendapi.bind(this)} disabled={this.props.disabled ? true : false} style={{fontSize:"12px", border:"hidden", backgroundColor:"aliceblue", borderRadius:"10px"}}>تایید و پرداخت</Button> 
+            <Popconfirm
+            visible={this.state.visible}
+            onConfirm={this.sendapi}
+            overlayStyle={{ fontFamily: "VazirD" }}
+            cancelButtonProps={{ hidden: "true" }}
+            okText="متوجه شدم"
+            title={
+                <span>
+                طبق قوانین بیلیگ،‌ به میزان ۵ درصد به مبلغ تایید شده به عنوان کارمزد افزوده خواهد شد.
+                </span>
+            }
+          >
+               <Button onClick={this.showInfo.bind(this)} style={{fontSize:"12px", border:"hidden", backgroundColor:"green", color:"white", borderRadius:"10px"}}>تایید و پرداخت</Button> 
+            </Popconfirm>
             </div>
         );
     }
