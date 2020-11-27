@@ -74,15 +74,24 @@ class HeaderSection extends Component {
     const token = localStorage.getItem("token");
     {
       (token != null && token != "notready") &&
-        Axios.get(`${url}api/v1/account/userinfo/`, {
-          headers: { Authorization: `Token ${token}` },
+        Axios.post(`${url}api/v1/account/tokenValidation/`, {
+          token : token
         })
-          .then((res) => {
-            this.setState({
-              userinfo: res.data,
-            });
+        .then(res => {
+          console.log(res.data.valid)
+          if (res.data.valid){
+            Axios.get(`${url}api/v1/account/userinfo/`, {
+              headers: { Authorization: `Token ${token}` },
+            })
+              .then((res) => {
+                this.setState({
+                  userinfo: res.data,
+                });
+              })
+          } else {
+            this.props.logout();
+          }
           })
-          .catch((error) => console.error(error));
     }
   }
 
