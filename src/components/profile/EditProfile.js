@@ -14,6 +14,7 @@ var url = config.url.API_URL;
 const style_left = { display: "flex", justifyContent: "flex-end" , fontSize:"16px"};
 const style_right = { display: "flex", justifyContent: "right", fontSize:"16px" };
 
+
 class EditProfile extends React.Component {
   state = {
     user_profile: {},
@@ -69,6 +70,7 @@ class EditProfile extends React.Component {
     this.setState({modalvisible:false})
   };
 
+  
   render() {
     return (
       <div >

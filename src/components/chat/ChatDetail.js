@@ -309,8 +309,8 @@ class ChatDetail extends Component {
                       onChange={this.onChange}
                       fileList={this.fileList}
                       multiple="true"
-                      accept=".png,.jpeg"
-                    >
+                      accept=".png,.jpeg,.pdf"
+                      >
                       <Button
                         size="large"
                         icon={<LinkOutlined style={{ marginTop: "5px" }} />}
@@ -491,7 +491,7 @@ class ChatDetail extends Component {
                     onChange={this.onChange}
                     fileList={this.fileList}
                     multiple="true"
-                    accept=".png,.jpeg"
+                    accept=".png,.jpeg,.pdf"
                   >
                     <Button
                       size="large"

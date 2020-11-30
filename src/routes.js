@@ -22,6 +22,8 @@ import Advices from './pages/Advices';
 import BillligerGuide from './pages/‌BillligerGuide';
 import TravelerGuide from './pages/TravelerGuide'
 import ContactUs from './pages/ContactUs';
+import RulesCountry from './pages/rules/RulesCountry';
+import Germany from './pages/rules/Germany';
 
 class BaseRouter extends React.Component {
     render(){
@@ -50,6 +52,8 @@ class BaseRouter extends React.Component {
                 <Route exact path='/billliger' component={BillligerGuide} />
                 <Route exact path='/traveler' component={TravelerGuide} />
                 <Route exact path='/contact-us' component={ContactUs} />
+                <Route exact path='/rules' component={RulesCountry} />
+                <Route exact path='/rules/germany' component={Germany} />
                 <Route component={PageNotFound} />
                 <Redirect from='/home' to='/'/>
             </Switch>

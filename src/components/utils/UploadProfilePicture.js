@@ -1,8 +1,7 @@
 import React from "react";
-import { Upload, message, Row, Col, Spin, Button } from "antd";
-import { LoadingOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
+import { Upload, message, Row, Col, Spin, Button, notification } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 import { config } from "../../Constant";
-import { Image } from "react-bootstrap";
 
 var url = config.url.API_URL;
 
@@ -17,9 +16,19 @@ function beforeUpload(file) {
   if (!isJpgOrPng) {
     message.error("You can only upload JPG/PNG file!");
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
+  console.log(file.size)
+  const isLt2M = file.size / 1024 / 1024 < 10;
   if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
+    notification["error"]({
+      message: "حجم تصویر باید کمتر از ۱۰ مگابایت باشد",
+      style: {
+        fontFamily: "VazirD",
+        textAlign: "right",
+        float: "right",
+        width: "max-content",
+      },
+      duration: 2,
+    });
   }
   return isJpgOrPng && isLt2M;
 }
@@ -59,7 +68,7 @@ class UploadProfilePicture extends React.Component {
               </div>
             ) : (
               this.props.data ? (
-              <div style={{width:"auto", height:"100%"}}>
+              <div style={{width:"auto", height:"auto", textAlign:"center"}}>
               <img
                 src={`${url}dstatic/${this.props.data}`}
                 alt="avatar"

@@ -132,7 +132,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        {this.state.order.category}
+                        {this.state.order.category.name}
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />

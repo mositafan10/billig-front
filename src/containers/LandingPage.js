@@ -8,6 +8,7 @@ import CommentsBilllig from "../components/rating/CommentsBilllig";
 import CommentBillligCreate from "../components/rating/CommentBillligCreate";
 import MainBanner from "../components/landingpage/MainBanner";
 import BillligStrength from "../components/landingpage/BillligStrength";
+import { Breakpoint } from "react-socks";
 
 var url = config.url.API_URL;
 
@@ -46,7 +47,7 @@ class LandingPage extends React.Component {
             <Button style={{ borderRadius: "8px" }}>نمایش همه آگهی</Button>
           </Link>
         </Row>
-        <Divider style={{ opacity: "0" }} />
+        <Divider >مزیت‌های بیلیگ برای شما</Divider>
         <BillligStrength />
         <Divider>آخرین نظرات</Divider>
         <Row style={{ display: "flex", justifyContent: "center" }}>

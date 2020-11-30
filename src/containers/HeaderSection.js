@@ -3,15 +3,7 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import { Breakpoint } from "react-socks";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
-import {
-  Button,
-  Menu,
-  Row,
-  Col,
-  Drawer,
-  Avatar,
-  Divider,
-} from "antd";
+import { Button, Menu, Row, Col, Drawer, Avatar, Divider } from "antd";
 import { UserOutlined, MenuOutlined } from "@ant-design/icons";
 import logo from "../media/billlig.png";
 import {
@@ -69,57 +61,80 @@ class HeaderSection extends Component {
       Drawernotification: false,
     });
   };
-  
+
   componentDidMount() {
     const token = localStorage.getItem("token");
     {
-      (token != null && token != "notready") &&
+      token != null &&
+        token != "notready" &&
         Axios.post(`${url}api/v1/account/tokenValidation/`, {
-          token : token
-        })
-        .then(res => {
-          console.log(res.data.valid)
-          if (res.data.valid){
+          token: token,
+        }).then((res) => {
+          console.log(res.data.valid);
+          if (res.data.valid) {
             Axios.get(`${url}api/v1/account/userinfo/`, {
               headers: { Authorization: `Token ${token}` },
-            })
-              .then((res) => {
-                this.setState({
-                  userinfo: res.data,
-                });
-              })
+            }).then((res) => {
+              this.setState({
+                userinfo: res.data,
+              });
+            });
           } else {
             this.props.logout();
           }
-          })
+        });
     }
   }
 
   menu_login = (
     <Menu mode="inline" theme="light" style={{ textAlign: "right" }}>
       <Menu.Item key="1">
-        <Link to="/profile/mypacket"> آگهی‌های من <ShoppingOutlined /> </Link> 
+        <Link to="/profile/mypacket">
+          {" "}
+          آگهی‌های من <ShoppingOutlined />{" "}
+        </Link>
       </Menu.Item>
       <Menu.Item key="2">
-        <Link to="/profile/mytravel"> سفرهای من <AimOutlined /></Link> 
+        <Link to="/profile/mytravel">
+          {" "}
+          سفرهای من <AimOutlined />
+        </Link>
       </Menu.Item>
       <Menu.Item key="4">
-        <Link to="/profile/inbox"> صندوق پیام <CommentOutlined /></Link> 
+        <Link to="/profile/inbox">
+          {" "}
+          صندوق پیام <CommentOutlined />
+        </Link>
       </Menu.Item>
       <Menu.Item key="5">
-        <Link to="/profile/payment"> پرداخت <DollarCircleOutlined /></Link> 
+        <Link to="/profile/payment">
+          {" "}
+          پرداخت <DollarCircleOutlined />
+        </Link>
       </Menu.Item>
       <Menu.Item key="6">
-        <Link to="/profile/bookmark"> آگهی‌های نشان شده <HeartOutlined /></Link> 
+        <Link to="/profile/bookmark">
+          {" "}
+          آگهی‌های نشان شده <HeartOutlined />
+        </Link>
       </Menu.Item>
       <Menu.Item key="7">
-          <Link to="/profile/comments"> نظرات <CommentOutlined /></Link>
+        <Link to="/profile/comments">
+          {" "}
+          نظرات <CommentOutlined />
+        </Link>
       </Menu.Item>
       <Menu.Item key="8">
-        <Link to="/profile/"> اطلاعات کاربری <ContainerOutlined /></Link>
+        <Link to="/profile/">
+          {" "}
+          اطلاعات کاربری <ContainerOutlined />
+        </Link>
       </Menu.Item>
       <Menu.Item key="9" onClick={this.exit}>
-      <Link to="/"> خروج <VerticalLeftOutlined /></Link>
+        <Link to="/">
+          {" "}
+          خروج <VerticalLeftOutlined />
+        </Link>
       </Menu.Item>
     </Menu>
   );
@@ -155,7 +170,7 @@ class HeaderSection extends Component {
                     float: "left",
                     width: "max-content",
                     display: "flex",
-                    marginTop:"5px",
+                    marginTop: "5px",
                   }}
                 >
                   <div
@@ -163,7 +178,7 @@ class HeaderSection extends Component {
                       borderRadius: "25px",
                       border: "solid",
                       borderWidth: "1.5px",
-                      padding:"0 10px 0 20px",
+                      padding: "0 10px 0 20px",
                       height: "45px",
                       width: "max-content",
                       marginTop: "10px",
@@ -172,7 +187,9 @@ class HeaderSection extends Component {
                       alignItems: "center",
                     }}
                   >
-                    <Link to={this.props.isAuthenticated ? '/profile' : '/login'}>
+                    <Link
+                      to={this.props.isAuthenticated ? "/profile" : "/login"}
+                    >
                       <div>
                         <Button
                           icon={
@@ -195,15 +212,27 @@ class HeaderSection extends Component {
                             color: "white",
                             borderColor: "white",
                           }}
-                        >
-                        </Button>
-                        {this.props.isAuthenticated ?
-                        <span style={{marginLeft:"10px", marginRight:"10px"}}> <a style={{color:"black"}}>{this.state.userinfo.user && this.state.userinfo.user.name} </a> </span> 
-                        :
-                        <span style={{marginRight:"10px"}} ><a style={{color:"black"}}> ورود به حساب کاربری </a></span>
-                        }
-                        </div>
-                        </Link>
+                        ></Button>
+                        {this.props.isAuthenticated ? (
+                          <span
+                            style={{ marginLeft: "10px", marginRight: "10px" }}
+                          >
+                            {" "}
+                            <a style={{ color: "black" }}>
+                              {this.state.userinfo.user &&
+                                this.state.userinfo.user.name}{" "}
+                            </a>{" "}
+                          </span>
+                        ) : (
+                          <span style={{ marginRight: "10px" }}>
+                            <a style={{ color: "black" }}>
+                              {" "}
+                              ورود به حساب کاربری{" "}
+                            </a>
+                          </span>
+                        )}
+                      </div>
+                    </Link>
                   </div>
                 </div>
                 <Row>
@@ -257,7 +286,7 @@ class HeaderSection extends Component {
               zIndex: 1,
               backgroundColor: "white",
               boxShadow: "0 0 5px 1px",
-              width:"-moz-available",
+              width: "-moz-available",
             }}
           >
             <Row>
@@ -398,14 +427,15 @@ class HeaderSection extends Component {
                           )}
                           <Divider style={{ margin: "5px", opacity: "0" }} />
                           <p style={{ color: "white" }}>
-                            
                             {this.state.userinfo.user &&
                               this.state.userinfo.user.name}
                           </p>
                         </Row>
                       </div>
                     ) : (
-                      <p style={{ color: "white", marginTop: "10px" }}>حساب کاربری</p>
+                      <p style={{ color: "white", marginTop: "10px" }}>
+                        حساب کاربری
+                      </p>
                     )
                   }
                   placement="right"
@@ -442,20 +472,16 @@ class HeaderSection extends Component {
                           </Menu.Item>
                           <Menu.Item key="6" onClick={this.onClose}>
                             <Link to="/profile/bookmark">
-                               آگهی‌های نشان شده {" "}
+                              آگهی‌های نشان شده{" "}
                             </Link>
                             <HeartOutlined />
                           </Menu.Item>
                           <Menu.Item key="7" onClick={this.onClose}>
-                            <Link to="/profile/comments">
-                              نظرات{" "} 
-                            </Link>
+                            <Link to="/profile/comments">نظرات </Link>
                             <CommentOutlined />
                           </Menu.Item>
                           <Menu.Item key="8" onClick={this.onClose}>
-                            <Link to="/profile/">
-                               اطلاعات کاربری {" "}
-                            </Link>
+                            <Link to="/profile/">اطلاعات کاربری </Link>
                             <ContainerOutlined />
                           </Menu.Item>
                           <Menu.Item key="9" onClick={this.exit}>

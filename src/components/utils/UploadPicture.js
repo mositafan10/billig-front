@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Upload, notification } from "antd";
+import { Upload, notification, message } from "antd";
 import ImgCrop from "antd-img-crop";
 import { config } from "../../Constant";
 import DownloadPic from "../utils/DownloadPic";
@@ -12,6 +12,27 @@ const UploadFile = (props) => {
   const sendData = (newFileList) => {
     props.parentCallback(newFileList);
   };
+
+  function beforeUpload(file) {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG file!");
+    }
+    const isLt2M = file.size / 1024 / 1024 < 10;
+    if (!isLt2M) {
+      notification["error"]({
+        message: "حجم تصویر باید کمتر از ۱۰ مگابایت باشد",
+        style: {
+          fontFamily: "VazirD",
+          textAlign: "right",
+          float: "right",
+          width: "max-content",
+        },
+        duration: 2,
+      });
+    }
+    return isJpgOrPng && isLt2M;
+  }
 
   const onChange = ({ fileList: newFileList }) => {
     if (newFileList[0] && newFileList[0].status == "error") {
@@ -67,10 +88,10 @@ const UploadFile = (props) => {
             name="billig"
             listType="picture-card"
             onChange={onChange}
+            beforeUpload={beforeUpload}
             onPreview={onPreview}
             fileList={fileList}
-            modalOk="salam"
-          >
+          > 
             {fileList.length < 1 && "+ Upload"}
           </Upload>
         </ImgCrop>
