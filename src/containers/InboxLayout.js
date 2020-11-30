@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row } from 'antd';
 import ChatContacs from '../components/chat/ChatContacs';
 import ChatDetail from '../components/chat/ChatDetail';
-import chat from '../media/chat.svg';
+import ChatBox from '../media/ChatBox.svg';
 
 class InboxLayout extends React.Component {
 
@@ -64,8 +64,8 @@ class InboxLayout extends React.Component {
                         <div style={{alignContent:"center", margin:"40px 0"}}>
                             <img
                             alt = "billlig.com"
-                            src = {chat}
-                            style={{width:"70%", height:"auto"}}
+                            src = {ChatBox}
+                            style={{width:"60%", height:"auto"}}
                         /> 
                         </div>
                     </Col>
