@@ -208,10 +208,10 @@ class OfferDetail extends React.Component {
                     >
                       {this.state.travellist.map((e, key) => {
                         return (
-                          <option key={key} value={e.slug}>
+                          <Option key={key} value={e.slug}>
                             {e.destination.name} به {e.departure.name} در "
                             {moment(e.flight_date_start).format("D MMM")}"{" "}
-                          </option>
+                          </Option>
                         );
                       })}
                     </Select>

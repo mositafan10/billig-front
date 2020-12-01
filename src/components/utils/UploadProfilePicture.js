@@ -2,6 +2,8 @@ import React from "react";
 import { Upload, message, Row, Col, Spin, Button, notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { config } from "../../Constant";
+import ImgCrop from "antd-img-crop";
+
 
 var url = config.url.API_URL;
 
@@ -68,12 +70,13 @@ class UploadProfilePicture extends React.Component {
               </div>
             ) : (
               this.props.data ? (
-              <div style={{width:"auto", height:"auto", textAlign:"center"}}>
+              <div style={{textAlign:"center"}}>
               <img
                 src={`${url}dstatic/${this.props.data}`}
                 alt="avatar"
-                width={200}
-                style={{ borderRadius: "10px", marginTop: "30px" }}
+                width="250px"
+                height="250px"
+                style={{ borderRadius: "50%", marginTop: "30px" }}
               />
               </div> )
               : (
@@ -82,6 +85,15 @@ class UploadProfilePicture extends React.Component {
             <br />
           </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+          <ImgCrop
+          modalOk={<p style={{ fontFamily: "VazirD" }}>ارسال</p>}
+          modalCancel={<p style={{ fontFamily: "VazirD" }}>انصراف</p>}
+          modalTitle={
+            <p style={{ fontFamily: "VazirD", textAlign: "center" }}>
+              ویرایش تصویر
+            </p>
+          }
+        >
             <Upload
               name="billlig"
               className="avatar-uploader"
@@ -94,6 +106,7 @@ class UploadProfilePicture extends React.Component {
               <br />
               <Button style={{fontSize:"14px", borderRadius:"10px"}}>تغییر تصویر</Button>
             </Upload>
+            </ImgCrop>
             </Col>
         </Row>
       </div>

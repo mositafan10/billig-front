@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { List, Avatar, Button, Badge } from "antd";
-import { MoreOutlined, UserOutlined } from '@ant-design/icons';
+import { MoreOutlined, UserOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../../Constant";
 
@@ -10,11 +10,11 @@ class ChatContacs extends Component {
   state = {
     contacs: [],
     loading: false,
-    visible: true
+    visible: true,
   };
 
   componentDidMount() {
-    this.setState({loading:true})
+    this.setState({ loading: true });
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/chat/chatlist/`, {
       headers: { Authorization: `Token ${token}` },
@@ -25,14 +25,24 @@ class ChatContacs extends Component {
           loading: false,
         })
       )
-      .catch((error) => console.log(error));
   }
 
-  componentWillReceiveProps(){
-    this.componentDidMount()
+  componentWillReceiveProps() {
+    this.componentDidMount();
   }
 
-  sendData = (chatid, offer, sender_avatar, receiver_avatar, sender_slug, receiver_slug, sender_name, receiver_name, packet_title, visible) => {
+  sendData = (
+    chatid,
+    offer,
+    sender_avatar,
+    receiver_avatar,
+    sender_slug,
+    receiver_slug,
+    sender_name,
+    receiver_name,
+    packet_title,
+    visible
+  ) => {
     this.props.parentCallback(
       chatid,
       offer,
@@ -51,46 +61,65 @@ class ChatContacs extends Component {
     const user = localStorage.getItem("user");
     return (
       <div style={{ marginTop: "40px" }}>
-          <List
-            loading={this.state.loading}
-            itemLayout="horizontal"
-            dataSource={this.state.contacs}
-            locale={{ emptyText: <div>شما هنوز مذاکره‌ای آغاز نکرده‌اید<br/> مذاکره با ثبت پیشنهاد روی آگهی آغاز می شود.</div> }}
-            renderItem={(item) => (
-              <List.Item
-                style={{
-                  margin: "0 20px 0 0",
-                }}
-              >
-                <List.Item.Meta
-                  avatar={
-                    user == item.sender_slug ? (
-                    item.receiver_avatar ?
+        <List
+          loading={this.state.loading}
+          itemLayout="horizontal"
+          dataSource={this.state.contacs}
+          locale={{
+            emptyText: (
+              <div>
+                شما هنوز مذاکره‌ای آغاز نکرده‌اید
+                <br /> مذاکره با ثبت پیشنهاد روی آگهی آغاز می شود.
+              </div>
+            ),
+          }}
+          renderItem={(item) => (
+            <List.Item
+              style={{
+                margin: "0 20px 0 0",
+              }}
+            >
+              <List.Item.Meta
+                avatar={
+                  user == item.sender_slug ? (
+                    item.receiver_avatar ? (
                       <Badge count={item.not_seen}>
                         <Avatar
                           src={`${url}dstatic/media/${item.receiver_avatar}`}
                         />
                       </Badge>
-                      :
-                      <Avatar style={{backgroundColor:"white", color:"black", border:"1px solid"}}>
-                      <UserOutlined />
-                      </Avatar>
                     ) : (
-                      item.sender_avatar ?
-                      <Badge count={item.not_seen}>
-                        <Avatar
-                          src={`${url}dstatic/media/${item.sender_avatar}`}
-                        />
-                      </Badge>
-                       :
-                       <Avatar style={{backgroundColor:"white", color:"black", border:"1px solid"}}>
-                       <UserOutlined />
-                       </Avatar>
+                      <Avatar
+                        style={{
+                          backgroundColor: "white",
+                          color: "black",
+                          border: "1px solid",
+                        }}
+                      >
+                        <UserOutlined />
+                      </Avatar>
                     )
-                  }
-                  title={
-                    user == item.sender_slug ? (
-                      <div>
+                  ) : item.sender_avatar ? (
+                    <Badge count={item.not_seen}>
+                      <Avatar
+                        src={`${url}dstatic/media/${item.sender_avatar}`}
+                      />
+                    </Badge>
+                  ) : (
+                    <Avatar
+                      style={{
+                        backgroundColor: "white",
+                        color: "black",
+                        border: "1px solid",
+                      }}
+                    >
+                      <UserOutlined />
+                    </Avatar>
+                  )
+                }
+                title={
+                  user == item.sender_slug ? (
+                    <div>
                       <Button
                         style={{ border: "hidden", fontSize: "12px" }}
                         onClick={() =>
@@ -108,11 +137,13 @@ class ChatContacs extends Component {
                           )
                         }
                       >
-                        <span style={{fontSize:"14px",textAlign:"right"}}> {item.receiver_name} </span>
+                        <span style={{ fontSize: "14px", textAlign: "right" }}>
+                          {item.receiver_name}
+                        </span>
                       </Button>
-                      </div>
-                    ) : (
-                      <div>
+                    </div>
+                  ) : (
+                    <div>
                       <Button
                         style={{ border: "hidden", fontSize: "12px" }}
                         onClick={() =>
@@ -124,22 +155,28 @@ class ChatContacs extends Component {
                             item.sender_slug,
                             item.receiver_slug,
                             item.sender_name,
-                            item.receiver_name,  
+                            item.receiver_name,
                             item.packet_title,
                             this.state.visible
                           )
                         }
                       >
-                        <span style={{fontSize:"14px",textAlign:"right"}}> {item.sender_name} </span>
+                        <span style={{ fontSize: "14px", textAlign: "right" }}>
+                          {item.sender_name}
+                        </span>
                       </Button>
-                      </div>
-                    )
-                  }
-                />
-                <Button style={{border:"hidden"}} size="large" icon={<MoreOutlined style={{ fontSize: "larger" }} />} ></Button>
-              </List.Item>
-            )}
-          />
+                    </div>
+                  )
+                }
+              />
+              <Button
+                style={{ border: "hidden" }}
+                size="large"
+                icon={<MoreOutlined style={{ fontSize: "larger" }} />}
+              ></Button>
+            </List.Item>
+          )}
+        />
       </div>
     );
   }

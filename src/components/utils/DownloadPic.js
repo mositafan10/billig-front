@@ -3,6 +3,7 @@ import Axios from "axios";
 import { Spin, Modal, Row } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { config } from "../../Constant";
+import { Breakpoint } from "react-socks";
 
 var url = config.url.API_URL;
 const antIcon = (
@@ -29,12 +30,16 @@ class DownloadPic extends React.Component {
   };
 
   componentDidMount() {
-    Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data}`).then(
-      (res) =>
-        this.setState({
-          url: res.data.image_file,
-        })
-    );
+    this.setState({ loading: true });
+    setTimeout(() => {
+      Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data}`).then(
+        (res) =>
+          this.setState({
+            url: res.data.image_file,
+            loading: false,
+          })
+      );
+    }, 800);
   }
 
   render() {
@@ -49,27 +54,50 @@ class DownloadPic extends React.Component {
             width={this.props.size}
           ></img>
         ) : (
-          <Spin indicator={antIcon}></Spin>
+          <div style={{ margin: "100px" }}>
+            <Spin indicator={antIcon} size="large" />
+          </div>
         )}
-        <Modal
-          visible={this.state.visible}
-          closable
-          closeIcon=" "
-          onCancel={this.handlecancle}
-          okButtonProps={{ hidden: true }}
-          cancelButtonProps={{ hidden: true }}
-          width="40%"
-          bodyStyle={{backgroundColor:"transparent",}}
-        >
-            <Row style={{display:"flex", justifyContent:"center"}}>
-                <img
+        <Breakpoint small down>
+          <Modal
+            visible={this.state.visible}
+            closable
+            closeIcon=" "
+            onCancel={this.handlecancle}
+            okButtonProps={{ hidden: true }}
+            cancelButtonProps={{ hidden: true }}
+            width="90%"
+            bodyStyle={{ backgroundColor: "transparent" }}
+          >
+            <Row style={{ display: "flex", justifyContent: "center" }}>
+              <img
                 loading="lazy"
                 src={`${url}dstatic/${this.state.url}`}
                 style={{ borderRadius: "10px" }}
-            />
+              />
             </Row>
-          
-        </Modal>
+          </Modal>
+        </Breakpoint>
+        <Breakpoint medium up>
+          <Modal
+            visible={this.state.visible}
+            closable
+            closeIcon=" "
+            onCancel={this.handlecancle}
+            okButtonProps={{ hidden: true }}
+            cancelButtonProps={{ hidden: true }}
+            width="40%"
+            bodyStyle={{ backgroundColor: "transparent" }}
+          >
+            <Row style={{ display: "flex", justifyContent: "center" }}>
+              <img
+                loading="lazy"
+                src={`${url}dstatic/${this.state.url}`}
+                style={{ borderRadius: "10px" }}
+              />
+            </Row>
+          </Modal>
+        </Breakpoint>
       </div>
     );
   }

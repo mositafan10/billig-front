@@ -12,15 +12,22 @@ class PageNotFound extends Component {
     return (
       <div style={{ textAlign: "center", margin: "5px" }}>
         <Row>
-            <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+            <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24}>
           <img
             alt="billlig.com"
             src={NotFound}
             style={{ width: "40%", height: "auto" }}
           />
           </Col>
+            <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
+          <img
+            alt="billlig.com"
+            src={NotFound}
+            style={{ width: "100%", height: "auto" }}
+          />
+          </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-            <Link to="/login"><Button size="large" style={{borderRadius:"10px", color:"white", backgroundColor:"green"}}>ورود به سایت</Button></Link>
+            <Link to="/login"><Button size="medium" style={{borderRadius:"10px", color:"white", backgroundColor:"green"}}>ورود به سایت</Button></Link>
           </Col>
           <Divider/>
         </Row>

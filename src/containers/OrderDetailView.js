@@ -11,7 +11,7 @@ import {
   Tooltip,
   Modal,
   Divider,
-  Popconfirm
+  Popconfirm,
 } from "antd";
 import OfferDetail from "../components/offer/OfferInDetail";
 import DownloadPic from "../components/utils/DownloadPic";
@@ -30,50 +30,43 @@ class OrderDetail extends React.Component {
   state = {
     order: [],
     loading: true,
-    phonenumbervisibility: false
+    phonenumbervisibility: false,
   };
   myRef = React.createRef();
 
   componentDidMount() {
-    window.scroll(0,0);
+    window.scroll(0, 0);
     const orderID = this.props.match.params.orderID;
-    Axios.get(`${url}api/v1/advertise/packet/${orderID}`)
-      .then((res) => {
-        this.setState({
-          order: res.data,
-          loading: false,
-        });
-        document.title =
-        this.state.order.no_matter_origin ?
-        (
-          this.state.order.title +
+    Axios.get(`${url}api/v1/advertise/packet/${orderID}`).then((res) => {
+      this.setState({
+        order: res.data,
+        loading: false,
+      });
+      document.title = this.state.order.no_matter_origin
+        ? this.state.order.title +
           "_" +
           this.state.order.category.name +
           "_بیلیگ"
-        )
-        :
-        (
-          this.state.order.title +
+        : this.state.order.title +
           "_" +
           this.state.order.category.name +
           "_" +
           this.state.order.origin_country.name +
-          "_بیلیگ"
-        )
-        this.props.history.push(`/packet/${document.title}/${orderID}/`);
-      })
-      // .catch((error) => {
-      //   notification["success"]({
-      //     message: error.response.data.detail,
-      //     style: {
-      //       fontFamily: "VazirD",
-      //       textAlign: "right",
-      //       float: "right",
-      //       width: "max-content",
-      //     },
-      //     duration: 5,
-      //   });
-      // });
+          "_بیلیگ";
+      this.props.history.push(`/packet/${document.title}/${orderID}/`);
+    })
+    .catch((error) => {
+      notification["success"]({
+        message: error.response.data.detail,
+        style: {
+          fontFamily: "VazirD",
+          textAlign: "right",
+          float: "right",
+          width: "max-content",
+        },
+        duration: 5,
+      });
+    });
   }
 
   shareurl = () => {
@@ -83,17 +76,17 @@ class OrderDetail extends React.Component {
   };
 
   phonenumbervisible = () => {
-    this.setState({phonenumbervisibility:true})
-  }
+    this.setState({ phonenumbervisibility: true });
+  };
 
   canclephonenumbervisible = () => {
-    this.setState({phonenumbervisibility:false})
-  }
+    this.setState({ phonenumbervisibility: false });
+  };
 
   currency = (value) => {
-      const p =  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      return p
-  }
+    const p = `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return p;
+  };
 
   render() {
     const picID = this.state.order && this.state.order.picture;
@@ -132,7 +125,9 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                      {this.state.order.category ? this.state.order.category.name : ""}
+                        {this.state.order.category
+                          ? this.state.order.category.name
+                          : ""}
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />
@@ -145,11 +140,11 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                      {this.state.order.buy ?
-                        <h4>خرید کالا از </h4>
-                        :
-                        <h4>دریافت کالا در </h4>
-                      }
+                        {this.state.order.buy ? (
+                          <h4>خرید کالا از </h4>
+                        ) : (
+                          <h4>دریافت کالا در </h4>
+                        )}
                       </Col>
                       <Col
                         style={style_left}
@@ -158,21 +153,27 @@ class OrderDetail extends React.Component {
                         md={10}
                         lg={10}
                         xl={10}
-                      > 
-                      { this.state.order.no_matter_origin ?
-                      <div>
-                      <span> فرقی نمی‌کند <QuestionCircleOutlined /></span>
-                      </div>
-                      : <div>{
-                        this.state.order.origin_country
-                          ? this.state.order.origin_country.name
-                          : ""}
-                        {" "},{" "}
-                        {this.state.order.origin_city
-                          ? this.state.order.origin_city.name
-                          : ""
-                        }</div>
-                        }
+                      >
+                        {this.state.order.no_matter_origin ? (
+                          <div>
+                              <Popconfirm overlayStyle={{ fontFamily: "VazirD" }}
+                    cancelButtonProps={{ hidden: "true" }}
+                    okText="متوجه شدم" title="برای آگهی‌دهنده فرقی نمی‌کند از کدام کشور خریداری شود"><QuestionCircleOutlined /></Popconfirm>
+                            <span style={{paddingRight:"5px"}}>
+                              فرقی نمی‌کند
+                            </span>
+                          </div>
+                        ) : (
+                          <div>
+                            {this.state.order.origin_country
+                              ? this.state.order.origin_country.name
+                              : ""}{" "}
+                            ,{" "}
+                            {this.state.order.origin_city
+                              ? this.state.order.origin_city.name
+                              : ""}
+                          </div>
+                        )}
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />
@@ -197,8 +198,8 @@ class OrderDetail extends React.Component {
                       >
                         {this.state.order.destination_country
                           ? this.state.order.destination_country.name
-                          : ""}
-                        {" "},{" "}
+                          : ""}{" "}
+                        ,{" "}
                         {this.state.order.destination_city
                           ? this.state.order.destination_city.name
                           : ""}
@@ -224,7 +225,8 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                           {this.state.order.weight}<span style={{marginRight:"5px"}}> کیلوگرم </span>
+                        {this.state.order.weight}
+                        <span style={{ marginRight: "5px" }}> کیلوگرم </span>
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />
@@ -247,7 +249,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                          {this.state.order.dimension}
+                        {this.state.order.dimension}
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />
@@ -270,14 +272,17 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        <Link to={"/users/" + this.state.order.owner_slug}>
+                        <a
+                          target="_blank"
+                          href={`${url}users/` + this.state.order.owner_slug}
+                        >
                           {this.state.order.owner_name}
-                        </Link>
+                        </a>
                       </Col>
                     </Row>
                     {this.state.order.buy && (
                       <div>
-                      <hr style={{ color: "aliceblue" }} />
+                        <hr style={{ color: "aliceblue" }} />
                         <Row style={style_right}>
                           <Col
                             style={style_right}
@@ -329,51 +334,18 @@ class OrderDetail extends React.Component {
                       </div>
                     )}
                     {this.state.order.phonenumber_visible && (
-                    <div>
-                    <hr style={{ color: "aliceblue" }} />
-                    <Row style={style_right}>
-                      <Col
-                        style={style_right}
-                        xs={14}
-                        sm={14}
-                        md={14}
-                        lg={14}
-                        xl={14}
-                      >
-                        <h4>اطلاعات تماس</h4>
-                      </Col>
-                      <Col
-                        style={style_left}
-                        xs={10}
-                        sm={10}
-                        md={10}
-                        lg={10}
-                        xl={10}
-                      >
-                        <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}><Link>نمایش</Link>  </Button>
-                      </Col>
-                      <Modal
-                      visible={this.state.phonenumbervisibility}
-                      onCancel={this.canclephonenumbervisible}
-                      style={{fontFamily:"VazirD"}}
-                      cancelText="بازگشت"
-                      okButtonProps={{hidden:"true"}}
-                      title=" "
-                      closeIcon=" "
-                      >
-                        <p style={{textAlign:"justify"}}> توصیه ما این است که برای پیام دادن از چت درون سایت که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید تا مراحل بعدی با سهولت بیشتری انجام 
-                         پذیرد </p>
-                         <Divider/>
+                      <div>
+                        <hr style={{ color: "aliceblue" }} />
                         <Row style={style_right}>
                           <Col
                             style={style_right}
                             xs={14}
-                            sm={14} 
+                            sm={14}
                             md={14}
                             lg={14}
                             xl={14}
                           >
-                            <h4>شماره تماس</h4>
+                            <h4>اطلاعات تماس</h4>
                           </Col>
                           <Col
                             style={style_left}
@@ -383,12 +355,54 @@ class OrderDetail extends React.Component {
                             lg={10}
                             xl={10}
                           >
-                            {this.state.order.phonenumber}
+                            <Button
+                              onClick={this.phonenumbervisible.bind(this)}
+                              style={{ border: "hidden", padding: "0" }}
+                            >
+                              <Link>نمایش</Link>{" "}
+                            </Button>
                           </Col>
+                          <Modal
+                            visible={this.state.phonenumbervisibility}
+                            onCancel={this.canclephonenumbervisible}
+                            style={{ fontFamily: "VazirD" }}
+                            cancelText="بازگشت"
+                            okButtonProps={{ hidden: "true" }}
+                            title=" "
+                            closeIcon=" "
+                          >
+                            <p style={{ textAlign: "justify" }}>
+                              {" "}
+                              توصیه ما این است که برای پیام دادن از چت درون سایت
+                              که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید
+                              تا مراحل بعدی با سهولت بیشتری انجام پذیرد{" "}
+                            </p>
+                            <Divider />
+                            <Row style={style_right}>
+                              <Col
+                                style={style_right}
+                                xs={14}
+                                sm={14}
+                                md={14}
+                                lg={14}
+                                xl={14}
+                              >
+                                <h4>شماره تماس</h4>
+                              </Col>
+                              <Col
+                                style={style_left}
+                                xs={10}
+                                sm={10}
+                                md={10}
+                                lg={10}
+                                xl={10}
+                              >
+                                {this.state.order.phonenumber}
+                              </Col>
+                            </Row>
+                          </Modal>
                         </Row>
-                      </Modal>
-                    </Row> 
-                    </div>
+                      </div>
                     )}
                     <hr style={{ color: "aliceblue" }} />
                     <br />
@@ -466,7 +480,7 @@ class OrderDetail extends React.Component {
           <Breakpoint small down>
             <Row style={{ display: "flex", justifyContent: "center" }}>
               <Col>
-                <DownloadPic1 data={picID} size={250} />
+                <DownloadPic data={picID} size={250} />
                 <br />
                 <Row style={{ justifyContent: "center", display: "flex" }}>
                   <Bookmark data={this.state.order.slug} />
@@ -488,194 +502,11 @@ class OrderDetail extends React.Component {
                 </Row>
                 <br />
               </Col>
-              <Col>
-                <Card
-                  style={{ borderRadius: "20px", width: "300px" }}
-                  title={this.state.order.title}
-                >
-                  <Row style={style_right}>
-                    <Col
-                      style={style_right}
-                      xs={14}
-                      sm={14}
-                      md={14}
-                      lg={14}
-                      xl={14}
-                    >
-                      <h4>دسته بندی</h4>
-                    </Col>
-                    <Col
-                      style={style_left}
-                      xs={10}
-                      sm={10}
-                      md={10}
-                      lg={10}
-                      xl={10}
-                    >
-                      {this.state.order.category ? this.state.order.category.name : ""}
-                    </Col>
-                  </Row>
-                  <hr style={{ color: "aliceblue" }} />
-                  <Row style={style_right}>
-                    <Col
-                      style={style_right}
-                      xs={14}
-                      sm={14}
-                      md={14}
-                      lg={14}
-                      xl={14}
-                    >
-                      {this.state.order.buy ?
-                        <h4>خرید کالا از </h4>
-                        :
-                        <h4>دریافت کالا در </h4>
-                      }
-                    </Col>
-                    <Col
-                      style={style_left}
-                      xs={10}
-                      sm={10}
-                      md={10}
-                      lg={10}
-                      xl={10}
-                    >
-                      {this.state.order.no_matter_origin ?
-                      <div>
-                        <Popconfirm
-                        overlayStyle={{ fontFamily: "VazirD" }}
-                        cancelButtonProps={{ hidden: "true" }}
-                        okText="متوجه شدم"
-                        
-                        title={
-                          <div>
-                            <p>
-به معنای آن است که فرقی‌ نمی‌کند کالا از کدام کشور خریداری شود</p>
-<p>مسافر می‌تواند از هر جایی که مقدور است کالا را خریداری نماید</p>
-                          </div>
-                        }
-                      ><QuestionCircleOutlined /></Popconfirm> {""} <span>فرقی نمی‌کند</span>
-                        </div>
-                        :
-                        (
-                        this.state.order.origin_country
-                          ? this.state.order.origin_country.name
-                          : ""
-                        ,
-                        this.state.order.origin_city
-                          ? this.state.order.origin_city.name
-                          : "")
-                        }
-                    </Col>
-                  </Row>
-                  <hr style={{ color: "aliceblue" }} />
-                  <Row style={style_right}>
-                    <Col
-                      style={style_right}
-                      xs={14}
-                      sm={14}
-                      md={14}
-                      lg={14}
-                      xl={14}
-                    >
-                      <h4>تحویل کالا در</h4>
-                    </Col>
-                    <Col
-                      style={style_left}
-                      xs={10}
-                      sm={10}
-                      md={10}
-                      lg={10}
-                      xl={10}
-                    >
-                      {this.state.order.destination_country
-                        ? this.state.order.destination_country.name
-                        : ""}{" "}
-                      ,{" "}
-                      {this.state.order.destination_city
-                        ? this.state.order.destination_city.name
-                        : ""}
-                    </Col>
-                  </Row>
-                  <hr style={{ color: "aliceblue" }} />
-                  <Row style={style_right}>
-                    <Col
-                      style={style_right}
-                      xs={14}
-                      sm={14}
-                      md={14}
-                      lg={14}
-                      xl={14}
-                    >
-                      <h4>آگهی دهنده</h4>
-                    </Col>
-                    <Col
-                      style={style_left}
-                      xs={10}
-                      sm={10}
-                      md={10}
-                      lg={10}
-                      xl={10}
-                    >
-                      <Link to={"/users/" + this.state.order.owner_slug}>
-                        {" "}
-                        {this.state.order.owner_name}{" "}
-                      </Link>
-                    </Col>
-                  </Row>
-                  <hr style={{ color: "aliceblue" }} />
-                  {this.state.order.buy ? (
-                    <div>
-                      <Row style={style_right}>
-                        <Col
-                          style={style_right}
-                          xs={14}
-                          sm={14}
-                          md={14}
-                          lg={14}
-                          xl={14}
-                        >
-                          <h4>قیمت کالا</h4>
-                        </Col>
-                        <Col
-                          style={style_left}
-                          xs={10}
-                          sm={10}
-                          md={10}
-                          lg={10}
-                          xl={10}
-                        >
-                          <span style={{ marginLeft: "5px" }}>
-                            {" "}
-                            {this.state.order.parcel_price}{" "}
-                          </span>
-                          <span> تومان </span>
-                        </Col>
-                      </Row>
-                      <hr style={{ color: "aliceblue" }} />
-                      <Row style={style_right}>
-                        <Col
-                          style={style_right}
-                          xs={14}
-                          sm={14}
-                          md={14}
-                          lg={14}
-                          xl={14}
-                        >
-                          <h4>لینک خرید</h4>
-                        </Col>
-                        <Col
-                          style={style_left}
-                          xs={10}
-                          sm={10}
-                          md={10}
-                          lg={10}
-                          xl={10}
-                        >
-                        <span>  {this.state.order.parcel_link}</span>
-                        </Col>
-                      </Row>
-                    </div>
-                  ) : (
+                <Col span={24}>
+                  <Card
+                    style={{ borderRadius: "20px" }}
+                    title={this.state.order.title}
+                  >
                     <Row style={style_right}>
                       <Col
                         style={style_right}
@@ -685,7 +516,7 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                        <h4>قابلیت خریداری</h4>
+                        <h4>دسته بندی</h4>
                       </Col>
                       <Col
                         style={style_left}
@@ -695,12 +526,11 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        ندارد
+                        {this.state.order.category
+                          ? this.state.order.category.name
+                          : ""}
                       </Col>
                     </Row>
-                  )}
-                  {this.state.order.phonenumber_visible && (
-                    <div>
                     <hr style={{ color: "aliceblue" }} />
                     <Row style={style_right}>
                       <Col
@@ -711,7 +541,11 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                        <h4>اطلاعات تماس</h4>
+                        {this.state.order.buy ? (
+                          <h4>خرید کالا از </h4>
+                        ) : (
+                          <h4>دریافت کالا در </h4>
+                        )}
                       </Col>
                       <Col
                         style={style_left}
@@ -721,30 +555,147 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                      <Button onClick={this.phonenumbervisible.bind(this)} style={{border:"hidden", padding:"0"}}><a>نمایش</a> </Button>
+                        {this.state.order.no_matter_origin ? (
+                          <div>
+                            <div>
+                              <Popconfirm overlayStyle={{ fontFamily: "VazirD" }}
+                    cancelButtonProps={{ hidden: "true" }}
+                    okText="متوجه شدم" title="برای آگهی‌دهنده فرقی نمی‌کند از کدام کشور خریداری شود"><QuestionCircleOutlined /></Popconfirm>
+                            <span style={{paddingRight:"5px"}}>
+                              فرقی نمی‌کند
+                            </span>
+                          </div>
+                          </div>
+                        ) : (
+                          <div>
+                            {this.state.order.origin_country
+                              ? this.state.order.origin_country.name
+                              : ""}{" "}
+                            ,{" "}
+                            {this.state.order.origin_city
+                              ? this.state.order.origin_city.name
+                              : ""}
+                          </div>
+                        )}
                       </Col>
-                      <Modal
-                      visible={this.state.phonenumbervisibility}
-                      onCancel={this.canclephonenumbervisible}
-                      style={{fontFamily:"VazirD"}}
-                      cancelText="بازگشت"
-                      okButtonProps={{hidden:"true"}}
-                      title=" "
-                      closeIcon=" "
+                    </Row>
+                    <hr style={{ color: "aliceblue" }} />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
                       >
-                        <p style={{textAlign:"justify"}}> توصیه ما این است که برای پیام دادن از چت درون سایت که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید تا مراحل بعدی با سهولت بیشتری انجام 
-                         پذیرد </p>
-                         <Divider></Divider>
+                        <h4>تحویل کالا در</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        {this.state.order.destination_country
+                          ? this.state.order.destination_country.name
+                          : ""}{" "}
+                        ,{" "}
+                        {this.state.order.destination_city
+                          ? this.state.order.destination_city.name
+                          : ""}
+                      </Col>
+                    </Row>
+                    <hr style={{ color: "aliceblue" }} />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>وزن حدودی</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        {this.state.order.weight}
+                        <span style={{ marginRight: "5px" }}> کیلوگرم </span>
+                      </Col>
+                    </Row>
+                    <hr style={{ color: "aliceblue" }} />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>ابعاد بسته</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        {this.state.order.dimension}
+                      </Col>
+                    </Row>
+                    <hr style={{ color: "aliceblue" }} />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>آگهی دهنده</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        <a
+                          target="_blank"
+                          href={`${url}users/` + this.state.order.owner_slug}
+                        >
+                          {this.state.order.owner_name}
+                        </a>
+                      </Col>
+                    </Row>
+                    {this.state.order.buy && (
+                      <div>
+                        <hr style={{ color: "aliceblue" }} />
                         <Row style={style_right}>
                           <Col
                             style={style_right}
                             xs={14}
-                            sm={14} 
+                            sm={14}
                             md={14}
                             lg={14}
                             xl={14}
                           >
-                            <h4>شماره تماس</h4>
+                            <h4>قیمت کالا</h4>
                           </Col>
                           <Col
                             style={style_left}
@@ -754,58 +705,155 @@ class OrderDetail extends React.Component {
                             lg={10}
                             xl={10}
                           >
-                            {this.state.order.phonenumber}
+                            <span style={{ marginLeft: "5px" }}>
+                              {this.currency(this.state.order.parcel_price)}
+                            </span>
+                            <span> تومان </span>
                           </Col>
                         </Row>
-                      </Modal>
-                    </Row> 
-                    </div>
+                        <hr style={{ color: "aliceblue" }} />
+                        <Row style={style_right}>
+                          <Col
+                            style={style_right}
+                            xs={14}
+                            sm={14}
+                            md={14}
+                            lg={14}
+                            xl={14}
+                          >
+                            <h4>لینک خرید</h4>
+                          </Col>
+                          <Col
+                            style={style_left}
+                            xs={10}
+                            sm={10}
+                            md={10}
+                            lg={10}
+                            xl={10}
+                          >
+                            {this.state.order.parcel_link}
+                          </Col>
+                        </Row>
+                      </div>
                     )}
-                  <hr style={{ color: "aliceblue" }} />
-                  <p style={{ textAlign: "right" }}>
-                    {this.state.order.description}
-                  </p>
-                  <br />
-                  <hr style={{ color: "aliceblue" }} />
-                  <br />
-                  <Row
-                    style={{
-                      display: "flex",
-                      justifyContent: "right",
-                      border: "1px",
-                    }}
-                  >
-                    <Col
-                      style={style_right}
-                      xs={14}
-                      sm={14}
-                      md={14}
-                      lg={14}
-                      xl={14}
+                    {this.state.order.phonenumber_visible && (
+                      <div>
+                        <hr style={{ color: "aliceblue" }} />
+                        <Row style={style_right}>
+                          <Col
+                            style={style_right}
+                            xs={14}
+                            sm={14}
+                            md={14}
+                            lg={14}
+                            xl={14}
+                          >
+                            <h4>اطلاعات تماس</h4>
+                          </Col>
+                          <Col
+                            style={style_left}
+                            xs={10}
+                            sm={10}
+                            md={10}
+                            lg={10}
+                            xl={10}
+                          >
+                            <Button
+                              onClick={this.phonenumbervisible.bind(this)}
+                              style={{ border: "hidden", padding: "0" }}
+                            >
+                              <Link>نمایش</Link>{" "}
+                            </Button>
+                          </Col>
+                          <Modal
+                            visible={this.state.phonenumbervisibility}
+                            onCancel={this.canclephonenumbervisible}
+                            style={{ fontFamily: "VazirD" }}
+                            cancelText="بازگشت"
+                            okButtonProps={{ hidden: "true" }}
+                            title=" "
+                            closeIcon=" "
+                          >
+                            <p style={{ textAlign: "justify" }}>
+                              {" "}
+                              توصیه ما این است که برای پیام دادن از چت درون سایت
+                              که مخصوص هماهنگی‌های لازم طرفین است استفاده کنید
+                              تا مراحل بعدی با سهولت بیشتری انجام پذیرد{" "}
+                            </p>
+                            <Divider />
+                            <Row style={style_right}>
+                              <Col
+                                style={style_right}
+                                xs={14}
+                                sm={14}
+                                md={14}
+                                lg={14}
+                                xl={14}
+                              >
+                                <h4>شماره تماس</h4>
+                              </Col>
+                              <Col
+                                style={style_left}
+                                xs={10}
+                                sm={10}
+                                md={10}
+                                lg={10}
+                                xl={10}
+                              >
+                                {this.state.order.phonenumber}
+                              </Col>
+                            </Row>
+                          </Modal>
+                        </Row>
+                      </div>
+                    )}
+                    <hr style={{ color: "aliceblue" }} />
+                    <br />
+                    <p style={{ textAlign: "right" }}>
+                      {this.state.order.description}
+                    </p>
+                    <br />
+                    <hr style={{ color: "aliceblue" }} />
+                    <br />
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "right",
+                        border: "1px",
+                      }}
                     >
-                      دستمزد این بسته
-                    </Col>
-                    <Col
-                      style={style_left}
-                      xs={10}
-                      sm={10}
-                      md={10}
-                      lg={10}
-                      xl={10}
-                    >
-                      <p style={{ marginLeft: "5px" }}>
-                        {" "}
-                        {this.state.order.suggested_price}
-                      </p>
-                      <p> تومان </p>
-                    </Col>
-                  </Row>
-                  <OfferDetail data={this.state.order.slug}
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        دستمزد این بسته
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        <p style={{ marginLeft: "5px" }}>
+                          {this.currency(this.state.order.suggested_price)}
+                        </p>
+                        <p> تومان </p>
+                      </Col>
+                    </Row>
+                    <OfferDetail
+                      data={this.state.order.slug}
                       buy={this.state.order.buy}
-                      {...this.props} />
-                </Card>
-                <br />
-              </Col>
+                      {...this.props}
+                    ></OfferDetail>
+                  </Card>
+                  <br />
+                </Col>
             </Row>
           </Breakpoint>
         </ConfigProvider>
