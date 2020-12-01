@@ -97,7 +97,7 @@ class TravelList extends React.Component {
                     border: "solid",
                     borderWidth: "0.5px",
                     borderRadius: "15px 15px 15px 15px",
-                    margin: "15px 25px 0 15px",
+                    margin: "15px 15px 10px 15px",
                     padding: "20px 20px 20px 20px",
                     width: "320px",
                     height: "auto",

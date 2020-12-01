@@ -39,7 +39,7 @@ class LandingPage extends React.Component {
         <Divider style={{ opacity: "0" }} />
         <Divider>آخرین آگهی‌ها</Divider>
         <Row style={{display:"flex", justifyContent:"center",}}>
-          <Col xs={24} sm={24} md={24} lg={20} xl={20} xxl={20}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <Orders data={this.state.orders} loading={this.state.loading} />
           </Col>
           <Divider style={{ opacity: "0" }} />

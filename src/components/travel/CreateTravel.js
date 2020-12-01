@@ -146,7 +146,7 @@ class CreateTravel extends React.Component {
     render(){
         return(
             <div>
-                <Button icon={<PlusOutlined/>} onClick={this.showcreatetravel} style={{borderRadius:"8px", marginTop:"40px", marginBottom:"20px"}}><b> ثبت سفر جدید</b></Button>
+                <Button icon={<PlusOutlined/>} onClick={this.showcreatetravel} style={{borderRadius:"8px", marginTop:"10px", marginBottom:"20px"}}><b> ثبت سفر جدید</b></Button>
                 <Modal
                 visible={this.state.createtravelvisible}
                 onCancel={this.handleCancel}

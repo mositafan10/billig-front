@@ -12,7 +12,7 @@ const style_text = {
 
 const MainBanner = () => {
   return (
-    <div>
+    <div style={{margin:"0 10px 0 10px"}}>
       <Row>
         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
           <img

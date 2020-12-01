@@ -50,7 +50,7 @@ class Orders extends React.Component {
                     color: "black",
                     border: "1px solid",
                     borderRadius: "10px",
-                    margin: "15px 0 15px 25px",
+                    margin: "15px 20px 15px 20px",
                     padding: "15px 15px 10px 5px",
                     width: "340px",
                     height: "170px",

@@ -36,7 +36,7 @@ const contentStyle = {
 
 const BillligStrength = () => {
   return (
-    <div style={{ backgroundColor: "#46A0AE", borderRadius:"10px" }}>
+    <div style={{ backgroundColor: "#46A0AE"}}>
       <Breakpoint medium up>
         <Carousel autoplay effect="scrollx">
           <div>
