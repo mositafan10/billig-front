@@ -8,7 +8,7 @@ import CommentsBilllig from "../components/rating/CommentsBilllig";
 import CommentBillligCreate from "../components/rating/CommentBillligCreate";
 import MainBanner from "../components/landingpage/MainBanner";
 import BillligStrength from "../components/landingpage/BillligStrength";
-import { Breakpoint } from "react-socks";
+import BillligerLanding from "../components/landingpage/BillligerLanding";
 
 var url = config.url.API_URL;
 
@@ -37,6 +37,7 @@ class LandingPage extends React.Component {
       <div>
         <MainBanner/>
         <Divider style={{ opacity: "0" }} />
+        <BillligerLanding/>
         <Divider>آخرین آگهی‌ها</Divider>
         <Row style={{display:"flex", justifyContent:"center",}}>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
