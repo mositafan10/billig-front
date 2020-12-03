@@ -19,7 +19,7 @@ import {
   TwitterOutlined,
   LinkedinOutlined,
   FacebookOutlined,
-  IeOutlined,
+  MailOutlined,
   PlusOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -340,7 +340,7 @@ class EditProfileForm extends React.Component {
             <Row style={{ display: "flex", justifyContent: "center" }}>
               <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}>
                 <Divider plain orientation="center">
-                  <IeOutlined
+                  <MailOutlined
                     style={{
                       fontSize: "30px",
                       display: "flex",

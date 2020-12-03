@@ -45,7 +45,7 @@ class ProfileLayout extends React.Component {
               >
                 <Row style={{ display: "flex", justifyContent: "center" }}>
                   <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>
-                    <div className="site-layout-content">
+                    <div>
                       {this.props.children}
                     </div>
                   </Col>

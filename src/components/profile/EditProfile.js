@@ -94,9 +94,9 @@ class EditProfile extends React.Component {
                 <br/><br/>
                 <Space>
               { this.state.social[0] && this.setIcon(this.state.social[0].account_type ,this.state.social[0].address)  }
-              { this.state.social[1] && this.setIcon(this.state.social[1].account_type ,this.state.social[0].address)  }
-              { this.state.social[2] && this.setIcon(this.state.social[2].account_type ,this.state.social[0].address)  }
-              { this.state.social[3] && this.setIcon(this.state.social[3].account_type ,this.state.social[0].address)  }
+              { this.state.social[1] && this.setIcon(this.state.social[1].account_type ,this.state.social[1].address)  }
+              { this.state.social[2] && this.setIcon(this.state.social[2].account_type ,this.state.social[2].address)  }
+              { this.state.social[3] && this.setIcon(this.state.social[3].account_type ,this.state.social[3].address)  }
               </Space>
                 </div>
                 }

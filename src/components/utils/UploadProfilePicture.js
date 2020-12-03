@@ -24,7 +24,7 @@ class UploadProfilePicture extends React.Component {
   handleImageUpload = (file) => {
     return new Promise((resolve) => {
       var options = {
-        maxSizeMB: 0.2,
+        maxSizeMB: 0.1,
         maxWidthOrHeight: 1920,
         useWebWorker: true,
       };

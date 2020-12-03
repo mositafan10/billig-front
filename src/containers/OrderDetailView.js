@@ -156,7 +156,7 @@ class OrderDetail extends React.Component {
                           <div>
                               <Popconfirm overlayStyle={{ fontFamily: "VazirD" }}
                     cancelButtonProps={{ hidden: "true" }}
-                    okText="متوجه شدم" title="برای آگهی‌دهنده فرقی نمی‌کند از کدام کشور خریداری شود"><QuestionCircleOutlined /></Popconfirm>
+                    okText="متوجه شدم" title="برای آگهی‌دهنده فرقی نمی‌کند که کالا از کدام کشور خریداری شود"><QuestionCircleOutlined /></Popconfirm>
                             <span style={{paddingRight:"5px"}}>
                               فرقی نمی‌کند
                             </span>
@@ -558,7 +558,7 @@ class OrderDetail extends React.Component {
                             <div>
                               <Popconfirm overlayStyle={{ fontFamily: "VazirD" }}
                     cancelButtonProps={{ hidden: "true" }}
-                    okText="متوجه شدم" title="برای آگهی‌دهنده فرقی نمی‌کند از کدام کشور خریداری شود"><QuestionCircleOutlined /></Popconfirm>
+                    okText="متوجه شدم" title="برای آگهی‌دهنده فرقی نمی‌کند که کالا از کدام کشور خریداری شود"><QuestionCircleOutlined /></Popconfirm>
                             <span style={{paddingRight:"5px"}}>
                               فرقی نمی‌کند
                             </span>

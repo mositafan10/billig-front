@@ -45,7 +45,7 @@ class DownloadPic extends React.Component {
   render() {
     return (
       <div>
-        {this.props.data ? (
+        {!this.state.loading ? (
           <img
             onClick={this.showmodal}
             loading="lazy"
@@ -54,7 +54,7 @@ class DownloadPic extends React.Component {
             width={this.props.size}
           ></img>
         ) : (
-          <div style={{ margin: "100px" }}>
+          <div style={{ margin: "100px", justifyContent:"center", display:"flex" }}>
             <Spin indicator={antIcon} size="large" />
           </div>
         )}
@@ -66,7 +66,7 @@ class DownloadPic extends React.Component {
             onCancel={this.handlecancle}
             okButtonProps={{ hidden: true }}
             cancelButtonProps={{ hidden: true }}
-            width="90%"
+            width="50%"
             bodyStyle={{ backgroundColor: "transparent" }}
           >
             <Row style={{ display: "flex", justifyContent: "center" }}>
@@ -86,7 +86,7 @@ class DownloadPic extends React.Component {
             onCancel={this.handlecancle}
             okButtonProps={{ hidden: true }}
             cancelButtonProps={{ hidden: true }}
-            width="40%"
+            width="30%"
             bodyStyle={{ backgroundColor: "transparent" }}
           >
             <Row style={{ display: "flex", justifyContent: "center" }}>

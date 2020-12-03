@@ -15,7 +15,7 @@ class ProfileRoutes extends React.Component {
     render(){
     return(          
         this.props.isAuthenticated 
-        ?  
+        &&
         <Switch>
             <Route exact path='/profile/' render={(props) => <EditProfile/> }/>
             <Route exact path='/profile/comments' render={(props) => <CommentList/> }/>
@@ -27,8 +27,6 @@ class ProfileRoutes extends React.Component {
             <Route exact path='/profile/bookmark' render={(props) => <BookmarkPacket/> }/>
             <Route component={PageNotFound} />
         </Switch>
-        :
-        <Redirect to='/login'/>
         );
     }
 }

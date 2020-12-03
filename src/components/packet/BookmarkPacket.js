@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { Table, Popconfirm, Spin, Button } from "antd";
+import { Table, Popconfirm, Spin, Button, Row, Col, List } from "antd";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
+import DownloadPic from "../utils/DownloadPic";
 
 var url = config.url.API_URL;
+const style_center = { display: "flex", justifyContent: "center" };
 
 class BookmarkPacket extends Component {
   state = {
@@ -81,23 +83,66 @@ class BookmarkPacket extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         {this.state.loading ? (
           <div style={{ marginTop: "100px" }}>
             <Spin />
           </div>
         ) : (
-          <Table
-            scroll={{ x: 300 }}
-            locale={{ emptyText: "موردی نشان نشده است." }}
-            style={{ padding: "30px 0 30px 0" }}
-            columns={this.columns}
-            pagination={{
-              hideOnSinglePage: true,
-              size: "small",
+          <div style={{ justifyContent: "center", justifyContent:"table-caption" }}
+          >
+          <List
+            grid={{
+              xs: 1,
+              sm: 1,
+              md: 2,
+              lg: 3,
+              xl: 3,
+              xxl: 3,
             }}
+            // style={{ justifyContent: "center" }}
+            locale={{ emptyText: "شما هنوز آگهی ثبت نکرده‌اید." }}
             dataSource={this.state.bookmarks}
+            renderItem={(item) => (
+              <div style={{textAlign:"center"}}>
+                <Row
+                  style={{
+                    color: "black",
+                    border: "1px solid",
+                    borderRadius: "15px",
+                    margin: "10px 20px 30px 20px",
+                    padding: "20px 15px 20px 15px",
+                    width: "220px",
+                    height: "auto",
+                    textAlign:"center",
+                  }}
+                >
+                  <Col span={24}>
+                    <Link
+                      to={`/packet/${item.packet_slug}`}
+                      style={{ color: "black" }}
+                    >
+                      <DownloadPic data={item.packet_picture} size={140} />
+                    </Link>
+                  <br/>
+                  </Col>
+                  <Col span={24} style={{ color: "black" }}>
+                    <Link
+                      to={`/packet/${item.packet_slug}`}
+                      style={{ color: "black" }}
+                    >
+                      {item.packet_title}
+                    </Link>
+                  </Col>
+                  <Col span={24}>
+                  <br/>
+                    <Button style={{borderRadius:"8px", backgroundColor:"red", color:"white"}} size="middle" ><b>حذف</b></Button>
+                  </Col>
+                </Row>
+              </div>
+            )}
           />
+         </div>
         )}
       </div>
     );

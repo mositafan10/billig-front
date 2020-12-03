@@ -50,7 +50,7 @@ class ChangePassword extends Component {
       .catch(
         (error) =>
           notification["error"]({
-            message: <div>{error.response.data}</div>,
+            message: error.response.data.detail,
             style: {
               fontFamily: "VazirD",
               textAlign: "right",
