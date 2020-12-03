@@ -13,13 +13,14 @@ import {
   Divider,
   Popconfirm,
 } from "antd";
+import { Route , Link, Redirect  } from 'react-router-dom';
 import OfferDetail from "../components/offer/OfferInDetail";
 import DownloadPic from "../components/utils/DownloadPic";
 import DownloadPic1 from "../components/utils/DownloadPic1";
 import Bookmark from "../components/packet/Bookmark";
-import { Link } from "react-router-dom";
 import { config } from "../Constant";
 import { Breakpoint } from "react-socks";
+import PageNotFound from '../components/errors/PageNotFound';
 import { ShareAltOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 var url = config.url.API_URL;
 
@@ -31,13 +32,15 @@ class OrderDetail extends React.Component {
     order: [],
     loading: true,
     phonenumbervisibility: false,
+    error: ""
   };
   myRef = React.createRef();
 
   componentDidMount() {
     window.scroll(0, 0);
     const orderID = this.props.match.params.orderID;
-    Axios.get(`${url}api/v1/advertise/packet/${orderID}`).then((res) => {
+    Axios.get(`${url}api/v1/advertise/packet/${orderID}`)
+    .then((res) => {
       this.setState({
         order: res.data,
         loading: false,
@@ -56,16 +59,7 @@ class OrderDetail extends React.Component {
       this.props.history.push(`/packet/${document.title}/${orderID}/`);
     })
     .catch((error) => {
-      notification["success"]({
-        message: error.response.data.detail,
-        style: {
-          fontFamily: "VazirD",
-          textAlign: "right",
-          float: "right",
-          width: "max-content",
-        },
-        duration: 5,
-      });
+      this.setState({error:error.response.status})
     });
   }
 
@@ -95,7 +89,11 @@ class OrderDetail extends React.Component {
       <div style={{ textAlign: "center" }}>
         <ConfigProvider direction="rtl">
           <Breakpoint medium up>
-            {this.state.loading ? (
+            {this.state.error == 404 
+            ?
+            <PageNotFound />
+            : (
+            this.state.loading ? (
               <div style={{ margin: "100px" }}>
                 <Spin size="large" />
               </div>
@@ -475,7 +473,7 @@ class OrderDetail extends React.Component {
                   </Row>
                 </Col>
               </Row>
-            )}
+            ))}
           </Breakpoint>
           <Breakpoint small down>
             <Row style={{ display: "flex", justifyContent: "center" }}>

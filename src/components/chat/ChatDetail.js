@@ -209,21 +209,14 @@ class ChatDetail extends Component {
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
                     <Col span={3}>
-                      <Dropdown overlay={informatoin} trigger={["click"]}>
-                        <Button
-                          size="large"
-                          icon={<MoreOutlined style={{ fontSize: "larger" }} />}
-                          style={{ color: "black", border: "hidden" }}
-                        />
-                      </Dropdown>
                     </Col>
                     <Col
                       span={18}
                       style={{ display: "flex", justifyContent: "right" }}
                     >
                       {user == this.props.sender_slug ? (
-                        <Link to={"/users/" + this.props.receiver_slug}>
-                          <Avatar
+                        <a target="_blank" href={`${url}users/` + this.props.receiver_slug}>
+                        <Avatar
                             src={`${url}dstatic/media/${this.props.receiver_avatar}`}
                           />
                           <span
@@ -231,7 +224,7 @@ class ChatDetail extends Component {
                           >
                             {this.props.receiver_name}
                           </span>
-                        </Link>
+                        </a>
                       ) : (
                         <Link to={"/users/" + this.props.sender_slug}>
                           <Avatar
@@ -430,20 +423,13 @@ class ChatDetail extends Component {
                       span={3}
                       style={{ display: "flex", justifyContent: "right" }}
                     >
-                      <Dropdown overlay={informatoin} trigger={["click"]}>
-                        <Button
-                          size="large"
-                          icon={<MoreOutlined style={{ fontSize: "larger" }} />}
-                          style={{ color: "black", border: "hidden" }}
-                        />
-                      </Dropdown>
                     </Col>
                     <Col
                       span={18}
                       style={{ display: "flex", justifyContent: "right" }}
                     >
                       {user == this.props.sender_slug ? (
-                        <Link to={"/users/" + this.props.receiver_slug}>
+                        <a target="_blank" href={`${url}users/` + this.props.receiver_slug}>
                           <Avatar
                             src={`${url}dstatic/media/${this.props.receiver_avatar}`}
                           />
@@ -452,7 +438,7 @@ class ChatDetail extends Component {
                           >
                             {this.props.receiver_name}
                           </span>
-                        </Link>
+                        </a>
                       ) : (
                         <Link to={"/users/" + this.props.sender_slug}>
                           <Avatar

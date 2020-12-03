@@ -19,6 +19,8 @@ class PayTraveler extends Component {
     account: {}
    };
 
+  // We should add one confirmation here to be sure the request is sent by main user not another one
+  // By this step (otp sms) we can also pay to other acccount because the traveler wants that.
   pay = (values) => {
     const account = values.accounts
     this.setState({selectloading:true})
@@ -158,7 +160,7 @@ class PayTraveler extends Component {
           title={<div style={{textAlign:"center"}}>لیست حساب‌های ثبت‌ شده</div>}
           visible={this.state.selectVisible}
           onCancel={this.handlecancelselect}
-          cancelText="بارگشت"
+          cancelText="بازگشت"
           okText="ثبت"
           style={{ fontFamily: "VazirD" }}
           confirmLoading={this.state.selectloading}

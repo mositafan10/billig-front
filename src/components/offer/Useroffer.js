@@ -287,12 +287,8 @@ class UserOffer extends React.Component {
 
   delete = (data) => {
     const token = localStorage.getItem("token");
-    Axios.post(
-      `${url}api/v1/advertise/offer/update/`,
-      {
-        slug: data,
-        status: 8,
-      },
+    Axios.delete(
+      `${url}api/v1/advertise/offer/${data}/`,
       { headers: { Authorization: `Token ${token}` } }
     )
       .then(() => {
@@ -322,6 +318,10 @@ class UserOffer extends React.Component {
           loading: false,
         })
       )
+  }
+
+  componentWillUnmount(){
+    this.componentDidMount();
   }
 
   callbackfunction = () => {

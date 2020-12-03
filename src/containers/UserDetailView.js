@@ -12,6 +12,8 @@ import {
   FacebookOutlined,
   UserOutlined
 } from "@ant-design/icons";
+import PageNotFound from '../components/errors/PageNotFound';
+
 
 const style_left = {
   display: "flex",
@@ -31,18 +33,24 @@ class UserProfile extends React.Component {
   state = {
     user_profile: [],
     social: [],
+    error: "",
   };
 
   componentDidMount() {
     window.scroll(0,0)
     const userID = this.props.match.params.userID;
-    Axios.get(`${url}api/v1/account/users/profile/${userID}`).then((res) => {
+    Axios.get(`${url}api/v1/account/users/profile/${userID}`)
+    .then((res) => {
       this.setState({
         user_profile: res.data,
       });
-    });
+    })
+    .catch(error => {
+      this.setState({error:error.response.status})
+    })
 
-    Axios.get(`${url}api/v1/account/socials/${userID}`).then((res) => {
+    Axios.get(`${url}api/v1/account/socials/${userID}`)
+    .then((res) => {
       this.setState({
         social: res.data,
       });
@@ -91,11 +99,16 @@ class UserProfile extends React.Component {
     return (
       <div>
         <Breakpoint medium up>
+        {this.state.error == 404 
+            ?
+            <PageNotFound />
+            :
           <div style={{ textAlign: "center" }}>
             {this.state.user_profile.picture ?
             <img
-              width={200}
-              style={{ borderRadius: "100px" }}
+                width="250px"
+                height="250px"
+                style={{ borderRadius: "50%", marginTop: "30px" }}
               src={`${url}dstatic/${this.state.user_profile.picture}`}
             />
             :
@@ -190,6 +203,7 @@ class UserProfile extends React.Component {
               </TabPane>
             </Tabs>
           </div>
+          }
         </Breakpoint>
         <Breakpoint small down>
           <div style={{ textAlign: "center" }}>

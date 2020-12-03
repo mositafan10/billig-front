@@ -70,7 +70,6 @@ class HeaderSection extends Component {
         Axios.post(`${url}api/v1/account/tokenValidation/`, {
           token: token,
         }).then((res) => {
-          console.log(res.data.valid);
           if (res.data.valid) {
             Axios.get(`${url}api/v1/account/userinfo/`, {
               headers: { Authorization: `Token ${token}` },
@@ -109,7 +108,7 @@ class HeaderSection extends Component {
       <Menu.Item key="5">
         <Link to="/profile/payment">
           {" "}
-          پرداخت <DollarCircleOutlined />
+          پرداخت‌ها <DollarCircleOutlined />
         </Link>
       </Menu.Item>
       <Menu.Item key="6">

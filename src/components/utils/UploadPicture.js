@@ -3,6 +3,7 @@ import { Upload, notification, message } from "antd";
 import ImgCrop from "antd-img-crop";
 import { config } from "../../Constant";
 import DownloadPic from "../utils/DownloadPic";
+import imageCompression from "browser-image-compression";
 
 var url = config.url.API_URL;
 
@@ -11,6 +12,26 @@ const UploadFile = (props) => {
 
   const sendData = (newFileList) => {
     props.parentCallback(newFileList);
+  };
+
+  const handleImageUpload = (file) => {
+    return new Promise((resolve) => {
+      var options = {
+        maxSizeMB: 0.2,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+      imageCompression(file, options)
+        .then(function (compressedFile) {
+          var mayfile = new File([compressedFile], "adsPicture", {
+            type: "image/png",
+          });
+          resolve(mayfile);
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
+    });
   };
 
   function beforeUpload(file) {
@@ -89,10 +110,11 @@ const UploadFile = (props) => {
             listType="picture-card"
             onChange={onChange}
             beforeUpload={beforeUpload}
+            transformFile={handleImageUpload}
             onPreview={onPreview}
             fileList={fileList}
-          > 
-            {fileList.length < 1 && "+ Upload"}
+          >
+            {fileList.length < 1 && "+ تصویر"}
           </Upload>
         </ImgCrop>
       )}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route , Switch } from 'react-router-dom';
+import { Redirect, Route , Switch } from 'react-router-dom';
 import PacketUserList from '../components/packet/ListInProfile';
 import UserOffer from '../components/offer/Useroffer';
 import TravelProfile from '../containers/TravelProfile';
@@ -14,7 +14,8 @@ import Login from '../containers/Login';
 class ProfileRoutes extends React.Component {
     render(){
     return(          
-        this.props.isAuthenticated ?   
+        this.props.isAuthenticated 
+        ?  
         <Switch>
             <Route exact path='/profile/' render={(props) => <EditProfile/> }/>
             <Route exact path='/profile/comments' render={(props) => <CommentList/> }/>
@@ -27,7 +28,7 @@ class ProfileRoutes extends React.Component {
             <Route component={PageNotFound} />
         </Switch>
         :
-        <Route component={<Login/>} /> 
+        <Redirect to='/login'/>
         );
     }
 }

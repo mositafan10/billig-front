@@ -30,7 +30,6 @@ class App extends Component {
           <Switch>
 
             {/* Profile Layout */}
-            { this.props.isAuthenticated &&
             <Route path="/profile/:path?">
               <BreakpointProvider>
                 <ProfileLayout {...this.props}>
@@ -42,7 +41,6 @@ class App extends Component {
                 </ProfileLayout>
               </BreakpointProvider>
             </Route>
-            } 
             
             {/* login & Signup Layout */}
             <Route path={["/login", "/signup", "/signup/:path?"]} exact>

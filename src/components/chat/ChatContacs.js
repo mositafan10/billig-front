@@ -169,11 +169,6 @@ class ChatContacs extends Component {
                   )
                 }
               />
-              <Button
-                style={{ border: "hidden" }}
-                size="large"
-                icon={<MoreOutlined style={{ fontSize: "larger" }} />}
-              ></Button>
             </List.Item>
           )}
         />

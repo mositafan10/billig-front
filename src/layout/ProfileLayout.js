@@ -96,7 +96,7 @@ class ProfileLayout extends React.Component {
                   <Menu.Item key="5">
                     <Link to="/profile/payment">
                       <p style={menu_style}>
-                        پرداخت
+                        پرداخت‌ها
                         <DollarCircleOutlined style={icon_style} />
                       </p>
                     </Link>

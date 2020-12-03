@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Axios from "axios";
 import moment from "moment";
 import { config } from "../../Constant";
-import { Table, Spin } from "antd";
+import { Table, Spin, Tabs } from "antd";
+const { TabPane } = Tabs;
+
 
 var url = config.url.API_URL;
 
@@ -10,16 +12,17 @@ var url = config.url.API_URL;
 class TransactionList extends Component {
   state = {
     transactions: [],
+    cashoutList: [],
     loading: true,
   };
 
-  columns = [
+  columns_payment = [
     {
       title: "تاریخ پرداخت",
       dataIndex: "create_at",
       key: "transId",
       align: "right",
-      render: (dataIndex) => <p>{moment(dataIndex).format("Do MMM")}</p>,
+      render: (dataIndex) => <p>{moment(dataIndex).format("DD MMM")}</p>,
     },
     {
       title: "مبلغ (تومان)",
@@ -31,6 +34,29 @@ class TransactionList extends Component {
       title: "شماره تراکنش",
       dataIndex: "transId",
       key: "transId",
+      render: (dataIndex) => <p>{dataIndex}</p>
+    },
+  ];
+
+  columns_cashout = [
+    {
+      title: "تاریخ برداشت",
+      dataIndex: "create_at",
+      key: "transId",
+      align: "right",
+      render: (dataIndex) => <p>{moment(dataIndex).format("DD MMM")}</p>,
+    },
+    {
+      title: "مبلغ (تومان)",
+      dataIndex: "amount",
+      key: "transId",
+      render: (dataIndex) => <p>{this.currency(dataIndex)}</p>
+    },
+    {
+      title: "شماره تراکنش",
+      dataIndex: "transId",
+      key: "transId",
+      render: (dataIndex) => <p>{dataIndex}</p>
     },
   ];
 
@@ -45,7 +71,15 @@ class TransactionList extends Component {
           loading: false,
         });
       })
-      .catch((error) => console.error(error));
+    Axios.get(`${url}api/v1/payment/cashoutList/`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) => {
+        this.setState({
+          cashoutList: res.data,
+          loading: false,
+        });
+      })
   }
 
   currency = (value) => {
@@ -56,18 +90,33 @@ class TransactionList extends Component {
   render() {
     return (
       <div>
-        {" "}
         {this.state.loading ? (
           <div style={{ marginTop: "100px" }}>
             <Spin />
           </div>
         ) : (
+          <Tabs             
+          defaultActiveKey="1"
+          type="card"
+          style={{ textAlign: "center", fontSize: "25px" }}
+          centered>
+          <TabPane tab="واریز" key="1">
           <Table
             locale={{ emptyText: "تراکنشی وجود ندارد" }}
             style={{ padding: "40px 10px 30px 10px" }}
-            columns={this.columns}
+            columns={this.columns_payment}
             dataSource={this.state.transactions}
           />
+          </TabPane>
+          <TabPane tab="برداشت‌" key="2">
+          <Table
+            locale={{ emptyText: "تراکنشی وجود ندارد" }}
+            style={{ padding: "40px 10px 30px 10px" }}
+            columns={this.columns_cashout}
+            dataSource={this.state.cashoutList}
+          />
+          </TabPane>
+          </Tabs>
         )}
       </div>
     );

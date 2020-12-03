@@ -1,124 +1,144 @@
-import React from 'react';
-import { Form, Input, Button, Spin, Divider, ConfigProvider } from 'antd';
-import  { LoadingOutlined } from '@ant-design/icons';
-import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux'
-import * as actions from '../store/actions/auth';
-import ResetPassword from '../components/profile/ResetPassword';
+import React from "react";
+import { Form, Input, Button, Spin, Divider, ConfigProvider } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../store/actions/auth";
+import ResetPassword from "../components/profile/ResetPassword";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-const antIcon = <LoadingOutlined type="loading" style={{fontsize: 24, textAlign:"center"}} spin />; {/*should be place in center*/}
- 
+const antIcon = (
+  <LoadingOutlined
+    type="loading"
+    style={{ fontsize: 24, textAlign: "center" }}
+    spin
+  />
+);
+{
+  /*should be place in center*/
+}
 
 class LoginForm extends React.Component {
-   
-    state = {
-        toDashboard: false,
-        visible: false,
-        reset_pass_visible: false,
-        otp_visibile: false,
-        phone_number_otp: "",
-    };
+  state = {
+    toDashboard: false,
+    visible: false,
+    reset_pass_visible: false,
+    otp_visibile: false,
+    phone_number_otp: "",
+  };
 
-    onFinish = values => {
+  onFinish = (values) => {
     const otp = "";
     this.props.onAuth(values.phone_number, values.password, otp);
-    }
+  };
 
-    onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo);
-    }
-    render(){
+  onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+  render() {
     return (
-    <div style={{ display:"content", alignContent:"center", marginTop:"10px"}}>
-        { 
-        this.props.loading ?
-        <div style={{margin:"100px"}}>
+      <div
+        style={{
+          display: "content",
+          alignContent: "center",
+          marginTop: "10px",
+        }}
+      >
+        {this.props.loading ? (
+          <div style={{ margin: "100px" }}>
             <Spin size="large" />
-        </div>
-        :
-        <ConfigProvider direction="ltr">
-        <Form
-            size="middle"
-            layout="vertical"
-            name="basic"
-            initialValues={{
-            remember: true,
-            }}
-            onFinish={this.onFinish}
-            onFinishFailed={this.onFinishFailed}
-        >
-        <Divider>ورود به حساب کاربری</Divider><br/>
-        <Form.Item
-            style={{ alignItems: "center", textAlign: "left" }}
-            label="شماره موبایل"
-            name="phone_number"
-            rules={[
-            {
-                required: true,
-                message: 'شماره موبایل خود را وارد کنید',
-            },
-            ]}
-        >
-          <PhoneInput
-              style={{
-                fontFamily: "VazirD",
-                borderRadius: "10px",
-                width: "300px",
+          </div>
+        ) : (
+          <ConfigProvider direction="ltr">
+            <Form
+              size="middle"
+              layout="vertical"
+              name="basic"
+              initialValues={{
+                remember: true,
               }}
-              country='ir'
-              placeholder=""
-              preferredCountries={['ir' ]}
-              enableSearch="true"
-              disableSearchIcon="true"
-              searchPlaceholder=" "                  />
-        </Form.Item>
-        <Form.Item
-            style={{alignItems:"center"}}
-            label="رمز عبور"
-            name="password"
-            rules={[
-            {
-                required: true,
-                message: 'رمز عبور خود را وارد کنید',
-            },
-            ]}
-        >
-        <Input.Password style={{borderRadius:"10px"}} />
-        </Form.Item>
-        <Form.Item>
-            <ResetPassword />
-        </Form.Item>
-        <Form.Item style={{textAlign:"center"}}><br/>
-            <Button type="primary" htmlType="submit" style={{borderRadius:"15px"}}>
-                ورود
-            </Button> 
-        </Form.Item>  
-        <Form.Item style={{textAlign:"center"}}>
-            <NavLink 
-            style={{marginRight:'20px'}}
-            to='/signup/'>هنوز ثبت نام نکرده اید؟
-            </NavLink>
-        </Form.Item>  
-        </Form>
-        </ConfigProvider>
-        } 
-    </div>
-  );
-}
+              onFinish={this.onFinish}
+              onFinishFailed={this.onFinishFailed}
+            >
+              <Divider>ورود به حساب کاربری</Divider>
+              <br />
+              <Form.Item
+                style={{ alignItems: "center", textAlign: "left" }}
+                label="شماره موبایل"
+                name="phone_number"
+                rules={[
+                  {
+                    required: true,
+                    message: "شماره موبایل خود را وارد کنید",
+                  },
+                ]}
+              >
+                <PhoneInput
+                  style={{
+                    fontFamily: "VazirD",
+                    borderRadius: "10px",
+                    width: "300px",
+                  }}
+                  country="ir"
+                  placeholder=""
+                  preferredCountries={["ir"]}
+                  enableSearch="true"
+                  disableSearchIcon="true"
+                  searchPlaceholder=" "
+                />
+              </Form.Item>
+              <Form.Item
+                style={{ alignItems: "center" }}
+                label="رمز عبور"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "رمز عبور خود را وارد کنید",
+                  },
+                ]}
+              >
+                <Input.Password style={{ borderRadius: "10px" }} />
+              </Form.Item>
+              <Form.Item>
+                <ResetPassword />
+              </Form.Item>
+              <Form.Item style={{ textAlign: "center" }}>
+                <br />
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ borderRadius: "10px", padding:"0 25px 0 25px" }}
+                ><b>
+                  ورود
+                  </b>
+                </Button>
+              </Form.Item>
+              <Form.Item style={{ textAlign: "center" }}>
+                <NavLink style={{ marginRight: "20px" }} to="/signup/">
+                  هنوز ثبت نام نکرده اید؟
+                </NavLink>
+              </Form.Item>
+            </Form>
+          </ConfigProvider>
+        )}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        loading: state.loading,
-        error: state.error
-    }
-}
+  return {
+    loading: state.loading,
+    error: state.error,
+  };
+};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onAuth: (phone_number, password, otp) => dispatch(actions.authLogin(phone_number, password, otp))
-    }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (phone_number, password, otp) =>
+      dispatch(actions.authLogin(phone_number, password, otp)),
+  };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

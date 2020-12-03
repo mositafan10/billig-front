@@ -27,7 +27,7 @@ class PageNotFound extends Component {
           />
           </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-            <Link to="/login"><Button size="medium" style={{borderRadius:"10px", color:"white", backgroundColor:"green"}}>ورود به سایت</Button></Link>
+            <Link to="/"><Button size="medium" style={{borderRadius:"10px", color:"white", backgroundColor:"green"}}>بازگشت به صفحه اصلی</Button></Link>
           </Col>
           <Divider/>
         </Row>

@@ -3,6 +3,7 @@ import { Upload, message, Row, Col, Spin, Button, notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { config } from "../../Constant";
 import ImgCrop from "antd-img-crop";
+import imageCompression from "browser-image-compression";
 
 
 var url = config.url.API_URL;
@@ -13,27 +14,6 @@ function getBase64(img, callback) {
   reader.readAsDataURL(img);
 }
 
-function beforeUpload(file) {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  console.log(file.size)
-  const isLt2M = file.size / 1024 / 1024 < 10;
-  if (!isLt2M) {
-    notification["error"]({
-      message: "حجم تصویر باید کمتر از ۱۰ مگابایت باشد",
-      style: {
-        fontFamily: "VazirD",
-        textAlign: "right",
-        float: "right",
-        width: "max-content",
-      },
-      duration: 2,
-    });
-  }
-  return isJpgOrPng && isLt2M;
-}
 
 class UploadProfilePicture extends React.Component {
   state = {
@@ -41,6 +21,47 @@ class UploadProfilePicture extends React.Component {
     imageUrl: this.props.data,
   };
 
+  handleImageUpload = (file) => {
+    return new Promise((resolve) => {
+      var options = {
+        maxSizeMB: 0.2,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+      imageCompression(file, options)
+        .then(function (compressedFile) {
+          var mayfile = new File([compressedFile], "adsPicture", {
+            type: "image/png",
+          });
+          resolve(mayfile);
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
+    });
+  };
+  
+  beforeUpload = (file) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG file!");
+    }
+    const isLt2M = file.size / 1024 / 1024 < 10;
+    if (!isLt2M) {
+      notification["error"]({
+        message: "حجم تصویر باید کمتر از ۱۰ مگابایت باشد",
+        style: {
+          fontFamily: "VazirD",
+          textAlign: "right",
+          float: "right",
+          width: "max-content",
+        },
+        duration: 2,
+      });
+    }
+    return isJpgOrPng && isLt2M;
+  }
+  
   handleChange = (info) => {
     if (info.file.status === "uploading") {
       this.setState({ loading: true });
@@ -100,8 +121,9 @@ class UploadProfilePicture extends React.Component {
               showUploadList={false}
               action={`${url}api/v1/account/upload/`}
               headers={{ Authorization: `Token ${token}` }}
-              beforeUpload={beforeUpload}
+              beforeUpload={this.beforeUpload}
               onChange={this.handleChange}
+              transformFile={this.handleImageUpload}
             >
               <br />
               <Button style={{fontSize:"14px", borderRadius:"10px"}}>تغییر تصویر</Button>

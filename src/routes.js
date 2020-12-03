@@ -1,13 +1,11 @@
 import React from 'react';
-import { Route , Switch, Redirect ,BrowserRouter, withRouter } from 'react-router-dom';
+import { Route , Switch, Redirect , withRouter } from 'react-router-dom';
 import OrderList from './containers/OrdersListView';
 import OrderDetail from './containers/OrderDetailView';
 import UserProfile from './containers/UserDetailView';
 import LandingPage from './containers/LandingPage';
-import TravelDetail from './containers/TravelDetailView';
 import PackForm from './components/packet/PacketForm';
 import PageNotFound from './components/errors/PageNotFound';
-import AuthorizationFail from './components/errors/AuthorizationFail';
 import VerifyTransaction from './components/payment/VerifyTransaction';
 import AboutUs from './pages/AboutUs';
 import HowToWork from './pages/HowToWork';
@@ -24,7 +22,6 @@ import TravelerGuide from './pages/TravelerGuide'
 import ContactUs from './pages/ContactUs';
 import RulesCountry from './pages/rules/RulesCountry';
 import Germany from './pages/rules/Germany';
-import Login from './containers/Login';
 
 class BaseRouter extends React.Component {
     render(){
@@ -35,7 +32,6 @@ class BaseRouter extends React.Component {
                 <Route exact path='/orders/:country' render={(props) => <OrderList {...this.props}/> }/>
                 <Route exact path='/orders/:country/:category' render={(props) => <OrderList {...this.props}/> }/>
                 <Route exact path='/create-packet' render={(props) => this.props.isAuthenticated ? <PackForm {...this.props}/>:<Redirect to="/login"/>}/>
-                <Route exact path='/travel/:travelID' component={this.props.isAuthenticated ? TravelDetail:AuthorizationFail} />
                 <Route exact path='/users/:userID' component={UserProfile} />
                 <Route exact path='/packet/:orderID' component={OrderDetail} />
                 <Route exact path='/packet/:title/:orderID/' component={OrderDetail}/>
