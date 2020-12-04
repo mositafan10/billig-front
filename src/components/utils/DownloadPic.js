@@ -52,6 +52,7 @@ class DownloadPic extends React.Component {
             src={`${url}dstatic/${this.state.url}`}
             style={{ borderRadius: "10px" }}
             width={this.props.size}
+            height="auto"
           ></img>
         ) : (
           <div style={{ margin: "100px", justifyContent:"center", display:"flex" }}>

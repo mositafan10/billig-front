@@ -352,7 +352,7 @@ class PackForm extends React.Component {
                 rules={[
                   { required: true, message: "عنوان آگهی را وارد نمایید" },
                   {
-                    max: 50,
+                    max: 45,
                     message: "عنوان آگهی نباید بیشتر از ۵۰ کاراکتر باشد",
                   },
                 ]}

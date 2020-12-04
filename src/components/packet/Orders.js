@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { List, Row, Col, Divider, Spin } from "antd";
+import { List, Row, Col, Divider, Spin, Card } from "antd";
 import airplane from "../../media/airplane.png";
 import DownloadPic from "../utils/DownloadPic";
 import TimeDiff from "../utils/TimeDiff";
@@ -11,7 +11,8 @@ import { LoadingOutlined, GlobalOutlined } from "@ant-design/icons";
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 var url = config.url.API_URL;
-const style_center = { display: "flex", justifyContent: "center" };
+const style_center = { display: "flex", justifyContent: "center" , alignItems:"center"}
+
 
 class Orders extends React.Component {
   render() {
@@ -24,7 +25,7 @@ class Orders extends React.Component {
           loader={
             <Spin
               indicator={antIcon}
-              style={{ display: "flex", justifyContent: "center" }}
+              style={style_center}
             />
           }
           useWindow={true}
@@ -32,78 +33,75 @@ class Orders extends React.Component {
         >
           <List
             grid={{
+              gutter: 16,
               xs: 1,
               sm: 1,
               md: 2,
-              lg: 3,
+              lg: 2,
               xl: 3,
-              xxl: 3,
+              xxl: 4,
             }}
             locale={{ emptyText: " " }}
             itemLayout="horizontal"
             loading={this.props.loading}
             dataSource={this.props.data}
             renderItem={(item) => (
+              <List.Item>
+              <Card>
               <Link to={"/packet/" + item.slug}>
                 <Row
                   style={{
                     color: "black",
-                    border: "1px solid",
-                    borderRadius: "10px",
-                    margin: "15px 20px 15px 20px",
-                    padding: "15px 15px 10px 5px",
-                    width: "340px",
-                    height: "170px",
                   }}
-                >
-                  <Col xs={11} sm={11} md={11} lg={11} xl={11} xxl={11}>
-                    <Row>
-                      <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
-                        {item.no_matter_country == null ?
+                  >
+                  <Col span={12}>
+                    <Row style={style_center}>
+                      <Col span={8} style={style_center}  >
+                        {item.no_matter_origin == true ?
                         <GlobalOutlined style={{fontSize:"25px", marginRight:"10px"}} />
                         :
                         <img
                           loading="lazy"
                           src={`${url}dstatic/${item.origin_country.icon}`}
-                          width={50}
+                          width="100%"
                           style={{ borderRadius: "5px" }}
                         />
                         }
                       </Col>
-                      <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
+                      <Col span={8} style={style_center}>
                         <img
                           src={airplane}
-                          width={40}
+                          width="100%"
                           style={{ marginRight: "5px" }}
                         />
                       </Col>
-                      <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8}>
+                      <Col span={8} style={style_center}>
                         <img
                           loading="lazy"
                           src={`${url}dstatic/${item.destination_country.icon}`}
-                          width={50}
+                          width="100%"
                           style={{ borderRadius: "5px" }}
                         />
                       </Col>
                     </Row>
                     <br />
-                    <Row style={{ height: "80px" }}>
-                      <Col style={{ color: "black" }}>{item.title}</Col>
-                    </Row>
-                    <Row>
-                      <Col style={{ color: "black" }}>
+                    <Row style={{height:"70%"}}>
+                      <Col style={{ color: "black", }} span={24}>{item.title}</Col>
+                      <Col style={{ color: "black", display:"flex", alignItems:"end"}} span={24}>
                         <TimeDiff data={item.create_at} />
                       </Col>
                     </Row>
                   </Col>
-                  <Divider type="vertical" />
-                  <Col xs={11} sm={11} md={11} lg={11} xl={11} xxl={11}>
+                  <Col span={2}></Col>
+                  <Col span={10}>
                     <div style={style_center}>
-                      <DownloadPic data={item.picture} size={140} />
+                      <DownloadPic data={item.picture} size="100%" />
                     </div>
                   </Col>
                 </Row>
               </Link>
+              </Card>
+              </List.Item>
             )}
           ></List>
         </InfiniteScroll>
