@@ -142,7 +142,6 @@ class PacketUserList extends React.Component {
                           display: "flex",
                           textAlign: "center",
                           marginTop: "10px",
-                          // height: "20%",
                         }}
                       >
                         <Col style={{ color: "black" }}>

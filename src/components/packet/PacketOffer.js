@@ -294,7 +294,7 @@ class PacketOffer extends React.Component {
 
   componentDidMount() {
     const orderID = this.props.data;
-    Axios.get(`${url}api/v1/advertise/offer/${orderID}/`, {
+    Axios.get(`${url}api/v1/advertise/offers/${orderID}/`, {
       headers: { Authorization: `Token ${token}` },
     })
       .then((res) => {
