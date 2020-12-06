@@ -847,7 +847,16 @@ x                     disabled={this.state.city_destination_dis}
               <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>
-              <Form.Item name="description">
+              <Form.Item name="description" rules={[
+                {
+                  required: true,
+                  message: "توضیحات لازم را وارد نمایید"
+                },
+                  {
+                    max: 1000,
+                    message: "طول متن بیشتر از ۱۰۰۰ حرف است",
+                  },
+                ]}>
                 <TextArea
                   placeholder="نکاتی را که به واضح‌تر شدن درخواست شما برای بازدیدکننده آگهی کمک می‌کند، در اینجا یادداشت نمایید."
                   style={{ textAlign: "right", padding: "10px" }}

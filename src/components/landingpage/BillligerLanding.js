@@ -11,7 +11,7 @@ import deliverd from "../../media/traveler_guide/deliverd.svg";
 import buy from "../../media/traveler_guide/buy.svg";
 import { Breakpoint } from "react-socks";
 const { Meta } = Card;
-
+const center = {display:"center", justifyContent:"center"}
 const travel_guide = { color: "white" };
 const style_icon1 = { width: "30%", display: "inline" };
 const h_style = { paddingBottom: "5px", textAlign: "center", color: "white" };
@@ -64,14 +64,13 @@ const BillligerLanding = () => {
                     color: "white",
                     fontSize: "26px",
                     textAlign: "center",
-                    border: "2px solid",
-                    borderRadius: "20px",
                     padding: "0 25px 0 25px",
                     marginTop: "20px",
                   }}
                 >
                   بیلیگر
                 </h1>
+                <hr style={{color:"white"}}/>
               </Col>
               <Col span={24}>
                 <h2 style={h_style}>می‌خواهم بسته‌ای را پست کنم.</h2>
@@ -164,7 +163,7 @@ const BillligerLanding = () => {
                     style={card_style_packet}
                     description={
                       <div style={travel_guide}>
-                        بعد از اینکه با مسافر به توافق رسیدی بعد باید دستمزد
+                        بعد توافق با مسافر باید دستمزد
                         مسافر رو به بیلیگ پرداخت کنی. اگه می‌خوای مسافر خودش
                         برات از اونجا خرید کنه و بیاره، ‌هزینه کالا رو هم باید
                         پرداخت کنی
@@ -214,7 +213,6 @@ const BillligerLanding = () => {
                     color: "white",
                     fontSize: "26px",
                     textAlign: "center",
-                    border: "2px solid",
                     borderRadius: "20px",
                     padding: "0 25px 0 25px",
                     marginTop: "20px",
@@ -222,6 +220,7 @@ const BillligerLanding = () => {
                 >
                   مسافر
                 </h1>
+                <hr style={{color:"white"}}/>
               </Col>
               <Col span={24}>
                 <h2 style={h_style}>می‌خواهم بسته دیگران را به مقصد برسانم.</h2>
@@ -355,22 +354,22 @@ const BillligerLanding = () => {
                   color: "white",
                   fontSize: "20px",
                   textAlign: "center",
-                  border: "2px solid",
-                  borderRadius: "10px",
                   padding: "0 15px 0 15px",
                   marginTop: "20px",
                 }}
               >
                 بیلیگر
               </h1>
+              <hr style={{color:"white"}}/>
             </Col>
             <Col span={24}>
               <h2 style={h_style}>می‌خواهم بسته‌ای را پست کنم.</h2>
             </Col>
           </Row>
-          <Carousel>
-            <div>
-              <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
+          <Carousel >
+            <div >
+              <Row style={center}>
+              <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} style={center}>
                 <Card
                   style={card_icon_billliger}
                   bordered={false}
@@ -394,8 +393,10 @@ const BillligerLanding = () => {
                   />
                 </Card>
               </Col>
+              </Row>
             </div>
             <div>
+            <Row style={center}>
               <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                 <Card
                   style={card_icon_billliger}
@@ -420,8 +421,10 @@ const BillligerLanding = () => {
                   />
                 </Card>
               </Col>
+              </Row>
             </div>
             <div>
+            <Row style={center}>
               <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                 <Card
                   style={card_icon_billliger}
@@ -442,8 +445,10 @@ const BillligerLanding = () => {
                   />
                 </Card>
               </Col>
+              </Row>
             </div>
             <div>
+            <Row style={center}>
               <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                 <Card
                   style={card_icon_billliger}
@@ -464,8 +469,10 @@ const BillligerLanding = () => {
                   />
                 </Card>
               </Col>
+              </Row>
             </div>
             <div>
+            <Row style={center}>
               <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                 <Card
                   style={card_icon_billliger}
@@ -490,6 +497,7 @@ const BillligerLanding = () => {
                   />
                 </Card>
               </Col>
+              </Row>
             </div>
           </Carousel>
         </div>
@@ -502,14 +510,13 @@ const BillligerLanding = () => {
                   color: "white",
                   fontSize: "20px",
                   textAlign: "center",
-                  border: "2px solid",
-                  borderRadius: "10px",
                   padding: "0 15px 0 15px",
                   marginTop: "20px",
                 }}
               >
                 مسافر
               </h1>
+              <hr style={{color:"white"}}/>
             </Col>
             <Col span={24}>
               <h3 style={h_style}>می‌خواهم بسته دیگران را به مقصد برسانم.</h3>
@@ -544,6 +551,7 @@ const BillligerLanding = () => {
               </Row>
             </div>
             <div>
+            <Row style={center}>
               <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                 <Card
                   style={card_icon}
@@ -568,8 +576,10 @@ const BillligerLanding = () => {
                   />
                 </Card>
               </Col>
+              </Row>
             </div>
             <div>
+            <Row style={center}>
               <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                 <Card
                   style={card_icon}
@@ -591,8 +601,10 @@ const BillligerLanding = () => {
                   />
                 </Card>
               </Col>
+              </Row>
             </div>
             <div>
+            <Row style={center}>
               <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                 <Card
                   style={card_icon}
@@ -614,8 +626,10 @@ const BillligerLanding = () => {
                   />
                 </Card>
               </Col>
+              </Row>
             </div>
             <div>
+            <Row style={center}>
               <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                 <Card
                   style={card_icon}
@@ -637,6 +651,7 @@ const BillligerLanding = () => {
                   />
                 </Card>
               </Col>
+              </Row>
             </div>
           </Carousel>
           <Divider style={{ opacity: "0" }} />

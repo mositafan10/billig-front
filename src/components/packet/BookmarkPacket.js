@@ -18,7 +18,8 @@ class BookmarkPacket extends Component {
     loading: true,
   };
 
-  delete = (dataIndex, id) => {
+  delete = (dataIndex,) => {
+    console.log(dataIndex)
     const current_packet = this.state.bookmarks;
     const token = localStorage.getItem("token");
     Axios.delete(`${url}api/v1/advertise/bookmarks/${dataIndex}/`, {
@@ -26,7 +27,7 @@ class BookmarkPacket extends Component {
     })
       .then((res) => {
         this.setState({
-          bookmarks: current_packet.filter((bookmarks) => bookmarks.id !== id),
+          bookmarks: current_packet.filter((bookmark) => bookmark.packet_slug !== dataIndex),
         });
       })
       .catch((error) => console.error(error));
@@ -89,6 +90,7 @@ class BookmarkPacket extends Component {
                       <Col span={24}>
                         <br />
                         <Button
+                        onClick={this.delete.bind(this, item.packet_slug)}
                           style={{
                             borderRadius: "8px",
                             backgroundColor: "red",

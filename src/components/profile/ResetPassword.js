@@ -4,6 +4,7 @@ import Axios from "axios";
 import { config } from "../../Constant";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import NewPassword from "./NewPassword";
 
 var url = config.url.API_URL;
 
@@ -12,9 +13,10 @@ class ResetPassword extends React.Component {
     visible: false,
     reset_pass_visible: false,
     otp_visibile: false,
-    phone_number_otp: "",
+    phone_number: "",
     loading_first: true,
     loading_otp: true,
+    new_pass_vis: false
   };
 
   showResetPass = () => {
@@ -35,6 +37,20 @@ class ResetPassword extends React.Component {
     });
   };
 
+  handleCancelNewPass = () => {
+    this.setState({
+      new_pass_vis: false,
+    });
+  }
+
+  closeAll = () => {
+    this.setState({
+      reset_pass_visible: false,
+      otp_visibile:false,
+      new_pass_vis: false
+    })
+  }
+
   handleOk = (values) => {
     Axios.post(`${url}api/v1/account/resetpassword/`, {
       phone_number: values.phone_number,
@@ -43,7 +59,7 @@ class ResetPassword extends React.Component {
         this.setState({
           otp_visibile: true,
           loading_first: false,
-          phone_number_otp: values.phone_number,
+          phone_number: values.phone_number,
         });
       })
       .catch((error) => {
@@ -62,31 +78,44 @@ class ResetPassword extends React.Component {
 
   handleOkotp = (values) => {
     Axios.post(`${url}api/v1/account/confirmresetpassword/`, {
-      phone_number: this.state.phone_number_otp,
+      phone_number: this.state.phone_number,
       otp: values.otp,
     })
       .then((res) => {
-        this.setState({
-          otp_visibile: false,
-          reset_pass_visible : false,
-          loading_first: false,
-          phone_number_otp: values.phone_number,
-        });
-        notification["success"]({
-          message: <div><p>.رمز عبور به کد ارسالی تغییر پیدا کرد<br/>.توصیه می‌شود در اسرع وقت رمز خود را تغییر دهید</p></div>,
-          style: {
-            fontFamily: "VazirD",
-            textAlign: "right",
-            float: "right",
-            width: "max-content",
-          },
-          duration: 5,
-        });
+        // this.setState({
+          // otp_visibile: false,
+          // reset_pass_visible : false,
+          // loading_first: false,
+          // phone_number: values.phone_number,
+        // });
+
+        // notification["success"]({
+        //   message: <div><p>.رمز عبور به کد ارسالی تغییر پیدا کرد<br/>.توصیه می‌شود در اسرع وقت رمز خود را تغییر دهید</p></div>,
+        //   style: {
+        //     fontFamily: "VazirD",
+        //     textAlign: "right",
+        //     float: "right",
+        //     width: "max-content",
+        //   },
+        //   duration: 5,
+        // });
+        console.log(res.data.detail)
+        if (res.data.detail == true){
+          this.setState({new_pass_vis:true})
+        } 
       })
       .catch((error) => {
-        message.info({
-          content: error.response.data.detail,
-        });
+        console.log(error.response)
+        notification["error"]({
+            message: error.response.data,
+            style: {
+              fontFamily: "VazirD",
+              textAlign: "right",
+              float: "right",
+              width: "max-content",
+            },
+            duration: 5,
+          });
       });
   };
 
@@ -102,6 +131,7 @@ class ResetPassword extends React.Component {
         </Button>
         <Modal
           onCancel={this.handleCancel}
+          closable={false}
           okButtonProps={{
             form: "reset_pass",
             key: "submit",
@@ -132,7 +162,7 @@ class ResetPassword extends React.Component {
                 fontFamily: "VazirD",
               }}
             >
-            شماره موبایل خود را وارد نمایید
+            شماره موبایل را وارد نمایید
             </label>
             <Form.Item
               name="phone_number"
@@ -140,7 +170,7 @@ class ResetPassword extends React.Component {
               rules={[
                 {
                   required: true,
-                  message: "شماره موبایل را وارد کنید",
+                  message: "شماره موبایل را وارد نمایید",
                 },
               ]}
             >
@@ -182,12 +212,31 @@ class ResetPassword extends React.Component {
                   rules={[
                     {
                       required: true,
+                      message: "وارد کردن کد الزامی است"
                     },
                   ]}
                 >
                   <Input />
                 </Form.Item>
               </Form>
+            </Modal>
+            <Modal
+             visible={this.state.new_pass_vis}
+             onCancel={this.handleCancelNewPass}
+             width="40%"
+             okButtonProps={{
+              hidden:"true"
+            }}
+            okText="ارسال"
+            cancelText="انصراف"
+            cancelButtonProps={{hidden:"true"}}
+            style={{
+              borderRadius: "10px",
+              overflow: "hidden",
+              fontFamily: "VazirD",
+            }}
+            >
+              <NewPassword data={this.state.phone_number} parentcallback={this.closeAll} />
             </Modal>
           </Form>
         </Modal>

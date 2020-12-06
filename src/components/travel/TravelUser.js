@@ -171,30 +171,18 @@ class TravelList extends React.Component {
                                 <p style={{ marginRight: "5px" }}> تومان </p>
                               )}
                             </Col>
-                          </Row>
-                          <Row
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <br />
-                            {item.income != 0 && item.status == 4 && (
-                              <div></div>
-                            )}
-                          </Row>
-                          <hr style={{ margin: "15px 0 15px 0" }} />
-                          <Row style={style_right}>
-                            <Space size="small">
-                              <Col>
+                            </Row>
+                            <Row style={style_center}>
+                            <Col >
                                 <Button
                                   onClick={this.offermodal}
                                   style={{
                                     borderRadius: "10px",
                                     fontSize: "12px",
+                                    border:"hidden"
                                   }}
                                 >
-                                  پیشنهادها ( {item.offer_count} )
+                                  پیشنهادها  <span style={{marginRight:"10px"}}>{item.offer_count}</span>
                                 </Button>
                               </Col>
                               <Modal
@@ -214,6 +202,20 @@ class TravelList extends React.Component {
                               >
                                 <UserOffer />
                               </Modal>
+                          </Row>
+                          <Row
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <br />
+                            {item.income != 0 && item.status == 4 && (
+                              <div></div>
+                            )}
+                          </Row>
+                          <hr style={{ margin: "15px 0 15px 0" }} />
+                          <Row  style={{display:"block"}}>
                               <Col>
                                 {item.status == 4 ? (
                                   <PayTraveler
@@ -229,7 +231,7 @@ class TravelList extends React.Component {
                                   />
                                 )}
                               </Col>
-                              <Col>
+                              <Col style={{float:"left"}}>
                                 {(item.status == 0 ||
                                   item.status == 2 ||
                                   item.status == 3) && (
@@ -257,7 +259,6 @@ class TravelList extends React.Component {
                                   </Popconfirm>
                                 )}
                               </Col>
-                            </Space>
                           </Row>
                         </Col>
                       </Row>

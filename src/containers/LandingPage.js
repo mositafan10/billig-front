@@ -43,12 +43,10 @@ class LandingPage extends React.Component {
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <Orders data={this.state.orders} loading={this.state.loading} />
           </Col>
-          <Divider style={{ opacity: "0" }} />
           <Link to="/orders">
             <Button style={{ borderRadius: "8px" }}>نمایش همه آگهی</Button>
           </Link>
         </Row>
-        <Divider >مزیت‌های بیلیگ برای شما</Divider>
         <BillligStrength />
         <Divider>آخرین نظرات</Divider>
         <Row style={{ display: "flex", justifyContent: "center" }}>
