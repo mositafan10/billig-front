@@ -25,6 +25,7 @@ class EditProfile extends React.Component {
   };
 
   componentDidMount() {
+    window.scroll(0,0)
     const userID = localStorage.getItem("user");
     const token = localStorage.getItem("token");
       Axios.get(`${url}api/v1/account/users/profile/pr/${userID}`,{ headers: {"Authorization" : `Token ${token}`} }).then((res) => {

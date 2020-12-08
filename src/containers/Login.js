@@ -20,6 +20,7 @@ const antIcon = (
 }
 
 class LoginForm extends React.Component {
+  
   state = {
     toDashboard: false,
     visible: false,
@@ -37,6 +38,7 @@ class LoginForm extends React.Component {
     console.log("Failed:", errorInfo);
   };
   render() {
+    window.scroll(0, 0);
     return (
       <div
         style={{

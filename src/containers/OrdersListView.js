@@ -26,7 +26,7 @@ class OrderList extends React.Component {
       orders: [],
       countries: [],
       filter: "none",
-      loading: false,
+      loading: true,
       page: 1,
       count: 0,
       hasMore: true,
@@ -85,7 +85,7 @@ class OrderList extends React.Component {
   };
 
   moreData = () => {
-    this.setState({ hasMore: false });
+    this.setState({ hasMore: false,});
     setTimeout(() => {
       const page = this.state.page;
       const ini_filter = this.props.location.pathname;
@@ -95,7 +95,7 @@ class OrderList extends React.Component {
         this.state.count == this.state.orders.length &&
         this.state.count != 0
       ) {
-        this.setState({ hasMore: false });
+        this.setState({ hasMore: false, loading: false});
         return;
       }
       Axios.get(
@@ -109,6 +109,7 @@ class OrderList extends React.Component {
             count: res.data.count,
             page: state.page + 1,
             hasMore: true,
+            loading: false
           }));
         })
         .catch((error) => console.error(error));

@@ -39,6 +39,7 @@ class InboxLayout extends React.Component {
     }
 
     render(){
+        window.scroll(0, 0);
         return(
             <div style={{backgroundColor:"white"}}>
                 <Row>

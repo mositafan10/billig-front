@@ -64,7 +64,7 @@ class BookmarkPacket extends Component {
                 xl: 4,
                 xxl: 4,
               }}
-              locale={{ emptyText: "شما هنوز آگهی ثبت نکرده‌اید." }}
+              locale={{ emptyText: "موردی نشان نشده است." }}
               dataSource={this.state.bookmarks}
               renderItem={(item) => (
                 <List.Item>

@@ -504,12 +504,12 @@ class PackForm extends React.Component {
                         this.state.buy ? (
                           <span style={{ marginRight: "10px" }}>
                             محلی است که کالا قرار است در آنجا تحویل گیرنده داده
-                            شود *
+                            شود 
                           </span>
                         ) : (
                           <span style={{ marginRight: "10px" }}>
                             محلی است که بسته قرار است در آنجا تحویل گیرنده داده
-                            شود *
+                            شود 
                           </span>
                         )
                       }

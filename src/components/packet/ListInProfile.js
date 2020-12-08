@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-import { Spin } from "antd";
+import { Divider, Spin } from "antd";
 import { Popconfirm, notification, List, Row, Col, Button, Card } from "antd";
 import OfferListModal from "../offer/OfferListModal";
 import EditPacket from "./EditPacket";
@@ -20,6 +20,7 @@ var url = config.url.API_URL;
 class PacketUserList extends React.Component {
   state = {
     packet_user: [],
+    packet_user_completed: [],
     loading: true,
   };
 
@@ -35,7 +36,15 @@ class PacketUserList extends React.Component {
           loading: false,
         });
       })
-      .catch((error) => console.error(error));
+    Axios.get(`${url}api/v1/advertise/user_packet/completed`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) => {
+        this.setState({
+          packet_user_completed: res.data,
+          loading: false,
+        });
+      })
   }
 
   cancel(e) {
@@ -68,6 +77,22 @@ class PacketUserList extends React.Component {
       .catch((error) => console.error(error));
   };
 
+  delete1 = (slug) => {
+    const current_packet = this.state.packet_user_completed;
+    const token = localStorage.getItem("token");
+    Axios.delete(`${url}api/v1/advertise/packet/${slug}`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) => {
+        this.setState({
+          packet_user_completed: current_packet.filter(
+            (packet_user_completed) => packet_user_completed.slug !== slug
+          ),
+        });
+      })
+      .catch((error) => console.error(error));
+  };
+
   callbackFunction = () => {
     this.componentDidMount();
   };
@@ -93,6 +118,8 @@ class PacketUserList extends React.Component {
             <Spin />
           </div>
         ) : (
+          <div>
+          <Divider>آگهی‌های در حال انجام</Divider>
           <List
             grid={{
               gutter: 24,
@@ -241,7 +268,105 @@ class PacketUserList extends React.Component {
               </List.Item>
             )}
           />
+          </div>
         )}
+        { this.state.packet_user_completed.length != 0 &&
+        <Divider>آگهی‌های تمام شده</Divider>
+        }
+        <List
+            grid={{
+              gutter: 24,
+              xs: 1,
+              sm: 1,
+              md: 2,
+              lg: 2,
+              xl: 3,
+              xxl: 4,
+            }}
+            locale={{ emptyText: " " }}
+            dataSource={this.state.packet_user_completed}
+            renderItem={(item) => (
+              <List.Item>
+                <Card >
+                  <Row>
+                    <Col span={24}>
+                      <span
+                        style={{ display: "flex", justifyContent: "center", backgroundColor:"darkseagreen", padding:"5px 0 5px", borderRadius:"5px" }}
+                      >
+                        وضعیت آگهی :
+                        <span
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            color: "darkgreen",
+                            marginRight: "3px",
+                          }}
+                        >
+                          تمام شده
+                        </span>
+                      </span>
+                      <br />
+                      <Row style={style_center}>
+                        <Col span={24}>
+                          <Link
+                            to={`/packet/${item.slug}`}
+                            style={{ color: "black" }}
+                          >
+                            <DownloadPic data={item.picture} size="60%" />
+                          </Link>
+                        </Col>
+                      </Row>
+                      <Row
+                        style={{
+                          justifyContent: "center",
+                          display: "flex",
+                          textAlign: "center",
+                          marginTop: "10px",
+                        }}
+                      >
+                        <Col style={{ color: "black" }}>
+                          <Link
+                            to={`/packet/${item.slug}`}
+                            style={{ color: "black" }}
+                          >
+                            {item.title}
+                          </Link>
+                        </Col>
+                      </Row>
+                      <br/>
+                      <Row>
+                        <Col
+                          span={24}
+                          style={{ display: "flex", justifyContent: "center" }}
+                        >
+                            <Popconfirm
+                              overlayStyle={{ fontFamily: "VazirD" }}
+                              title="آیا از حذف آگهی مطمئن هستید ؟"
+                              onConfirm={this.delete1.bind(this, item.slug)}
+                              onCancel={this.cancel}
+                              okText="بله"
+                              cancelText="خیر"
+                            >
+                              <a>
+                                <Button
+                                  style={{
+                                    fontSize: "14px",
+                                    borderRadius: "10px",
+                                  }}
+                                  onClick={this.offerlistmodal}
+                                >
+                                  حذف
+                                </Button>
+                              </a>
+                            </Popconfirm>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </Card>
+              </List.Item>
+            )}
+          />
       </div>
     );
   }

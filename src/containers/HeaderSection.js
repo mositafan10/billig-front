@@ -235,19 +235,19 @@ class HeaderSection extends Component {
                   </div>
                 </div>
                 <Row>
-                  <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={20}>
+                  <Col >
                     <Menu
                       style={{ borderBottom: "hidden", marginTop: "5px" }}
                       mode="horizontal"
                     >
                       <Menu.Item key="1">
                         <Link to="/create-packet">
-                          <b>ثبت رایگان آگهی</b>
+                          <span style={{backgroundColor:"#FCA468", color:"white", padding:"10px 15px 10px 15px", borderRadius:"10px"}}><b>ثبت رایگان آگهی</b></span>
                         </Link>
                       </Menu.Item>
                       <Menu.Item key="2">
                         <Link to="/orders">
-                          <b>کسب درآمد از سفر</b>
+                        <span style={{backgroundColor:"#46A0AE", color:"white", padding:"10px 15px 10px 15px", borderRadius:"10px"}}><b>کسب درآمد از سفر</b></span>
                         </Link>
                       </Menu.Item>
                     </Menu>
@@ -308,9 +308,9 @@ class HeaderSection extends Component {
                     }}
                   ></Button>
                   <Drawer
-                    title={<p style={{ color: "white" }}>بیلیگ</p>}
+                    title={<span><b>بیلیگ</b></span>}
                     placement="left"
-                    headerStyle={{ backgroundColor: "#46a0ae", color: "white" }}
+                    headerStyle={{ textAlign: "center"}}
                     closable={false}
                     onClose={this.onClose}
                     width="50%"
@@ -327,21 +327,21 @@ class HeaderSection extends Component {
                         onClick={this.onClose}
                         to="/create-packet"
                       >
-                        <p>ثبت آگهی</p>
+                        <p style={{backgroundColor:"#FCA468", color:"white", textAlign:"center", padding:"5px 10px 5px 10px", borderRadius:"5px" }}>ثبت آگهی</p>
                       </Link>
                       <Link
                         style={{ color: "black" }}
                         onClick={this.onClose}
                         to="/orders"
                       >
-                        <p>کسب در آمد از سفر</p>
+                        <p style={{backgroundColor:"#46a0ae", color:"white", textAlign:"center", padding:"5px 10px 5px 10px", borderRadius:"5px" }}>کسب در آمد از سفر</p>
                       </Link>
                       <a
                         style={{ color: "black" }}
                         onClick={this.onClose}
                         href="https://billlig.com/blog"
                       >
-                        <p>بلاگ</p>
+                        <p style={{textAlign:"center"}}>بلاگ</p>
                       </a>
                     </div>
                   </Drawer>
@@ -425,10 +425,10 @@ class HeaderSection extends Component {
                             />
                           )}
                           <Divider style={{ margin: "5px", opacity: "0" }} />
-                          <p style={{ color: "white" }}>
+                          <span style={{ color: "white" }}>
                             {this.state.userinfo.user &&
                               this.state.userinfo.user.name}
-                          </p>
+                          </span>
                         </Row>
                       </div>
                     ) : (

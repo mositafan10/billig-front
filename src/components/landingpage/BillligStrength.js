@@ -37,7 +37,7 @@ const contentStyle = {
 const BillligStrength = () => {
   return (
     <div style={{ backgroundColor: "#46A0AE", paddingTop:"10px", marginTop:"20px"}}>
-      <Divider >مزیت‌های بیلیگ برای شما</Divider>
+      <Divider style={{color:"white"}} >مزیت‌های بیلیگ برای شما</Divider>
       <Breakpoint medium up>
         <Carousel autoplay effect="scrollx">
           <div>

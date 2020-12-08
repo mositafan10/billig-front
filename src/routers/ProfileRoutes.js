@@ -13,9 +13,12 @@ import Login from '../containers/Login';
 
 class ProfileRoutes extends React.Component {
     render(){
+    const token = localStorage.getItem('token') 
+    console.log(this.props.isAuthenticated)
+    console.log(token)
     return(          
-        this.props.isAuthenticated 
-        &&
+        (token != null)
+        ?
         <Switch>
             <Route exact path='/profile/' render={(props) => <EditProfile/> }/>
             <Route exact path='/profile/comments' render={(props) => <CommentList/> }/>
@@ -27,6 +30,8 @@ class ProfileRoutes extends React.Component {
             <Route exact path='/profile/bookmark' render={(props) => <BookmarkPacket/> }/>
             <Route component={PageNotFound} />
         </Switch>
+        :
+        <Redirect to='/login'/>
         );
     }
 }
