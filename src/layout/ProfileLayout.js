@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu, Row, Col, Divider } from "antd";
+import { Layout, Menu, Row, Col, Divider, Badge } from "antd";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
@@ -12,7 +12,7 @@ import {
   AimOutlined,
   VerticalLeftOutlined,
 } from "@ant-design/icons";
-import HeaderSection from "../containers/HeaderSection";
+import HeaderSection_Profile from "../containers/HeaderSection_Profile";
 import { Breakpoint } from "react-socks";
 
 const menu_style = { color: "black" };
@@ -21,6 +21,10 @@ const icon_style = { marginLeft: "10px" };
 const { Header, Sider, Content } = Layout;
 
 class ProfileLayout extends React.Component {
+  state = {
+    total: 0
+  }
+
   exit = () => {
     this.props.logout();
     this.setState({
@@ -28,20 +32,24 @@ class ProfileLayout extends React.Component {
     });
   };
 
+  totalnum = (v) => {
+    this.setState({
+      total: v.total
+    })
+  }
+
   render() {
     return (
-      <div style={{ fontFamily: "VazirD", overflow: "hidden" }}>
+      <div style={{ fontFamily: "VazirD", overflow: "hidden"}}>
         <Breakpoint medium up>
-          <Layout style={{ backgroundColor: "aliceblue", height: "auto" }}>
-            <Header
-              style={{ backgroundColor: "white", padding: "0", height: "auto" }}
-            >
-              <HeaderSection {...this.props} />
+          <Layout style={{ backgroundColor: "white", height: "auto" }}>
+            <Header style={{ backgroundColor: "white", padding: "0", height: "auto" }}>
+              <HeaderSection_Profile {...this.props} total={this.totalnum} />
             </Header>
-            <Divider style={{ opacity: "0", backgroundColor: "white" }} />
+            <Divider/>
             <Layout>
               <Content
-                style={{ backgroundColor: "white", textAlign: "center" }}
+                style={{ backgroundColor: "white", textAlign: "center", height:"max-content"}}
               >
                 <Row style={{ display: "flex", justifyContent: "center" }}>
                   <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>
@@ -52,12 +60,11 @@ class ProfileLayout extends React.Component {
                 </Row>
               </Content>
               <Sider
-                width={250}
+                width={220}
                 style={{
-                  height: "100vh",
-                  backgroundColor: "aliceblue",
+                  overflowY:"hidden",
+                  backgroundColor: "white",
                   position: "unset",
-                  borderRadius: "20px",
                 }}
               >
                 <Menu
@@ -65,7 +72,7 @@ class ProfileLayout extends React.Component {
                   theme="light"
                   style={{
                     textAlign: "right",
-                    backgroundColor: "aliceblue",
+                    backgroundColor: "white",
                     color: "white",
                   }}
                 >
@@ -88,8 +95,10 @@ class ProfileLayout extends React.Component {
                   <Menu.Item key="4">
                     <Link to="/profile/inbox">
                       <p style={menu_style}>
+                        <Badge count={this.state.total} offset={[-110,0]}>
                         صندوق پیام
                         <CommentOutlined style={icon_style} />
+                        </Badge>
                       </p>
                     </Link>
                   </Menu.Item>
@@ -143,12 +152,12 @@ class ProfileLayout extends React.Component {
             <Header
               style={{ backgroundColor: "white", padding: "0", height: "auto" }}
             >
-              <HeaderSection {...this.props} />
+              <HeaderSection_Profile {...this.props} total={this.totalnum} />
             </Header>
             <Divider style={{ opacity: "0" }} />
             <Content style={{ backgroundColor: "white", textAlign: "center" }}>
               <Row style={{ display: "flex", justifyContent: "center" }}>
-                <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>
+                <Col span={22}>
                   <div className="site-layout-content">
                     {this.props.children}
                   </div>

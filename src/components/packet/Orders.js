@@ -95,7 +95,16 @@ class Orders extends React.Component {
                   <Col span={2}></Col>
                   <Col span={10}>
                     <div style={style_center}>
-                      <DownloadPic data={item.picture} size="100%" />
+                      <DownloadPic
+                      title={item.title} 
+                      category={item.category.name} 
+                      origin_country={item.origin_country.name}
+                      destination_country={item.destination_country.name}
+                      origin_city={item.origin_city.name}
+                      destination_city={item.destination_city.name}
+                      no_matter_origin={item.no_matter_origin}
+                      data={item.picture}
+                      size="100%" />
                     </div>
                   </Col>
                 </Row>

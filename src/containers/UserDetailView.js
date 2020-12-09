@@ -10,10 +10,9 @@ import {
   TwitterOutlined,
   LinkedinOutlined,
   FacebookOutlined,
-  UserOutlined
+  UserOutlined,
 } from "@ant-design/icons";
-import PageNotFound from '../components/errors/PageNotFound';
-
+import PageNotFound from "../components/errors/PageNotFound";
 
 const style_left = {
   display: "flex",
@@ -37,20 +36,19 @@ class UserProfile extends React.Component {
   };
 
   componentDidMount() {
-    window.scroll(0,0)
+    window.scroll(0, 0);
     const userID = this.props.match.params.userID;
     Axios.get(`${url}api/v1/account/users/profile/${userID}`)
-    .then((res) => {
-      this.setState({
-        user_profile: res.data,
+      .then((res) => {
+        this.setState({
+          user_profile: res.data,
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: error.response.status });
       });
-    })
-    .catch(error => {
-      this.setState({error:error.response.status})
-    })
 
-    Axios.get(`${url}api/v1/account/socials/${userID}`)
-    .then((res) => {
+    Axios.get(`${url}api/v1/account/socials/${userID}`).then((res) => {
       this.setState({
         social: res.data,
       });
@@ -61,13 +59,21 @@ class UserProfile extends React.Component {
     switch (type) {
       case "Linkdin":
         return (
-          <a style={{ color: "black" }} href={`https://linkdin.com/${address}`}>
+          <a
+            style={{ color: "black" }}
+            target="_blank"
+            href={`https://linkdin.com/${address}`}
+          >
             <LinkedinOutlined style={{ fontSize: "35px" }} />
           </a>
         );
       case "Twitter":
         return (
-          <a style={{ color: "black" }} href={`https://twitter.com/${address}`}>
+          <a
+            style={{ color: "black" }}
+            target="_blank"
+            href={`https://twitter.com/${address}`}
+          >
             <TwitterOutlined style={{ fontSize: "35px" }} />
           </a>
         );
@@ -75,6 +81,7 @@ class UserProfile extends React.Component {
         return (
           <a
             style={{ color: "black" }}
+            target="_blank"
             href={`https://facebook.com/${address}`}
           >
             <FacebookOutlined style={{ fontSize: "35px" }} />
@@ -84,6 +91,7 @@ class UserProfile extends React.Component {
         return (
           <a
             style={{ color: "black" }}
+            target="_blank"
             href={`https://instagram.com/${address}`}
           >
             <InstagramOutlined style={{ fontSize: "35px" }} />
@@ -99,123 +107,122 @@ class UserProfile extends React.Component {
     return (
       <div>
         <Breakpoint medium up>
-        {this.state.error == 404 
-            ?
+          {this.state.error == 404 ? (
             <PageNotFound />
-            :
-          <div style={{ textAlign: "center" }}>
-            {this.state.user_profile.picture ?
-            <img
-                width="250px"
-                height="250px"
-                style={{ borderRadius: "50%", marginTop: "30px" }}
-              src={`${url}dstatic/${this.state.user_profile.picture}`}
-            />
-            :
-            <UserOutlined style={{fontSize:"100px"}}/>
-            }
-            <Card bordered={false}>
-              <h3>{this.state.user_profile.name}</h3>
-              <Rate
-                allowHalf
-                value={this.state.user_profile.score}
-                disabled={true}
-              />
+          ) : (
+            <div style={{ textAlign: "center" }}>
+              {this.state.user_profile.picture ? (
+                <img
+                  width="250px"
+                  height="250px"
+                  style={{ borderRadius: "50%", marginTop: "30px" }}
+                  src={`${url}dstatic/${this.state.user_profile.picture}`}
+                />
+              ) : (
+                <UserOutlined style={{ fontSize: "100px" }} />
+              )}
+              <Card bordered={false}>
+                <h3>{this.state.user_profile.name}</h3>
+                <Rate
+                  allowHalf
+                  value={this.state.user_profile.score}
+                  disabled={true}
+                />
+                <br />
+                <br />
+                <Space>
+                  {this.state.social[0] &&
+                    this.setIcon(
+                      this.state.social[0].account_type,
+                      this.state.social[0].address
+                    )}
+                  {this.state.social[1] &&
+                    this.setIcon(
+                      this.state.social[1].account_type,
+                      this.state.social[0].address
+                    )}
+                  {this.state.social[2] &&
+                    this.setIcon(
+                      this.state.social[2].account_type,
+                      this.state.social[0].address
+                    )}
+                  {this.state.social[3] &&
+                    this.setIcon(
+                      this.state.social[3].account_type,
+                      this.state.social[0].address
+                    )}
+                </Space>
+              </Card>
               <br />
-              <br />
-              <Space>
-                {this.state.social[0] &&
-                  this.setIcon(
-                    this.state.social[0].account_type,
-                    this.state.social[0].address
-                  )}
-                {this.state.social[1] &&
-                  this.setIcon(
-                    this.state.social[1].account_type,
-                    this.state.social[0].address
-                  )}
-                {this.state.social[2] &&
-                  this.setIcon(
-                    this.state.social[2].account_type,
-                    this.state.social[0].address
-                  )}
-                {this.state.social[3] &&
-                  this.setIcon(
-                    this.state.social[3].account_type,
-                    this.state.social[0].address
-                  )}
-              </Space>
-            </Card>
-            <br />
-            <Row style={{ display: "flex", justifyContent: "center" }}>
-              <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
-                <Card style={{ borderRadius: "20px" }}>
-                  <Row style={style_right}>
-                    <Col
-                      style={style_right}
-                      xs={14}
-                      sm={14}
-                      md={14}
-                      lg={14}
-                      xl={14}
-                    >
-                      <h4>سابقه کاربر</h4>
-                    </Col>
-                    <Col
-                      style={style_left}
-                      xs={10}
-                      sm={10}
-                      md={10}
-                      lg={10}
-                      xl={10}
-                    >
-                      <TimeDiff data={this.state.user_profile.joined_at} />
-                    </Col>
-                  </Row>
-                  <Row style={style_right}>
-                    <Col
-                      style={style_right}
-                      xs={14}
-                      sm={14}
-                      md={14}
-                      lg={14}
-                      xl={14}
-                    >
-                      <h4>تعداد سفرهای انجام شده</h4>
-                    </Col>
-                    <Col
-                      style={style_left}
-                      xs={10}
-                      sm={10}
-                      md={10}
-                      lg={10}
-                      xl={10}
-                    >
-                      {this.state.user_profile.travel_done}
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-            </Row>
-            <Tabs tabPosition="top" style={{ textAlign: "center" }}>
-              <TabPane tab="نظرات دیگران " key="1">
-                <CommentUser userID={userID} />
-              </TabPane>
-            </Tabs>
-          </div>
-          }
+              <Row style={{ display: "flex", justifyContent: "center" }}>
+                <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
+                  <Card style={{ borderRadius: "20px" }}>
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>سابقه کاربر</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        <TimeDiff data={this.state.user_profile.joined_at} />
+                      </Col>
+                    </Row>
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>تعداد سفرهای انجام شده</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        {this.state.user_profile.travel_done}
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>
+              </Row>
+              <Tabs tabPosition="top" style={{ textAlign: "center" }}>
+                <TabPane tab="نظرات دیگران " key="1">
+                  <CommentUser userID={userID} />
+                </TabPane>
+              </Tabs>
+            </div>
+          )}
         </Breakpoint>
         <Breakpoint small down>
           <div style={{ textAlign: "center" }}>
-          {this.state.user_profile.picture ?
-            <img
-              width={200}
-              style={{ borderRadius: "100px" }}
-              src={`${url}dstatic/${this.state.user_profile.picture}`}
-            />
-            :
-            <UserOutlined style={{fontSize:"80px"}}/>
-            }
+            {this.state.user_profile.picture ? (
+              <img
+                width={200}
+                style={{ borderRadius: "100px" }}
+                src={`${url}dstatic/${this.state.user_profile.picture}`}
+              />
+            ) : (
+              <UserOutlined style={{ fontSize: "80px" }} />
+            )}
             <br />
             <Card bordered={false}>
               <h3>{this.state.user_profile.name}</h3>

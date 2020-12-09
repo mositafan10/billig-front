@@ -60,7 +60,7 @@ class ChatContacs extends Component {
   render() {
     const user = localStorage.getItem("user");
     return (
-      <div style={{ marginTop: "40px" }}>
+      <div style={{ marginTop: "20px", overflowY:"scroll", direction:"ltr", maxHeight:"70%" }}>
         <List
           loading={this.state.loading}
           itemLayout="horizontal"
@@ -89,6 +89,7 @@ class ChatContacs extends Component {
                         />
                       </Badge>
                     ) : (
+                      <Badge count={item.not_seen}>
                       <Avatar
                         style={{
                           backgroundColor: "white",
@@ -98,6 +99,7 @@ class ChatContacs extends Component {
                       >
                         <UserOutlined />
                       </Avatar>
+                      </Badge>
                     )
                   ) : item.sender_avatar ? (
                     <Badge count={item.not_seen}>
@@ -106,6 +108,7 @@ class ChatContacs extends Component {
                       />
                     </Badge>
                   ) : (
+                    <Badge count={item.not_seen}>
                     <Avatar
                       style={{
                         backgroundColor: "white",
@@ -115,6 +118,7 @@ class ChatContacs extends Component {
                     >
                       <UserOutlined />
                     </Avatar>
+                    </Badge>
                   )
                 }
                 title={

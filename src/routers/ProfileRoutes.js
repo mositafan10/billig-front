@@ -14,8 +14,6 @@ import Login from '../containers/Login';
 class ProfileRoutes extends React.Component {
     render(){
     const token = localStorage.getItem('token') 
-    console.log(this.props.isAuthenticated)
-    console.log(token)
     return(          
         (token != null)
         ?

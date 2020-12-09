@@ -319,6 +319,7 @@ class EditProfileForm extends React.Component {
               <Form.Item
                 name="address"
                 style={{ textAlign: "right" }}
+                help={<p style={{direction:"ltr"}}>وارد کنید @example به شکل</p>}
                 rules={[
                   {
                     required: true,
@@ -327,7 +328,7 @@ class EditProfileForm extends React.Component {
                 ]}
               >
                 <Input
-                  placeholder="وارد کنید @example به شکل"
+                  prefix="@"
                   style={{ direction: "ltr" }}
                 />
               </Form.Item>

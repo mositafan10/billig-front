@@ -133,7 +133,7 @@ class SignUpForm extends React.Component {
               />
             </Form.Item>
             <Form.Item
-              style={{ alignItems: "center", textAlign: "left" }}
+              style={{ alignItems: "center", textAlign: "center" }}
               name="phone_number"
               label="شماره موبایل"
               rules={[
@@ -167,11 +167,11 @@ class SignUpForm extends React.Component {
               rules={[
                 {
                   required: true,
-                  message: "رمز عبور خود را وارد نمایید",
+                  message: "رمز خود را وارد نمایید",
                 },
                 {
                   min: 8,
-                  message: "رمز عبور باید حداقل ۸ کاراکتر باشد",
+                  message: "رمز باید حداقل ۸ کاراکتر باشد",
                 },
               ]}
               hasFeedback
@@ -190,7 +190,7 @@ class SignUpForm extends React.Component {
               rules={[
                 {
                   required: true,
-                  message: ".تکرار رمز عبور را وارد نمایید",
+                  message: ".تکرار رمز را وارد نمایید",
                 },
                 ({ getFieldValue }) => ({
                   validator(rule, value) {
@@ -228,8 +228,8 @@ class SignUpForm extends React.Component {
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{ marginRight: "10px", borderRadius: "15px" }}
-              >
+                style={{ borderRadius: "10px", padding:"0 25px 0 25px" }}
+                >
                 ثبت نام
               </Button>
             </Form.Item>

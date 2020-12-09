@@ -119,7 +119,7 @@ class PacketUserList extends React.Component {
           </div>
         ) : (
           <div>
-          <Divider>آگهی‌های در حال انجام</Divider>
+          <Divider>آگهی‌های جاری</Divider>
           <List
             grid={{
               gutter: 24,

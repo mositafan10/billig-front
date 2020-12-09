@@ -39,7 +39,6 @@ class PackForm extends React.Component {
     radio_value: false,
     weight: "",
     dimension: "",
-    phonenumber_visible: false,
     no_matter_origin: false,
     infovisible1: false,
     infovisible2: false,
@@ -171,14 +170,6 @@ class PackForm extends React.Component {
     }
   };
 
-  handlephonenumber = () => {
-    if (this.state.phonenumber_visible) {
-      this.setState({ phonenumber_visible: false });
-    } else {
-      this.setState({ phonenumber_visible: true });
-    }
-  };
-
   handlenomattercountry = () => {
     if (this.state.no_matter_origin) {
       this.setState({ no_matter_origin: false });
@@ -223,7 +214,6 @@ class PackForm extends React.Component {
     const suggested_price = values.suggested_price;
     const description = values.description;
     const buy = this.state.buy;
-    const phonenumber_visible = this.state.phonenumber_visible;
     const no_matter_origin = this.state.no_matter_origin;
     const pic_id = this.state.pic_id && this.state.pic_id;
     const buy_link = this.state.buy && values.buy_link;
@@ -245,7 +235,6 @@ class PackForm extends React.Component {
         suggested_price: suggested_price,
         description: description,
         buy: buy,
-        phonenumber_visible: phonenumber_visible,
         picture: pic_id,
         price: parcel_price ? parcel_price : 0,
         link: buy_link,
@@ -817,18 +806,6 @@ x                     disabled={this.state.city_destination_dis}
                   />
                 </Form.Item>
               </div>
-              <Form.Item
-                name="phonenumber_visible"
-                valuePropName="checked"
-                style={{ textAlign: "center" }}
-              >
-                <Checkbox
-                  onChange={this.handlephonenumber.bind(this)}
-                  style={{ textAlign: "right" }}
-                >
-                  شماره تماس من در‌ آگهی نمایش داده شود
-                </Checkbox>
-              </Form.Item>
               <Divider plain orientation="center">
                 {this.state.buy ? (
                   <span style={{ marginRight: "10px" }}> تصویر کالا</span>

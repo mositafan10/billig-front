@@ -41,7 +41,7 @@ class InboxLayout extends React.Component {
     render(){
         window.scroll(0, 0);
         return(
-            <div style={{backgroundColor:"white"}}>
+            <div style={{backgroundColor:"white", overflowY:"hidden"}}>
                 <Row>
                     <Col xs={24} sm={24} md={24} lg={7} xl={7} xxl={7}>
                         <ChatContacs parentCallback = {this.callbackFunction} />

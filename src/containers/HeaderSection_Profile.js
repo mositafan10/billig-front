@@ -64,11 +64,11 @@ class HeaderSection extends Component {
     });
   };
 
-  zerototal = () => {
-    this.setState({
-      total: 0,
-    });
-  };
+  // zerototal = () => {
+  //   this.setState({
+  //     total: 0,
+  //   });
+  // };
 
   componentDidMount() {
     const token = localStorage.getItem("token");
@@ -86,6 +86,7 @@ class HeaderSection extends Component {
                 userinfo: res.data.data,
                 total: res.data.total,
               });
+              this.props.total({"total":res.data.total})
             });
           } else {
             this.props.logout();
@@ -176,7 +177,7 @@ class HeaderSection extends Component {
                           <Badge count={this.state.total} offset={[-20, 5]}>
                             <Link to="/profile/inbox">
                               <Button
-                                onClick={this.zerototal}
+                                // onClick={this.zerototal}
                                 icon={
                                   <Avatar
                                     style={{
@@ -216,7 +217,7 @@ class HeaderSection extends Component {
                               borderRadius: "10px",
                             }}
                           >
-                            <b>ثبت رایگان آگهی</b>
+                            <b>راهنمای بیلیگر</b>
                           </span>
                         </Link>
                       </Menu.Item>
@@ -230,7 +231,7 @@ class HeaderSection extends Component {
                               borderRadius: "10px",
                             }}
                           >
-                            <b>کسب درآمد از سفر</b>
+                            <b>راهنمای مسافر</b>
                           </span>
                         </Link>
                       </Menu.Item>
@@ -385,7 +386,7 @@ class HeaderSection extends Component {
                   <Badge count={this.state.total} offset={[-20, 5]}>
                     <Link to="/profile/inbox">
                       <Button
-                        onClick={this.zerototal}
+                        // onClick={this.zerototal}
                         icon={
                           <Avatar
                             style={{

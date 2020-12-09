@@ -43,17 +43,37 @@ class DownloadPic extends React.Component {
   }
 
   render() {
+    var alt = 
+    this.props.no_matter_origin ?
+    (
+    `${this.props.title}` +
+     `|` + `${this.props.category}` + 
+     `|` + `${this.props.destination_country}` +
+     `|` + `${this.props.destination_city}` 
+    )
+    :
+    (
+      `${this.props.title}` +
+      `|` + `${this.props.category}` + 
+      `|` + `${this.props.origin_country}` +
+      `|` + `${this.props.origin_city}`  
+    )
+
     return (
       <div>
         {!this.state.loading ? (
+          <div 
+          >
           <img
             onClick={this.showmodal}
             loading="lazy"
             src={`${url}dstatic/${this.state.url}`}
+            alt={alt}
             style={{ borderRadius: "10px" }}
             width={this.props.size}
             height="auto"
-          ></img>
+          />
+          </div>
         ) : (
           <div style={{ margin: "100px", justifyContent:"center", display:"flex" }}>
             <Spin indicator={antIcon} size="large" />
@@ -67,8 +87,7 @@ class DownloadPic extends React.Component {
             onCancel={this.handlecancle}
             okButtonProps={{ hidden: true }}
             cancelButtonProps={{ hidden: true }}
-            width="50%"
-            bodyStyle={{ backgroundColor: "transparent" }}
+            bodyStyle={{ opacity:"1", position:"absolute", zIndex:"1", maxWidth:"100%", maxHeight:"100%"}}
           >
             <Row style={{ display: "flex", justifyContent: "center" }}>
               <img
@@ -85,16 +104,14 @@ class DownloadPic extends React.Component {
             closable
             closeIcon=" "
             onCancel={this.handlecancle}
-            okButtonProps={{ hidden: true }}
-            cancelButtonProps={{ hidden: true }}
-            width="30%"
-            bodyStyle={{ backgroundColor: "transparent" }}
+            footer={false}
+            bodyStyle={{ opacity:"1", position:"absolute", zIndex:"1", maxWidth:"100%", maxHeight:"100%"}}
           >
             <Row style={{ display: "flex", justifyContent: "center" }}>
               <img
                 loading="lazy"
                 src={`${url}dstatic/${this.state.url}`}
-                style={{ borderRadius: "10px" }}
+                style={{ borderRadius: "10px"}}
               />
             </Row>
           </Modal>

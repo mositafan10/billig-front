@@ -90,6 +90,7 @@ class OfferDetail extends React.Component {
             visible: false,
             loading: false,
           });
+          window.location.replace('/profile/mytravel')
         }, 3000);
         setTimeout(() => {
           notification["success"]({
@@ -112,7 +113,6 @@ class OfferDetail extends React.Component {
             textAlign: "right",
             float: "right",
             width: "max-content",
-            fontSizeAdjust: "0.4",
           },
           duration: 3,
         });
