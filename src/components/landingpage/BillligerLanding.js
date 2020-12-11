@@ -54,14 +54,14 @@ const BillligerLanding = () => {
               style={{
                 justifyContent: "center",
                 display: "flex",
-                backgroundColor: "white",
+                backgroundColor: "#FCA468",
               }}
             >
               <Col>
                 <h1
                   style={{
-                    backgroundColor: "white",
-                    color: "#FCA468",
+                    backgroundColor: "#FCA468",
+                    color: "white",
                     fontSize: "26px",
                     textAlign: "center",
                     padding: "0 25px 0 25px",
@@ -72,7 +72,7 @@ const BillligerLanding = () => {
                 </h1>
               </Col>
               <Col span={24}>
-                <h2 style={{color:"#FCA468", textAlign:"center"}}>می‌خواهم بسته‌ای را پست کنم.</h2>
+                <h2 style={{color:"white", textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته‌ای را پست کنم.</h2>
               </Col>
             </Row>
             <Row
@@ -202,14 +202,14 @@ const BillligerLanding = () => {
               style={{
                 justifyContent: "center",
                 display: "flex",
-                backgroundColor: "white",
+                backgroundColor: "#46A0AE",
               }}
             >
               <Col>
                 <h1
                   style={{
-                    backgroundColor: "white",
-                    color: "#46A0AE",
+                    backgroundColor: "#46A0AE",
+                    color: "white",
                     fontSize: "26px",
                     textAlign: "center",
                     borderRadius: "20px",
@@ -221,7 +221,7 @@ const BillligerLanding = () => {
                 </h1>
               </Col>
               <Col span={24}>
-                <h2 style={{color:"#46A0AE", textAlign:"center"}}>می‌خواهم بسته دیگران را به مقصد برسانم.</h2>
+                <h2 style={{color:"white", textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته دیگران را به مقصد برسانم.</h2>
               </Col>
             </Row>
             <Row style={{ textAlign: "center", backgroundColor: "white" }}>

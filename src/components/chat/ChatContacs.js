@@ -60,7 +60,7 @@ class ChatContacs extends Component {
   render() {
     const user = localStorage.getItem("user");
     return (
-      <div style={{ marginTop: "20px", overflowY:"scroll", direction:"ltr", maxHeight:"70%" }}>
+      <div style={{ marginTop: "20px", overflowY:"scroll", direction:"ltr", maxHeight:"60%" }}>
         <List
           loading={this.state.loading}
           itemLayout="horizontal"

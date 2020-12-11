@@ -52,7 +52,7 @@ class ProfileLayout extends React.Component {
             <Divider/>
             <Layout>
               <Content
-                style={{ backgroundColor: "white", textAlign: "center", height:"max-content"}}
+                style={{ backgroundColor: "white", textAlign: "center"}}
               >
                 <Row style={{ display: "flex", justifyContent: "center" }}>
                   <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>

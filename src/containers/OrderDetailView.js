@@ -88,6 +88,7 @@ class OrderDetail extends React.Component {
       visibleinfo: true,
     });
   };
+  
   closeinfo = () => {
     this.setState({
       visibleinfo: false,
