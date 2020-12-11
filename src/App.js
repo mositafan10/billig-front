@@ -19,6 +19,7 @@ import "antd/dist/antd.css";
 
 
 class App extends Component {
+
   componentDidMount() {
     this.props.onTryAutoSignup();
   }
@@ -32,10 +33,10 @@ class App extends Component {
             {/* Profile Layout */}
             <Route path="/profile/:path?">
               <BreakpointProvider>
-                <ProfileLayout {...this.props}>
+                <ProfileLayout {...this.props} >
                   <ConfigProvider direction="rtl">
                     <Switch>
-                      <ProfileRoutes {...this.props} />
+                      <ProfileRoutes {...this.props}/>
                     </Switch>
                   </ConfigProvider>
                 </ProfileLayout>

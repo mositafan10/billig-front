@@ -12,23 +12,23 @@ import buy from "../../media/traveler_guide/buy.svg";
 import { Breakpoint } from "react-socks";
 const { Meta } = Card;
 const center = {display:"center", justifyContent:"center"}
-const travel_guide = { color: "white" };
+const travel_guide = { color: "black" };
 const style_icon1 = { width: "30%", display: "inline" };
-const h_style = { paddingBottom: "5px", textAlign: "center", color: "white" };
+const h_style = { paddingBottom: "5px", textAlign: "center", color: "black" };
 const card_icon = {
-  backgroundColor: "#46A0AE",
+  backgroundColor: "white",
   textAlign: "center",
   paddingTop: "10px",
 };
 const card_icon_billliger = {
-  backgroundColor: "#FCA468",
+  backgroundColor: "white",
   textAlign: "center",
   paddingTop: "10px",
 };
 
 const card_style_packet = {
   padding: "20px 20px 20px 20px",
-  backgroundColor: "#FCA468",
+  backgroundColor: "white",
   color: "white",
   textAlign: "center",
   lineHeight: "25px",
@@ -37,7 +37,7 @@ const card_style_packet = {
 
 const card_style_travel = {
   padding: "20px 20px 20px 20px",
-  backgroundColor: "#46A0AE",
+  backgroundColor: "white",
   color: "white",
   textAlign: "center",
   lineHeight: "25px",
@@ -49,19 +49,19 @@ const BillligerLanding = () => {
     <div>
       <Breakpoint medium up>
         <Carousel autoplay effect="scrollx">
-          <div style={{ backgroundColor: "#FCA468" }}>
+          <div style={{ backgroundColor: "white" }}>
             <Row
               style={{
                 justifyContent: "center",
                 display: "flex",
-                backgroundColor: "#FCA468",
+                backgroundColor: "white",
               }}
             >
               <Col>
                 <h1
                   style={{
-                    backgroundColor: "#FCA468",
-                    color: "white",
+                    backgroundColor: "white",
+                    color: "#FCA468",
                     fontSize: "26px",
                     textAlign: "center",
                     padding: "0 25px 0 25px",
@@ -70,17 +70,16 @@ const BillligerLanding = () => {
                 >
                   بیلیگر
                 </h1>
-                <hr style={{color:"white"}}/>
               </Col>
               <Col span={24}>
-                <h2 style={h_style}>می‌خواهم بسته‌ای را پست کنم.</h2>
+                <h2 style={{color:"#FCA468", textAlign:"center"}}>می‌خواهم بسته‌ای را پست کنم.</h2>
               </Col>
             </Row>
             <Row
               style={{
                 justifyContent: "center",
                 display: "flex",
-                backgroundColor: "#FCA468",
+                backgroundColor: "white",
               }}
             >
               <Col xs={0} sm={0} md={0} lg={4} xl={4} xxl={4}>
@@ -203,14 +202,14 @@ const BillligerLanding = () => {
               style={{
                 justifyContent: "center",
                 display: "flex",
-                backgroundColor: "#46A0AE",
+                backgroundColor: "white",
               }}
             >
               <Col>
                 <h1
                   style={{
-                    backgroundColor: "#46A0AE",
-                    color: "white",
+                    backgroundColor: "white",
+                    color: "#46A0AE",
                     fontSize: "26px",
                     textAlign: "center",
                     borderRadius: "20px",
@@ -220,13 +219,12 @@ const BillligerLanding = () => {
                 >
                   مسافر
                 </h1>
-                <hr style={{color:"white"}}/>
               </Col>
               <Col span={24}>
-                <h2 style={h_style}>می‌خواهم بسته دیگران را به مقصد برسانم.</h2>
+                <h2 style={{color:"#46A0AE", textAlign:"center"}}>می‌خواهم بسته دیگران را به مقصد برسانم.</h2>
               </Col>
             </Row>
-            <Row style={{ textAlign: "center", backgroundColor: "#46A0AE" }}>
+            <Row style={{ textAlign: "center", backgroundColor: "white" }}>
               <Col span={2}></Col>
               <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                 <Card

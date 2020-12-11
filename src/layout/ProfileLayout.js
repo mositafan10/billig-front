@@ -22,8 +22,10 @@ const { Header, Sider, Content } = Layout;
 
 class ProfileLayout extends React.Component {
   state = {
-    total: 0
+    total: 0,
   }
+
+
 
   exit = () => {
     this.props.logout();
@@ -44,7 +46,8 @@ class ProfileLayout extends React.Component {
         <Breakpoint medium up>
           <Layout style={{ backgroundColor: "white", height: "auto" }}>
             <Header style={{ backgroundColor: "white", padding: "0", height: "auto" }}>
-              <HeaderSection_Profile {...this.props} total={this.totalnum} />
+              <HeaderSection_Profile {...this.props} total={this.totalnum}
+                />
             </Header>
             <Divider/>
             <Layout>

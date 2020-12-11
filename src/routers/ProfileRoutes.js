@@ -12,6 +12,7 @@ import CommentList from '../components/rating/CommentList';
 import Login from '../containers/Login';
 
 class ProfileRoutes extends React.Component {
+
     render(){
     const token = localStorage.getItem('token') 
     return(          

@@ -339,11 +339,18 @@ class PackForm extends React.Component {
                 name="title"
                 style={{ textAlign: "right" }}
                 rules={[
-                  { required: true, message: "عنوان آگهی را وارد نمایید" },
                   {
-                    max: 45,
-                    message: "عنوان آگهی نباید بیشتر از ۵۰ کاراکتر باشد",
+                    required: true,
+                    message: 'Please confirm your password!',
                   },
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      if (!value || getFieldValue('title') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject('The two passwords that you entered do not match!');
+                    },
+                  }),
                 ]}
               >
                 <Input maxLength={50} style={{ textAlign: "right" }} />

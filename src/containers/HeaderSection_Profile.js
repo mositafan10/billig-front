@@ -64,11 +64,10 @@ class HeaderSection extends Component {
     });
   };
 
-  // zerototal = () => {
-  //   this.setState({
-  //     total: 0,
-  //   });
-  // };
+  zerototal = () => {
+    this.componentDidMount()
+  };
+
 
   componentDidMount() {
     const token = localStorage.getItem("token");
@@ -177,7 +176,7 @@ class HeaderSection extends Component {
                           <Badge count={this.state.total} offset={[-20, 5]}>
                             <Link to="/profile/inbox">
                               <Button
-                                // onClick={this.zerototal}
+                                onClick={this.zerototal}
                                 icon={
                                   <Avatar
                                     style={{
@@ -208,7 +207,7 @@ class HeaderSection extends Component {
                       mode="horizontal"
                     >
                       <Menu.Item key="1">
-                        <Link to="/create-packet">
+                        <Link to="/billliger">
                           <span
                             style={{
                               backgroundColor: "#FCA468",
@@ -222,9 +221,10 @@ class HeaderSection extends Component {
                         </Link>
                       </Menu.Item>
                       <Menu.Item key="2">
-                        <Link to="/orders">
+                        <Link to="/traveler">
                           <span
                             style={{
+                              marginLeft:"-20px",
                               backgroundColor: "#46A0AE",
                               color: "white",
                               padding: "10px 15px 10px 15px",
@@ -386,7 +386,7 @@ class HeaderSection extends Component {
                   <Badge count={this.state.total} offset={[-20, 5]}>
                     <Link to="/profile/inbox">
                       <Button
-                        // onClick={this.zerototal}
+                        onClick={this.zerototal}
                         icon={
                           <Avatar
                             style={{

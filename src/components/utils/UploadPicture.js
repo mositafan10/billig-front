@@ -35,24 +35,48 @@ const UploadFile = (props) => {
   };
 
   function beforeUpload(file) {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    console.log(file.type)
+    const isJpgOrPng = file.type == "image/jpeg" || file.type == "image/png";
     if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
-    }
-    const isLt2M = file.size / 1024 / 1024 < 10;
-    if (!isLt2M) {
       notification["error"]({
-        message: "حجم تصویر باید کمتر از ۱۰ مگابایت باشد",
+        message: "فرمت تصویر قابل قبول نیست",
         style: {
           fontFamily: "VazirD",
           textAlign: "right",
           float: "right",
           width: "max-content",
         },
-        duration: 2,
+        duration: 3,
       });
     }
-    return isJpgOrPng && isLt2M;
+    const isLt2M = file.size / 1024 / 1024 < 10;
+    if (!isLt2M) {
+      notification["error"]({
+        message: "حجم تصویر خیلی زیاد است",
+        style: {
+          fontFamily: "VazirD",
+          textAlign: "right",
+          float: "right",
+          width: "max-content",
+        },
+        duration: 3,
+      });
+    }
+
+    const lowerLimit = file.size / 1024 / 1024 > 0.01;
+    if (!lowerLimit) {
+      notification["error"]({
+        message: "اندازه تصویر خیلی کم است",
+        style: {
+          fontFamily: "VazirD",
+          textAlign: "right",
+          float: "right",
+          width: "max-content",
+        },
+        duration: 3,
+      });
+    }
+    return isJpgOrPng && isLt2M && lowerLimit;
   }
 
   const onChange = ({ fileList: newFileList }) => {
