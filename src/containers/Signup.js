@@ -37,12 +37,10 @@ class SignUpForm extends React.Component {
     this.setState({ loading: true });
     setTimeout(() => {
       const signup = localStorage.getItem("signup");
-      {
-        if (signup == "ready") {
-          this.showModal();
-        }
-        this.setState({ loading: false });
+      if (signup == "ready") {
+        this.showModal();
       }
+      this.setState({ loading: false });
     }, 2000);
     this.props.onAuth(values.phone_number, values.password);
     this.setState({
@@ -228,8 +226,8 @@ class SignUpForm extends React.Component {
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{ borderRadius: "10px", padding:"0 25px 0 25px" }}
-                >
+                style={{ borderRadius: "10px", padding: "0 25px 0 25px" }}
+              >
                 ثبت نام
               </Button>
             </Form.Item>
@@ -295,7 +293,7 @@ class SignUpForm extends React.Component {
                       marginLeft: "5px",
                     }}
                   >
-                  ارسال مجدد
+                    ارسال مجدد
                   </Button>
                 </Form.Item>
               </Form>

@@ -46,17 +46,11 @@ class DownloadPic extends React.Component {
     var alt = 
     this.props.no_matter_origin ?
     (
-    `${this.props.title}` +
-     `|` + `${this.props.category}` + 
-     `|` + `${this.props.destination_country}` +
-     `|` + `${this.props.destination_city}` 
+    `${this.props.title}|${this.props.category}|${this.props.destination_country}|${this.props.destination_city}` 
     )
     :
     (
-      `${this.props.title}` +
-      `|` + `${this.props.category}` + 
-      `|` + `${this.props.origin_country}` +
-      `|` + `${this.props.origin_city}`  
+      `${this.props.title}|${this.props.category}|${this.props.origin_country}|${this.props.origin_city}`  
     )
 
     return (
@@ -92,6 +86,7 @@ class DownloadPic extends React.Component {
             <Row style={{ display: "flex", justifyContent: "center" }}>
               <img
                 loading="lazy"
+                alt={alt}
                 src={`${url}dstatic/${this.state.url}`}
                 style={{ borderRadius: "10px" }}
               />
@@ -109,6 +104,7 @@ class DownloadPic extends React.Component {
           >
             <Row style={{ display: "flex", justifyContent: "center" }}>
               <img
+                alt={alt}
                 loading="lazy"
                 src={`${url}dstatic/${this.state.url}`}
                 style={{ borderRadius: "10px"}}

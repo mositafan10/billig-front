@@ -9,7 +9,6 @@ import InboxLayout from '../containers/InboxLayout';
 import BookmarkPacket from '../components/packet/BookmarkPacket';
 import PageNotFound from '../components/errors/PageNotFound';
 import CommentList from '../components/rating/CommentList';
-import Login from '../containers/Login';
 
 class ProfileRoutes extends React.Component {
 

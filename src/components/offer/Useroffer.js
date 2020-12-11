@@ -205,7 +205,7 @@ class UserOffer extends React.Component {
               okText="بله"
               cancelText="خیر"
             >
-              <a>
+              <a >
                 <Button
                   style={{
                     border: "hidden",
@@ -494,7 +494,7 @@ class UserOffer extends React.Component {
                             )}
                           </Col>
                           <Col>
-                          {item.status == "در انتظار پاسخ" || item.status == "در انتظار تایید مسافر" &&
+                          {(item.status == "در انتظار پاسخ" || item.status == "در انتظار تایید مسافر") &&
                               <Popconfirm
                                 overlayStyle={{ fontFamily: "VazirD" }}
                                 title="آیا از حذف پیشنهاد مطمئن هستید ؟"

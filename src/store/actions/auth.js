@@ -36,7 +36,6 @@ export const authReady = () => {
 };
 
 export const logout = () => {
-  const token = localStorage.getItem("token");
   localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
   return {
@@ -72,11 +71,9 @@ export const authLogin = (phone_number, password, otp, name) => {
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token, user));
         dispatch(checkAuthTimeout(36000));
-        {
-          first_time
-            ? (window.location = "/signup/complete/")
-            : (window.location = "/");
-        }
+        first_time
+          ? (window.location = "/signup/complete/")
+          : (window.location = "/");
       })
       .catch((error) => {
         notification["error"]({
@@ -146,11 +143,9 @@ export const authSignup1 = (phone_number, password, otp, name) => {
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token, user));
         dispatch(checkAuthTimeout(36000));
-        {
-          first_time
-            ? (window.location = "/signup/complete/")
-            : (window.location = "/");
-        }
+        first_time
+          ? (window.location = "/signup/complete/")
+          : (window.location = "/");
       })
       .catch((error) => {
         message.error(error.response.data.detail);

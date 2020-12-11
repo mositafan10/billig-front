@@ -3,7 +3,7 @@ import { Layout, Row, Col } from 'antd';
 import HeaderSection from '../containers/HeaderSection';
 import login from '../media/login.svg';
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 
 class LoginLayout extends Component {

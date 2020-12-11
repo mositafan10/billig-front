@@ -650,6 +650,21 @@ x                     disabled={this.state.city_destination_dis}
                   </div>
                 </Col>
               </Row>
+              <Divider plain orientation="center">
+                {this.state.buy ? (
+                  <span style={{ marginRight: "10px" }}> تصویر کالا</span>
+                ) : (
+                  <span style={{ marginRight: "10px" }}> تصویر بسته</span>
+                )}
+              </Divider>
+              <Form.Item
+                name="picture"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <UploadFile parentCallback={this.callbackFunction} />
+                </div>
+              </Form.Item>
               <Row style={{ display: "flex", justifyContent: "center" }}>
                 <Col xs={24} sm={24} md={24} lg={20} xl={20} xxl={20}>
                   <Divider plain orientation="center">
@@ -695,7 +710,6 @@ x                     disabled={this.state.city_destination_dis}
                   >
                     <InputNumber
                     type="tel"
-                    pattern="\d*"
                       formatter={(value) =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
@@ -741,7 +755,6 @@ x                     disabled={this.state.city_destination_dis}
                   >
                     <InputNumber
                     type="tel"
-                    pattern="\d*"
                       formatter={(value) =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
@@ -808,21 +821,6 @@ x                     disabled={this.state.city_destination_dis}
                   />
                 </Form.Item>
               </div>
-              <Divider plain orientation="center">
-                {this.state.buy ? (
-                  <span style={{ marginRight: "10px" }}> تصویر کالا</span>
-                ) : (
-                  <span style={{ marginRight: "10px" }}> تصویر بسته</span>
-                )}
-              </Divider>
-              <Form.Item
-                name="picture"
-                style={{ display: "flex", justifyContent: "center" }}
-              >
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <UploadFile parentCallback={this.callbackFunction} />
-                </div>
-              </Form.Item>
               <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>

@@ -82,24 +82,6 @@ class ResetPassword extends React.Component {
       otp: values.otp,
     })
       .then((res) => {
-        // this.setState({
-          // otp_visibile: false,
-          // reset_pass_visible : false,
-          // loading_first: false,
-          // phone_number: values.phone_number,
-        // });
-
-        // notification["success"]({
-        //   message: <div><p>.رمز عبور به کد ارسالی تغییر پیدا کرد<br/>.توصیه می‌شود در اسرع وقت رمز خود را تغییر دهید</p></div>,
-        //   style: {
-        //     fontFamily: "VazirD",
-        //     textAlign: "right",
-        //     float: "right",
-        //     width: "max-content",
-        //   },
-        //   duration: 5,
-        // });
-        console.log(res.data.detail)
         if (res.data.detail == true){
           this.setState({new_pass_vis:true})
         } 
@@ -216,7 +198,7 @@ class ResetPassword extends React.Component {
                     },
                   ]}
                 >
-                  <Input />
+                  <Input type="tel" />
                 </Form.Item>
               </Form>
             </Modal>

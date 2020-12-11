@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { List, Row, Col, Divider, Spin, Card } from "antd";
+import { List, Row, Col, Spin, Card } from "antd";
 import airplane from "../../media/airplane.png";
 import DownloadPic from "../utils/DownloadPic";
 import TimeDiff from "../utils/TimeDiff";
@@ -62,6 +62,7 @@ class Orders extends React.Component {
                         :
                         <img
                           loading="lazy"
+                          alt={item.origin_country.name}
                           src={`${url}dstatic/${item.origin_country.icon}`}
                           width="100%"
                           style={{ borderRadius: "5px" }}
@@ -71,6 +72,7 @@ class Orders extends React.Component {
                       <Col span={8} style={style_center}>
                         <img
                           src={airplane}
+                          alt="billligAirplane"
                           width="100%"
                           style={{ marginRight: "5px" }}
                         />
@@ -78,6 +80,7 @@ class Orders extends React.Component {
                       <Col span={8} style={style_center}>
                         <img
                           loading="lazy"
+                          alt={item.destination_country.name}
                           src={`${url}dstatic/${item.destination_country.icon}`}
                           width="100%"
                           style={{ borderRadius: "5px" }}

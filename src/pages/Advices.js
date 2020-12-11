@@ -14,7 +14,7 @@ const Advices = () => {
       }}
     >
         <Row style={{display:"flex",justifyContent:"center"}}>
-          <img src={Advise} width={400} />
+          <img src={Advise} alt="billligAdvices" width={400} />
           </Row>
       <Row style={{ justifyContent: "center", display: "flex" }}>
         <Col xs={24} sm={24} md={24} lg={12} xl={12}>

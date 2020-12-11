@@ -12,7 +12,7 @@ import {
   AimOutlined,
   VerticalLeftOutlined,
 } from "@ant-design/icons";
-import HeaderSection_Profile from "../containers/HeaderSection_Profile";
+import HeaderSectionProfile from "../containers/HeaderSectionProfile";
 import { Breakpoint } from "react-socks";
 
 const menu_style = { color: "black" };
@@ -46,8 +46,7 @@ class ProfileLayout extends React.Component {
         <Breakpoint medium up>
           <Layout style={{ backgroundColor: "white", height: "auto" }}>
             <Header style={{ backgroundColor: "white", padding: "0", height: "auto" }}>
-              <HeaderSection_Profile {...this.props} total={this.totalnum}
-                />
+              <HeaderSectionProfile {...this.props} total={this.totalnum}/>
             </Header>
             <Divider/>
             <Layout>
@@ -155,7 +154,7 @@ class ProfileLayout extends React.Component {
             <Header
               style={{ backgroundColor: "white", padding: "0", height: "auto" }}
             >
-              <HeaderSection_Profile {...this.props} total={this.totalnum} />
+              <HeaderSectionProfile {...this.props} total={this.totalnum} />
             </Header>
             <Divider style={{ opacity: "0" }} />
             <Content style={{ backgroundColor: "white", textAlign: "center" }}>

@@ -18,7 +18,6 @@ import {
 } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../Constant";
-const token = localStorage.getItem("token");
 var url = config.url.API_URL;
 
 class HeaderSection extends Component {
@@ -72,30 +71,27 @@ class HeaderSection extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem("token");
-    {
-      token != null &&
-        token != "notready" &&
-        Axios.post(`${url}api/v1/account/tokenValidation/`, {
-          token: token,
-        }).then((res) => {
-          if (res.data.valid) {
-            Axios.get(`${url}api/v1/account/userinfo/`, {
-              headers: { Authorization: `Token ${token}` },
-            }).then((res) => {
-              this.setState({
-                userinfo: res.data.data,
-                total: res.data.total,
-              });
+    token != null &&
+      token != "notready" &&
+      Axios.post(`${url}api/v1/account/tokenValidation/`, {
+        token: token,
+      }).then((res) => {
+        if (res.data.valid) {
+          Axios.get(`${url}api/v1/account/userinfo/`, {
+            headers: { Authorization: `Token ${token}` },
+          }).then((res) => {
+            this.setState({
+              userinfo: res.data.data,
+              total: res.data.total,
             });
-          } else {
-            this.props.logout();
-          }
-        });
-    }
+          });
+        } else {
+          this.props.logout();
+        }
+      });
   }
 
   render() {
-    const token = localStorage.getItem("token");
     if (this.state.toDashboard) {
       this.setState({
         toDashboard: false,
@@ -158,18 +154,14 @@ class HeaderSection extends Component {
                         ></Button>
                         {this.props.isAuthenticated ? (
                           <span
-                            style={{ marginLeft: "10px", marginRight: "10px" }}
+                            style={{ marginLeft: "10px", marginRight: "10px", color: "black" }}
                           >
-                            <a style={{ color: "black" }}>
                               {this.state.userinfo.user &&
                                 this.state.userinfo.user.name}
-                            </a>
                           </span>
                         ) : (
-                          <span style={{ marginRight: "10px" }}>
-                            <a style={{ color: "black" }}>
+                          <span style={{ marginRight: "10px", color: "black" }}>
                               ورود به حساب کاربری
-                            </a>
                           </span>
                         )}
                         {this.props.isAuthenticated && (
@@ -224,7 +216,7 @@ class HeaderSection extends Component {
                         <Link to="/orders">
                           <span
                             style={{
-                              marginLeft:"-20px",
+                              marginLeft: "-20px",
                               backgroundColor: "#46A0AE",
                               color: "white",
                               padding: "10px 15px 10px 15px",
@@ -523,10 +515,10 @@ class HeaderSection extends Component {
                     ) : (
                       <div>
                         <Link onClick={this.onClose} to="/login">
-                          <p style={{color:"black"}}>ورود</p>
+                          <p style={{ color: "black" }}>ورود</p>
                         </Link>
                         <Link onClick={this.onClose} to="/signup">
-                          <p style={{color:"black"}}>ثبت نام</p>
+                          <p style={{ color: "black" }}>ثبت نام</p>
                         </Link>
                       </div>
                     )}

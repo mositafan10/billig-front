@@ -109,7 +109,7 @@ class Bookmark extends Component {
             onClick={this.bookmark.bind(this)}
             loading={this.state.loading}
           >
-            <img src={BookmarkYes} width={30} style={{marginTop:"-7px"}}/>
+            <img src={BookmarkYes} alt="billligBookmark" width={30} style={{marginTop:"-7px"}}/>
           </Button>
         ) : (
           <Button
@@ -117,7 +117,7 @@ class Bookmark extends Component {
             onClick={this.bookmark.bind(this)}
             loading={this.state.loading}
           >
-            <img src={BookmarkNot} width={30} style={{marginTop:"-7px"}}/>
+            <img src={BookmarkNot} alt="billligBookmark" width={30} style={{marginTop:"-7px"}}/>
           </Button>
         )}
         <Modal 

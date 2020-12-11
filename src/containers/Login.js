@@ -1,23 +1,11 @@
 import React from "react";
 import { Form, Input, Button, Spin, Divider, ConfigProvider } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
 import ResetPassword from "../components/profile/ResetPassword";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
-const antIcon = (
-  <LoadingOutlined
-    type="loading"
-    style={{ fontsize: 24, textAlign: "center" }}
-    spin
-  />
-);
-{
-  /*should be place in center*/
-}
 
 class LoginForm extends React.Component {
   

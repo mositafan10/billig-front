@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Row, Col, Divider } from "antd";
+import { Form, Input, Button, Row, Col } from "antd";
 // import { SMTPClient } from 'emailjs';
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Row, Col, Breadcrumb } from 'antd';
+import { Layout, Row, Col } from 'antd';
 import { Redirect } from 'react-router-dom';
 import FooterSection from '../containers/FooterSection';
 import HeaderSection from '../containers/HeaderSection';

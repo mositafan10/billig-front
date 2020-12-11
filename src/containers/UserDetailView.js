@@ -62,6 +62,7 @@ class UserProfile extends React.Component {
           <a
             style={{ color: "black" }}
             target="_blank"
+            rel="noopener noreferrer"
             href={`https://linkdin.com/${address}`}
           >
             <LinkedinOutlined style={{ fontSize: "35px" }} />
@@ -72,6 +73,7 @@ class UserProfile extends React.Component {
           <a
             style={{ color: "black" }}
             target="_blank"
+            rel="noopener noreferrer"
             href={`https://twitter.com/${address}`}
           >
             <TwitterOutlined style={{ fontSize: "35px" }} />
@@ -80,9 +82,10 @@ class UserProfile extends React.Component {
       case "Facebook":
         return (
           <a
-            style={{ color: "black" }}
-            target="_blank"
-            href={`https://facebook.com/${address}`}
+          style={{ color: "black" }}
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://facebook.com/${address}`}
           >
             <FacebookOutlined style={{ fontSize: "35px" }} />
           </a>
@@ -92,6 +95,7 @@ class UserProfile extends React.Component {
           <a
             style={{ color: "black" }}
             target="_blank"
+            rel="noopener noreferrer"
             href={`https://instagram.com/${address}`}
           >
             <InstagramOutlined style={{ fontSize: "35px" }} />
@@ -107,12 +111,13 @@ class UserProfile extends React.Component {
     return (
       <div>
         <Breakpoint medium up>
-          {this.state.error == 404 ? (
+          {this.state.error === 404 ? (
             <PageNotFound />
           ) : (
             <div style={{ textAlign: "center" }}>
               {this.state.user_profile.picture ? (
                 <img
+                  alt={this.state.user_profile.name}
                   width="250px"
                   height="250px"
                   style={{ borderRadius: "50%", marginTop: "30px" }}
@@ -216,6 +221,7 @@ class UserProfile extends React.Component {
           <div style={{ textAlign: "center" }}>
             {this.state.user_profile.picture ? (
               <img
+                alt={this.state.user_profile.name}
                 width={200}
                 style={{ borderRadius: "100px" }}
                 src={`${url}dstatic/${this.state.user_profile.picture}`}

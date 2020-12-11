@@ -16,7 +16,17 @@ import ProfileLayout from "./layout/ProfileLayout";
 import LoginLayout from "./layout/LoginLayout";
 
 import "antd/dist/antd.css";
+import { ErrorBoundary } from "react-error-boundary";
 
+function ErrorFallback({error, resetErrorBoundary}) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  )
+}
 
 class App extends Component {
 
@@ -59,6 +69,7 @@ class App extends Component {
             {/* Main Layout */}
             <Route path="/:path?">
               <BreakpointProvider>
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <CustomLayout {...this.props}>
                   <ConfigProvider direction="rtl">
                     <Switch>
@@ -66,6 +77,7 @@ class App extends Component {
                     </Switch>
                   </ConfigProvider>
                 </CustomLayout>
+                </ErrorBoundary>
               </BreakpointProvider>
             </Route>
           </Switch>

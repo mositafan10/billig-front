@@ -153,7 +153,6 @@ class PacketForEdit extends Component {
         dimension: dimension,
         weight: weight,
         suggested_price: suggested_price,
-        description: description,
         buy: buy,
         phonenumber_visible: phonenumber_visible,
         no_matter_origin: no_matter_origin,

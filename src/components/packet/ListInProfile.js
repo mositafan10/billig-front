@@ -239,7 +239,7 @@ class PacketUserList extends React.Component {
                                 okText="بله"
                                 cancelText="خیر"
                               >
-                                <a>
+                                <a href="#">
                                   <Button
                                     style={{
                                       border: "hidden",

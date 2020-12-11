@@ -33,6 +33,7 @@ class DownloadPic extends React.Component {
           <img
             onClick={this.showmodal}
             loading="lazy"
+            alt="chatPicture"
             src={`${url}dstatic/${this.props.data}`}
             style={{ borderRadius: "10px" }}
             width={this.props.size}

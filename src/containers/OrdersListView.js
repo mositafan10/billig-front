@@ -5,11 +5,9 @@ import { Link } from "react-router-dom";
 import Orders from "../components/packet/Orders";
 import { config } from "../Constant";
 import billliger from "../media/Billliger.svg";
-import { LoadingOutlined } from "@ant-design/icons";
 
 var url = config.url.API_URL;
 const { Option } = Select;
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const style_text = {
   alignContent: "center",
   textAlign: "center",

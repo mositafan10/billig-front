@@ -18,10 +18,9 @@ import {
 } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../Constant";
-const token = localStorage.getItem("token");
 var url = config.url.API_URL;
 
-class HeaderSection extends Component {
+class HeaderSectionProfile extends Component {
   state = {
     toDashboard: false,
     Drawerprofile: false,
@@ -71,7 +70,6 @@ class HeaderSection extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem("token");
-    {
       token != null &&
         token != "notready" &&
         Axios.post(`${url}api/v1/account/tokenValidation/`, {
@@ -91,11 +89,9 @@ class HeaderSection extends Component {
             this.props.logout();
           }
         });
-    }
   }
 
   render() {
-    const token = localStorage.getItem("token");
     if (this.state.toDashboard) {
       this.setState({
         toDashboard: false,
@@ -160,16 +156,12 @@ class HeaderSection extends Component {
                           <span
                             style={{ marginLeft: "10px", marginRight: "10px" }}
                           >
-                            <a style={{ color: "black" }}>
                               {this.state.userinfo.user &&
                                 this.state.userinfo.user.name}
-                            </a>
                           </span>
                         ) : (
-                          <span style={{ marginRight: "10px" }}>
-                            <a style={{ color: "black" }}>
+                          <span style={{ marginRight: "10px",color: "black" }}>
                               ورود به حساب کاربری
-                            </a>
                           </span>
                         )}
                         {this.props.isAuthenticated && (
@@ -558,4 +550,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(HeaderSection));
+export default withRouter(connect(null, mapDispatchToProps)(HeaderSectionProfile));

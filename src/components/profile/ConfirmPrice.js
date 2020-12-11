@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Input, Form, InputNumber, notification, Divider, Popconfirm } from "antd";
+import { Button, Modal, Form, InputNumber, notification } from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";

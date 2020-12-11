@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import { Popconfirm, Spin, Button, Row, Col, List, Card } from "antd";
+import { Spin, Button, Row, Col, List, Card } from "antd";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 import DownloadPic from "../utils/DownloadPic";

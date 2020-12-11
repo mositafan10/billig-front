@@ -6,17 +6,13 @@ import {
   Col,
   Spin,
   ConfigProvider,
-  notification,
   Button,
   Tooltip,
-  Modal,
-  Divider,
   Popconfirm,
 } from "antd";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import OfferDetail from "../components/offer/OfferInDetail";
 import DownloadPic from "../components/utils/DownloadPic";
-import DownloadPic1 from "../components/utils/DownloadPic1";
 import Bookmark from "../components/packet/Bookmark";
 import { config } from "../Constant";
 import { Breakpoint } from "react-socks";
@@ -97,7 +93,6 @@ class OrderDetail extends React.Component {
 
   render() {
     const picID = this.state.order && this.state.order.picture;
-    const user = localStorage.getItem("user");
     return (
       <div style={{ textAlign: "center" }}>
         <ConfigProvider direction="rtl">

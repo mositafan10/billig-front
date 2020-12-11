@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Upload, notification, message } from "antd";
+import { Upload, notification } from "antd";
 import ImgCrop from "antd-img-crop";
 import { config } from "../../Constant";
 import DownloadPic from "../utils/DownloadPic";

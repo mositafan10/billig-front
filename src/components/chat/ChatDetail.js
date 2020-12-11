@@ -9,9 +9,7 @@ import {
   Tooltip,
   Upload,
   Button,
-  Card,
   Badge,
-  Dropdown,
 } from "antd";
 import Axios from "axios";
 import TextInput from "./TextInput";
@@ -19,7 +17,6 @@ import moment from "moment";
 import {
   LinkOutlined,
   DownOutlined,
-  MoreOutlined,
   ArrowLeftOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -188,12 +185,6 @@ class ChatDetail extends Component {
     const user = localStorage.getItem("user");
     const chatid = this.props.data;
     const token = localStorage.getItem("token");
-    const informatoin = (
-      <Card
-        style={{ textAlign: "right", padding: "10px", fontFamily: "VazirD" }}
-      ></Card>
-    );
-
     return (
       <div style={{ marginTop: "20px" }}>
         <Breakpoint medium up>
@@ -208,9 +199,8 @@ class ChatDetail extends Component {
                       style={{ display: "flex", justifyContent: "right" }}
                     >
                       {user == this.props.sender_slug ? (
-                        <a
-                          target="_blank"
-                          href={`${url}users/` + this.props.receiver_slug}
+                        <Link
+                          to={`${url}users/` + this.props.receiver_slug}
                         >
                           <Avatar
                             src={`${url}dstatic/media/${this.props.receiver_avatar}`}
@@ -220,7 +210,7 @@ class ChatDetail extends Component {
                           >
                             {this.props.receiver_name}
                           </span>
-                        </a>
+                        </Link>
                       ) : (
                         <Link to={"/users/" + this.props.sender_slug}>
                           <Avatar
@@ -386,9 +376,9 @@ class ChatDetail extends Component {
                                   <div style={{ textAlign: "right" }}>
                                     {moment(item.create_at).format("HH:mm")}
                                     {item.is_seen ? (
-                                      <img src={CheckMarkWhite} width={20} />
+                                      <img src={CheckMarkWhite} alt="check" width={20} />
                                     ) : (
-                                      <img src={SingleCheck} width={20} />
+                                      <img src={SingleCheck} alt="check" width={20} />
                                     )}
                                   </div>
                                 </div>
@@ -440,9 +430,8 @@ class ChatDetail extends Component {
                       style={{ display: "flex", justifyContent: "right" }}
                     >
                       {user == this.props.sender_slug ? (
-                        <a
-                          target="_blank"
-                          href={`${url}users/` + this.props.receiver_slug}
+                        <Link
+                          to={`${url}users/` + this.props.receiver_slug}
                         >
                           <Avatar
                             src={`${url}dstatic/media/${this.props.receiver_avatar}`}
@@ -452,7 +441,7 @@ class ChatDetail extends Component {
                           >
                             {this.props.receiver_name}
                           </span>
-                        </a>
+                        </Link>
                       ) : (
                         <Link to={"/users/" + this.props.sender_slug}>
                           <Avatar
@@ -611,9 +600,9 @@ class ChatDetail extends Component {
                                 <div style={{ textAlign: "right" }}>
                                   {moment(item.create_at).format("HH:mm")}
                                   {item.is_seen ? (
-                                    <img src={CheckMarkWhite} width={20} />
+                                    <img src={CheckMarkWhite} alt="check" width={20} />
                                   ) : (
-                                    <img src={SingleCheck} width={20} />
+                                    <img src={SingleCheck} alt="check" width={20} />
                                   )}
                                 </div>
                               </div>

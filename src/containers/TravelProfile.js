@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Divider } from "antd";
 import Axios from "axios";
 import CreateTravel from "../components/travel/CreateTravel";
 import TravelList from "../components/travel/TravelUser";
