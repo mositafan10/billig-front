@@ -142,7 +142,7 @@ class OfferDetail extends React.Component {
           style={{ borderRadius: "10px", fontSize: "12px" }}
           onClick={this.offer}
         >
-          <b> ثبت پیشنهاد جدید </b>
+          <b> ثبت پیشنهاد </b>
         </Button>
         <Modal
           onCancel={this.handleCancel}

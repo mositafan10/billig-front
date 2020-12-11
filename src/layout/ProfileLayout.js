@@ -95,7 +95,7 @@ class ProfileLayout extends React.Component {
                       </p>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="4">
+                  <Menu.Item key="4" >
                     <Link to="/profile/inbox">
                       <p style={menu_style}>
                         <Badge count={this.state.total} offset={[-110,0]}>

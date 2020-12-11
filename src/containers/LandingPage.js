@@ -50,7 +50,7 @@ class LandingPage extends React.Component {
         <BillligStrength />
         <Divider>آخرین نظرات</Divider>
         <Row style={{ display: "flex", justifyContent: "center" }}>
-          <Col>
+          <Col span={22}>
             <CommentsBilllig count={5} />
           </Col>
         </Row>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { List, Avatar, Button, Badge } from "antd";
+import { List, Avatar, Button, Badge, Popconfirm } from "antd";
 import { MoreOutlined, UserOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../../Constant";
@@ -18,41 +18,52 @@ class ChatContacs extends Component {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/chat/chatlist/`, {
       headers: { Authorization: `Token ${token}` },
-    })
-      .then((res) =>
-        this.setState({
-          contacs: res.data,
-          loading: false,
-        })
-      )
+    }).then((res) =>
+      this.setState({
+        contacs: res.data,
+        loading: false,
+      })
+    );
   }
 
   componentWillReceiveProps() {
     this.componentDidMount();
   }
 
+  handleOkinfo = (slug) => {
+    const token = localStorage.getItem("token");
+    const current_contacs = this.state.contacs;
+    Axios.delete(`${url}api/v1/chat/conversation/${slug}`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) =>
+        this.setState({
+          contacs: current_contacs.filter((contacs) => contacs.slug !== slug),
+        })
+      )
+      .catch((err) => console.log(err));
+  };
+
   sendData = (
     chatid,
-    offer,
     sender_avatar,
     receiver_avatar,
     sender_slug,
     receiver_slug,
     sender_name,
     receiver_name,
-    packet_title,
+    is_active,
     visible
   ) => {
     this.props.parentCallback(
       chatid,
-      offer,
       sender_avatar,
       receiver_avatar,
       sender_slug,
       receiver_slug,
       sender_name,
       receiver_name,
-      packet_title,
+      is_active,
       visible
     );
   };
@@ -60,7 +71,14 @@ class ChatContacs extends Component {
   render() {
     const user = localStorage.getItem("user");
     return (
-      <div style={{ marginTop: "20px", overflowY:"scroll", direction:"ltr", maxHeight:"60%" }}>
+      <div
+        style={{
+          marginTop: "20px",
+          overflowY: "scroll",
+          direction: "ltr",
+          maxHeight: "100%",
+        }}
+      >
         <List
           loading={this.state.loading}
           itemLayout="horizontal"
@@ -76,7 +94,9 @@ class ChatContacs extends Component {
           renderItem={(item) => (
             <List.Item
               style={{
-                margin: "0 20px 0 0",
+                paddingRight: "20px",
+                borderRadius: "10px",
+                backgroundColor: !item.is_active && "#db540b",
               }}
             >
               <List.Item.Meta
@@ -90,15 +110,15 @@ class ChatContacs extends Component {
                       </Badge>
                     ) : (
                       <Badge count={item.not_seen}>
-                      <Avatar
-                        style={{
-                          backgroundColor: "white",
-                          color: "black",
-                          border: "1px solid",
-                        }}
-                      >
-                        <UserOutlined />
-                      </Avatar>
+                        <Avatar
+                          style={{
+                            backgroundColor: "white",
+                            color: "black",
+                            border: "1px solid",
+                          }}
+                        >
+                          <UserOutlined />
+                        </Avatar>
                       </Badge>
                     )
                   ) : item.sender_avatar ? (
@@ -109,15 +129,15 @@ class ChatContacs extends Component {
                     </Badge>
                   ) : (
                     <Badge count={item.not_seen}>
-                    <Avatar
-                      style={{
-                        backgroundColor: "white",
-                        color: "black",
-                        border: "1px solid",
-                      }}
-                    >
-                      <UserOutlined />
-                    </Avatar>
+                      <Avatar
+                        style={{
+                          backgroundColor: "white",
+                          color: "black",
+                          border: "1px solid",
+                        }}
+                      >
+                        <UserOutlined />
+                      </Avatar>
                     </Badge>
                   )
                 }
@@ -125,18 +145,21 @@ class ChatContacs extends Component {
                   user == item.sender_slug ? (
                     <div>
                       <Button
-                        style={{ border: "hidden", fontSize: "12px" }}
+                        style={{
+                          border: "hidden",
+                          fontSize: "12px",
+                          backgroundColor: !item.is_active && "#db540b",
+                        }}
                         onClick={() =>
                           this.sendData(
                             item.slug,
-                            item.offer_state,
                             item.sender_avatar,
                             item.receiver_avatar,
                             item.sender_slug,
                             item.receiver_slug,
                             item.sender_name,
                             item.receiver_name,
-                            item.packet_title,
+                            item.is_active,
                             this.state.visible
                           )
                         }
@@ -149,18 +172,21 @@ class ChatContacs extends Component {
                   ) : (
                     <div>
                       <Button
-                        style={{ border: "hidden", fontSize: "12px" }}
+                        style={{
+                          border: "hidden",
+                          fontSize: "12px",
+                          backgroundColor: !item.is_active && "#db540b",
+                        }}
                         onClick={() =>
                           this.sendData(
                             item.slug,
-                            item.offer_state,
                             item.sender_avatar,
                             item.receiver_avatar,
                             item.sender_slug,
                             item.receiver_slug,
                             item.sender_name,
                             item.receiver_name,
-                            item.packet_title,
+                            item.is_active,
                             this.state.visible
                           )
                         }
@@ -173,6 +199,26 @@ class ChatContacs extends Component {
                   )
                 }
               />
+              {!item.is_active && (
+                <Popconfirm
+                  overlayStyle={{ fontFamily: "VazirD" }}
+                  onConfirm={this.handleOkinfo.bind(this,item.slug)}
+                  okText="حذف"
+                  cancelText="انصراف"
+                  title={
+                    <div>
+                      <p>آیا از حذف چت مطمئن هستید؟</p>
+                    </div>
+                  }
+                >
+                  <Button
+                    size="large"
+                    style={{ backgroundColor: "#db540b", border: "hidden" }}
+                  >
+                    <MoreOutlined />
+                  </Button>
+                </Popconfirm>
+              )}
             </List.Item>
           )}
         />

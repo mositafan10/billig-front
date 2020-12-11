@@ -25,8 +25,8 @@ import {
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
-import CheckMarkWhite  from '../../media/small_icon/CheckMarkWhite.png';
-import SingleCheck  from '../../media/small_icon/SingleCheck.png';
+import CheckMarkWhite from "../../media/small_icon/CheckMarkWhite.png";
+import SingleCheck from "../../media/small_icon/SingleCheck.png";
 import DownloadPic1 from "../utils/DownloadPic1";
 
 var url = config.url.API_URL;
@@ -78,8 +78,6 @@ class ChatDetail extends Component {
 
     this.state = {
       massages: [],
-      offer: this.props.offer,
-      packet_title: this.props.packet_title,
       visible: this.props.visible,
       loading: false,
       fileList: [],
@@ -94,26 +92,25 @@ class ChatDetail extends Component {
     const chatid = this.props.data;
     if (this.props.visible !== prevProps.visible) {
       this.setState({
-        offer: this.props.offer,
         visible: this.props.visible,
         loading: true,
       });
       Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
         headers: { Authorization: `Token ${token}` },
-      })
-        .then((res) =>
+      }).then(
+        (res) =>
           this.setState({
             massages: res.data,
             loading: false,
           }),
-          setTimeout(() => {
-            this.scrollToMyRef();
-          }, 500)
-        )
+        setTimeout(() => {
+          this.scrollToMyRef();
+        }, 500)
+      );
 
       // REFRESH CHAT EACH 5 SECOND AND CHECK NEW MASSAGE
       if (this.props.data !== prevProps.data) {
-          this.state.interval = setInterval(() => {
+        this.state.interval = setInterval(() => {
           Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
             headers: { Authorization: `Token ${token}` },
           })
@@ -122,16 +119,16 @@ class ChatDetail extends Component {
               let b =
                 this.state.massages[this.state.massages.length - 1] &&
                 this.state.massages[this.state.massages.length - 1].text;
-                  if (a !== b && b != undefined) {
-                    this.setState({
-                      massages: res.data,
-                    }); 
+              if (a !== b && b != undefined) {
+                this.setState({
+                  massages: res.data,
+                });
 
-                  if (res.data.length > 8) {
-                    this.setState({
-                      new_mass_vis: true,
-                    });
-                  }
+                if (res.data.length > 8) {
+                  this.setState({
+                    new_mass_vis: true,
+                  });
+                }
               }
             })
             .catch((error) => console.log(error));
@@ -178,15 +175,13 @@ class ChatDetail extends Component {
     const chatid = this.props.data;
     Axios.get(`${url}api/v1/chat/massagelist/${chatid}`, {
       headers: { Authorization: `Token ${token}` },
-    })
-      .then((res) =>
-        this.setState({
-          massages: res.data,
-        })
-      )
-    setTimeout(() => {
-      this.scrollToMyRef();
-    }, 500);
+    }).then((res) => {
+      this.setState({
+        massages: res.data,
+      })
+      this.scrollToMyRef()
+      }
+    );
   };
 
   render() {
@@ -196,8 +191,7 @@ class ChatDetail extends Component {
     const informatoin = (
       <Card
         style={{ textAlign: "right", padding: "10px", fontFamily: "VazirD" }}
-      >
-      </Card>
+      ></Card>
     );
 
     return (
@@ -208,15 +202,17 @@ class ChatDetail extends Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
-                    <Col span={3}>
-                    </Col>
+                    <Col span={3}></Col>
                     <Col
                       span={18}
                       style={{ display: "flex", justifyContent: "right" }}
                     >
                       {user == this.props.sender_slug ? (
-                        <a target="_blank" href={`${url}users/` + this.props.receiver_slug}>
-                        <Avatar
+                        <a
+                          target="_blank"
+                          href={`${url}users/` + this.props.receiver_slug}
+                        >
+                          <Avatar
                             src={`${url}dstatic/media/${this.props.receiver_avatar}`}
                           />
                           <span
@@ -285,35 +281,43 @@ class ChatDetail extends Component {
                     </Badge>
                   </Col>
                 </Row>
-                <Row style={{ padding: "20px 0 20px 0" }}>
-                  <Col
-                    xs={1}
-                    sm={1}
-                    md={1}
-                    lg={1}
-                    xl={1}
-                    xxl={1}
-                    style={{ justifyContent: "right", display: "flex" }}
-                  >
-                    <Upload
-                      action={`${url}api/v1/chat/messages/${chatid}`}
-                      name="billig"
-                      headers={{ Authorization: `Token ${token}` }}
-                      onChange={this.onChange}
-                      fileList={this.fileList}
-                      multiple="true"
-                      accept=".png,.jpeg,.pdf"
+                {this.props.is_active ? (
+                  <div>
+                    <Row style={{ padding: "5px 0 5px 0" }}>
+                      <Col
+                        xs={1}
+                        sm={1}
+                        md={1}
+                        lg={1}
+                        xl={1}
+                        xxl={1}
+                        style={{ justifyContent: "right", display: "flex" }}
                       >
-                      <Button
-                        size="large"
-                        icon={<LinkOutlined style={{ marginTop: "5px" }} />}
-                      ></Button>
-                    </Upload>
-                  </Col>
-                  <Col xs={23} sm={23} md={23} lg={23} xl={23} xxl={23}>
-                    <TextInput data={chatid} handler={this.handler} />
-                  </Col>
-                </Row>
+                        <Upload
+                          action={`${url}api/v1/chat/messages/${chatid}`}
+                          name="billig"
+                          headers={{ Authorization: `Token ${token}` }}
+                          onChange={this.onChange}
+                          fileList={this.fileList}
+                          multiple="true"
+                          accept=".png,.jpeg"
+                        >
+                          <Button
+                            size="large"
+                            icon={<LinkOutlined style={{ marginTop: "5px" }} />}
+                          ></Button>
+                        </Upload>
+                      </Col>
+                      <Col xs={23} sm={23} md={23} lg={23} xl={23} xxl={23}>
+                        <TextInput data={chatid} handler={this.handler} />
+                      </Col>
+                    </Row>
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <p>امکان ارسال پیام در این چت وجود ندارد</p>
+                  </div>
+                )}
               </div>
             }
             placement="left"
@@ -331,8 +335,7 @@ class ChatDetail extends Component {
                 <Spin />
               </div>
             ) : (
-              <div 
-              >
+              <div>
                 <List
                   itemLayout="horizontal"
                   dataSource={this.state.massages}
@@ -349,60 +352,69 @@ class ChatDetail extends Component {
                         style={{
                           borderColor: "#9cd3ee",
                           padding: "0 5px 0 5px",
-                          textAlign:"center"
+                          textAlign: "center",
                         }}
                       >
                         <div>
                           {item.first_day
                             ? moment(item.create_at).format("dddd D MMM")
                             : ""}
-                        </div>  
+                        </div>
 
-                          
-                        {item.type_text == 1 ?
+                        {item.type_text == 1 ? (
                           <div style={center_test_style}>
                             {item.text}
-                            <br/>
+                            <br />
                             {moment(item.create_at).format("HH:mm - MMM DD ")}
                           </div>
-                          :
-                          <div>
-                        {user == item.owner_slug ? (
-                          <List.Item>
-                            <div style={right_test_style}>
-                              {item.picture === null ? (
-                                item.text
-                              ) : (
-                                <div>
-                                   <DownloadPic1 size={200} data={item.picture} />
-                                </div>
-                              )}
-                              <br />
-                              <div style={{textAlign:"right"}}>
-                              {moment(item.create_at).format("HH:mm")} 
-                              {item.is_seen ? <img src={CheckMarkWhite} width={20} /> : <img src={SingleCheck} width={20}/> }
-                              </div>
-                            </div>
-                          </List.Item>
                         ) : (
-                          <List.Item style={left_test_style}>
-                            <div>
-                              {item.picture === null ? (
-                                item.text
-                              ) : (
-                                <div>
-                                  <DownloadPic1 size={200} data={item.picture} />
+                          <div>
+                            {user == item.owner_slug ? (
+                              <List.Item>
+                                <div style={right_test_style}>
+                                  {item.picture === null ? (
+                                    item.text
+                                  ) : (
+                                    <div>
+                                      <DownloadPic1
+                                        size={200}
+                                        data={item.picture}
+                                      />
+                                    </div>
+                                  )}
+                                  <br />
+                                  <div style={{ textAlign: "right" }}>
+                                    {moment(item.create_at).format("HH:mm")}
+                                    {item.is_seen ? (
+                                      <img src={CheckMarkWhite} width={20} />
+                                    ) : (
+                                      <img src={SingleCheck} width={20} />
+                                    )}
+                                  </div>
                                 </div>
-                              )}
-                              <br />
-                              <div style={{textAlign:"right"}}>
-                              {moment(item.create_at).format("HH:mm")} 
-                              </div>
-                            </div>
-                          </List.Item>
+                              </List.Item>
+                            ) : (
+                              <List.Item style={left_test_style}>
+                                <div>
+                                  {item.picture === null ? (
+                                    item.text
+                                  ) : (
+                                    <div>
+                                      <DownloadPic1
+                                        size={200}
+                                        data={item.picture}
+                                      />
+                                    </div>
+                                  )}
+                                  <br />
+                                  <div style={{ textAlign: "right" }}>
+                                    {moment(item.create_at).format("HH:mm")}
+                                  </div>
+                                </div>
+                              </List.Item>
+                            )}
+                          </div>
                         )}
-                        </div>
-                      }
                       </Col>
                     </Row>
                   )}
@@ -422,14 +434,16 @@ class ChatDetail extends Component {
                     <Col
                       span={3}
                       style={{ display: "flex", justifyContent: "right" }}
-                    >
-                    </Col>
+                    ></Col>
                     <Col
                       span={18}
                       style={{ display: "flex", justifyContent: "right" }}
                     >
                       {user == this.props.sender_slug ? (
-                        <a target="_blank" href={`${url}users/` + this.props.receiver_slug}>
+                        <a
+                          target="_blank"
+                          href={`${url}users/` + this.props.receiver_slug}
+                        >
                           <Avatar
                             src={`${url}dstatic/media/${this.props.receiver_avatar}`}
                           />
@@ -468,27 +482,70 @@ class ChatDetail extends Component {
               </Row>
             }
             footer={
-              <Row>
-                <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>
-                  <Upload
-                    action={`${url}api/v1/chat/messages/${chatid}`}
-                    name="billig"
-                    headers={{ Authorization: `Token ${token}` }}
-                    onChange={this.onChange}
-                    fileList={this.fileList}
-                    multiple="true"
-                    accept=".png,.jpeg,.pdf"
-                  >
-                    <Button
-                      size="large"
-                      icon={<LinkOutlined style={{ margin: "5px 0 0 5px" }} />}
-                    ></Button>
-                  </Upload>
-                </Col>
-                <Col xs={22} sm={22} md={22} lg={22} xl={22} xxl={22}>
-                  <TextInput data={chatid} handler={this.handler} />
-                </Col>
-              </Row>
+              <div>
+              <Row
+                  style={{
+                    marginRight: "20px",
+                    position: "fixed",
+                    zIndex: 9999,
+                    marginTop: "-100px",
+                    visibility: this.state.new_mass_vis ? "visible" : "hidden",
+                  }}
+                >
+                  <Col>
+                    <Badge dot>
+                      <Tooltip title="پیام جدید دارید">
+                        <Button
+                          onClick={this.scrollToMyRef}
+                          size="large"
+                          shape="circle-outline"
+                          style={{
+                            display: "grid",
+                            alignItems: "center",
+                            paddingTop: "10px",
+                            backgroundColor: "whitesmoke",
+                            color: "black",
+                            borderColor: "white",
+                          }}
+                          icon={<DownOutlined />}
+                        ></Button>
+                      </Tooltip>
+                    </Badge>
+                  </Col>
+                </Row>
+                {this.props.is_active ? (
+                  <div>
+                    <Row style={{ padding: "5px 0 5px 0" }}>
+                      <Col
+                        span={2}
+                        style={{ justifyContent: "right", display: "flex" }}
+                      >
+                        <Upload
+                          action={`${url}api/v1/chat/messages/${chatid}`}
+                          name="billig"
+                          headers={{ Authorization: `Token ${token}` }}
+                          onChange={this.onChange}
+                          fileList={this.fileList}
+                          multiple="true"
+                          accept=".png,.jpeg"
+                        >
+                          <Button
+                            size="large"
+                            icon={<LinkOutlined style={{ marginTop: "5px" }} />}
+                          ></Button>
+                        </Upload>
+                      </Col>
+                      <Col span={22} >
+                        <TextInput data={chatid} handler={this.handler} />
+                      </Col>
+                    </Row>
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <p>امکان ارسال پیام در این چت وجود ندارد</p>
+                  </div>
+                )}
+              </div>
             }
             placement="left"
             width={"100%"}
@@ -504,79 +561,89 @@ class ChatDetail extends Component {
                 <Spin />
               </div>
             ) : (
-                <List
-                  itemLayout="horizontal"
-                  dataSource={this.state.massages}
-                  locale={{ emptyText: " پیامی وجود ندارد" }}
-                  renderItem={(item) => (
-                    <Row >
-                      <Col
-                        xs={24}
-                        sm={24}
-                        md={24}
-                        lg={24}
-                        xl={24}
-                        xxl={24}
-                        style={{
-                          borderColor: "#9cd3ee",
-                          padding: "0 5px 0 5px",
-                          textAlign:"center"
-                        }}
-                      >
-                        <div >
-                          {item.first_day
-                            ? moment(item.create_at).format("dddd D MMM")
-                            : ""}
-                        </div>
+              <List
+                itemLayout="horizontal"
+                dataSource={this.state.massages}
+                locale={{ emptyText: " پیامی وجود ندارد" }}
+                renderItem={(item) => (
+                  <Row>
+                    <Col
+                      xs={24}
+                      sm={24}
+                      md={24}
+                      lg={24}
+                      xl={24}
+                      xxl={24}
+                      style={{
+                        borderColor: "#9cd3ee",
+                        padding: "0 5px 0 5px",
+                        textAlign: "center",
+                      }}
+                    >
+                      <div>
+                        {item.first_day
+                          ? moment(item.create_at).format("dddd D MMM")
+                          : ""}
+                      </div>
 
-                        {item.type_text == 1 ?
-                          <div style={center_test_style}>
-                            {item.text}
-                            <br/>
-                            {moment(item.create_at).format("HH:mm - MMM DD ")}
-                          </div>
-                          :
-                          <div>
-                        {user == item.owner_slug ? (
-                          <List.Item>
-                            <div style={right_test_style}>
-                              {item.picture === null ? (
-                                item.text
-                              ) : (
-                                <div>
-                                 <DownloadPic1 size={150} data={item.picture} />
-                                </div>
-                              )}
-                              <br />
-                              <div style={{textAlign:"right"}}>
-                              {moment(item.create_at).format("HH:mm")} 
-                              {item.is_seen ? <img src={CheckMarkWhite} width={20} /> : <img src={SingleCheck} width={20}/> }
-                              </div>
-                            </div>
-                          </List.Item>
-                        ) : (
-                          <List.Item style={left_test_style}>
-                            <div>
-                              {item.picture === null ? (
-                                item.text
-                              ) : (
-                                <div>
-                                  <DownloadPic1 size={150} data={item.picture} />
-                                </div>
-                              )}
-                              <br />
-                              <div style={{textAlign:"left"}}>
-                              {moment(item.create_at).format("HH:mm")} 
-                              </div>
-                            </div>
-                          </List.Item>
-                        )}
+                      {item.type_text == 1 ? (
+                        <div style={center_test_style}>
+                          {item.text}
+                          <br />
+                          {moment(item.create_at).format("HH:mm - MMM DD ")}
                         </div>
-                      }
-                      </Col>
-                    </Row>
-                  )}
-                />
+                      ) : (
+                        <div>
+                          {user == item.owner_slug ? (
+                            <List.Item>
+                              <div style={right_test_style}>
+                                {item.picture === null ? (
+                                  item.text
+                                ) : (
+                                  <div>
+                                    <DownloadPic1
+                                      size={150}
+                                      data={item.picture}
+                                    />
+                                  </div>
+                                )}
+                                <br />
+                                <div style={{ textAlign: "right" }}>
+                                  {moment(item.create_at).format("HH:mm")}
+                                  {item.is_seen ? (
+                                    <img src={CheckMarkWhite} width={20} />
+                                  ) : (
+                                    <img src={SingleCheck} width={20} />
+                                  )}
+                                </div>
+                              </div>
+                            </List.Item>
+                          ) : (
+                            <List.Item style={left_test_style}>
+                              <div>
+                                {item.picture === null ? (
+                                  item.text
+                                ) : (
+                                  <div>
+                                    <DownloadPic1
+                                      size={150}
+                                      data={item.picture}
+                                    />
+                                  </div>
+                                )}
+                                <br />
+                                <div style={{ textAlign: "left" }}>
+                                  {moment(item.create_at).format("HH:mm")}
+                                </div>
+                              </div>
+                            </List.Item>
+                          )}
+                        </div>
+                      )}
+                    </Col>
+                  </Row>
+                )}
+              />
             )}
             <div height="100px" ref={this.myRef}></div>
           </Drawer>

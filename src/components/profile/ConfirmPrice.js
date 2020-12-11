@@ -128,7 +128,7 @@ class ConfirmPrice extends React.Component {
                 rules={[
                   {
                     required: true,
-                    message: "مبلغ نهایی دستمزد را وارد کنید",
+                    message: "مبلغ نهایی دستمزد را با کیبورد انگلیسی وارد کنید",
                   },
                 ]}
               >

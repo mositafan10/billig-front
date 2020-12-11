@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { List, Avatar, Col, Row, Spin, Card } from "antd";
+import { Link } from 'react-router-dom';
 import Axios from "axios";
 import { config } from "../../Constant";
 
@@ -57,15 +58,14 @@ class CommentList extends Component {
                   <Row style={style_center}>
                     <Col span={24} style={{ textAlign: "center" }}>
                       <div>
-                        <a
-                          target="_blank"
-                          href={`${url}users/` + item.owner_slug}
+                        <Link
+                          to={`${url}users/` + item.owner_slug}
                         >
                           <Avatar
                             src={`${url}dstatic/media/${item.owner_avatar}`}
                           ></Avatar>
-                        </a>
-                        <p style={{ marginTop: "5px" }}> {item.owner_name} </p>
+                        <p style={{ marginTop: "5px", color:"black" }}> {item.owner_name} </p>
+                        </Link>
                       </div>
                       <hr style={{ color: "aliceblue" }} />
                       <p style={{ textAlign: "center", marginTop: "20px" }}>

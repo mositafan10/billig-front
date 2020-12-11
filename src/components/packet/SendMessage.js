@@ -68,14 +68,13 @@ class SendMessage extends React.Component {
         </Button>
         <ChatDetail
           data={this.state.chatID && this.state.chatID}
-          offer={this.state.info.offer_state}
           sender_avatar={this.state.info.sender_avatar}
           receiver_avatar={this.state.info.receiver_avatar}
           sender_slug={this.state.info.sender_slug}
           receiver_slug={this.state.info.receiver_slug}
           sender_name={this.state.info.sender_name}
           receiver_name={this.state.info.receiver_name}
-          packet_title = {this.state.info.packet_title}
+          is_active = {this.state.info.is_active}
           visible={this.state.visible}
           parentCallback={this.callbackFunction1}
         />

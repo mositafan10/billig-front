@@ -233,14 +233,17 @@ class TravelList extends React.Component {
                                     travel={item.slug}
                                     amount={item.income}
                                   />
-                                ) : item.status == 8 ? (
+                                ) : item.status == 8 && (
                                   <span>در انتظار تسویه</span>
-                                ) : (
+                                )}
+                              </Col>
+                              <Col>
+                                {item.status == 2 &&
                                   <EditTravel
                                     signal={this.editsignal}
                                     data={item.slug}
                                   />
-                                )}
+                                }
                               </Col>
                               <Col style={{float:"left"}}>
                                 {(item.status == 0 ||

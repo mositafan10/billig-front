@@ -11,6 +11,7 @@ import {
   Avatar,
   Spin,
   Space,
+  Card,
 } from "antd";
 import { Link } from "react-router-dom";
 import ConfirmPrice from "../profile/ConfirmPrice";
@@ -194,7 +195,7 @@ class UserOffer extends React.Component {
       key: "slug",
       align: "center",
       render: (dataIndex, row) => {
-        if (row.status != "تمام شده") {
+        if (row.status == "در انتظار پاسخ" || row.status == "در انتظار تایید مسافر") {
           return (
             <Popconfirm
               overlayStyle={{ fontFamily: "VazirD" }}
@@ -356,34 +357,18 @@ class UserOffer extends React.Component {
           ) : (
             <div
               style={{
-                marginTop: "50px",
+                marginTop: "3px",
                 display: "flex",
                 justifyContent: "center",
               }}
             >
               <List
                 locale={{ emptyText: "پیشنهادی وجود ندارد" }}
-                pagination={{
-                  onChange: (page) => {},
-                  hideOnSinglePage: true,
-                  simple: true,
-                  hide: true,
-                }}
                 dataSource={this.state.offer}
                 renderItem={(item) => (
-                  <div>
-                    <Row
-                      style={{
-                        color: "black",
-                        boxShadow: "0 0 8px 0px",
-                        border: "1px solid",
-                        borderRadius: "10px",
-                        margin: "25px 0px 25px 0px",
-                        padding: "15px 15px 15px 15px",
-                        width: "100%",
-                        height: "auto",
-                      }}
-                    >
+                  <List.Item>
+                    <Card>
+                    <Row>
                       <Col
                         xs={24}
                         sm={24}
@@ -406,7 +391,6 @@ class UserOffer extends React.Component {
                           src={`${url}dstatic/media/${item.receiver_avatar}`}
                         ></Avatar>
                         <span> {item.receiver} </span>
-                        <p style={{ margin: "8px 8px" }}>{item.description}</p>
                         <p style={{ textAlign: "left", marginTop: "20px" }}>
                           {this.currency(item.price)} تومان
                         </p>
@@ -510,7 +494,7 @@ class UserOffer extends React.Component {
                             )}
                           </Col>
                           <Col>
-                            {item.status != "تمام شده" && (
+                          {item.status == "در انتظار پاسخ" || item.status == "در انتظار تایید مسافر" &&
                               <Popconfirm
                                 overlayStyle={{ fontFamily: "VazirD" }}
                                 title="آیا از حذف پیشنهاد مطمئن هستید ؟"
@@ -534,12 +518,13 @@ class UserOffer extends React.Component {
                                   </Button>
                                 </a>
                               </Popconfirm>
-                            )}
+                            }
                           </Col>
                         </Space>
                       </Col>
                     </Row>
-                  </div>
+                    </Card>
+                    </List.Item>
                 )}
               />
             </div>

@@ -341,16 +341,8 @@ class PackForm extends React.Component {
                 rules={[
                   {
                     required: true,
-                    message: 'Please confirm your password!',
+                    message: 'عنوان آگهی را وارد نمایید',
                   },
-                  ({ getFieldValue }) => ({
-                    validator(rule, value) {
-                      if (!value || getFieldValue('title') === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject('The two passwords that you entered do not match!');
-                    },
-                  }),
                 ]}
               >
                 <Input maxLength={50} style={{ textAlign: "right" }} />
@@ -630,7 +622,6 @@ x                     disabled={this.state.city_destination_dis}
                     ]}
                   >
                     <Select
-                      // onChange={this.changecategory}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
                       {this.state.category.map((e, key) => {
