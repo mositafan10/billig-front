@@ -267,7 +267,8 @@ class SignUpForm extends React.Component {
                   ]}
                 >
                   <InputNumber
-                    type="number"
+                    type="tel"
+                    pattern="\d*"
                     style={{
                       borderRadius: "10px",
                       width: "100%",

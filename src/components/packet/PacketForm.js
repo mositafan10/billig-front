@@ -694,6 +694,8 @@ x                     disabled={this.state.city_destination_dis}
                     ]}
                   >
                     <InputNumber
+                    type="tel"
+                    pattern="\d*"
                       formatter={(value) =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
@@ -738,6 +740,8 @@ x                     disabled={this.state.city_destination_dis}
                     ]}
                   >
                     <InputNumber
+                    type="tel"
+                    pattern="\d*"
                       formatter={(value) =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
