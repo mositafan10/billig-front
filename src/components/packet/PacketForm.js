@@ -178,7 +178,7 @@ class PackForm extends React.Component {
     }
   };
 
-  // should fix dut to new model 
+  // should fix due to new model 
   changecategory = (value) => {
     this.setState({ category: value });
     if (value === "6") {

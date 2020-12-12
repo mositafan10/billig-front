@@ -58,12 +58,16 @@ class SignUpForm extends React.Component {
   };
 
   handleOk = (values) => {
-    this.setState({ otploading: true, otp: values.otp });
+    this.setState({ otploading: true});
     setTimeout(() => {
       this.setState({
-        visible: false,
         toDashboard: true,
       });
+      const signup = localStorage.getItem("signup");
+      console.log(signup)
+      if (signup == "notready") {
+        this.setState({ otploading: false})
+      }
     }, 3000);
     this.setState({
       otp: values.otp,
@@ -71,7 +75,7 @@ class SignUpForm extends React.Component {
     const password = this.state.password;
     const phone_number = this.state.phone_number;
     const name = this.state.name;
-    const otp = this.state.otp;
+    const otp = values.otp;
     this.props.onAuth2(phone_number, password, otp, name);
   };
 
@@ -251,12 +255,12 @@ class SignUpForm extends React.Component {
               style={{ fontFamily: "VazirD" }}
             >
               <p style={{ textAlign: "center", fontFamily: "IRANSans" }}>
-                کد تایید خود را وارد نمایید
+                کد تایید
               </p>
               <Form name="otpInsert" onFinish={this.handleOk}>
                 <Form.Item
                   name="otp"
-                  style={{ textAlign: "right", fontFamily: "VazirD" }}
+                  style={{ textAlign: "center", fontFamily: "VazirD" }}
                   rules={[
                     {
                       required: true,
@@ -269,7 +273,7 @@ class SignUpForm extends React.Component {
                     pattern="\d*"
                     style={{
                       borderRadius: "10px",
-                      width: "100%",
+                      width: "50%",
                       fontFamily: "VazirD",
                       textAlign: "center",
                     }}

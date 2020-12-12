@@ -110,7 +110,7 @@ export const authSignup = (phone_number, password, name) => {
         dispatch(authFail(error));
         localStorage.setItem("signup", "notready");
         notification["error"]({
-          message: error.response.data,
+          message: error.response.data.detail,
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -148,7 +148,18 @@ export const authSignup1 = (phone_number, password, otp, name) => {
           : (window.location = "/");
       })
       .catch((error) => {
-        message.error(error.response.data.detail);
+        localStorage.setItem("signup", "notready");
+        notification["error"]({
+          message: error.response.data.detail,
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            fontSizeAdjust: "0.5",
+          },
+          duration: 3,
+        });
         dispatch(authFail(error));
       });
   };

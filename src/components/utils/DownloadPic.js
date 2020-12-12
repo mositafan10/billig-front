@@ -100,6 +100,7 @@ class DownloadPic extends React.Component {
             closeIcon=" "
             onCancel={this.handlecancle}
             footer={false}
+            // width={"100px"}
             bodyStyle={{ opacity:"1", position:"absolute", zIndex:"1", maxWidth:"100%", maxHeight:"100%"}}
           >
             <Row style={{ display: "flex", justifyContent: "center" }}>

@@ -69,7 +69,7 @@ class App extends Component {
             {/* Main Layout */}
             <Route path="/:path?">
               <BreakpointProvider>
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
+              {/* <ErrorBoundary FallbackComponent={ErrorFallback}> */}
                 <CustomLayout {...this.props}>
                   <ConfigProvider direction="rtl">
                     <Switch>
@@ -77,7 +77,7 @@ class App extends Component {
                     </Switch>
                   </ConfigProvider>
                 </CustomLayout>
-                </ErrorBoundary>
+                {/* </ErrorBoundary> */}
               </BreakpointProvider>
             </Route>
           </Switch>
