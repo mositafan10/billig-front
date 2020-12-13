@@ -43,7 +43,7 @@ class EditProfile extends React.Component {
   setIcon = (type, address) => {
     switch (type) {
       case "Linkdin":
-        return <a style={{color:"black"}} rel="noopener noreferrer" target="_blank" href={`https://linkdin.com/${address}`}><LinkedinOutlined style={{fontSize:"35px"}} /></a>;
+        return <a style={{color:"black"}} rel="noopener noreferrer" target="_blank" href={`https://linkdin.com/in/${address}`}><LinkedinOutlined style={{fontSize:"35px"}} /></a>;
       case "Twitter":
         return <a style={{color:"black"}} rel="noopener noreferrer" target="_blank" href={`https://twitter.com/${address}`}><TwitterOutlined style={{fontSize:"35px"}}/></a>;
       case "Facebook":

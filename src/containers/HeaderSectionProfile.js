@@ -154,7 +154,7 @@ class HeaderSectionProfile extends Component {
                         ></Button>
                         {this.props.isAuthenticated ? (
                           <span
-                            style={{ marginLeft: "10px", marginRight: "10px" }}
+                          style={{ color:"black", marginLeft: "10px", marginRight: "10px" }}
                           >
                               {this.state.userinfo.user &&
                                 this.state.userinfo.user.name}

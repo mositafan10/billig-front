@@ -9,6 +9,7 @@ import InboxLayout from '../containers/InboxLayout';
 import BookmarkPacket from '../components/packet/BookmarkPacket';
 import PageNotFound from '../components/errors/PageNotFound';
 import CommentList from '../components/rating/CommentList';
+import ChatRoom from '../components/chat/ChatRoom';
 
 class ProfileRoutes extends React.Component {
 
@@ -24,6 +25,7 @@ class ProfileRoutes extends React.Component {
             <Route exact path='/profile/mytravel' render={(props) => <TravelProfile/> }/>
             <Route exact path='/profile/myoffer' render={(props) => <UserOffer/> }/>
             <Route exact path='/profile/inbox' render={(props) => <InboxLayout {...this.props}/> }/>
+            <Route exact path='/profile/inbox/:chatID' component={ChatRoom}/>
             <Route exact path='/profile/payment' render={(props) => <TransactionList/> }/>
             <Route exact path='/profile/bookmark' render={(props) => <BookmarkPacket/> }/>
             <Route component={PageNotFound} />

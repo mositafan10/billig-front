@@ -46,19 +46,17 @@ class DownloadPic extends React.Component {
           closable
           closeIcon=" "
           onCancel={this.handlecancle}
-          okButtonProps={{ hidden: true }}
-          cancelButtonProps={{ hidden: true }}
+          footer={false}
           width="40%"
-          bodyStyle={{backgroundColor:"transparent",}}
-        >
+          bodyStyle={{ opacity:"1", position:"absolute", zIndex:"1", maxWidth:"100%", maxHeight:"100%"}}
+          >
             <Row style={{display:"flex", justifyContent:"center"}}>
                 <img
                 loading="lazy"
                 src={`${url}dstatic/${this.props.data}`}
-                style={{ borderRadius: "10px" }}
+                style={{ borderRadius: "10px", width:"100%",height:"100%" }}
             />
             </Row>
-          
         </Modal>
       </div>
     );

@@ -79,8 +79,8 @@ class DownloadPic extends React.Component {
             closable
             closeIcon=" "
             onCancel={this.handlecancle}
-            okButtonProps={{ hidden: true }}
-            cancelButtonProps={{ hidden: true }}
+            footer={false}
+            okButtoops={{ hidden: true }}
             bodyStyle={{ opacity:"1", position:"absolute", zIndex:"1", maxWidth:"100%", maxHeight:"100%"}}
           >
             <Row style={{ display: "flex", justifyContent: "center" }}>

@@ -63,7 +63,7 @@ class UserProfile extends React.Component {
             style={{ color: "black" }}
             target="_blank"
             rel="noopener noreferrer"
-            href={`https://linkdin.com/${address}`}
+            href={`https://www.linkdin.com/in/${address}`}
           >
             <LinkedinOutlined style={{ fontSize: "35px" }} />
           </a>

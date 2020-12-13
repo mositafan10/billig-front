@@ -1,8 +1,9 @@
 import React from "react";
-import Axios from "axios";
+// import Axios from "axios";
+import { Link } from 'react-router-dom';
 import { Button } from "antd";
 import { config } from "../../Constant";
-import ChatDetail from "../chat/ChatDetail";
+// import ChatDetail from "../chat/ChatDetail";
 
 var url = config.url.API_URL;
 
@@ -14,33 +15,34 @@ class SendMessage extends React.Component {
     info: {},
   };
 
-  show_modal = () => {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
-    const receiver = this.props.receiver;
-    const sender = this.props.sender;
-    const person = user == sender ? receiver : sender;
+  // show_modal = () => {
+  //   const token = localStorage.getItem("token");
+  //   const user = localStorage.getItem("user");
+    // const receiver = this.props.receiver;
+    // const sender = this.props.sender;
+    // const person = user == sender ? receiver : sender;
 
-    Axios.post(
-      `${url}api/v1/chat/conversation/`,
-      {
-        receiver: person,
-        offer: this.props.slug,
-      },
-      { headers: { Authorization: `Token ${token}` } }
-    )
+    // Axios.post(
+    //   `${url}api/v1/chat/conversation/`,
+    //   {
+    //     receiver: person,
+    //     offer: this.props.slug,
+    //   },
+    //   { headers: { Authorization: `Token ${token}` } }
+    // )
+   
 
-      .then((res) => {
-        Axios.get(`${url}api/v1/chat/conversation/${res.data.id}`, {
-          headers: { Authorization: `Token ${token}` },
-        }).then((res) => this.setState({ info: res.data }));
-        this.setState({
-          chatID: res.data.id,
-          visible: true,
-        });
-      })
-      .catch((error) => console.error(error));
-  };
+    //   .then((res) => {
+    //     Axios.get(`${url}api/v1/chat/conversation/${res.data.id}`, {
+    //       headers: { Authorization: `Token ${token}` },
+    //     }).then((res) => this.setState({ info: res.data }));
+    //     this.setState({
+    //       chatID: res.data.id,
+    //       visible: true,
+    //     });
+    //   })
+    //   .catch((error) => console.error(error));
+  // };
 
   handleCancel = () => {
     this.setState({
@@ -55,8 +57,9 @@ class SendMessage extends React.Component {
   render() {
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
+        <Link to={`/profile/inbox/${this.props.slug}`}>
         <Button
-          onClick={this.show_modal}
+          // onClick={this.show_modal}
           style={{
             fontSize: "12px",
             backgroundColor: "white",
@@ -66,7 +69,8 @@ class SendMessage extends React.Component {
         >
           چت
         </Button>
-        <ChatDetail
+        </Link>
+        {/* <ChatDetail
           data={this.state.chatID && this.state.chatID}
           sender_avatar={this.state.info.sender_avatar}
           receiver_avatar={this.state.info.receiver_avatar}
@@ -77,7 +81,7 @@ class SendMessage extends React.Component {
           is_active = {this.state.info.is_active}
           visible={this.state.visible}
           parentCallback={this.callbackFunction1}
-        />
+        /> */}
       </div>
     );
   }

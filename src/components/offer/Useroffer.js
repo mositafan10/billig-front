@@ -15,7 +15,7 @@ import {
 } from "antd";
 import { Link } from "react-router-dom";
 import ConfirmPrice from "../profile/ConfirmPrice";
-import SendMessage from "../packet/SendMessage";
+// import SendMessage from "../packet/SendMessage";
 import { config } from "../../Constant";
 import RateAndComment from "../rating/RateAndComment";
 import { Breakpoint } from "react-socks";
@@ -94,11 +94,23 @@ class UserOffer extends React.Component {
       render: (dataIndex, row) => {
         if (row.status != "تمام شده") {
           return (
-            <SendMessage
-              sender={row.sender_slug}
-              receiver={row.receiver_slug}
-              slug={dataIndex}
-            />
+            // <SendMessage
+            //   sender={row.sender_slug}
+            //   receiver={row.receiver_slug}
+            //   slug={dataIndex}
+            // />
+            <Link to={`/profile/inbox/${dataIndex}`}>
+              <Button
+                style={{
+                  fontSize: "12px",
+                  backgroundColor: "white",
+                  color: "black",
+                  borderRadius: "10px",
+                }}
+              >
+                چت
+              </Button>
+            </Link>
           );
         }
       },
@@ -310,7 +322,7 @@ class UserOffer extends React.Component {
 
   componentDidMount() {
     const token = localStorage.getItem("token");
-    Axios.get(`${url}api/v1/advertise/getuseroffer/`, {
+    Axios.get(`${url}api/v1/advertise/getuseroffer/${this.props.travel}`, {
       headers: { Authorization: `Token ${token}` },
     })
       .then((res) =>
@@ -400,11 +412,23 @@ class UserOffer extends React.Component {
                         <Space>
                           <Col>
                             {item.status != "تمام شده" && (
-                              <SendMessage
-                                sender={item.sender_slug}
-                                receiver={item.receiver_slug}
-                                slug={item.slug}
-                              />
+                              // <SendMessage
+                              //   sender={item.sender_slug}
+                              //   receiver={item.receiver_slug}
+                              //   slug={item.slug}
+                              // />
+                              <Link to={`/profile/inbox/${item.slug}`}>
+                                <Button
+                                  style={{
+                                    fontSize: "12px",
+                                    backgroundColor: "white",
+                                    color: "black",
+                                    borderRadius: "10px",
+                                  }}
+                                >
+                                  چت
+                                </Button>
+                              </Link>
                             )}
                           </Col>
                           <Col>

@@ -3,6 +3,7 @@ import { List, Avatar, Button, Badge, Popconfirm } from "antd";
 import { MoreOutlined, UserOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../../Constant";
+import { Link } from 'react-router-dom';  
 
 var url = config.url.API_URL;
 
@@ -44,29 +45,29 @@ class ChatContacs extends Component {
       .catch((err) => console.log(err));
   };
 
-  sendData = (
-    chatid,
-    sender_avatar,
-    receiver_avatar,
-    sender_slug,
-    receiver_slug,
-    sender_name,
-    receiver_name,
-    is_active,
-    visible
-  ) => {
-    this.props.parentCallback(
-      chatid,
-      sender_avatar,
-      receiver_avatar,
-      sender_slug,
-      receiver_slug,
-      sender_name,
-      receiver_name,
-      is_active,
-      visible
-    );
-  };
+  // sendData = (
+  //   chatid,
+  //   sender_avatar,
+  //   receiver_avatar,
+  //   sender_slug,
+  //   receiver_slug,
+  //   sender_name,
+  //   receiver_name,
+  //   is_active,
+  //   visible
+  // ) => {
+  //   this.props.parentCallback(
+  //     chatid,
+  //     sender_avatar,
+  //     receiver_avatar,
+  //     sender_slug,
+  //     receiver_slug,
+  //     sender_name,
+  //     receiver_name,
+  //     is_active,
+  //     visible
+  //   );
+  // };
 
   render() {
     const user = localStorage.getItem("user");
@@ -144,57 +145,61 @@ class ChatContacs extends Component {
                 title={
                   user == item.sender_slug ? (
                     <div>
+                      <Link to={`/profile/inbox/${item.slug}`}>
                       <Button
                         style={{
                           border: "hidden",
                           fontSize: "12px",
                           backgroundColor: !item.is_active && "#db540b",
                         }}
-                        onClick={() =>
-                          this.sendData(
-                            item.slug,
-                            item.sender_avatar,
-                            item.receiver_avatar,
-                            item.sender_slug,
-                            item.receiver_slug,
-                            item.sender_name,
-                            item.receiver_name,
-                            item.is_active,
-                            this.state.visible
-                          )
-                        }
+                        // onClick={() =>
+                        //   this.sendData(
+                        //     item.slug,
+                        //     item.sender_avatar,
+                        //     item.receiver_avatar,
+                        //     item.sender_slug,
+                        //     item.receiver_slug,
+                        //     item.sender_name,
+                        //     item.receiver_name,
+                        //     item.is_active,
+                        //     this.state.visible
+                        //   )
+                        // }
                       >
                         <span style={{ fontSize: "14px", textAlign: "right" }}>
                           {item.receiver_name}
                         </span>
                       </Button>
+                      </Link>
                     </div>
                   ) : (
                     <div>
+                      <Link to={`/profile/inbox/${item.slug}`}>
                       <Button
                         style={{
                           border: "hidden",
                           fontSize: "12px",
                           backgroundColor: !item.is_active && "#db540b",
                         }}
-                        onClick={() =>
-                          this.sendData(
-                            item.slug,
-                            item.sender_avatar,
-                            item.receiver_avatar,
-                            item.sender_slug,
-                            item.receiver_slug,
-                            item.sender_name,
-                            item.receiver_name,
-                            item.is_active,
-                            this.state.visible
-                          )
-                        }
+                        // onClick={() =>
+                        //   this.sendData(
+                        //     item.slug,
+                        //     item.sender_avatar,
+                        //     item.receiver_avatar,
+                        //     item.sender_slug,
+                        //     item.receiver_slug,
+                        //     item.sender_name,
+                        //     item.receiver_name,
+                        //     item.is_active,
+                        //     this.state.visible
+                        //   )
+                        // }
                       >
                         <span style={{ fontSize: "14px", textAlign: "right" }}>
                           {item.sender_name}
                         </span>
                       </Button>
+                      </Link>
                     </div>
                   )
                 }

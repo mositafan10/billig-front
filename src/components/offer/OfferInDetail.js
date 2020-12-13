@@ -4,7 +4,6 @@ import {
   Button,
   Form,
   notification,
-  message,
   Select,
   InputNumber,
   Input,
@@ -41,12 +40,6 @@ class OfferDetail extends React.Component {
 
   offer = () => {
     this.showModal();
-  };
-
-  success = () => {
-    message.success({
-      content: "پیشنهاد شما با موفقیت ثبت شد.",
-    });
   };
 
   showModal = () => {

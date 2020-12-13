@@ -19,6 +19,7 @@ import PayTraveler from "../payment/PayTraveler";
 import Modal from "antd/lib/modal/Modal";
 import UserOffer from "../offer/Useroffer";
 import Experience from "./Experience";
+import OfferListModalTravel from '../offer/OfferListModalTravel';
 
 var url = config.url.API_URL;
 const style_left = {
@@ -184,8 +185,8 @@ class TravelList extends React.Component {
                             </Col>
                             </Row>
                             <Row style={style_center}>
-                            <Col >
-                                <Button
+                            {/* <Col > */}
+                                {/* <Button
                                   onClick={this.offermodal}
                                   style={{
                                     borderRadius: "10px",
@@ -194,9 +195,9 @@ class TravelList extends React.Component {
                                   }}
                                 >
                                   پیشنهادها  <span style={{marginRight:"10px"}}>{item.offer_count}</span>
-                                </Button>
-                              </Col>
-                              <Modal
+                                </Button> */}
+                              {/* </Col> */}
+                              {/* <Modal
                                 visible={this.state.visible}
                                 onCancel={this.offermodalcancle}
                                 closable={true}
@@ -210,9 +211,11 @@ class TravelList extends React.Component {
                                   overflow: "hidden",
                                   borderRadius: "20px",
                                 }}
-                              >
-                                <UserOffer />
-                              </Modal>
+                              > */}
+                                <OfferListModalTravel 
+                                count = {item.offer_count}
+                                travel={item.slug} />
+                              {/* </Modal> */}
                           </Row>
                           <Row
                             style={{
