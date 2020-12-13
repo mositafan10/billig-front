@@ -81,6 +81,7 @@ class ChatRoom extends React.Component {
   state = {
     massages: [],
     loading: false,
+    newloading: false,
     visible: true,
     info: {},
     fileList: [],
@@ -153,17 +154,17 @@ class ChatRoom extends React.Component {
     );
   };
 
-  onClose (){
-  }
-
   onChange = ({ fileList: newFileList }) => {
     this.setState({
       fileList: newFileList,
     });
-    this.handler();
+    setTimeout(() => {
+      this.handler();
+    },1200);
   };
 
   handler = () => {
+    this.setState({newloading:true})
     const chatID = this.props.match.params.chatID;
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/chat/massagelist/${chatID}/?page=1&count=1`, {
@@ -171,6 +172,7 @@ class ChatRoom extends React.Component {
     }).then((res) => {
       this.setState((state) => ({
         massages: state.massages.concat(res.data.results),
+        newloading: false
       }));
       this.scrollToMyRef();
     });
@@ -657,7 +659,9 @@ class ChatRoom extends React.Component {
                 )}
               />
               </InfiniteScroll>
-              <div ref={this.myRef} style={{ height: "30px" }}></div>
+              <div ref={this.myRef} style={{ height: "10px" }}>
+                <Spin style={{visibility:this.state.newloading?'block':'hidden'}}/>
+              </div>
               </div>
             )}
           </Drawer>
