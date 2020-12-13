@@ -195,7 +195,7 @@ class ChatRoom extends React.Component {
                     >
                       {user == this.state.info.sender_slug ? (
                         <Link
-                          to={`${url}users/` + this.state.info.receiver_slug}
+                          to={`/users/` + this.state.info.receiver_slug}
                         >
                           <Avatar
                             src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
@@ -440,7 +440,7 @@ class ChatRoom extends React.Component {
                     >
                       {user == this.state.info.sender_slug ? (
                         <Link
-                          to={`${url}users/` + this.state.info.receiver_slug}
+                          to={`/users/` + this.state.info.receiver_slug}
                         >
                           <Avatar
                             src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}

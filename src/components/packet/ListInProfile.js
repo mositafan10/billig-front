@@ -60,6 +60,7 @@ class PacketUserList extends React.Component {
   }
 
   delete = (slug) => {
+    this.setState()
     const current_packet = this.state.packet_user;
     const token = localStorage.getItem("token");
     Axios.delete(`${url}api/v1/advertise/packet/${slug}`, {
