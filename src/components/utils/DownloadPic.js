@@ -80,6 +80,7 @@ class DownloadPic extends React.Component {
             closeIcon=" "
             onCancel={this.handlecancle}
             footer={false}
+            // width="100%"
             okButtoops={{ hidden: true }}
             bodyStyle={{ opacity:"1", position:"absolute", zIndex:"1", maxWidth:"100%", maxHeight:"100%"}}
           >
@@ -100,7 +101,7 @@ class DownloadPic extends React.Component {
             closeIcon=" "
             onCancel={this.handlecancle}
             footer={false}
-            // width={"100px"}
+            // width="100%"
             bodyStyle={{ opacity:"1", position:"absolute", zIndex:"1", maxWidth:"100%", maxHeight:"100%"}}
           >
             <Row style={{ display: "flex", justifyContent: "center" }}>

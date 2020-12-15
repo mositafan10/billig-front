@@ -15,6 +15,12 @@ const style_center = { display: "flex", justifyContent: "center" , alignItems:"c
 
 
 class Orders extends React.Component {
+
+  titleCorrection = (value) => {
+    const p = `${value}`.split(' ').join('-');
+    return p;
+  };
+
   render() {
     return (
       <div>
@@ -48,7 +54,7 @@ class Orders extends React.Component {
             renderItem={(item) => (
               <List.Item>
               <Card>
-              <Link to={"/packet/" + item.slug}>
+              <Link to={this.titleCorrection(`/packet/${item.title}_${item.category.name}_بیلیگ/${item.slug}`)}>
                 <Row
                   style={{
                     color: "black",

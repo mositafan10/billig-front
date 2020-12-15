@@ -59,7 +59,7 @@ class CommentBillligCreate extends Component {
                     okText="ارسال"       
                     okButtonProps={{form:'rating', key: 'submit', htmlType: 'submit',}}
                     onCancel={this.handleCancel}
-                    style={{fontFamily:"IRANSans", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
+                    style={{fontFamily:"VazirD", textAlign:"center", overflow:"hidden", borderRadius:"10px"}}
                     width="40%"
                     bodyStyle={{borderRadius:"20px"}}
                     maskStyle={{borderRadius:"20px"}}

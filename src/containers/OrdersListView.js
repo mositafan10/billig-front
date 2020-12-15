@@ -117,7 +117,15 @@ class OrderList extends React.Component {
   render() {
     return (
       <div style={{ padding: "0 30px 0 30px", direction: "rtl" }}>
-        <Row >
+       <Row style={{display:"flex", justifyContent:"center"}}><Col
+       xs={24}
+       sm={24}
+       md={0}
+       lg={0}
+       xl={0}
+       xxl={0}
+       ><Button style={{padding:"5px 10px 5px 10px", borderRadius:"10px",position:"fixed",zIndex:999, backgroundColor:"green", color:"white"}}><b>ثبت رایگان آگهی‌</b></Button></Col></Row> 
+       <Row >
           <Col
             xs={24}
             sm={24}

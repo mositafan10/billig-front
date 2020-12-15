@@ -53,7 +53,6 @@ class OrderDetail extends React.Component {
             "_" +
             this.state.order.origin_country.name +
             "_بیلیگ";
-        this.props.history.push(`/packet/${document.title}/${orderID}/`);
       })
       .catch((error) => {
         this.setState({ error: error.response.status });

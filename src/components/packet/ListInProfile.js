@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-import { Divider, Spin } from "antd";
+import { Divider, Spin, Modal, Radio, Input } from "antd";
 import { Popconfirm, notification, List, Row, Col, Button, Card } from "antd";
 import OfferListModal from "../offer/OfferListModal";
 import EditPacket from "./EditPacket";
@@ -15,13 +15,22 @@ const style_center = {
   textAlign: "center",
 };
 
+const radioStyle = {
+  display: 'block',
+  height: '30px',
+  lineHeight: '30px',
+};
+
 var url = config.url.API_URL;
+const { TextArea } = Input;
 
 class PacketUserList extends React.Component {
   state = {
     packet_user: [],
     packet_user_completed: [],
     loading: true,
+    removeReason: false,
+    value: 1
   };
 
   componentDidMount() {
@@ -59,21 +68,34 @@ class PacketUserList extends React.Component {
     });
   }
 
+  handleCancel = () => {
+    this.setState({removeReason:false})
+  }
+
+  onChange = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+      value: e.target.value,
+    });
+  };
+
+  sendReason = () => {
+    // const current_packet = this.state.packet_user;
+    // const token = localStorage.getItem("token");
+    // Axios.delete(`${url}api/v1/advertise/packet/${slug}`, {
+    //   headers: { Authorization: `Token ${token}` },
+    // })
+    //   .then((res) => {
+    //     this.setState({
+    //       packet_user: current_packet.filter(
+    //         (packet_user) => packet_user.slug !== slug),
+    //     });
+    //   })
+    //   .catch((error) => console.error(error));
+  }
+
   delete = (slug) => {
-    this.setState()
-    const current_packet = this.state.packet_user;
-    const token = localStorage.getItem("token");
-    Axios.delete(`${url}api/v1/advertise/packet/${slug}`, {
-      headers: { Authorization: `Token ${token}` },
-    })
-      .then((res) => {
-        this.setState({
-          packet_user: current_packet.filter(
-            (packet_user) => packet_user.slug !== slug
-          ),
-        });
-      })
-      .catch((error) => console.error(error));
+    this.setState({removeReason:true})
   };
 
   delete1 = (slug) => {
@@ -85,15 +107,10 @@ class PacketUserList extends React.Component {
       .then((res) => {
         this.setState({
           packet_user_completed: current_packet.filter(
-            (packet_user_completed) => packet_user_completed.slug !== slug
-          ),
+            (packet_user_completed) => packet_user_completed.slug !== slug),
         });
       })
       .catch((error) => console.error(error));
-  };
-
-  callbackFunction = () => {
-    this.componentDidMount();
   };
 
   update = () => {
@@ -273,6 +290,37 @@ class PacketUserList extends React.Component {
                 </List.Item>
               )}
             />
+            <Modal
+              title = "چرا می‌خواهید آگهی را حذف کنید؟"
+              onCancel={this.handleCancel}
+              onOk={this.sendReason}
+              cancelText="انصراف"
+              okText="حذف"
+              confirmLoading={this.state.loading}
+              okButtonProps={{
+                form: "offering",
+                key: "submit",
+                htmlType: "submit",
+              }}
+              visible={this.state.removeReason}
+              style={{ fontFamily: "VazirD" }}
+              >
+                <Radio.Group onChange={this.onChange} value={this.state.value}>
+                  <Radio style={radioStyle} value={1}>
+                    بسته از طریق دیگری ارسال شد.
+                  </Radio>
+                  <Radio style={radioStyle} value={2}>
+                    پیشنهادی دریافت نکردم
+                  </Radio>
+                  <Radio style={radioStyle} value={3}>
+                    منصرف شدم
+                  </Radio>
+                  <Radio style={radioStyle} value={4}>
+                    دیگر دلایل
+                  </Radio>
+                </Radio.Group>
+                    {this.state.value === 4 ? <TextArea style={{ borderRadius:"10px", marginTop:"20px" }} rows={5} /> : null}
+              </Modal>
           </div>
         )}
         {this.state.packet_user_completed.length != 0 && (
