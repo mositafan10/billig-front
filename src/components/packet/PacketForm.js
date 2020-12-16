@@ -296,7 +296,7 @@ class PackForm extends React.Component {
 
   render() {
     return (
-      <div style={{ margin: "30px" }}>
+      <div style={{ margin: "45px" }}>
         <Row>
           <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6}></Col>
           <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
@@ -745,12 +745,23 @@ x                     disabled={this.state.city_destination_dis}
                   <Form.Item
                     name="suggested_price"
                     style={{ textAlign: "center" }}
+                    validateTrigger="onFinish"
                     rules={[
                       {
                         required: true,
                         message:
                           "مبلغ پیشنهادی خود را با کیبورد انگلیسی وارد کنید",
                       },
+                      ({ getFieldValue }) => ({
+                        validator(rule, value) {
+                          if (value > 10000) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(
+                            "دستمزد نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                          );
+                        },
+                      }),
                     ]}
                   >
                     <InputNumber
@@ -810,7 +821,20 @@ x                     disabled={this.state.city_destination_dis}
                   </Popconfirm>
                   <span style={{ marginRight: "10px" }}>قیمت کالا (تومان)</span>
                 </Divider>
-                <Form.Item name="parcel_price">
+                <Form.Item name="parcel_price"
+                validateTrigger="onFinish"
+                rules={[
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      if (value > 10000) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        "مبلغ کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                      );
+                    },
+                  }),
+                ]}>
                   <InputNumber
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")

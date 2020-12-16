@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, notification } from "antd";
+import { Button, notification, Tooltip } from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
 import Modal from "antd/lib/modal/Modal";
@@ -112,6 +112,7 @@ class Bookmark extends Component {
             <img src={BookmarkYes} alt="billligBookmark" width={30} style={{marginTop:"-7px"}}/>
           </Button>
         ) : (
+          <Tooltip overlayStyle={{fontFamily:"VazirD"}} title="نشان کردن آگهی">
           <Button
             style={{ fontSize: "13px", borderRadius: "10px", border:"hidden"}}
             onClick={this.bookmark.bind(this)}
@@ -119,6 +120,7 @@ class Bookmark extends Component {
           >
             <img src={BookmarkNot} alt="billligBookmark" width={30} style={{marginTop:"-7px"}}/>
           </Button>
+          </Tooltip>
         )}
         <Modal 
         style={{fontFamily:"VazirD"}}

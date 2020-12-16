@@ -11,6 +11,7 @@ import {
   Popconfirm,
 } from "antd";
 import { Link } from "react-router-dom";
+import Report from '../components/packet/Report'
 import OfferDetail from "../components/offer/OfferInDetail";
 import DownloadPic from "../components/utils/DownloadPic";
 import Bookmark from "../components/packet/Bookmark";
@@ -421,6 +422,7 @@ class OrderDetail extends React.Component {
                         style={{ border: "hidden" }}
                       />
                     </Tooltip>
+                    <Report data={this.state.order.slug}/>
                   </Row>
                 </Col>
               </Row>
@@ -448,6 +450,7 @@ class OrderDetail extends React.Component {
                       style={{ border: "hidden" }}
                     />
                   </Tooltip>
+                  <Report data={this.state.order.slug}/>
                 </Row>
                 <br />
               </Col>

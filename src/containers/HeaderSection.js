@@ -3,7 +3,7 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import { Breakpoint } from "react-socks";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
-import { Button, Menu, Row, Col, Drawer, Avatar, Divider, Badge } from "antd";
+import { Button, Menu, Row, Col, Drawer, Avatar, Divider, Badge, Space } from "antd";
 import { UserOutlined, MenuOutlined } from "@ant-design/icons";
 import logo from "../media/billlig.png";
 import {
@@ -203,13 +203,14 @@ class HeaderSection extends Component {
                         <Link to="/create-packet">
                           <span
                             style={{
-                              backgroundColor: "#FCA468",
+                              boxShadow:"0 0 8px 1px",
+                              backgroundColor: "#067fc6",
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",
                             }}
                           >
-                            <b>ثبت رایگان آگهی</b>
+                            ثبت رایگان آگهی
                           </span>
                         </Link>
                       </Menu.Item>
@@ -217,14 +218,15 @@ class HeaderSection extends Component {
                         <Link to="/orders">
                           <span
                             style={{
+                              boxShadow:"0 0 8px 1px",
                               marginLeft: "-20px",
-                              backgroundColor: "#46A0AE",
+                              backgroundColor: "#fad303",
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",
                             }}
                           >
-                            <b>کسب درآمد از سفر</b>
+                            کسب درآمد از سفر
                           </span>
                         </Link>
                       </Menu.Item>
@@ -311,7 +313,7 @@ class HeaderSection extends Component {
                       >
                         <p
                           style={{
-                            backgroundColor: "#FCA468",
+                            backgroundColor: "#067fc6",
                             color: "white",
                             textAlign: "center",
                             padding: "5px 10px 5px 10px",
@@ -328,8 +330,8 @@ class HeaderSection extends Component {
                       >
                         <p
                           style={{
-                            backgroundColor: "#46a0ae",
-                            color: "white",
+                            backgroundColor: "#fad303",
+                            // color: "white",
                             textAlign: "center",
                             padding: "5px 10px 5px 10px",
                             borderRadius: "5px",
@@ -466,7 +468,7 @@ class HeaderSection extends Component {
                   closable={false}
                   onClose={this.onClose}
                   width="65%"
-                  headerStyle={{ backgroundColor: "#46a0ae" }}
+                  headerStyle={{ backgroundColor: "#fad303" }}
                   visible={this.state.Drawerprofile}
                   style={{ textAlign: "center", fontFamily: "VazirD" }}
                 >
@@ -536,6 +538,14 @@ class HeaderSection extends Component {
                 >
                   <div></div>
                 </Drawer>
+              </Col>
+            </Row>
+            <Row style={{display:"flex", justifyContent:"center"}}>
+              <Col span={24} style={{display:"flex", justifyContent:"center"}}>
+              <Space size="middle">
+              <Link to='/create-packet' ><Button style={{margin: "0", backgroundColor:"#067fc6", borderRadius:"8px", color:"white", boxShadow:"0px 0px 8px 1px"}}>ثبت آگهی</Button></Link>
+              <Link to='/profile/mytravel'><Button style={{margin: "0", backgroundColor:"#fad303", borderRadius:"8px"}}>ثبت سفر</Button></Link>
+              </Space>
               </Col>
             </Row>
           </div>

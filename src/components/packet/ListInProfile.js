@@ -30,7 +30,9 @@ class PacketUserList extends React.Component {
     packet_user_completed: [],
     loading: true,
     removeReason: false,
-    value: 1
+    value: 1,
+    slug: "",
+    text:""
   };
 
   componentDidMount() {
@@ -73,30 +75,51 @@ class PacketUserList extends React.Component {
   }
 
   onChange = e => {
-    console.log('radio checked', e.target.value);
     this.setState({
-      value: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
-  sendReason = () => {
-    // const current_packet = this.state.packet_user;
-    // const token = localStorage.getItem("token");
-    // Axios.delete(`${url}api/v1/advertise/packet/${slug}`, {
-    //   headers: { Authorization: `Token ${token}` },
-    // })
-    //   .then((res) => {
-    //     this.setState({
-    //       packet_user: current_packet.filter(
-    //         (packet_user) => packet_user.slug !== slug),
-    //     });
-    //   })
-    //   .catch((error) => console.error(error));
-  }
-
   delete = (slug) => {
-    this.setState({removeReason:true})
+    this.setState({removeReason:true, slug:slug})
   };
+
+  sendReason = () => {
+    const current_packet = this.state.packet_user;
+    const slug = this.state.slug;
+    const token = localStorage.getItem("token");
+    Axios.post(`${url}api/v1/advertise/removeReason/${slug}/`,{
+      type_remove : this.state.value,
+      description: this.state.text,
+    }, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) => {
+        this.setState({
+          packet_user: current_packet.filter(
+            (packet_user) => packet_user.slug !== slug),
+        });
+      })
+      .catch((error) => console.error(error));
+    Axios.post(`${url}api/v1/advertise/packet/${slug}/`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) => {
+        notification["success"]({
+          message: "از شما متشکریم",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            fontSizeAdjust: "0.5",
+          },
+          duration: 2,
+        });
+        this.setState({removeReason:false})
+      })
+      .catch((error) => console.error(error));
+  }
 
   delete1 = (slug) => {
     const current_packet = this.state.packet_user_completed;
@@ -293,7 +316,7 @@ class PacketUserList extends React.Component {
             <Modal
               title = "چرا می‌خواهید آگهی را حذف کنید؟"
               onCancel={this.handleCancel}
-              onOk={this.sendReason}
+              onOk={this.sendReason.bind(this.state.slug)}
               cancelText="انصراف"
               okText="حذف"
               confirmLoading={this.state.loading}
@@ -305,21 +328,21 @@ class PacketUserList extends React.Component {
               visible={this.state.removeReason}
               style={{ fontFamily: "VazirD" }}
               >
-                <Radio.Group onChange={this.onChange} value={this.state.value}>
-                  <Radio style={radioStyle} value={1}>
+                <Radio.Group name="value" onChange={this.onChange} value={this.state.value}>
+                  <Radio style={radioStyle} value={0}>
                     بسته از طریق دیگری ارسال شد.
                   </Radio>
-                  <Radio style={radioStyle} value={2}>
+                  <Radio style={radioStyle} value={1}>
                     پیشنهادی دریافت نکردم
                   </Radio>
-                  <Radio style={radioStyle} value={3}>
+                  <Radio style={radioStyle} value={2}>
                     منصرف شدم
                   </Radio>
-                  <Radio style={radioStyle} value={4}>
-                    دیگر دلایل
+                  <Radio style={radioStyle} value={3}>
+                    به دلایل دیگر
                   </Radio>
                 </Radio.Group>
-                    {this.state.value === 4 ? <TextArea style={{ borderRadius:"10px", marginTop:"20px" }} rows={5} /> : null}
+                    {this.state.value === 3 ? <TextArea name="text" value={this.state.text} onChange={this.onChange} style={{ borderRadius:"10px", marginTop:"20px" }} rows={5} /> : null}
               </Modal>
           </div>
         )}
