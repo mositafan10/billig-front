@@ -54,8 +54,8 @@ class TransactionList extends Component {
     },
     {
       title: "شماره تراکنش",
-      dataIndex: "transId",
-      key: "transId",
+      dataIndex: "transaction_id",
+      key: "transaction_id",
       render: (dataIndex) => <p>{dataIndex}</p>
     },
   ];
