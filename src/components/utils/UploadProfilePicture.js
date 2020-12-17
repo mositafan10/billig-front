@@ -16,7 +16,7 @@ class UploadProfilePicture extends React.Component {
   handleImageUpload = (file) => {
     return new Promise((resolve) => {
       var options = {
-        maxSizeMB: 0.1,
+        maxSizeMB: 0.05,
         maxWidthOrHeight: 1920,
         useWebWorker: true,
       };
@@ -81,7 +81,8 @@ class UploadProfilePicture extends React.Component {
               <div style={{ margin: "100px" }}>
                 <Spin size="large" />
               </div>
-            ) : this.props.data ? (
+            ) : 
+            ( this.props.data ? (
               <div style={{ textAlign: "center" }}>
                 <img
                   src={`${url}dstatic/${this.props.data}`}
@@ -93,7 +94,9 @@ class UploadProfilePicture extends React.Component {
               </div>
             ) : (
               <UserOutlined style={{ fontSize: "100px" }} />
-            )}
+            )
+            )
+            }
             <br />
           </Col>
           <Col span={24}>

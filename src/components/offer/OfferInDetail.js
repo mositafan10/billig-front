@@ -35,12 +35,30 @@ class OfferDetail extends React.Component {
     description: this.defualt_description,
     travellist: [],
     loading: false,
-    spinning: true
+    spinning: true,
+    visiblePriceInfo: false,
+    parcelPriceInfoVisible: false
   };
 
   offer = () => {
     this.showModal();
   };
+
+  closeInfo = () => {
+    this.setState({visiblePriceInfo: false})
+  }
+
+  showPriceInfo = () => {
+    this.setState({visiblePriceInfo: true})
+  }
+
+  showParcelPriceInfo = () => {
+    this.setState({parcelPriceInfoVisible: true})
+  }
+
+  closeParcelPriceInfo = () => {
+    this.setState({parcelPriceInfoVisible: false})
+  }
 
   showModal = () => {
     Axios.get(`${url}api/v1/advertise/travels/`, {
@@ -217,17 +235,20 @@ class OfferDetail extends React.Component {
                       marginTop: "-30px",
                     }}
                   >
-                    دستمزد پیشنهادی (تومان) <Popconfirm
+                    دستمزد پیشنهادی (تومان) 
+                    <Popconfirm
                         overlayStyle={{ fontFamily: "VazirD" }}
                         cancelButtonProps={{ hidden: "true" }}
+                        onConfirm={this.closeInfo}
                         okText="متوجه شدم"
-                        
+                        visible={this.state.visiblePriceInfo}
                         title={
                           <div>
                             <p>دستمزدی که در نظر دارید از آگهی دهنده دریافت کنید</p>
                           </div>
                         }
-                      ><QuestionCircleOutlined /></Popconfirm> 
+                        ><QuestionCircleOutlined style={{marginRight:"5px"}} onClick={this.showPriceInfo}/>
+                      </Popconfirm> 
                   </label>
                   <Form.Item
                     style={{
@@ -265,6 +286,8 @@ class OfferDetail extends React.Component {
                         قیمت کالا (تومان) <Popconfirm
                         overlayStyle={{ fontFamily: "VazirD" }}
                         cancelButtonProps={{ hidden: "true" }}
+                        visible={this.state.parcelPriceInfoVisible}
+                        onConfirm={this.closeParcelPriceInfo}
                         okText="متوجه شدم"
                         
                         title={
@@ -273,7 +296,8 @@ class OfferDetail extends React.Component {
 
                           </div>
                         }
-                      ><QuestionCircleOutlined /></Popconfirm> 
+                      ><QuestionCircleOutlined style={{marginRight:"5px"}} onClick={this.showParcelPriceInfo}/>
+                      </Popconfirm> 
                       </label>
                       <Form.Item
                         style={{

@@ -3,6 +3,7 @@ import { Button, notification, Radio, Modal, Input, Tooltip} from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
 import report from '../../media/report.svg'
+import { Link } from "react-router-dom";
 var url = config.url.API_URL; 
 const token = localStorage.getItem("token");
 const { TextArea } = Input;
@@ -15,7 +16,7 @@ const radioStyle = {
 class Bookmark extends Component {
   state = {
     loading: false,
-    reported: false,
+    reported: true,
     visible: false,
     value: 0,
     text: ""
@@ -30,6 +31,8 @@ class Bookmark extends Component {
 
 // Settimeout maybe will not work correctly
   componentDidMount (){
+    const token = localStorage.getItem("token");
+    if (token != null ){
     setTimeout(()=>{
       Axios.get(`${url}api/v1/advertise/reports/${this.props.data}`, {
         headers: { Authorization: `Token ${token}` },
@@ -39,6 +42,7 @@ class Bookmark extends Component {
         }
       });
     },1000)
+  }
   }
 
   report = () => {
@@ -98,7 +102,6 @@ class Bookmark extends Component {
   render() {
     return (
       <div>
-        {!this.state.reported && 
         <Tooltip overlayStyle={{fontFamily:"VazirD"}} title="گزارش مشکل در آگهی">
           <Button
             style={{ fontSize: "13px", borderRadius: "10px", color:"white", border:"hidden" }}
@@ -108,17 +111,19 @@ class Bookmark extends Component {
             <img src={report} alt="billligReport" width={30} style={{marginTop:"-7px"}}/>
           </Button>
         </Tooltip>
-        }
         <Modal 
         style={{fontFamily:"VazirD"}}
         visible={this.state.visible}
         onCancel={this.handlecance.bind(this)}
         onOk={this.report.bind(this)}
-        okText="ارسال"
+        okText={this.state.reported ? 
+          <Link to='/login'><div>ورود به حساب کاربری</div></Link>
+          : 
+          "ارسال"}
         cancelText="انصراف"
         >
         {token == null ?
-            <p style={{textAlign:"center"}}>برای نشان کردن آگهی ابتدا باید وارد حساب کاربری خود شوید</p>
+            <p style={{textAlign:"center"}}>برای گزارش آگهی ابتدا باید وارد حساب کاربری خود شوید</p>
         :
         <div>
         <Radio.Group name="value" onChange={this.onChange} value={this.state.value}>

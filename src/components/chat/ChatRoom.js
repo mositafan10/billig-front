@@ -14,6 +14,7 @@ import {
 import Axios from "axios";
 import TextInput from "./TextInput";
 import moment from "moment";
+import { Redirect } from 'react-router-dom'
 import {
   LinkOutlined,
   DownOutlined,
@@ -90,6 +91,7 @@ class ChatRoom extends React.Component {
     hasMore: true,
     page: 1,
     count: 0,
+    redirect: false
   };
 
   myRef = React.createRef();
@@ -102,6 +104,12 @@ class ChatRoom extends React.Component {
     });
     this.setState({ new_mass_vis: false });
   };
+
+  onClose = () => {
+    this.setState({
+      redirect: true
+    })
+  }
 
   moreData = () => {
     const chatID = this.props.match.params.chatID;
@@ -179,6 +187,9 @@ class ChatRoom extends React.Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect push to="/profile/inbox" />;
+    }
     const chatID = this.props.match.params.chatID;
     const user = localStorage.getItem("user");
     return (

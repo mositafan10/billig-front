@@ -19,6 +19,7 @@ class Bookmark extends Component {
 
 
   componentDidMount (){
+    if (token != null){
     setTimeout(()=>{
       Axios.get(`${url}api/v1/advertise/bookmarks/${this.props.data}`, {
         headers: { Authorization: `Token ${token}` },
@@ -28,7 +29,7 @@ class Bookmark extends Component {
         }
       });
     },1000)
-   
+  }
   }
 
   bookmark = () => {

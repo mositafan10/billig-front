@@ -185,37 +185,9 @@ class TravelList extends React.Component {
                             </Col>
                             </Row>
                             <Row style={style_center}>
-                            {/* <Col > */}
-                                {/* <Button
-                                  onClick={this.offermodal}
-                                  style={{
-                                    borderRadius: "10px",
-                                    fontSize: "12px",
-                                    border:"hidden"
-                                  }}
-                                >
-                                  پیشنهادها  <span style={{marginRight:"10px"}}>{item.offer_count}</span>
-                                </Button> */}
-                              {/* </Col> */}
-                              {/* <Modal
-                                visible={this.state.visible}
-                                onCancel={this.offermodalcancle}
-                                closable={true}
-                                title=" پیشنهادهای ارسالی"
-                                width="90%"
-                                cancelText="بازگشت"
-                                okButtonProps={{ hidden: "true" }}
-                                style={{
-                                  fontFamily: "VazirD",
-                                  textAlign: "center",
-                                  overflow: "hidden",
-                                  borderRadius: "20px",
-                                }}
-                              > */}
                                 <OfferListModalTravel 
                                 count = {item.offer_count}
                                 travel={item.slug} />
-                              {/* </Modal> */}
                           </Row>
                           <Row
                             style={{
