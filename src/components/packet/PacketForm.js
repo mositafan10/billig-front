@@ -78,46 +78,55 @@ class PackForm extends React.Component {
   }
 
   showPopconfirm1 = () => {
+    this.handleOkinfo()
     this.setState({
       infovisible1: true
     }) 
   }
   showPopconfirm2 = () => {
+    this.handleOkinfo()
     this.setState({
       infovisible2: true
     }) 
   }
   showPopconfirm3 = () => {
+    this.handleOkinfo()
     this.setState({
       infovisible3: true
     }) 
   }
   showPopconfirm3 = () => {
+    this.handleOkinfo()
     this.setState({
       infovisible3: true
     }) 
   }
   showPopconfirm4 = () => {
+    this.handleOkinfo()
     this.setState({
       infovisible4: true
     }) 
   }
   showPopconfirm5 = () => {
+    this.handleOkinfo()
     this.setState({
       infovisible5: true
     }) 
   }
   showPopconfirm6 = () => {
+    this.handleOkinfo()
     this.setState({
       infovisible6: true
     }) 
   }
   showPopconfirm7 = () => {
+    this.handleOkinfo()
     this.setState({
       infovisible7: true
     }) 
   }
   showPopconfirm8 = () => {
+    this.handleOkinfo()
     this.setState({
       infovisible8: true
     }) 
@@ -694,8 +703,12 @@ x                     disabled={this.state.city_destination_dis}
                     rules={[
                       {
                         required: true,
-                        message: "وزن بسته را با کیبورد انگلیسی وارد نمایید",
+                        message: "وزن بسته را وارد نمایید",
                       },
+                      // {
+                      //   pattern:'^[0-9]+$',
+                      //   message: " کیبورد را به انگلیسی تغییر دهید"
+                      // },
                       ({ getFieldValue }) => ({
                         validator(rule, value) {
                           if (value <= 30 && value > 0) {

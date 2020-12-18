@@ -396,7 +396,7 @@ class OrderDetail extends React.Component {
                   <br />
                   <DownloadPic 
                   title={this.state.order.title} 
-                  category={this.state.order.category.name} 
+                  category={this.state.order.category} 
                   origin_country={this.state.order.origin_country.name}
                   destination_country={this.state.order.destination_country.name}
                   origin_city={this.state.order.origin_city.name}

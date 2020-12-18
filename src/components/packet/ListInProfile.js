@@ -198,7 +198,7 @@ class PacketUserList extends React.Component {
                               to={`/packet/${item.slug}`}
                               style={{ color: "black" }}
                             >
-                              <DownloadPic data={item.picture} size="60%" />
+                              <DownloadPic category={item.category} data={item.picture} size="60%" />
                             </Link>
                           </Col>
                         </Row>
@@ -394,7 +394,7 @@ class PacketUserList extends React.Component {
                           to={`/packet/${item.slug}`}
                           style={{ color: "black" }}
                         >
-                          <DownloadPic data={item.picture} size="60%" />
+                          <DownloadPic data={item.picture} category={item.category} size="60%" />
                         </Link>
                       </Col>
                     </Row>

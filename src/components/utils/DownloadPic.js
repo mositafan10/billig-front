@@ -31,6 +31,12 @@ class DownloadPic extends React.Component {
 
   componentDidMount() {
     this.setState({ loading: true });
+    if (this.props.data == 1) {
+      this.setState({
+        url: this.props.category.picture,
+        loading: false
+      })
+    } else {
     setTimeout(() => {
       Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data}`).then(
         (res) =>
@@ -41,12 +47,13 @@ class DownloadPic extends React.Component {
       );
     }, 800);
   }
+  }
 
   render() {
     var alt = 
     this.props.no_matter_origin ?
     (
-    `${this.props.title}|${this.props.category}|${this.props.destination_country}|${this.props.destination_city}` 
+    `${this.props.title}|${this.props.category.name}|${this.props.destination_country}|${this.props.destination_city}` 
     )
     :
     (

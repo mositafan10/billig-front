@@ -124,6 +124,10 @@ class SignUpForm extends React.Component {
                   required: true,
                   message: ".نام خود را وارد کنید",
                 },
+                {
+                  pattern:'^([a-zA-Zآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی ])+$',
+                  message:"نام باید صرفا از حروف تشکیل شده باشد"
+                }
               ]}
             >
               <Input

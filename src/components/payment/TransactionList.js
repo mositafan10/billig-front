@@ -36,6 +36,12 @@ class TransactionList extends Component {
       key: "transId",
       render: (dataIndex) => <p>{dataIndex}</p>
     },
+    {
+      title: "آگهی",
+      dataIndex: "packetTitle",
+      key: "packetTitle",
+      render: (dataIndex) => <p>{dataIndex}</p>
+    },
   ];
 
   columns_cashout = [
@@ -56,6 +62,12 @@ class TransactionList extends Component {
       title: "شماره تراکنش",
       dataIndex: "transaction_id",
       key: "transaction_id",
+      render: (dataIndex) => <p>{dataIndex}</p>
+    },
+    {
+      title: "سفر",
+      dataIndex: "travelTitle",
+      key: "travelTitle",
       render: (dataIndex) => <p>{dataIndex}</p>
     },
   ];

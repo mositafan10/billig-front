@@ -106,7 +106,7 @@ class Orders extends React.Component {
                     <div style={style_center}>
                       <DownloadPic
                       title={item.title} 
-                      category={item.category.name} 
+                      category={item.category} 
                       origin_country={item.origin_country.name}
                       destination_country={item.destination_country.name}
                       origin_city={item.origin_city.name}
