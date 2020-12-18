@@ -8,7 +8,6 @@ class TimeDiff extends Component {
     render() {
     var time = moment(this.props.data).format();
     var now = moment().format();
-    var relative_second = moment(time).diff(now,'seconds');
     var relative_minute = moment(time).diff(now,'minutes');
     var relative_hour = moment(time).diff(now,'hours');
     var relative_days = moment(time).diff(now,'days');

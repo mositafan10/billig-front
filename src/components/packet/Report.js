@@ -16,7 +16,7 @@ const radioStyle = {
 class Bookmark extends Component {
   state = {
     loading: false,
-    reported: true,
+    reported: false,
     visible: false,
     value: 0,
     text: ""

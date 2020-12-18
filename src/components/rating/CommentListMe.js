@@ -18,7 +18,7 @@ class CommentList extends Component {
   };
   componentDidMount() {
     const token = localStorage.getItem("token");
-    Axios.get(`${url}api/v1/account/comments/`, {
+    Axios.get(`${url}api/v1/account/myComments/`, {
       headers: { Authorization: `Token ${token}` },
     })
       .then((res) =>
@@ -40,7 +40,7 @@ class CommentList extends Component {
         ) : (
           <List
             locale={{
-              emptyText: <div>دیگران هنوز در مورد شما اظهارنظر نکرده‌اند.</div>,
+              emptyText: <div>شما هنوز در مورد دیگران اظهارنظر نکرده‌اید.</div>,
             }}
             grid={{
               gutter: 24,
@@ -59,12 +59,12 @@ class CommentList extends Component {
                     <Col span={24} style={{ textAlign: "center" }}>
                       <div>
                         <Link
-                          to={`${url}users/` + item.owner_slug}
+                          to={`${url}users/` + item.receiver_slug}
                         >
                           <Avatar
-                            src={`${url}dstatic/media/${item.owner_avatar}`}
+                            src={`${url}dstatic/media/${item.receiver_avatar}`}
                           ></Avatar>
-                        <p style={{ marginTop: "5px", color:"black" }}> {item.owner_name} </p>
+                        <p style={{ marginTop: "5px", color:"black" }}> {item.receiver_name} </p>
                         </Link>
                       </div>
                       <hr style={{ color: "aliceblue" }} />

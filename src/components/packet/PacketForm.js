@@ -705,10 +705,6 @@ x                     disabled={this.state.city_destination_dis}
                         required: true,
                         message: "وزن بسته را وارد نمایید",
                       },
-                      // {
-                      //   pattern:'^[0-9]+$',
-                      //   message: " کیبورد را به انگلیسی تغییر دهید"
-                      // },
                       ({ getFieldValue }) => ({
                         validator(rule, value) {
                           if (value <= 30 && value > 0) {

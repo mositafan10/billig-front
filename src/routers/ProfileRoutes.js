@@ -8,7 +8,7 @@ import TransactionList from '../components/payment/TransactionList';
 import InboxLayout from '../containers/InboxLayout';
 import BookmarkPacket from '../components/packet/BookmarkPacket';
 import PageNotFound from '../components/errors/PageNotFound';
-import CommentList from '../components/rating/CommentList';
+import AllComments from '../components/rating/AllComments';
 import ChatRoom from '../components/chat/ChatRoom';
 
 class ProfileRoutes extends React.Component {
@@ -20,7 +20,7 @@ class ProfileRoutes extends React.Component {
         ?
         <Switch>
             <Route exact path='/profile/' render={(props) => <EditProfile/> }/>
-            <Route exact path='/profile/comments' render={(props) => <CommentList/> }/>
+            <Route exact path='/profile/comments' render={(props) => <AllComments/> }/>
             <Route exact path='/profile/mypacket' render={(props) =>  <PacketUserList/>} />
             <Route exact path='/profile/mytravel' render={(props) => <TravelProfile/> }/>
             <Route exact path='/profile/myoffer' render={(props) => <UserOffer/> }/>

@@ -19,6 +19,7 @@ import { config } from "../Constant";
 import { Breakpoint } from "react-socks";
 import PageNotFound from "../components/errors/PageNotFound";
 import { ShareAltOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import Item from "antd/lib/list/Item";
 var url = config.url.API_URL;
 
 const style_left = { display: "flex", justifyContent: "flex-end" };
@@ -178,6 +179,7 @@ class OrderDetail extends React.Component {
                           </div>
                         ) : (
                           <div>
+                            <Link to={`/orders/${this.state.order.origin_country.eng_name}`}>
                             {this.state.order.origin_country
                               ? this.state.order.origin_country.name
                               : ""}{" "}
@@ -185,6 +187,7 @@ class OrderDetail extends React.Component {
                             {this.state.order.origin_city
                               ? this.state.order.origin_city.name
                               : ""}
+                          </Link>
                           </div>
                         )}
                       </Col>
@@ -209,6 +212,7 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
+                      <Link to={`/orders/${this.state.order.destination_country.eng_name}`}>
                         {this.state.order.destination_country
                           ? this.state.order.destination_country.name
                           : ""}{" "}
@@ -216,6 +220,7 @@ class OrderDetail extends React.Component {
                         {this.state.order.destination_city
                           ? this.state.order.destination_city.name
                           : ""}
+                      </Link>
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />

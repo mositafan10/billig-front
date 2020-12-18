@@ -23,6 +23,7 @@ class OrderList extends React.Component {
     this.state = {
       orders: [],
       countries: [],
+      categories: [],
       filter: "none",
       loading: true,
       page: 1,
@@ -30,20 +31,6 @@ class OrderList extends React.Component {
       hasMore: true,
     };
   }
-
-  PacketCategory = [
-    { value: "مدارک و مستندات", label: "مدارک و مستندات" },
-    { value: "کتاب و مجله", label: "کتاب و مجله" },
-    { value: "لوازم الکترونیکی", label: "لوازم الکترونیکی" },
-    { value: "کفش و پوشاک", label: "کفش و پوشاک" },
-    { value: "لوازم آرایشی و بهداشتی", label: "لوازم آرایشی و بهداشتی" },
-    { value: "سایر موارد", label: "سایر موارد" },
-  ];
-
-  order_type = [
-    { label: "خرید", value: "خرید" },
-    { label: "پست", value: "پست" },
-  ];
 
   countryfilter = (e) => {
     this.setState({ loading: true });
@@ -61,11 +48,32 @@ class OrderList extends React.Component {
       .catch((error) => console.error(error));
   };
 
+  categoryfilter = (e) => {
+    this.setState({ loading: true });
+    Axios.get(`${url}api/v1/advertise/packets/${e}`)
+      .then((res) => {
+        this.setState({
+          orders: res.data.results,
+          loading: false,
+          page: 2,
+          hasMore: true,
+          count: res.data.count,
+        });
+      })
+      .catch((error) => console.error(error));
+
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
     Axios.get(`${url}api/v1/account/countries/`).then((res) => {
       this.setState({
         countries: res.data,
+      });
+    });
+    Axios.get(`${url}api/v1/advertise/categoryList/1`).then((res) => {
+      this.setState({
+        categories: res.data,
       });
     });
   }
@@ -203,6 +211,20 @@ class OrderList extends React.Component {
                     );
                   })}
                 </Select>
+                <Select
+                  placeholder="دسته‌بندی"
+                  style={{ width: "150px" }}
+                  dropdownStyle={{ fontFamily: "VazirD" }}
+                  onChange={this.countryfilter.bind(this)}
+                >
+                  {this.state.categories.map((e, key) => {
+                    return (
+                      <Option key={key} value={e.id}>
+                        {e.name}
+                      </Option>
+                    );
+                  })}
+                </Select>
                 <Button
                   style={{ borderRadius: "10px", fontSize: "13px" }}
                   onClick={this.canclefilter.bind(this)}
@@ -225,7 +247,7 @@ class OrderList extends React.Component {
                   placeholder="کشور"
                   dropdownStyle={{ fontFamily: "VazirD" }}
                   style={{ width: "100px" }}
-                  onChange={this.countryfilter.bind(this)}
+                  onChange={this.categoryfilter.bind(this)}
                 >
                   {this.state.countries.map((e, key) => {
                     return (

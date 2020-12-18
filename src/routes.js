@@ -25,13 +25,14 @@ import Germany from './pages/rules/Germany';
 
 class BaseRouter extends React.Component {
     render(){
-    return(
+        const token = localStorage.getItem('token')
+        return(
             <Switch>
                 <Route exact path='/' render={(props) => <LandingPage {...this.props}/>} />
                 <Route exact path='/orders' render={(props) => <OrderList {...this.props}/> }/>
                 <Route exact path='/orders/:country' render={(props) => <OrderList {...this.props}/> }/>
                 <Route exact path='/orders/:country/:category' render={(props) => <OrderList {...this.props}/> }/>
-                <Route exact path='/create-packet' render={(props) => this.props.isAuthenticated ? <PackForm {...this.props}/>:<Redirect to="/signup/"/>}/>
+                <Route exact path='/create-packet' render={(props) => token != null ? <PackForm {...this.props}/>:<Redirect to="/signup/"/>}/>
                 <Route exact path='/users/:userID' component={UserProfile} />
                 <Route exact path='/packet/:orderID' component={OrderDetail} />
                 <Route exact path='/packet/:title/:orderID/' component={OrderDetail}/>

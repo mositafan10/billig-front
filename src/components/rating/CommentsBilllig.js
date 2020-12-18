@@ -38,8 +38,8 @@ class CommentsBilllig extends Component {
               sm: 2,
               md: 3,
               lg: 4,
-              xl: 4,
-              xxl: 5,
+              xl: 5,
+              xxl: 6,
             }}
             pagination={{
               hideOnSinglePage: true,
@@ -49,30 +49,26 @@ class CommentsBilllig extends Component {
             renderItem={(item) => (
               <List.Item>
                 <Card
-                title={item.owner != null ? (
-                  <div style={{textAlign:"center"}}>
-                    <Avatar
-                      src={`${url}dstatic/media/${item.picture}`}
-                    ></Avatar>
-                    <p style={{ marginTop: "5px" }}> {item.name} </p>
-                  </div>
-                ) : (
-                  <div style={{textAlign:"center"}}>
-                    <Avatar
-                      style={{
-                        backgroundColor: "white",
-                        color: "black",
-                        border: "1px solid",
-                      }}
-                      icon={<UserOutlined />}
-                    ></Avatar>
-                    <p style={{ marginTop: "5px" }}>کاربر مهمان</p>
-                  </div>
-                )}
+                  title={
+                    item.owner != null ? (
+                      <div style={{ textAlign: "center" }}>
+                        <img
+                          src={`${url}dstatic/media/${item.picture}`}
+                          width="50%"
+                          height="auto"
+                          style={{ borderRadius: "10px" }}
+                        />
+                        <p style={{ marginTop: "5px" }}> {item.name} </p>
+                      </div>
+                    ) : (
+                      <div style={{ textAlign: "center" }}>
+                      <UserOutlined style={{ fontSize: "110px" }} />
+                      <p style={{ marginTop: "5px" }}>کاربر میهمان</p>
+                      </div>
+                    )
+                  }
                 >
-                      <p >
-                        {item.text}
-                      </p>
+                  <p>{item.text}</p>
                 </Card>
               </List.Item>
             )}
