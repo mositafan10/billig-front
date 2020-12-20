@@ -38,7 +38,8 @@ class DownloadPic extends React.Component {
       })
     } else {
     setTimeout(() => {
-      Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data}`).then(
+      Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data}`)
+      .then(
         (res) =>
           this.setState({
             url: res.data.image_file,
@@ -62,24 +63,21 @@ class DownloadPic extends React.Component {
 
     return (
       <div>
-        {!this.state.loading ? (
-          <div 
-          >
+        {this.state.loading ? 
+          <div style={{ margin: "100px", justifyContent:"center", display:"flex" }}>
+            <Spin indicator={antIcon} size="large" />
+          </div>
+           :
           <img
             onClick={this.showmodal}
             loading="lazy"
-            src={`${url}dstatic/${this.state.url}`}
+            src={`${url}dstatic/${this.props.data == 1 ? this.props.category.picture : this.state.url}`}
             alt={alt}
             style={{ borderRadius: "10px" }}
             width={this.props.size}
             height="auto"
           />
-          </div>
-        ) : (
-          <div style={{ margin: "100px", justifyContent:"center", display:"flex" }}>
-            <Spin indicator={antIcon} size="large" />
-          </div>
-        )}
+        }
         <Breakpoint small down>
           <Modal
             visible={this.state.visible}

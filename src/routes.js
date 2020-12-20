@@ -29,9 +29,9 @@ class BaseRouter extends React.Component {
         return(
             <Switch>
                 <Route exact path='/' render={(props) => <LandingPage {...this.props}/>} />
-                <Route exact path='/orders' render={(props) => <OrderList {...this.props}/> }/>
-                <Route exact path='/orders/:country' render={(props) => <OrderList {...this.props}/> }/>
-                <Route exact path='/orders/:country/:category' render={(props) => <OrderList {...this.props}/> }/>
+                <Route exact path='/orders' component={OrderList}/>
+                <Route exact path='/orders/:country' component={OrderList}/>
+                <Route exact path='/orders/:country/:category' component={OrderList}/>
                 <Route exact path='/create-packet' render={(props) => token != null ? <PackForm {...this.props}/>:<Redirect to="/signup/"/>}/>
                 <Route exact path='/users/:userID' component={UserProfile} />
                 <Route exact path='/packet/:orderID' component={OrderDetail} />

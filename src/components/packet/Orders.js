@@ -47,7 +47,7 @@ class Orders extends React.Component {
               xl: 3,
               xxl: 4,
             }}
-            locale={{ emptyText: " " }}
+            locale={{ emptyText: "موردی برای نمایش وجود ندارد" }}
             itemLayout="horizontal"
             loading={this.props.loading}
             dataSource={this.props.data}

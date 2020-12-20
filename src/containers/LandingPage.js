@@ -22,7 +22,7 @@ class LandingPage extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     document.title = "بیلیگ-پلتفرم خرید و پست اشتراکی";
-    Axios.get(`${url}api/v1/advertise/packets/all`)
+    Axios.get(`${url}api/v1/advertise/packets/all/all`)
       .then((res) => {
         this.setState({
           orders: res.data.results,
