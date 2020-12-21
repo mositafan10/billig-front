@@ -25,7 +25,7 @@ class TransactionList extends Component {
       render: (dataIndex) => <p>{moment(dataIndex).format("DD MMM")}</p>,
     },
     {
-      title: "مبلغ (تومان)",
+      title: "مبلغ (ریال)",
       dataIndex: "amount",
       key: "transId",
       render: (dataIndex) => <p>{this.currency(dataIndex)}</p>
@@ -53,7 +53,7 @@ class TransactionList extends Component {
       render: (dataIndex) => <p>{moment(dataIndex).format("DD MMM")}</p>,
     },
     {
-      title: "مبلغ (تومان)",
+      title: "مبلغ (ریال)",
       dataIndex: "amount",
       key: "transId",
       render: (dataIndex) => <p>{this.currency(dataIndex)}</p>

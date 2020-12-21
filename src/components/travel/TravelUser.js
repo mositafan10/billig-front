@@ -10,6 +10,7 @@ import {
   Spin,
   notification,
   Card,
+  Tooltip,
   Divider
 } from "antd";
 import moment from "moment";
@@ -221,9 +222,7 @@ class TravelList extends React.Component {
                                 }
                               </Col>
                               <Col style={{float:"left"}}>
-                                {(item.status == 0 ||
-                                  item.status == 2 ||
-                                  item.status == 3) && (
+                                {(item.status == 0 || item.status == 2 ) ? (
                                   <Popconfirm
                                     overlayStyle={{ fontFamily: "VazirD" }}
                                     title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -245,8 +244,22 @@ class TravelList extends React.Component {
                                     >
                                       <b>حذف</b>
                                     </Button>
-                                  </Popconfirm>
-                                )}
+                                  </Popconfirm>)
+                                  : (
+                                    <Tooltip overlayStyle={{fontFamily:"VazirD"}} title="چنانچه سفر پیشنهاد داشته باشد، امکان حذف آن وجود ندارد">
+                                    <Button
+                                      style={{
+                                        border: "hidden",
+                                        fontSize: "14px",
+                                        borderRadius: "10px",
+                                      }}
+                                      disabled={true}
+                                    >
+                                      حذف
+                                    </Button>
+                                    </Tooltip>
+                                  )  
+                                }
                               </Col>
                           </Row>
                         </Col>

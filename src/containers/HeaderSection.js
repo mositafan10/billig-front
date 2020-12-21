@@ -130,28 +130,6 @@ class HeaderSection extends Component {
                       to={this.props.isAuthenticated ? "/profile" : "/login"}
                     >
                       <div>
-                        <Button
-                          icon={
-                            this.state.userinfo.picture ? (
-                              <Avatar
-                                src={`${url}dstatic/${this.state.userinfo.picture}`}
-                              />
-                            ) : (
-                              <Avatar
-                                style={{
-                                  backgroundColor: "white",
-                                  color: "black",
-                                }}
-                                icon={<UserOutlined />}
-                              />
-                            )
-                          }
-                          style={{
-                            borderRadius: "15px",
-                            color: "white",
-                            borderColor: "white",
-                          }}
-                        ></Button>
                         {this.props.isAuthenticated ? (
                           <span
                             style={{ color:"black", marginLeft: "10px", marginRight: "10px" }}
@@ -165,6 +143,18 @@ class HeaderSection extends Component {
                               ورود به حساب کاربری
                           </span>
                         )}
+                        <Button
+                          icon={
+                              <Avatar
+                                src={`${url}dstatic/${this.state.userinfo.picture}`}
+                              />
+                          }
+                          style={{
+                            borderRadius: "15px",
+                            color: "white",
+                            borderColor: "white",
+                          }}
+                        />
                         {this.props.isAuthenticated && (
                           <Badge count={this.state.total} offset={[-20, 5]}>
                             <Link to="/profile/inbox">
@@ -175,6 +165,7 @@ class HeaderSection extends Component {
                                     style={{
                                       backgroundColor: "white",
                                       color: "black",
+                                      marginTop:"3px"
                                     }}
                                     icon={<BellOutlined />}
                                   />
@@ -189,6 +180,7 @@ class HeaderSection extends Component {
                             </Link>
                           </Badge>
                         )}
+                        
                       </div>
                     </Link>
                   </div>
@@ -331,7 +323,6 @@ class HeaderSection extends Component {
                         <p
                           style={{
                             backgroundColor: "#fad303",
-                            // color: "white",
                             textAlign: "center",
                             padding: "5px 10px 5px 10px",
                             borderRadius: "5px",
@@ -404,19 +395,9 @@ class HeaderSection extends Component {
                 <Button
                   onClick={this.showprofilemenu}
                   icon={
-                    this.state.userinfo.picture ? (
                       <Avatar
                         src={`${url}dstatic/${this.state.userinfo.picture}`}
                       />
-                    ) : (
-                      <Avatar
-                        style={{
-                          backgroundColor: "white",
-                          color: "black",
-                        }}
-                        icon={<UserOutlined />}
-                      />
-                    )
                   }
                   style={{
                     borderRadius: "15px",
@@ -435,22 +416,10 @@ class HeaderSection extends Component {
                             alignItems: "center",
                           }}
                         >
-                          {this.state.userinfo.picture ? (
                             <Avatar
                               src={`${url}dstatic/${this.state.userinfo.picture}`}
                               size="large"
                             />
-                          ) : (
-                            <Avatar
-                              size="large"
-                              style={{
-                                backgroundColor: "white",
-                                color: "black",
-                                border: "1px solid",
-                              }}
-                              icon={<UserOutlined />}
-                            />
-                          )}
                           <Divider style={{ margin: "5px", opacity: "0" }} />
                           <span style={{ color: "white" }}>
                             {this.state.userinfo.user &&

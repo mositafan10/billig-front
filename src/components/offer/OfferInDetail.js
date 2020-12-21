@@ -235,7 +235,7 @@ class OfferDetail extends React.Component {
                       marginTop: "-30px",
                     }}
                   >
-                    دستمزد پیشنهادی (تومان) 
+                    دستمزد پیشنهادی (ریال) 
                     <Popconfirm
                         overlayStyle={{ fontFamily: "VazirD" }}
                         cancelButtonProps={{ hidden: "true" }}
@@ -283,7 +283,7 @@ class OfferDetail extends React.Component {
                           marginTop: "-30px",
                         }}
                       >
-                        قیمت کالا (تومان) <Popconfirm
+                        قیمت کالا (ریال) <Popconfirm
                         overlayStyle={{ fontFamily: "VazirD" }}
                         cancelButtonProps={{ hidden: "true" }}
                         visible={this.state.parcelPriceInfoVisible}

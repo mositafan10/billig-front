@@ -352,6 +352,10 @@ class PackForm extends React.Component {
                     required: true,
                     message: 'عنوان آگهی را وارد نمایید',
                   },
+                  {
+                    pattern:'^([a-zA-Z0-9 \u0600-\u06FF])+$',
+                    message:"عنوان آگهی باید از حروف و اعداد تشکیل شده باشد"
+                  }
                 ]}
               >
                 <Input maxLength={50} style={{ textAlign: "right" }} />

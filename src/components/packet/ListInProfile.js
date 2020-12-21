@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-import { Divider, Spin, Modal, Radio, Input } from "antd";
+import { Divider, Spin, Modal, Radio, Input, Tooltip } from "antd";
 import { Popconfirm, notification, List, Row, Col, Button, Card } from "antd";
 import OfferListModal from "../offer/OfferListModal";
 import EditPacket from "./EditPacket";
@@ -269,9 +269,7 @@ class PacketUserList extends React.Component {
                               justifyContent: "center",
                             }}
                           >
-                            {item.status === "منتشر شده" ||
-                            item.status === "دارای پیشنهاد" ||
-                            item.status === "در انتظار تایید" ? (
+                            {item.status === "منتشر شده" ? (
                               <Popconfirm
                                 overlayStyle={{ fontFamily: "VazirD" }}
                                 title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -294,6 +292,7 @@ class PacketUserList extends React.Component {
                                 </a>
                               </Popconfirm>
                             ) : (
+                              <Tooltip overlayStyle={{fontFamily:"VazirD"}} title="چنانچه آگهی پیشنهاد داشته باشد، امکان حذف آن وجود ندارد">
                               <Button
                                 style={{
                                   border: "hidden",
@@ -304,6 +303,7 @@ class PacketUserList extends React.Component {
                               >
                                 حذف
                               </Button>
+                              </Tooltip>
                             )}
                           </Col>
                         </Row>

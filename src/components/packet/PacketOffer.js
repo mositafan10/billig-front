@@ -68,7 +68,7 @@ class PacketOffer extends React.Component {
       render: (dataIndex) => <div>{dataIndex.origin} / {dataIndex.origin_city} به {dataIndex.destination} / {dataIndex.destination_city} در {moment(dataIndex.flight_date).format("DD MMM")}</div>,
     },
     {
-      title: "دستمزد (تومان)",
+      title: "دستمزد (ریال)",
       dataIndex: "price",
       key: "y",
       width: 150,
@@ -76,7 +76,7 @@ class PacketOffer extends React.Component {
       render: (dataIndex) => this.currency(dataIndex)
     },
     {
-      title: this.props.buy && "قیمت کالا (تومان)",
+      title: this.props.buy && "قیمت کالا (ریال)",
       dataIndex: "parcel_price_offer",
       key: "y",
       width: 150,
@@ -380,7 +380,7 @@ class PacketOffer extends React.Component {
                     <Divider style={{ marginTop: "5px", opacity: "0" }} />
                     <p>{item.description}</p>
                     <br />
-                    <p style={{ textAlign: "left" }}> {item.price} تومان </p><hr/>
+                    <p style={{ textAlign: "left" }}> {item.price} ریال </p><hr/>
                   </Col>
                   <Col style={{ display: "flex", justifyContent: "center" }}>
                     <Space>

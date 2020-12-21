@@ -130,28 +130,7 @@ class HeaderSectionProfile extends Component {
                       to={this.props.isAuthenticated ? "/profile" : "/login"}
                     >
                       <div>
-                        <Button
-                          icon={
-                            this.state.userinfo.picture ? (
-                              <Avatar
-                                src={`${url}dstatic/${this.state.userinfo.picture}`}
-                              />
-                            ) : (
-                              <Avatar
-                                style={{
-                                  backgroundColor: "white",
-                                  color: "black",
-                                }}
-                                icon={<UserOutlined />}
-                              />
-                            )
-                          }
-                          style={{
-                            borderRadius: "15px",
-                            color: "white",
-                            borderColor: "white",
-                          }}
-                        ></Button>
+                        
                         {this.props.isAuthenticated ? (
                           <span
                           style={{ color:"black", marginLeft: "10px", marginRight: "10px" }}
@@ -164,6 +143,18 @@ class HeaderSectionProfile extends Component {
                               ورود به حساب کاربری
                           </span>
                         )}
+                        <Button
+                          icon={
+                              <Avatar
+                                src={`${url}dstatic/${this.state.userinfo.picture}`}
+                              />
+                          }
+                          style={{
+                            borderRadius: "15px",
+                            color: "white",
+                            borderColor: "white",
+                          }}
+                        />
                         {this.props.isAuthenticated && (
                           <Badge count={this.state.total} offset={[-20, 5]}>
                             <Link to="/profile/inbox">
@@ -174,6 +165,7 @@ class HeaderSectionProfile extends Component {
                                     style={{
                                       backgroundColor: "white",
                                       color: "black",
+                                      marginTop:"3px"
                                     }}
                                     icon={<BellOutlined />}
                                   />
@@ -199,6 +191,37 @@ class HeaderSectionProfile extends Component {
                       mode="horizontal"
                     >
                       <Menu.Item key="1">
+                        <Link to="/create-packet">
+                          <span
+                            style={{
+                              boxShadow:"0 0 8px 1px",
+                              backgroundColor: "#067fc6",
+                              color: "white",
+                              padding: "10px 15px 10px 15px",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            ثبت رایگان آگهی
+                          </span>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item key="2">
+                        <Link to="/orders">
+                          <span
+                            style={{
+                              boxShadow:"0 0 8px 1px",
+                              marginLeft: "-20px",
+                              backgroundColor: "#fad303",
+                              color: "white",
+                              padding: "10px 15px 10px 15px",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            کسب درآمد از سفر
+                          </span>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item key="3">
                         <Link to="/billliger">
                           <span
                             style={{
@@ -206,13 +229,14 @@ class HeaderSectionProfile extends Component {
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",
+                              marginLeft:"-20px",
                             }}
                           >
                             <b>راهنمای بیلیگر</b>
                           </span>
                         </Link>
                       </Menu.Item>
-                      <Menu.Item key="2">
+                      <Menu.Item key="4">
                         <Link to="/traveler">
                           <span
                             style={{
