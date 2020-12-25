@@ -230,7 +230,7 @@ class OrderList extends React.Component {
                       size={"medium"}
                       style={{
                         borderRadius: "15px",
-                        backgroundColor: "#46a0ae",
+                        backgroundColor: "#067fc8",
                         color: "white",
                       }}
                     >

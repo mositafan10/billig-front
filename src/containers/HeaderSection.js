@@ -325,7 +325,7 @@ class HeaderSection extends Component {
                       <h3 style={{ textAlign: "center" }}>
                         قصد ارسال یا خرید کالا دارید؟
                       </h3>
-                      <hr style={{ color: "#067fc6" }} />
+                      <hr style={{ color: "#ff9a00" }} />
                       <p style={{ textAlign: "right" }}>
                         ابتدا بسته یا کالای مورد نظر خود را در سایت ثبت کنید. پس
                         از تایید، آگهی شما در سایت بیلیگ منتشر خواهد شد
@@ -339,9 +339,9 @@ class HeaderSection extends Component {
                               onClick={this.onClose}
                               style={{
                                 backgroundColor: "white",
-                                color: "#067fc6",
+                                color: "#ff9a00",
                                 borderRadius: "10px",
-                                borderColor: "#067fc6",
+                                borderColor: "#ff9a00",
                               }}
                             >
                               راهنمای بیلیگر
@@ -351,7 +351,7 @@ class HeaderSection extends Component {
                             <Button
                               onClick={this.onClose}
                               style={{
-                                backgroundColor: "#067fc6",
+                                backgroundColor: "#ff9a00",
                                 color: "white",
                                 borderRadius: "10px",
                               }}
@@ -363,7 +363,7 @@ class HeaderSection extends Component {
                       </Row>
                       <Divider />
                       <h3 style={{ textAlign: "center" }}>قصد سفر دارید؟</h3>
-                      <hr style={{ color: "#ff9a00" }} />
+                      <hr style={{ color: "#067fc6" }} />
                       <p style={{ textAlign: "right" }}>
                         با استفاده از بیلیگ می‌توانید قسمتی از خرج سفر خود را
                         جبران کنید. کافی است سفر خود را ثبت کنید و در لیست
@@ -379,9 +379,9 @@ class HeaderSection extends Component {
                               onClick={this.onClose}
                               style={{
                                 backgroundColor: "white",
-                                color: "#ff9a00",
+                                color: "#067fc6",
                                 borderRadius: "10px",
-                                borderColor: "#ff9a00",
+                                borderColor: "#067fc6",
                               }}
                             >
                               راهنمای مسافر
@@ -391,7 +391,7 @@ class HeaderSection extends Component {
                             <Button
                               onClick={this.onClose}
                               style={{
-                                backgroundColor: "#ff9a00",
+                                backgroundColor: "#067fc6",
                                 color: "white",
                                 borderRadius: "10px",
                               }}

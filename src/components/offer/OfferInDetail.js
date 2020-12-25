@@ -133,6 +133,7 @@ class OfferDetail extends React.Component {
   handleCancel = (e) => {
     this.setState({
       visible: false,
+      visiblePriceInfo: false
     });
   };
 

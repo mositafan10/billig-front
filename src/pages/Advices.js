@@ -13,14 +13,14 @@ const Advices = () => {
         textAlign: "justify",
       }}
     >
+      <h1 style={{ textAlign: "center" }}>
+            توصیه‌های مهم در استفاده از بیلیگ
+          </h1>
       <Row style={{ display: "flex", justifyContent: "center" }}>
         <img src={Advise} alt="billligAdvices" width={400} />
       </Row>
       <Row style={{ justifyContent: "center", display: "flex" }}>
         <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-          <h1 style={{ textAlign: "center" }}>
-            توصیه‌های مهم در استفاده از بیلیگ
-          </h1>
           <p>
             برای فعالیت در پلتفرم بیلیگ باید کاربران نکاتی را رعایت کنند تا حتی
             المقدور از بروز هرگونه مشکل در آینده جلوگیری کنیم. کاربران بیلیگ
