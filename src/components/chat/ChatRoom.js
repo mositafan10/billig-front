@@ -536,28 +536,68 @@ class ChatRoom extends React.Component {
                     >
                       {user == this.state.info.sender_slug ? (
                         <Link
-                          to={`/users/` + this.state.info.receiver_slug}
+                        to={`/users/` + this.state.info.receiver_slug}
+                      >
+                        {this.state.onlineStatus >= 1 ?
+                        <div>
+                        <Badge status="success">
+                        <Avatar
+                          src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
+                        />
+                        </Badge>
+                        <span
+                          style={{ paddingRight: "10px", color: "black" }}
                         >
-                          <Avatar
-                            src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
-                          />
-                          <span
-                            style={{ paddingRight: "10px", color: "black" }}
-                          >
-                            {this.state.info.receiver_name}
-                          </span>
-                        </Link>
-                      ) : (
-                        <Link to={"/users/" + this.state.info.sender_slug}>
-                          <Avatar
-                            src={`${url}dstatic/media/${this.state.info.sender_avatar}`}
-                          />
-                          <span
-                            style={{ paddingRight: "10px", color: "black" }}
-                          >
-                            {this.state.info.sender_name}
-                          </span>
-                        </Link>
+                          {this.state.info.receiver_name}
+                        </span>
+                        </div>
+                        :
+                        <div>
+                        <Badge status="warning">
+                        <Avatar
+                          src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
+                        />
+                        </Badge>
+                        <span
+                          style={{ paddingRight: "10px", color: "black" }}
+                        >
+                          {this.state.info.receiver_name}
+                        </span>
+                        </div>
+                        }
+                        
+                      </Link>
+                    ) : (
+                      
+                      <Link to={"/users/" + this.state.info.sender_slug}>
+                        {this.state.onlineStatus >= 1 ?
+                        <div>
+                        <Badge status="success">
+                        <Avatar
+                          src={`${url}dstatic/media/${this.state.info.sender_avatar}`}
+                        />
+                        </Badge>
+                        <span
+                          style={{ paddingRight: "10px", color: "black" }}
+                        >
+                        {this.state.info.sender_name}
+                        </span>
+                        </div>
+                        :
+                        <div>
+                        <Badge status="warning">
+                        <Avatar
+                          src={`${url}dstatic/media/${this.state.info.sender_avatar}`}
+                        />
+                        </Badge>
+                        <span
+                          style={{ paddingRight: "10px", color: "black" }}
+                        >
+                          {this.state.info.sender_name}
+                        </span>
+                        </div>
+                        }
+                      </Link>
                       )}
                     </Col>
                     <Col

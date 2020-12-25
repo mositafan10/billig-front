@@ -32,13 +32,13 @@ class FooterSection extends Component {
                 <Row style={{backgroundColor:"#263238", color:"white"}}>
                     <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}>
                     </Col>  
-                    <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} >
+                    <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} style={{marginBottom:"20px"}} >
                         بیلیگ را در شبکه‌های اجتماعی دنبال کنید
                         <Divider/>
                         <Space size="large">
-                            <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://twitter.com/Billlig1"><TwitterOutlined style={{fontSize:"30px"}} /></a>
+                            <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://twitter.com/billligofficial"><TwitterOutlined style={{fontSize:"30px"}} /></a>
                             <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://www.instagram.com/billligofficial/"><InstagramOutlined style={{fontSize:"30px"}} /></a>
-                            <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://www.linkedin.com/in/billlig/"><LinkedinOutlined style={{fontSize:"30px"}} /></a>
+                            <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://www.linkedin.com/company/billlig/"><LinkedinOutlined style={{fontSize:"30px"}} /></a>
                             <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://www.facebook.com/billligofficial"><FacebookOutlined style={{fontSize:"30px"}} /></a>
                         </Space>
                         <Divider/>
@@ -53,8 +53,7 @@ class FooterSection extends Component {
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}>
                     </Col>
-                    <hr/>
-                    <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
+                    <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
                         <p><b>راهنمای کاربران</b></p><hr width="120" style={{float:"right"}}/><br/>
                         <Link to={'/whybilllig'}><p style={style_p}>چرا بیلیگ ؟</p></Link>
                         <Link to={'/billliger'}><p style={style_p}> راهنمای بیلیگر</p></Link>
@@ -62,7 +61,7 @@ class FooterSection extends Component {
                         <Link to={'/advices'}><p style={style_p}> توصیه‌های بیلیگ به کاربران</p></Link>
                         <Link to={'/faq'}><p style={style_p}>سوالات متداول</p></Link>
                     </Col>
-                    <hr/>
+                    <br/>
                     <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4} >
                         <p><b>بیلیگ</b></p><hr width="80" style={{float:"right"}}/><br/>
                         <a rel="noopener noreferrer" target="_blank" href={`${url}blog/`}><p style={style_p}>بلاگ</p></a>
@@ -70,7 +69,7 @@ class FooterSection extends Component {
                         <Link to={'/privacy'}><p style={style_p}>حریم خصوصی</p></Link>
                         <Link to={'/terms'}><p style={style_p}>شرایط و ضوابط</p></Link>
                     </Col>
-                    <hr/>
+                    <br/>
                         <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}>
                     </Col> 
                 </Row>

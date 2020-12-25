@@ -295,8 +295,6 @@ const Privacy = () => {
               را انجام خواهد داد.
             </li>
           </ol>
-          <p style={{textAlign:"center"}}><a> دانلود نسخه پی دی اف</a></p>
-    
         </Col>
       </Row>
     </div>

@@ -71,7 +71,7 @@ class UserOffer extends React.Component {
       ),
     },
     {
-      title: "دستمزد (ریال)",
+      title: "دستمزد (تومان)",
       dataIndex: "price",
       key: "slug",
       width: 150,
@@ -79,12 +79,12 @@ class UserOffer extends React.Component {
       render: (dataIndex) => this.currency(dataIndex),
     },
     {
-      title: "قیمت کالا (ریال)",
+      title: "قیمت کالا (تومان)",
       dataIndex: "parcel_price_offer",
       key: "slug",
       width: 150,
       align: "center",
-      render: (dataIndex, row) => (row.buy ? this.currency(dataIndex) : 0),
+      render: (dataIndex, row) => (row.buy ? this.currency(dataIndex) : "ندارد"),
     },
     {
       title: " ",
@@ -404,7 +404,7 @@ class UserOffer extends React.Component {
                         ></Avatar>
                         <span> {item.receiver} </span>
                         <p style={{ textAlign: "left", marginTop: "20px" }}>
-                          {this.currency(item.price)} ریال
+                          {this.currency(item.price)} تومان
                         </p>
                         <hr />
                       </Col>

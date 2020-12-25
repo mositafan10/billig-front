@@ -1,15 +1,16 @@
 import React from "react";
-import { Col, Row, Divider, ConfigProvider } from "antd";
+import { Col, Row, Divider } from "antd";
 import about from "../media/aboutus.svg";
 import about2 from "../media/about2.svg";
 import Favicon from "../media/FavIcon.png";
+
+const style_center = {display: "flex", justifyContent: "center"}
 
 const AboutUs = () => {
   window.scroll(0, 0);
   return (
     <div>
-      <Row>
-        <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1}></Col>
+      <Row style={style_center} >
         <Col
           xs={22}
           sm={22}
@@ -25,15 +26,13 @@ const AboutUs = () => {
             style={{ width: "40%", height: "auto" }}
           />
         </Col>
-        <Col xs={1} sm={1} md={1} lg={0} xl={0} xxl={0}></Col>
-        <Col xs={1} sm={1} md={1} lg={0} xl={0} xxl={0}></Col>
         <Col
           xs={22}
           sm={22}
           md={22}
-          lg={16}
-          xl={16}
-          xxl={16}
+          lg={12}
+          xl={12}
+          xxl={12}
           style={{
             display: "flex",
             alignItems: "center",
@@ -43,15 +42,14 @@ const AboutUs = () => {
         >
           <div
             style={{
-              backgroundColor: "#46a0ae",
+              backgroundColor: "#067fc8",
               color: "white",
               borderRadius: "10px",
               padding: "25px",
               lineHeight: "30px",
             }}
           >
-            {" "}
-            <p>
+            <p style={{textAlign:"justify"}}>
               <b>
                 بیلیگ در سال 1398 با هدف ارسال بسته توسط مسافران آغاز به کار کرد
                 و بعد از مدتی تصمیم بر ایجاد پلتفرمی یکپارچه برای ارسال بسته و
@@ -62,11 +60,9 @@ const AboutUs = () => {
             </p>
           </div>
         </Col>
-        <Col xs={1} sm={1} md={1} lg={3} xl={3} xxl={3}></Col>
-      </Row>
+      </Row > 
       <Divider style={{ opacity: "0" }} />
-      <Row>
-        <Col xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}></Col>
+      <Row style={style_center}>
         <Col
           xs={22}
           sm={22}
@@ -87,8 +83,6 @@ const AboutUs = () => {
             اقتصاد اشتراکی باعث بیشتر شدن مسافرت به سراسر دنیا و کسب درآمد شویم.
           </p>
         </Col>
-        <Col xs={1} sm={1} md={1} lg={0} xl={0} xxl={0}></Col>
-        <Col xs={1} sm={1} md={1} lg={0} xl={0} xxl={0}></Col>
         <Col
           xs={22}
           sm={22}
@@ -108,12 +102,9 @@ const AboutUs = () => {
             style={{ width: "80%", height: "auto" }}
           />
         </Col>
-        <Col xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}></Col>
       </Row>
-      {/* <Divider style={{ opacity: "0" }} /> */}
-      <ConfigProvider direction="ltr">
-        <Row>
-          <Col xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}></Col>
+      <div >
+        <Row style={{direction:"ltr", display: "flex", justifyContent: "center"}}>
           <Col
             xs={22}
             sm={22}
@@ -137,8 +128,6 @@ const AboutUs = () => {
               هزینه‌های خود را پوشش دهند.
             </p>
           </Col>
-          <Col xs={1} sm={1} md={1} lg={0} xl={0} xxl={0}></Col>
-          <Col xs={1} sm={1} md={1} lg={0} xl={0} xxl={0}></Col>
           <Col
             xs={22}
             sm={22}
@@ -158,13 +147,12 @@ const AboutUs = () => {
               style={{ width: "80%", height: "auto" }}
             />
           </Col>
-          <Col xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}></Col>
         </Row>
-      </ConfigProvider>
+      </div>
       <Divider style={{ opacity: "0" }} />
       <Row
         style={{
-          backgroundColor: "#46a0ae",
+          backgroundColor: "#067fc8",
           height: "100px",
           display: "flex",
           justifyContent: "center",

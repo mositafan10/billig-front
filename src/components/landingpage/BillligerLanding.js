@@ -338,7 +338,7 @@ const BillligerLanding = () => {
       </Breakpoint>
       <Breakpoint small down>
         <div>
-          <Row
+          {/* <Row
             style={{
               justifyContent: "center",
               display: "flex",
@@ -652,7 +652,7 @@ const BillligerLanding = () => {
               </Row>
             </div>
           </Carousel>
-          <Divider style={{ opacity: "0" }} />
+          <Divider style={{ opacity: "0" }} /> */}
         </div>
       </Breakpoint>
     </div>

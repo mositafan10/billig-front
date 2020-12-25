@@ -34,7 +34,7 @@ const MainBanner = () => {
             <Row>
               <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
                 <h1 style={{ fontSize: "20px", textAlign: "center" }}>
-                  <span style={{ fontSize: "30px" }}>بیلیگ؛</span>
+                  <span style={{ fontSize: "30px"}}>بیلیگ؛</span>
                   <br />
                   <span>
                     یک پلتفرم پست اشتراکی است که

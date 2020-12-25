@@ -219,7 +219,7 @@ class HeaderSection extends Component {
                           <span
                             style={{
                               boxShadow: "0 0 8px 1px",
-                              backgroundColor: "#067fc8",
+                              backgroundColor: "#ff9a00",
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",
@@ -235,7 +235,7 @@ class HeaderSection extends Component {
                             style={{
                               boxShadow: "0 0 8px 1px",
                               marginLeft: "-20px",
-                              backgroundColor: "#ff9a00",
+                              backgroundColor: "#067fc8",
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",

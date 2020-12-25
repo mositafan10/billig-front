@@ -208,7 +208,7 @@ class HeaderSectionProfile extends Component {
                           <span
                             style={{
                               boxShadow: "0 0 8px 1px",
-                              backgroundColor: "#067fc6",
+                              backgroundColor: "#067fc8",
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",
@@ -224,7 +224,7 @@ class HeaderSectionProfile extends Component {
                             style={{
                               boxShadow: "0 0 8px 1px",
                               marginLeft: "-20px",
-                              backgroundColor: "#fad303",
+                              backgroundColor: "#ff9a00",
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",
@@ -234,7 +234,7 @@ class HeaderSectionProfile extends Component {
                           </span>
                         </Link>
                       </Menu.Item>
-                      <Menu.Item key="3">
+                      {/* <Menu.Item key="3">
                         <Link to="/billliger">
                           <span
                             style={{
@@ -263,7 +263,7 @@ class HeaderSectionProfile extends Component {
                             <b>راهنمای مسافر</b>
                           </span>
                         </Link>
-                      </Menu.Item>
+                      </Menu.Item> */}
                     </Menu>
                   </Col>
                 </Row>

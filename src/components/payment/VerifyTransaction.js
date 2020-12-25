@@ -192,7 +192,7 @@ class VerifyTransaction extends Component {
                     lg={14}
                     xl={14}
                   >
-                    <h4>مبلغ تراکنش (ریال)</h4>
+                    <h4>مبلغ تراکنش (تومان)</h4>
                   </Col>
                   <Col
                     style={style_left}
