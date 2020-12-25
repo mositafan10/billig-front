@@ -3,8 +3,17 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import { Breakpoint } from "react-socks";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
-import { Button, Menu, Row, Col, Drawer, Avatar, Divider, Badge } from "antd";
-import { UserOutlined, MenuOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Menu,
+  Row,
+  Col,
+  Drawer,
+  Avatar,
+  Divider,
+  Badge,
+  Space,
+} from "antd";
 import logo from "../media/billlig.png";
 import {
   ContainerOutlined,
@@ -15,6 +24,8 @@ import {
   AimOutlined,
   VerticalLeftOutlined,
   BellOutlined,
+  PlusOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../Constant";
@@ -64,31 +75,30 @@ class HeaderSectionProfile extends Component {
   };
 
   zerototal = () => {
-    this.componentDidMount()
+    this.componentDidMount();
   };
-
 
   componentDidMount() {
     const token = localStorage.getItem("token");
-      token != null &&
-        token != "notready" &&
-        Axios.post(`${url}api/v1/account/tokenValidation/`, {
-          token: token,
-        }).then((res) => {
-          if (res.data.valid) {
-            Axios.get(`${url}api/v1/account/userinfo/`, {
-              headers: { Authorization: `Token ${token}` },
-            }).then((res) => {
-              this.setState({
-                userinfo: res.data.data,
-                total: res.data.total,
-              });
-              this.props.total({"total":res.data.total})
+    token != null &&
+      token != "notready" &&
+      Axios.post(`${url}api/v1/account/tokenValidation/`, {
+        token: token,
+      }).then((res) => {
+        if (res.data.valid) {
+          Axios.get(`${url}api/v1/account/userinfo/`, {
+            headers: { Authorization: `Token ${token}` },
+          }).then((res) => {
+            this.setState({
+              userinfo: res.data.data,
+              total: res.data.total,
             });
-          } else {
-            this.props.logout();
-          }
-        });
+            this.props.total({ total: res.data.total });
+          });
+        } else {
+          this.props.logout();
+        }
+      });
   }
 
   render() {
@@ -130,24 +140,27 @@ class HeaderSectionProfile extends Component {
                       to={this.props.isAuthenticated ? "/profile" : "/login"}
                     >
                       <div>
-                        
                         {this.props.isAuthenticated ? (
                           <span
-                          style={{ color:"black", marginLeft: "10px", marginRight: "10px" }}
+                            style={{
+                              color: "black",
+                              marginLeft: "10px",
+                              marginRight: "10px",
+                            }}
                           >
-                              {this.state.userinfo.user &&
-                                this.state.userinfo.user.name}
+                            {this.state.userinfo.user &&
+                              this.state.userinfo.user.name}
                           </span>
                         ) : (
-                          <span style={{ marginRight: "10px",color: "black" }}>
-                              ورود به حساب کاربری
+                          <span style={{ marginRight: "10px", color: "black" }}>
+                            ورود به حساب کاربری
                           </span>
                         )}
                         <Button
                           icon={
-                              <Avatar
-                                src={`${url}dstatic/${this.state.userinfo.picture}`}
-                              />
+                            <Avatar
+                              src={`${url}dstatic/${this.state.userinfo.picture}`}
+                            />
                           }
                           style={{
                             borderRadius: "15px",
@@ -165,7 +178,7 @@ class HeaderSectionProfile extends Component {
                                     style={{
                                       backgroundColor: "white",
                                       color: "black",
-                                      marginTop:"3px"
+                                      marginTop: "3px",
                                     }}
                                     icon={<BellOutlined />}
                                   />
@@ -194,7 +207,7 @@ class HeaderSectionProfile extends Component {
                         <Link to="/create-packet">
                           <span
                             style={{
-                              boxShadow:"0 0 8px 1px",
+                              boxShadow: "0 0 8px 1px",
                               backgroundColor: "#067fc6",
                               color: "white",
                               padding: "10px 15px 10px 15px",
@@ -209,7 +222,7 @@ class HeaderSectionProfile extends Component {
                         <Link to="/orders">
                           <span
                             style={{
-                              boxShadow:"0 0 8px 1px",
+                              boxShadow: "0 0 8px 1px",
                               marginLeft: "-20px",
                               backgroundColor: "#fad303",
                               color: "white",
@@ -229,7 +242,7 @@ class HeaderSectionProfile extends Component {
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",
-                              marginLeft:"-20px",
+                              marginLeft: "-20px",
                             }}
                           >
                             <b>راهنمای بیلیگر</b>
@@ -240,7 +253,7 @@ class HeaderSectionProfile extends Component {
                         <Link to="/traveler">
                           <span
                             style={{
-                              marginLeft:"-20px",
+                              marginLeft: "-20px",
                               backgroundColor: "#46A0AE",
                               color: "white",
                               padding: "10px 15px 10px 15px",
@@ -302,7 +315,7 @@ class HeaderSectionProfile extends Component {
                 <div>
                   <Button
                     onClick={this.showpagemenu}
-                    icon={<MenuOutlined />}
+                    icon={<PlusOutlined />}
                     style={{
                       color: "black",
                       border: "hidden",
@@ -318,7 +331,7 @@ class HeaderSectionProfile extends Component {
                     headerStyle={{ textAlign: "center" }}
                     closable={false}
                     onClose={this.onClose}
-                    width="50%"
+                    width="80%"
                     visible={this.state.Drawerpage}
                     style={{
                       textAlign: "left",
@@ -327,47 +340,85 @@ class HeaderSectionProfile extends Component {
                     }}
                   >
                     <div>
-                      <Link
-                        style={{ color: "black" }}
-                        onClick={this.onClose}
-                        to="/create-packet"
+                      <h3 style={{ textAlign: "center" }}>
+                        قصد ارسال یا خرید کالا دارید؟
+                      </h3>
+                      <hr style={{ color: "#067fc6" }} />
+                      <p style={{ textAlign: "right" }}>
+                        ابتدا بسته یا کالای مورد نظر خود را در سایت ثبت کنید. پس
+                        از تایید، آگهی شما در سایت بیلیگ منتشر خواهد شد
+                      </p>
+                      <Row
+                        style={{ display: "flex", justifyContent: "center" }}
                       >
-                        <p
-                          style={{
-                            backgroundColor: "#FCA468",
-                            color: "white",
-                            textAlign: "center",
-                            padding: "5px 10px 5px 10px",
-                            borderRadius: "5px",
-                          }}
-                        >
-                          ثبت آگهی
-                        </p>
-                      </Link>
-                      <Link
-                        style={{ color: "black" }}
-                        onClick={this.onClose}
-                        to="/orders"
+                        <Space>
+                          <Link to="/billliger">
+                            <Button
+                              onClick={this.onClose}
+                              style={{
+                                backgroundColor: "white",
+                                color: "#067fc6",
+                                borderRadius: "10px",
+                                borderColor: "#067fc6",
+                              }}
+                            >
+                              راهنمای بیلیگر
+                            </Button>
+                          </Link>
+                          <Link to="/create-packet">
+                            <Button
+                              onClick={this.onClose}
+                              style={{
+                                backgroundColor: "#067fc6",
+                                color: "white",
+                                borderRadius: "10px",
+                              }}
+                            >
+                              ثبت آگهی
+                            </Button>
+                          </Link>
+                        </Space>
+                      </Row>
+                      <Divider />
+                      <h3 style={{ textAlign: "center" }}>قصد سفر دارید؟</h3>
+                      <hr style={{ color: "#ff9a00" }} />
+                      <p style={{ textAlign: "right" }}>
+                        با استفاده از بیلیگ می‌توانید قسمتی از خرج سفر خود را
+                        جبران کنید. کافی است سفر خود را ثبت کنید و در لیست
+                        آگهی‌های سایت آگهی مورد نظر خود را پیدا کنید
+                      </p>
+
+                      <Row
+                        style={{ display: "flex", justifyContent: "center" }}
                       >
-                        <p
-                          style={{
-                            backgroundColor: "#46a0ae",
-                            color: "white",
-                            textAlign: "center",
-                            padding: "5px 10px 5px 10px",
-                            borderRadius: "5px",
-                          }}
-                        >
-                          کسب در آمد از سفر
-                        </p>
-                      </Link>
-                      <a
-                        style={{ color: "black" }}
-                        onClick={this.onClose}
-                        href="https://billlig.com/blog"
-                      >
-                        <p style={{ textAlign: "center" }}>بلاگ</p>
-                      </a>
+                        <Space>
+                          <Link to="/traveler">
+                            <Button
+                              onClick={this.onClose}
+                              style={{
+                                backgroundColor: "white",
+                                color: "#ff9a00",
+                                borderRadius: "10px",
+                                borderColor: "#ff9a00",
+                              }}
+                            >
+                              راهنمای مسافر
+                            </Button>
+                          </Link>
+                          <Link to="/profile/mytravel">
+                            <Button
+                              onClick={this.onClose}
+                              style={{
+                                backgroundColor: "#ff9a00",
+                                color: "white",
+                                borderRadius: "10px",
+                              }}
+                            >
+                              ثبت سفر
+                            </Button>
+                          </Link>
+                        </Space>
+                      </Row>
                     </div>
                   </Drawer>
                 </div>
@@ -489,7 +540,7 @@ class HeaderSectionProfile extends Component {
                   closable={false}
                   onClose={this.onClose}
                   width="65%"
-                  headerStyle={{ backgroundColor: "#46a0ae" }}
+                  headerStyle={{ backgroundColor: "#263238" }}
                   visible={this.state.Drawerprofile}
                   style={{ textAlign: "center", fontFamily: "VazirD" }}
                 >
@@ -539,10 +590,10 @@ class HeaderSectionProfile extends Component {
                     ) : (
                       <div>
                         <Link onClick={this.onClose} to="/login">
-                          <p style={{color:"black"}}>ورود</p>
+                          <p style={{ color: "black" }}>ورود</p>
                         </Link>
                         <Link onClick={this.onClose} to="/signup">
-                          <p style={{color:"black"}}>ثبت نام</p>
+                          <p style={{ color: "black" }}>ثبت نام</p>
                         </Link>
                       </div>
                     )}
@@ -574,4 +625,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(HeaderSectionProfile));
+export default withRouter(
+  connect(null, mapDispatchToProps)(HeaderSectionProfile)
+);

@@ -11,7 +11,7 @@ import {config} from '../Constant';
 import { Link } from 'react-router-dom';
 
 var url = config.url.API_URL;
-const style_p ={color:"#707070"}
+const style_p ={color:"#edf2f0"}
 
 const { Search } = Input;
 
@@ -29,17 +29,17 @@ class FooterSection extends Component {
     render() {
         return (
             <ConfigProvider direction="rtl">
-                <Row style={{backgroundColor:"#edf2f0"}}>
+                <Row style={{backgroundColor:"#263238", color:"white"}}>
                     <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}>
                     </Col>  
                     <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} >
                         بیلیگ را در شبکه‌های اجتماعی دنبال کنید
                         <Divider/>
                         <Space size="large">
-                            <a rel="noopener noreferrer" target="_blank" style={{color:"black"}} href="https://twitter.com/Billlig1"><TwitterOutlined style={{fontSize:"30px"}} /></a>
-                            <a rel="noopener noreferrer" target="_blank" style={{color:"black"}} href="https://www.instagram.com/billligofficial/"><InstagramOutlined style={{fontSize:"30px"}} /></a>
-                            <a rel="noopener noreferrer" target="_blank" style={{color:"black"}} href="https://www.linkedin.com/in/billlig/"><LinkedinOutlined style={{fontSize:"30px"}} /></a>
-                            <a rel="noopener noreferrer" target="_blank" style={{color:"black"}} href="https://www.facebook.com/billligofficial"><FacebookOutlined style={{fontSize:"30px"}} /></a>
+                            <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://twitter.com/Billlig1"><TwitterOutlined style={{fontSize:"30px"}} /></a>
+                            <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://www.instagram.com/billligofficial/"><InstagramOutlined style={{fontSize:"30px"}} /></a>
+                            <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://www.linkedin.com/in/billlig/"><LinkedinOutlined style={{fontSize:"30px"}} /></a>
+                            <a rel="noopener noreferrer" target="_blank" style={{color:"#edf2f0"}} href="https://www.facebook.com/billligofficial"><FacebookOutlined style={{fontSize:"30px"}} /></a>
                         </Space>
                         <Divider/>
                         <p>از تخفیفات فروشگاه‌ها و جدیدترین‌های بیلیگ باخبر شوید:</p>
@@ -77,7 +77,7 @@ class FooterSection extends Component {
                 <Divider/>
                 <Row style={{justifyContent:"center", display:"flex"}}>
                     <br/>
-                    <h5 style={{textAlign:"center"}}><CopyrightOutlined /> تمامی حقوق برای بیلیگ محفوظ است. برداشتن مطالب با درج لینک سایت مانعی ندارد . </h5>
+                    <h5 style={{textAlign:"center", color:"white"}}><CopyrightOutlined /> تمامی حقوق برای بیلیگ محفوظ است. برداشتن مطالب با درج لینک سایت مانعی ندارد . </h5>
                 </Row>
             </ConfigProvider>
         );

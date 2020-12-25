@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import './index.css';
 import reducer from './store/reducers/auth';
+import TagManager from 'react-gtm-module'
 import {initializeFirebase, askForPermissioToReceiveNotifications} from './fcm/InitFcm';
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -14,6 +15,13 @@ const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(reducer, composeEnhances(
     applyMiddleware(thunk)
 ));
+
+const tagManagerArgs = {
+  gtmId: 'GTM-TDR32GN',
+  auth: 'EkJLDjzNVHP31jg4nR6Gfw',
+  preview: 'env-1'
+}
+TagManager.initialize(tagManagerArgs)
 
 const app = (
    <Provider store={store}>

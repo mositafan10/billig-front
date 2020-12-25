@@ -29,6 +29,7 @@ import SingleCheck from "../../media/small_icon/SingleCheck.png";
 import DownloadPic1 from "../utils/DownloadPic1";
 import ChatContacs from "./ChatContacs";
 import InfiniteScroll from "react-infinite-scroller";
+import { socket } from '../../socket';
 
 var url = config.url.API_URL;
 const token = localStorage.getItem("token");
@@ -86,16 +87,90 @@ class ChatRoom extends React.Component {
     visible: true,
     info: {},
     fileList: [],
-    interval: 1,
     new_mass_vis: false,
     hasMore: true,
     page: 1,
     count: 0,
-    redirect: false
+    redirect: false,
+    onlineStatus: 0,
   };
 
   myRef = React.createRef();
 
+  componentDidMount() {
+    this.getChatInfo();
+    this.setState({ loading: true });
+    const chatID = this.props.match.params.chatID;
+    const userID = localStorage.getItem('user');
+
+    // for join to room or create one
+    socket.emit('create_join_room', {'chatID':chatID,'userID':userID});
+
+    // for alert new mass
+    socket.on('shouldUpdate', () => {
+      // get new massage
+      // console.log(msg[0])
+      this.getLastMassage()
+    });
+
+    socket.on("online", (count) => {
+      console.log(count);
+      this.setState({onlineStatus:count})
+    })
+  }
+
+  componentWillUnmount(){
+    const chatID = this.props.match.params.chatID;
+    socket.emit('leave_room', chatID);
+  }
+
+  handler = () => {
+    this.setState({newloading:true})
+    const chatID = this.props.match.params.chatID;
+    const token = localStorage.getItem("token");
+    Axios.get(`${url}api/v1/chat/massagelist/${chatID}/?page=1&count=1`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+    .then((res) => {
+      this.setState((state) => ({
+        massages: state.massages.concat(res.data.results),
+        newloading: false
+      }));
+      socket.emit('private message',res.data.results);
+      this.scrollToMyRef();
+    });
+  };
+
+  getLastMassage = () => {
+    const chatID = this.props.match.params.chatID;
+    const token = localStorage.getItem("token");
+    // const page = 1;
+    Axios.get(
+      `${url}api/v1/chat/newMassageList/${chatID}`,
+      { headers: { Authorization: `Token ${token}` } }
+    )
+      .then((res) => {
+        this.setState((state) => ({
+          massages: state.massages.concat(res.data.results.reverse()),
+        }));
+        this.setState({new_mass_vis:true})
+      })
+      .catch((error) => console.error(error));
+  }
+
+  getChatInfo = () => {
+    const chatID = this.props.match.params.chatID;
+    const token = localStorage.getItem("token");
+    Axios.get(`${url}api/v1/chat/conversation/${chatID}`, {
+      headers: { Authorization: `Token ${token}` },
+    }).then((res) =>
+      this.setState({
+        info: res.data,
+        loading: false,
+      })
+    );
+  };
+  
   scrollToMyRef = () => {
     this.myRef.current.scrollIntoView({
       behavior: "smooth",
@@ -144,23 +219,6 @@ class ChatRoom extends React.Component {
     }, 100);
   };
 
-  componentDidMount() {
-    this.setState({ loading: true });
-    this.getChatInfo();
-  }
-
-  getChatInfo = () => {
-    const chatID = this.props.match.params.chatID;
-    const token = localStorage.getItem("token");
-    Axios.get(`${url}api/v1/chat/conversation/${chatID}`, {
-      headers: { Authorization: `Token ${token}` },
-    }).then((res) =>
-      this.setState({
-        info: res.data,
-        loading: false,
-      })
-    );
-  };
 
   onChange = ({ fileList: newFileList }) => {
     this.setState({
@@ -169,21 +227,6 @@ class ChatRoom extends React.Component {
     setTimeout(() => {
       this.handler();
     },1200);
-  };
-
-  handler = () => {
-    this.setState({newloading:true})
-    const chatID = this.props.match.params.chatID;
-    const token = localStorage.getItem("token");
-    Axios.get(`${url}api/v1/chat/massagelist/${chatID}/?page=1&count=1`, {
-      headers: { Authorization: `Token ${token}` },
-    }).then((res) => {
-      this.setState((state) => ({
-        massages: state.massages.concat(res.data.results),
-        newloading: false
-      }));
-      this.scrollToMyRef();
-    });
   };
 
   render() {
@@ -210,25 +253,65 @@ class ChatRoom extends React.Component {
                         <Link
                           to={`/users/` + this.state.info.receiver_slug}
                         >
+                          {this.state.onlineStatus >= 1 ?
+                          <div>
+                          <Badge status="success">
                           <Avatar
                             src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
                           />
+                          </Badge>
                           <span
                             style={{ paddingRight: "10px", color: "black" }}
                           >
                             {this.state.info.receiver_name}
                           </span>
+                          </div>
+                          :
+                          <div>
+                          <Badge status="warning">
+                          <Avatar
+                            src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
+                          />
+                          </Badge>
+                          <span
+                            style={{ paddingRight: "10px", color: "black" }}
+                          >
+                            {this.state.info.receiver_name}
+                          </span>
+                          </div>
+                          }
+                          
                         </Link>
                       ) : (
+                        
                         <Link to={"/users/" + this.state.info.sender_slug}>
+                          {this.state.onlineStatus >= 1 ?
+                          <div>
+                          <Badge status="success">
                           <Avatar
                             src={`${url}dstatic/media/${this.state.info.sender_avatar}`}
                           />
+                          </Badge>
+                          <span
+                            style={{ paddingRight: "10px", color: "black" }}
+                          >
+                          {this.state.info.sender_name}
+                          </span>
+                          </div>
+                          :
+                          <div>
+                          <Badge status="warning">
+                          <Avatar
+                            src={`${url}dstatic/media/${this.state.info.sender_avatar}`}
+                          />
+                          </Badge>
                           <span
                             style={{ paddingRight: "10px", color: "black" }}
                           >
                             {this.state.info.sender_name}
                           </span>
+                          </div>
+                          }
                         </Link>
                       )}
                     </Col>

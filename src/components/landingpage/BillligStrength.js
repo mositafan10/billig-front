@@ -20,12 +20,12 @@ const card_style = {
   textAlign: "justify",
   lineHeight: "25px",
   height: "auto",
+  backgroundColor: "white"
 };
 
 const title_style = {
   padding: "15px",
   textAlign: "center",
-  // color: "white",
 };
 
 const contentStyle = {

@@ -311,6 +311,16 @@ class OfferDetail extends React.Component {
                             required: true,
                             message: "قیمت کالا را با اعداد انگلیسی وارد کنید",
                           },
+                          ({ getFieldValue }) => ({
+                            validator(rule, value) {
+                              if (value > 10000) {
+                                return Promise.resolve();
+                              }
+                              return Promise.reject(
+                                "دستمزد نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                              );
+                            },
+                          }),
                         ]}
                       >
                         <InputNumber

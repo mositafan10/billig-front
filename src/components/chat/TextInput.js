@@ -12,13 +12,14 @@ class TextInput extends Component {
   state = {
     search: "",
     loading: false,
+    disable: false
   };
 
   send = (value) => {
     if (value != "") {
       const token = localStorage.getItem("token");
       const owner = localStorage.getItem("user");
-      this.setState({ loading: true });
+      this.setState({ loading: true, disable: true });
       Axios.post(
         `${url}api/v1/chat/messages/${this.props.data}`,
         {
@@ -29,7 +30,7 @@ class TextInput extends Component {
       )
       .then((res) => {
         this.props.handler()
-        this.setState({ loading: false });
+        this.setState({ loading: false, disable: false});
       })
       .catch((err) => console.log(err));
       this.setState({
@@ -59,6 +60,7 @@ class TextInput extends Component {
             )
           }
           autoComplete={false}
+          disabled={this.state.disabled}
           autoSize
         />
       // </div>

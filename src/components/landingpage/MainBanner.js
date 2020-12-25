@@ -38,8 +38,8 @@ const MainBanner = () => {
                   <br />
                   <span>
                     یک پلتفرم پست اشتراکی است که
-                    <span style={{ color: "#FCA468" }}> صاحب‌بسته </span>را به
-                    <span style={{ color: "#46A0AE" }}> مسافر </span>وصل می‌کند.
+                    <span style={{ color: "#ff9a00" }}> صاحب‌بسته </span>را به
+                    <span style={{ color: "#067fc8" }}> مسافر </span>وصل می‌کند.
                   </span>
                 </h1>
               </Col>
@@ -57,8 +57,8 @@ const MainBanner = () => {
                   <br />
                   <span>
                     یک پلتفرم پست اشتراکی است که
-                    <span style={{ color: "#FCA468" }}> صاحب‌بسته </span>را به
-                    <span style={{ color: "#46A0AE" }}> مسافر </span>وصل می‌کند.
+                    <span style={{ color: "#ff9a00" }}> صاحب‌بسته </span>را به
+                    <span style={{ color: "#067fc8" }}> مسافر </span>وصل می‌کند.
                   </span>
                 </h1>
               </Col>
@@ -75,7 +75,7 @@ const MainBanner = () => {
                   size="large"
                   style={{
                     borderRadius: "15px",
-                    backgroundColor: "#46A0AE",
+                    backgroundColor: "#067fc8",
                     color: "white",
                     borderColor: "white",
                   }}

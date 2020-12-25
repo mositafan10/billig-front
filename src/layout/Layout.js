@@ -39,7 +39,7 @@ class CustomLayout extends React.Component {
                 </Col>
               </Row>
           </Content>
-          <Footer style={{ textAlign: 'right', backgroundColor:"#edf2f0" }}>
+          <Footer style={{ textAlign: 'right', backgroundColor:"#263238" }}>
             <FooterSection />  
           </Footer>
         </Layout>

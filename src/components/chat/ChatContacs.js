@@ -27,9 +27,9 @@ class ChatContacs extends Component {
     );
   }
 
-  componentWillReceiveProps() {
-    this.componentDidMount();
-  }
+  // componentWillReceiveProps() {
+  //   this.componentDidMount();
+  // }
 
   handleOkinfo = (slug) => {
     const token = localStorage.getItem("token");

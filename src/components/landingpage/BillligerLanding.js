@@ -54,14 +54,14 @@ const BillligerLanding = () => {
               style={{
                 justifyContent: "center",
                 display: "flex",
-                backgroundColor: "#FCA468",
+                // backgroundColor: "#FCA468",
               }}
             >
               <Col>
                 <h1
                   style={{
-                    backgroundColor: "#FCA468",
-                    color: "white",
+                    // backgroundColor: "white",
+                    color: "#ff9a00",
                     fontSize: "26px",
                     textAlign: "center",
                     padding: "0 25px 0 25px",
@@ -72,7 +72,7 @@ const BillligerLanding = () => {
                 </h1>
               </Col>
               <Col span={24}>
-                <h2 style={{color:"white", textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته‌ای را پست کنم.</h2>
+                <h2 style={{color:"#ff9a00", textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته‌ای را پست کنم.</h2>
               </Col>
             </Row>
             <Row
@@ -202,14 +202,14 @@ const BillligerLanding = () => {
               style={{
                 justifyContent: "center",
                 display: "flex",
-                backgroundColor: "#46A0AE",
+                // backgroundColor: "#067fc8",
               }}
             >
               <Col>
                 <h1
                   style={{
-                    backgroundColor: "#46A0AE",
-                    color: "white",
+                    backgroundColor: "white",
+                    color: "#067fc8",
                     fontSize: "26px",
                     textAlign: "center",
                     borderRadius: "20px",
@@ -221,7 +221,7 @@ const BillligerLanding = () => {
                 </h1>
               </Col>
               <Col span={24}>
-                <h2 style={{color:"white", textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته دیگران را به مقصد برسانم.</h2>
+                <h2 style={{color:"#067fc8", textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته دیگران را به مقصد برسانم.</h2>
               </Col>
             </Row>
             <Row style={{ textAlign: "center", backgroundColor: "white" }}>
@@ -337,19 +337,19 @@ const BillligerLanding = () => {
         </Carousel>
       </Breakpoint>
       <Breakpoint small down>
-        <div style={{ backgroundColor: "#FCA468" }}>
+        <div>
           <Row
             style={{
               justifyContent: "center",
               display: "flex",
-              backgroundColor: "#FCA468",
+              backgroundColor: "white",
             }}
           >
             <Col>
               <h1
                 style={{
-                  backgroundColor: "#FCA468",
-                  color: "white",
+                  // backgroundColor: "#FCA468",
+                  color: "#ff9a00",
                   fontSize: "20px",
                   textAlign: "center",
                   padding: "0 15px 0 15px",
@@ -358,7 +358,7 @@ const BillligerLanding = () => {
               >
                 بیلیگر
               </h1>
-              <hr style={{color:"white"}}/>
+              <hr style={{color:"white"}} />
             </Col>
             <Col span={24}>
               <h2 style={h_style}>می‌خواهم بسته‌ای را پست کنم.</h2>
@@ -499,13 +499,13 @@ const BillligerLanding = () => {
             </div>
           </Carousel>
         </div>
-        <div style={{ backgroundColor: "#46A0AE" }}>
+        <div >
           <Row style={{ justifyContent: "center", display: "flex" }}>
             <Col>
               <h1
                 style={{
-                  backgroundColor: "#46A0AE",
-                  color: "white",
+                  backgroundColor: "white",
+                  color: "#067fc8",
                   fontSize: "20px",
                   textAlign: "center",
                   padding: "0 15px 0 15px",

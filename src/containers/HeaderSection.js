@@ -3,9 +3,18 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import { Breakpoint } from "react-socks";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
-import { Button, Menu, Row, Col, Drawer, Avatar, Divider, Badge, Space } from "antd";
-import { UserOutlined, MenuOutlined } from "@ant-design/icons";
-import logo from "../media/billlig.png";
+import {
+  Button,
+  Menu,
+  Row,
+  Col,
+  Drawer,
+  Avatar,
+  Divider,
+  Badge,
+  Space,
+} from "antd";
+import logo from "../media/Logo.png";
 import {
   ContainerOutlined,
   CommentOutlined,
@@ -15,6 +24,8 @@ import {
   AimOutlined,
   VerticalLeftOutlined,
   BellOutlined,
+  PlusOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../Constant";
@@ -132,22 +143,35 @@ class HeaderSection extends Component {
                       <div>
                         {this.props.isAuthenticated ? (
                           <span
-                            style={{ color:"black", marginLeft: "10px", marginRight: "10px" }}
+                            style={{
+                              color: "black",
+                              marginLeft: "10px",
+                              marginRight: "10px",
+                            }}
                           >
-                              {this.state.userinfo.user
-                                &&
-                              this.state.userinfo.user.name }
+                            {this.state.userinfo.user &&
+                              this.state.userinfo.user.name}
                           </span>
                         ) : (
                           <span style={{ marginRight: "10px", color: "black" }}>
-                              ورود به حساب کاربری
+                            ورود به حساب کاربری
                           </span>
                         )}
                         <Button
                           icon={
+                            this.props.isAuthenticated ? (
                               <Avatar
                                 src={`${url}dstatic/${this.state.userinfo.picture}`}
                               />
+                            ) : (
+                              <Avatar
+                                icon={<UserOutlined />}
+                                style={{
+                                  backgroundColor: "white",
+                                  color: "black",
+                                }}
+                              />
+                            )
                           }
                           style={{
                             borderRadius: "15px",
@@ -165,7 +189,7 @@ class HeaderSection extends Component {
                                     style={{
                                       backgroundColor: "white",
                                       color: "black",
-                                      marginTop:"3px"
+                                      marginTop: "3px",
                                     }}
                                     icon={<BellOutlined />}
                                   />
@@ -180,7 +204,6 @@ class HeaderSection extends Component {
                             </Link>
                           </Badge>
                         )}
-                        
                       </div>
                     </Link>
                   </div>
@@ -195,8 +218,8 @@ class HeaderSection extends Component {
                         <Link to="/create-packet">
                           <span
                             style={{
-                              boxShadow:"0 0 8px 1px",
-                              backgroundColor: "#067fc6",
+                              boxShadow: "0 0 8px 1px",
+                              backgroundColor: "#067fc8",
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",
@@ -210,9 +233,9 @@ class HeaderSection extends Component {
                         <Link to="/orders">
                           <span
                             style={{
-                              boxShadow:"0 0 8px 1px",
+                              boxShadow: "0 0 8px 1px",
                               marginLeft: "-20px",
-                              backgroundColor: "#fad303",
+                              backgroundColor: "#ff9a00",
                               color: "white",
                               padding: "10px 15px 10px 15px",
                               borderRadius: "10px",
@@ -273,23 +296,24 @@ class HeaderSection extends Component {
                 <div>
                   <Button
                     onClick={this.showpagemenu}
-                    icon={<MenuOutlined />}
+                    size="large"
+                    shape="circle"
+                    icon={<PlusOutlined style={{ marginTop: "3px" }} />}
                     style={{
                       color: "black",
                       border: "hidden",
+                      display: "flex",
+                      marginTop: "15px",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   ></Button>
                   <Drawer
-                    title={
-                      <span>
-                        <b>بیلیگ</b>
-                      </span>
-                    }
                     placement="left"
                     headerStyle={{ textAlign: "center" }}
                     closable={false}
                     onClose={this.onClose}
-                    width="50%"
+                    width="80%"
                     visible={this.state.Drawerpage}
                     style={{
                       textAlign: "left",
@@ -298,46 +322,85 @@ class HeaderSection extends Component {
                     }}
                   >
                     <div>
-                      <Link
-                        style={{ color: "black" }}
-                        onClick={this.onClose}
-                        to="/create-packet"
+                      <h3 style={{ textAlign: "center" }}>
+                        قصد ارسال یا خرید کالا دارید؟
+                      </h3>
+                      <hr style={{ color: "#067fc6" }} />
+                      <p style={{ textAlign: "right" }}>
+                        ابتدا بسته یا کالای مورد نظر خود را در سایت ثبت کنید. پس
+                        از تایید، آگهی شما در سایت بیلیگ منتشر خواهد شد
+                      </p>
+                      <Row
+                        style={{ display: "flex", justifyContent: "center" }}
                       >
-                        <p
-                          style={{
-                            backgroundColor: "#067fc6",
-                            color: "white",
-                            textAlign: "center",
-                            padding: "5px 10px 5px 10px",
-                            borderRadius: "5px",
-                          }}
-                        >
-                          ثبت آگهی
-                        </p>
-                      </Link>
-                      <Link
-                        style={{ color: "black" }}
-                        onClick={this.onClose}
-                        to="/orders"
+                        <Space>
+                          <Link to="/billliger">
+                            <Button
+                              onClick={this.onClose}
+                              style={{
+                                backgroundColor: "white",
+                                color: "#067fc6",
+                                borderRadius: "10px",
+                                borderColor: "#067fc6",
+                              }}
+                            >
+                              راهنمای بیلیگر
+                            </Button>
+                          </Link>
+                          <Link to="/create-packet">
+                            <Button
+                              onClick={this.onClose}
+                              style={{
+                                backgroundColor: "#067fc6",
+                                color: "white",
+                                borderRadius: "10px",
+                              }}
+                            >
+                              ثبت آگهی
+                            </Button>
+                          </Link>
+                        </Space>
+                      </Row>
+                      <Divider />
+                      <h3 style={{ textAlign: "center" }}>قصد سفر دارید؟</h3>
+                      <hr style={{ color: "#ff9a00" }} />
+                      <p style={{ textAlign: "right" }}>
+                        با استفاده از بیلیگ می‌توانید قسمتی از خرج سفر خود را
+                        جبران کنید. کافی است سفر خود را ثبت کنید و در لیست
+                        آگهی‌های سایت آگهی مورد نظر خود را پیدا کنید
+                      </p>
+
+                      <Row
+                        style={{ display: "flex", justifyContent: "center" }}
                       >
-                        <p
-                          style={{
-                            backgroundColor: "#fad303",
-                            textAlign: "center",
-                            padding: "5px 10px 5px 10px",
-                            borderRadius: "5px",
-                          }}
-                        >
-                          کسب در آمد از سفر
-                        </p>
-                      </Link>
-                      <a
-                        style={{ color: "black" }}
-                        onClick={this.onClose}
-                        href="https://billlig.com/blog"
-                      >
-                        <p style={{ textAlign: "center" }}>بلاگ</p>
-                      </a>
+                        <Space>
+                          <Link to="/traveler">
+                            <Button
+                              onClick={this.onClose}
+                              style={{
+                                backgroundColor: "white",
+                                color: "#ff9a00",
+                                borderRadius: "10px",
+                                borderColor: "#ff9a00",
+                              }}
+                            >
+                              راهنمای مسافر
+                            </Button>
+                          </Link>
+                          <Link to="/profile/mytravel">
+                            <Button
+                              onClick={this.onClose}
+                              style={{
+                                backgroundColor: "#ff9a00",
+                                color: "white",
+                                borderRadius: "10px",
+                              }}
+                            >
+                              ثبت سفر
+                            </Button>
+                          </Link>
+                        </Space>
+                      </Row>
                     </div>
                   </Drawer>
                 </div>
@@ -353,7 +416,7 @@ class HeaderSection extends Component {
               >
                 <a href="/">
                   <img
-                    style={{ width: "70%", height: "auto" }}
+                    style={{ width: "85%", height: "auto" }}
                     alt="billlig"
                     src={logo}
                   />
@@ -395,9 +458,16 @@ class HeaderSection extends Component {
                 <Button
                   onClick={this.showprofilemenu}
                   icon={
+                    this.props.isAuthenticated ? (
                       <Avatar
                         src={`${url}dstatic/${this.state.userinfo.picture}`}
                       />
+                    ) : (
+                      <Avatar
+                        icon={<UserOutlined />}
+                        style={{ backgroundColor: "white", color: "black" }}
+                      />
+                    )
                   }
                   style={{
                     borderRadius: "15px",
@@ -416,10 +486,10 @@ class HeaderSection extends Component {
                             alignItems: "center",
                           }}
                         >
-                            <Avatar
-                              src={`${url}dstatic/${this.state.userinfo.picture}`}
-                              size="large"
-                            />
+                          <Avatar
+                            src={`${url}dstatic/${this.state.userinfo.picture}`}
+                            size="large"
+                          />
                           <Divider style={{ margin: "5px", opacity: "0" }} />
                           <span style={{ color: "white" }}>
                             {this.state.userinfo.user &&
@@ -437,7 +507,7 @@ class HeaderSection extends Component {
                   closable={false}
                   onClose={this.onClose}
                   width="65%"
-                  headerStyle={{ backgroundColor: "#fad303" }}
+                  headerStyle={{ backgroundColor: "#263238" }}
                   visible={this.state.Drawerprofile}
                   style={{ textAlign: "center", fontFamily: "VazirD" }}
                 >
@@ -507,14 +577,6 @@ class HeaderSection extends Component {
                 >
                   <div></div>
                 </Drawer>
-              </Col>
-            </Row>
-            <Row style={{display:"flex", justifyContent:"center"}}>
-              <Col span={24} style={{display:"flex", justifyContent:"center"}}>
-              <Space size="middle">
-              <Link to='/create-packet' ><Button style={{margin: "0", backgroundColor:"#067fc6", borderRadius:"8px", color:"white", boxShadow:"0px 0px 8px 1px"}}>ثبت آگهی</Button></Link>
-              <Link to='/profile/mytravel'><Button style={{margin: "0", backgroundColor:"#fad303", borderRadius:"8px"}}>ثبت سفر</Button></Link>
-              </Space>
               </Col>
             </Row>
           </div>

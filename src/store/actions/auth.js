@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
-import { message, notification } from "antd";
+import { notification } from "antd";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;

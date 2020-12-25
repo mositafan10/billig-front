@@ -19,7 +19,6 @@ import { config } from "../Constant";
 import { Breakpoint } from "react-socks";
 import PageNotFound from "../components/errors/PageNotFound";
 import { ShareAltOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import Item from "antd/lib/list/Item";
 var url = config.url.API_URL;
 
 const style_left = { display: "flex", justifyContent: "flex-end" };
@@ -408,7 +407,7 @@ class OrderDetail extends React.Component {
                   destination_city={this.state.order.destination_city.name}
                   no_matter_origin={this.state.order.no_matter_origin}
                   data={picID}
-                   size={400} />
+                  size={400} />
                   <br />
                   <Row style={{ justifyContent: "center", display: "flex" }}>
                     <Bookmark data={this.state.order.slug} />
@@ -434,10 +433,20 @@ class OrderDetail extends React.Component {
             )}
           </Breakpoint>
           <Breakpoint small down>
-            <Row style={{ display: "flex", justifyContent: "center" }}>
+            <Row style={{ display: "flex", justifyContent: "center", marginTop:"50px" }}>
               <Col>
-                <DownloadPic data={picID} size={250} />
-                <br />
+              <DownloadPic 
+                  title={this.state.order.title} 
+                  category={this.state.order.category} 
+                  origin_country={this.state.order.origin_country && this.state.order.origin_country.name}
+                  destination_country={this.state.order.destination_country && this.state.order.destination_country.name}
+                  origin_city={this.state.order.origin_city && this.state.order.origin_city.name }
+                  destination_city={this.state.order.destination_city && this.state.order.destination_city.name}
+                  no_matter_origin={this.state.order.no_matter_origin}
+                  data={picID}
+                  size={250} 
+                  />
+                <br/>
                 <Row style={{ justifyContent: "center", display: "flex" }}>
                   <Bookmark data={this.state.order.slug} />
                   <Tooltip
