@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row } from "antd";
 import ChatContacs from "../components/chat/ChatContacs";
-import ChatBox from "../media/ChatBox.svg";
+import ChatBox from "../media/chat.svg";
 
 class InboxLayout extends React.Component {
   render() {
