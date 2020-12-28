@@ -29,6 +29,7 @@ import {
 } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../Constant";
+import { socket } from "../socket";
 var url = config.url.API_URL;
 
 class HeaderSection extends Component {
@@ -100,6 +101,11 @@ class HeaderSection extends Component {
           this.props.logout();
         }
       });
+      socket.on('shouldUpdateMessage', () => {
+        this.setState((state) => ({
+          total: state.total + 1,
+        }));
+      })
   }
 
   render() {
@@ -258,7 +264,7 @@ class HeaderSection extends Component {
                 xxl={4}
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <a href="/">
+                <Link to="/">
                   <img
                     style={{
                       float: "right",
@@ -269,7 +275,7 @@ class HeaderSection extends Component {
                     alt="billlig"
                     src={logo}
                   />
-                </a>
+                </Link>
               </Col>
             </Row>
           </div>
@@ -414,13 +420,13 @@ class HeaderSection extends Component {
                 xxl={8}
                 style={{ textAlign: "center" }}
               >
-                <a href="/">
+                <Link to="/">
                   <img
                     style={{ width: "85%", height: "auto" }}
                     alt="billlig"
                     src={logo}
                   />
-                </a>
+                </Link>
               </Col>
               <Col
                 xs={8}
@@ -441,8 +447,10 @@ class HeaderSection extends Component {
                             style={{
                               backgroundColor: "white",
                               color: "black",
+                              marginTop: "5px"
+
                             }}
-                            icon={<BellOutlined />}
+                            icon={<BellOutlined/>}
                           />
                         }
                         style={{
@@ -451,7 +459,7 @@ class HeaderSection extends Component {
                           color: "white",
                           borderColor: "white",
                         }}
-                      ></Button>
+                      />
                     </Link>
                   </Badge>
                 )}
@@ -474,7 +482,7 @@ class HeaderSection extends Component {
                     border: "1px solid",
                     color: "white",
                   }}
-                ></Button>
+                />
                 <Drawer
                   title={
                     this.props.isAuthenticated ? (

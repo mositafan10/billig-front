@@ -74,10 +74,6 @@ class HeaderSectionProfile extends Component {
     });
   };
 
-  zerototal = () => {
-    this.componentDidMount();
-  };
-
   componentDidMount() {
     const token = localStorage.getItem("token");
     token != null &&
@@ -91,9 +87,7 @@ class HeaderSectionProfile extends Component {
           }).then((res) => {
             this.setState({
               userinfo: res.data.data,
-              total: res.data.total,
             });
-            this.props.total({ total: res.data.total });
           });
         } else {
           this.props.logout();

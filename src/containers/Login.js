@@ -18,13 +18,15 @@ class LoginForm extends React.Component {
   };
 
   onFinish = (values) => {
+    const path = window.location.search.replace("?next=/","")
     const otp = "";
-    this.props.onAuth(values.phone_number, values.password, otp);
+    this.props.onAuth(values.phone_number, values.password, path, otp);
   };
 
   onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   render() {
     window.scroll(0, 0);
     return (
@@ -127,8 +129,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (phone_number, password, otp) =>
-      dispatch(actions.authLogin(phone_number, password, otp)),
+    onAuth: (phone_number, password, path, otp) =>
+      dispatch(actions.authLogin(phone_number, password, path, otp)),
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

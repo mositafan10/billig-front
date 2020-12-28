@@ -53,7 +53,7 @@ class Orders extends React.Component {
             dataSource={this.props.data}
             renderItem={(item) => (
               <List.Item>
-              <Card>
+              <Card hoverable style={{borderRadius:"8px"}}>
               <Link to={this.titleCorrection(`/packet/${item.title}_${item.category.name}_بیلیگ/${item.slug}`)}>
                 <Row
                   style={{

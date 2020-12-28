@@ -21,7 +21,6 @@ var url = config.url.API_URL;
 
 const { Option } = Select;
 const { TextArea } = Input;
-const token = localStorage.getItem("token");
 
 class OfferDetail extends React.Component {
   defualt_description =
@@ -61,6 +60,7 @@ class OfferDetail extends React.Component {
   }
 
   showModal = () => {
+    const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/advertise/travels/`, {
       headers: { Authorization: `Token ${token}` },
     })
@@ -72,6 +72,7 @@ class OfferDetail extends React.Component {
   };
 
   handleOk = (values) => {
+    const token = localStorage.getItem("token");
     const description = values.description
       ? values.description
       : this.defualt_description;
@@ -142,6 +143,8 @@ class OfferDetail extends React.Component {
   };
 
   render() {
+    const token = localStorage.getItem("token");
+    const pathname = window.location.pathname;
     return (
       <div
         style={{
@@ -165,6 +168,7 @@ class OfferDetail extends React.Component {
             form: "offering",
             key: "submit",
             htmlType: "submit",
+            hidden: !this.state.travellist.length && true 
           }}
           visible={this.state.visible}
           style={{ fontFamily: "VazirD" }}
@@ -194,7 +198,7 @@ class OfferDetail extends React.Component {
                   >
                     ثبت پیشنهاد
                   </p>
-                  <br />
+                  <br/>
                   <label
                     style={{
                       float: "right",
@@ -228,7 +232,7 @@ class OfferDetail extends React.Component {
                       })}
                     </Select>
                   </Form.Item>
-                  <br />
+                  <br/>
                   <label
                     style={{
                       float: "right",
@@ -236,7 +240,7 @@ class OfferDetail extends React.Component {
                       marginTop: "-30px",
                     }}
                   >
-                    دستمزد پیشنهادی (ریال) 
+                    دستمزد پیشنهادی (تومان) 
                     <Popconfirm
                         overlayStyle={{ fontFamily: "VazirD" }}
                         cancelButtonProps={{ hidden: "true" }}
@@ -263,6 +267,16 @@ class OfferDetail extends React.Component {
                         required: true,
                         message: "قیمت پیشنهادی خود را به انگلیسی وارد کنید",
                       },
+                      ({ getFieldValue }) => ({
+                        validator(rule, value) {
+                          if (value > 10000) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(
+                            "دستمزد‍ نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                          );
+                        },
+                      }),
                     ]}
                   >
                     <InputNumber
@@ -276,7 +290,7 @@ class OfferDetail extends React.Component {
                   </Form.Item>
                   {this.props.buy && (
                     <div>
-                      <br />
+                      <br/>
                       <label
                         style={{
                           float: "right",
@@ -284,17 +298,15 @@ class OfferDetail extends React.Component {
                           marginTop: "-30px",
                         }}
                       >
-                        قیمت کالا (ریال) <Popconfirm
+                        قیمت کالا (تومان) <Popconfirm
                         overlayStyle={{ fontFamily: "VazirD" }}
                         cancelButtonProps={{ hidden: "true" }}
                         visible={this.state.parcelPriceInfoVisible}
                         onConfirm={this.closeParcelPriceInfo}
                         okText="متوجه شدم"
-                        
                         title={
                           <div>
                             <p>قیمت کالایی که قرار است خریداری شود را جستجو کرده و در اینجا وارد نمایید</p>
-
                           </div>
                         }
                       ><QuestionCircleOutlined style={{marginRight:"5px"}} onClick={this.showParcelPriceInfo}/>
@@ -318,7 +330,7 @@ class OfferDetail extends React.Component {
                                 return Promise.resolve();
                               }
                               return Promise.reject(
-                                "دستمزد نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                                "قیمت کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
                               );
                             },
                           }),
@@ -335,7 +347,7 @@ class OfferDetail extends React.Component {
                       </Form.Item>
                     </div>
                   )}
-                  <br />
+                  <br/>
                   <label
                     style={{
                       float: "right",
@@ -369,13 +381,12 @@ class OfferDetail extends React.Component {
             </div>
           ) : (
             <p style={{ textAlign: "center" }}>
-              ابتدا <Link to="/login"> وارد </Link>سایت شوید
+              ابتدا وارد <Link to={`/login/?next=${pathname}`}>حساب کاربری </Link>خود شوید
             </p>
           )}
         </Modal>
       </div>
-    );
-  }
+  )};
 }
 
 export default OfferDetail;

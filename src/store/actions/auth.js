@@ -51,7 +51,7 @@ export const checkAuthTimeout = (expirationTime) => {
   };
 };
 
-export const authLogin = (phone_number, password, otp, name) => {
+export const authLogin = (phone_number, password, path, otp) => {
   return (dispatch) => {
     dispatch(authStart());
     localStorage.setItem("token", null);
@@ -59,7 +59,6 @@ export const authLogin = (phone_number, password, otp, name) => {
       phone_number: phone_number,
       password: password,
       otp: otp,
-      name: name,
     })
       .then((res) => {
         const token = res.data.token;
@@ -71,10 +70,10 @@ export const authLogin = (phone_number, password, otp, name) => {
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token, user));
         dispatch(checkAuthTimeout(36000));
-        first_time
-          ? (window.location = "/signup/complete/")
-          : (window.location = "/");
-      })
+          first_time
+            ? (window.location = "/signup/complete/")
+            : (window.location = `/${path}`);
+        })
       .catch((error) => {
         notification["error"]({
           message: error.response.data.detail,
@@ -87,7 +86,7 @@ export const authLogin = (phone_number, password, otp, name) => {
           },
           duration: 3,
         });
-        dispatch(authFail(error));
+      dispatch(authFail(error));
       });
   };
 };

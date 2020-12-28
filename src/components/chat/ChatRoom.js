@@ -92,7 +92,7 @@ class ChatRoom extends React.Component {
     page: 1,
     count: 0,
     redirect: false,
-    onlineStatus: 0,
+    onlineStatus: false,
   };
 
   myRef = React.createRef();
@@ -104,59 +104,27 @@ class ChatRoom extends React.Component {
     const userID = localStorage.getItem('user');
 
     // for join to room or create one
-    socket.emit('create_join_room', {'chatID':chatID,'userID':userID});
+    socket.emit('createJoinRoom', {'chatID':chatID,'userID':userID});
 
     // for alert new mass
-    socket.on('shouldUpdate', () => {
-      // get new massage
-      // console.log(msg[0])
-      this.getLastMassage()
-    });
-
-    socket.on("online", (count) => {
-      console.log(count);
-      this.setState({onlineStatus:count})
-    })
-  }
-
-  componentWillUnmount(){
-    const chatID = this.props.match.params.chatID;
-    socket.emit('leave_room', chatID);
-  }
-
-  handler = () => {
-    this.setState({newloading:true})
-    const chatID = this.props.match.params.chatID;
-    const token = localStorage.getItem("token");
-    Axios.get(`${url}api/v1/chat/massagelist/${chatID}/?page=1&count=1`, {
-      headers: { Authorization: `Token ${token}` },
-    })
-    .then((res) => {
+    socket.on('shouldUpdateMessage', (data) => {
       this.setState((state) => ({
-        massages: state.massages.concat(res.data.results),
-        newloading: false
+        massages: state.massages.concat(data),
+        new_mass_vis: true
       }));
-      socket.emit('private message',res.data.results);
-      this.scrollToMyRef();
     });
-  };
-
-  getLastMassage = () => {
-    const chatID = this.props.match.params.chatID;
-    const token = localStorage.getItem("token");
-    // const page = 1;
-    Axios.get(
-      `${url}api/v1/chat/newMassageList/${chatID}`,
-      { headers: { Authorization: `Token ${token}` } }
-    )
-      .then((res) => {
-        this.setState((state) => ({
-          massages: state.massages.concat(res.data.results.reverse()),
-        }));
-        this.setState({new_mass_vis:true})
-      })
-      .catch((error) => console.error(error));
   }
+
+
+  handler = (data) => {
+    const chatID = this.props.match.params.chatID;
+    this.setState((state) => ({
+      massages: state.massages.concat(data),
+    }));
+    const data1 = {'chatID': chatID, 'msg': data}
+    socket.emit('private message',data1);
+    this.scrollToMyRef();
+  };
 
   getChatInfo = () => {
     const chatID = this.props.match.params.chatID;
@@ -253,7 +221,7 @@ class ChatRoom extends React.Component {
                         <Link
                           to={`/users/` + this.state.info.receiver_slug}
                         >
-                          {this.state.onlineStatus >= 1 ?
+                          {this.state.onlineStatus ?
                           <div>
                           <Badge status="success">
                           <Avatar
@@ -268,11 +236,11 @@ class ChatRoom extends React.Component {
                           </div>
                           :
                           <div>
-                          <Badge status="warning">
+                          {/* <Badge status="warning"> */}
                           <Avatar
                             src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
                           />
-                          </Badge>
+                          {/* </Badge> */}
                           <span
                             style={{ paddingRight: "10px", color: "black" }}
                           >
@@ -285,7 +253,7 @@ class ChatRoom extends React.Component {
                       ) : (
                         
                         <Link to={"/users/" + this.state.info.sender_slug}>
-                          {this.state.onlineStatus >= 1 ?
+                          {this.state.onlineStatus ?
                           <div>
                           <Badge status="success">
                           <Avatar
@@ -300,11 +268,11 @@ class ChatRoom extends React.Component {
                           </div>
                           :
                           <div>
-                          <Badge status="warning">
+                          {/* <Badge status="warning"> */}
                           <Avatar
                             src={`${url}dstatic/media/${this.state.info.sender_avatar}`}
                           />
-                          </Badge>
+                          {/* </Badge> */}
                           <span
                             style={{ paddingRight: "10px", color: "black" }}
                           >
@@ -538,7 +506,7 @@ class ChatRoom extends React.Component {
                         <Link
                         to={`/users/` + this.state.info.receiver_slug}
                       >
-                        {this.state.onlineStatus >= 1 ?
+                        {this.state.onlineStatus ?
                         <div>
                         <Badge status="success">
                         <Avatar
@@ -553,11 +521,11 @@ class ChatRoom extends React.Component {
                         </div>
                         :
                         <div>
-                        <Badge status="warning">
+                        {/* <Badge status="warning"> */}
                         <Avatar
                           src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
                         />
-                        </Badge>
+                        {/* </Badge> */}
                         <span
                           style={{ paddingRight: "10px", color: "black" }}
                         >
@@ -565,12 +533,10 @@ class ChatRoom extends React.Component {
                         </span>
                         </div>
                         }
-                        
                       </Link>
                     ) : (
-                      
                       <Link to={"/users/" + this.state.info.sender_slug}>
-                        {this.state.onlineStatus >= 1 ?
+                        {this.state.onlineStatus ?
                         <div>
                         <Badge status="success">
                         <Avatar
@@ -585,11 +551,11 @@ class ChatRoom extends React.Component {
                         </div>
                         :
                         <div>
-                        <Badge status="warning">
+                        {/* <Badge status="warning"> */}
                         <Avatar
                           src={`${url}dstatic/media/${this.state.info.sender_avatar}`}
                         />
-                        </Badge>
+                        {/* </Badge> */}
                         <span
                           style={{ paddingRight: "10px", color: "black" }}
                         >

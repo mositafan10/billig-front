@@ -8,6 +8,7 @@ import EditPacket from "./EditPacket";
 import { config } from "../../Constant";
 import DownloadPic from "../utils/DownloadPic";
 import { PlusOutlined } from "@ant-design/icons";
+import { socket } from '../../socket';
 
 const style_center = {
   display: "flex",
@@ -37,6 +38,13 @@ class PacketUserList extends React.Component {
 
   componentDidMount() {
     document.title = "بیلیگ - لیست آگهی‌های من";
+    this.getUserPacket();
+    socket.on("shouldUpdateOffer", ()=>{
+      this.getUserPacket();
+    })
+  }
+
+  getUserPacket = () => {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/advertise/user_packet/`, {
       headers: { Authorization: `Token ${token}` },

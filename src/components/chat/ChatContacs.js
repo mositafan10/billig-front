@@ -3,6 +3,7 @@ import { List, Avatar, Button, Badge, Popconfirm } from "antd";
 import { CloseOutlined, UserOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../../Constant";
+import { socket } from '../../socket';
 import { Link } from 'react-router-dom';  
 
 var url = config.url.API_URL;
@@ -12,23 +13,40 @@ class ChatContacs extends Component {
     contacs: [],
     loading: false,
     visible: true,
+    length: 0
   };
 
   componentDidMount() {
-    this.setState({ loading: true });
+    this.getLastMassage();
+    const userID = localStorage.getItem('user');
+    setTimeout(() => {
+      for (var i = 0; i < this.state.contacs.length; i++) {
+        const element = this.state.contacs[i].slug;
+        socket.emit('createJoinRoom', {'chatID':element,'userID':userID});
+      }
+    }, 1000);
+    socket.on('shouldUpdateMessage', () => {
+      this.getLastMassage();
+    });
+  }
+
+  getLastMassage = () => {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/chat/chatlist/`, {
       headers: { Authorization: `Token ${token}` },
     }).then((res) =>
       this.setState({
         contacs: res.data,
-        loading: false,
+        length: res.data.length
       })
     );
   }
 
-  // componentWillReceiveProps() {
-  //   this.componentDidMount();
+  // componentWillUnmount() {
+  //   for (var i = 0; i < this.state.contacs.length; i++) {
+  //     const element = this.state.contacs[i].slug;
+  //     socket.emit('leaveRoom', element);
+  //   }
   // }
 
   handleOkinfo = (slug) => {
@@ -50,7 +68,7 @@ class ChatContacs extends Component {
     return (
       <div
         style={{
-          marginTop: "20px",
+          marginTop: "5px",
           overflowY: "scroll",
           direction: "ltr",
           maxHeight: "100%",

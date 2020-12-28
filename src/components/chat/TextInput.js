@@ -29,7 +29,7 @@ class TextInput extends Component {
         { headers: { Authorization: `Token ${token}` } }
       )
       .then((res) => {
-        this.props.handler()
+        this.props.handler(res.data)
         this.setState({ loading: false, disable: false});
       })
       .catch((err) => console.log(err));
