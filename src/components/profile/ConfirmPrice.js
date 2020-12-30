@@ -130,6 +130,21 @@ class ConfirmPrice extends React.Component {
                     required: true,
                     message: "مبلغ نهایی دستمزد را با کیبورد انگلیسی وارد کنید",
                   },
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      if (value > 100000 & value < 50000000) {
+                        return Promise.resolve();
+                      }
+                      if ( value < 100000 )
+                      return Promise.reject(
+                        "دستمزد نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
+                      );
+                      if ( value > 50000000 )
+                      return Promise.reject(
+                        "دستمزد نمی‌تواند از ۵۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
+                      );
+                    },
+                  }),
                 ]}
               >
                 <InputNumber
@@ -154,6 +169,21 @@ class ConfirmPrice extends React.Component {
                     required: true,
                     message: "مبلغ نهایی کالا را وارد کنید",
                   },
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      if (value > 100000 & value < 200000000) {
+                        return Promise.resolve();
+                      }
+                      if ( value < 100000 )
+                      return Promise.reject(
+                        "مبلغ کالا نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
+                      );
+                      if ( value > 200000000 )
+                      return Promise.reject(
+                        "مبلغ کالا نمی‌تواند از ۲۰۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
+                      );
+                    },
+                  }),
                 ]}
               >
                 <InputNumber

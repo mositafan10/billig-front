@@ -42,13 +42,6 @@ class ChatContacs extends Component {
     );
   }
 
-  // componentWillUnmount() {
-  //   for (var i = 0; i < this.state.contacs.length; i++) {
-  //     const element = this.state.contacs[i].slug;
-  //     socket.emit('leaveRoom', element);
-  //   }
-  // }
-
   handleOkinfo = (slug) => {
     const token = localStorage.getItem("token");
     const current_contacs = this.state.contacs;
@@ -81,8 +74,8 @@ class ChatContacs extends Component {
           locale={{
             emptyText: (
               <div>
-                شما هنوز مذاکره‌ای آغاز نکرده‌اید
-                <br /> مذاکره با ثبت پیشنهاد روی آگهی آغاز می شود.
+                شما مذاکره‌ای شروع نکرده‌اید
+                <br /> مذاکره با ثبت پیشنهاد روی آگهی شروع می شود.
               </div>
             ),
           }}

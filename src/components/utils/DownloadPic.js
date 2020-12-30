@@ -27,7 +27,7 @@ class DownloadPic extends React.Component {
 
   handlecancle = () => {
     this.setState({ visible: false });
-  };
+  };d
 
   componentDidMount() {
     this.setState({ loading: true });

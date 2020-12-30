@@ -182,11 +182,11 @@ class OrderDetail extends React.Component {
                             {this.state.order.origin_country
                               ? this.state.order.origin_country.name
                               : ""}{" "}
-                            ,{" "}
+                            {" "}
+                            </Link>,
                             {this.state.order.origin_city
                               ? this.state.order.origin_city.name
                               : ""}
-                          </Link>
                           </div>
                         )}
                       </Col>
@@ -215,11 +215,11 @@ class OrderDetail extends React.Component {
                         {this.state.order.destination_country
                           ? this.state.order.destination_country.name
                           : ""}{" "}
-                        ,{" "}
+                        {" "}
+                        </Link>,
                         {this.state.order.destination_city
                           ? this.state.order.destination_city.name
                           : ""}
-                      </Link>
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />
@@ -344,7 +344,9 @@ class OrderDetail extends React.Component {
                             lg={10}
                             xl={10}
                           >
+                            <a target="_blank" rel="noopener noreferrer" href={`${this.state.order.parcel_link}`}>
                             {this.state.order.parcel_link}
+                            </a>
                           </Col>
                         </Row>
                       </div>

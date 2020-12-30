@@ -9,18 +9,10 @@ import {
   Button,
   Input,
   ConfigProvider,
-  Modal,
   notification,
-  Space,
-  Popconfirm,
 } from "antd";
 import {
-  InstagramOutlined,
-  TwitterOutlined,
-  LinkedinOutlined,
-  FacebookOutlined,
   MailOutlined,
-  PlusOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { config } from "../../Constant";
@@ -33,7 +25,6 @@ class EditProfileForm extends React.Component {
     countries: [],
     cities: [],
     city_dis: true,
-    socialmodal: false,
     loading: false,
     mainloading: false
   };
@@ -63,82 +54,6 @@ class EditProfileForm extends React.Component {
         city_dis: false,
       });
     });
-  };
-
-  deletesocial = (id) => {
-    const token = localStorage.getItem("token");
-    Axios.delete(`${url}api/v1/account/social/${id}`, {
-      headers: { Authorization: `Token ${token}` },
-    }).then((res) => {
-      this.props.update();
-    });
-  };
-
-  setIcon = (type, id) => {
-    switch (type) {
-      case "Linkdin":
-        return (
-          <Popconfirm
-            overlayStyle={{ fontFamily: "VazirD" }}
-            title="آیا از حذف اکانت مطمئن هستید ؟"
-            onConfirm={this.deletesocial.bind(this, id)}
-            onCancel={this.cancel}
-            okText="بله"
-            cancelText="خیر"
-          >
-            <Button style={{ border: "hidden" }}>
-              <LinkedinOutlined style={{ fontSize: "35px" }} />
-            </Button>
-          </Popconfirm>
-        );
-      case "Twitter":
-        return (
-          <Popconfirm
-            overlayStyle={{ fontFamily: "VazirD" }}
-            title="آیا از حذف اکانت مطمئن هستید ؟"
-            onConfirm={this.deletesocial.bind(this, id)}
-            onCancel={this.cancel}
-            okText="بله"
-            cancelText="خیر"
-          >
-            <Button style={{ border: "hidden" }}>
-              <TwitterOutlined style={{ fontSize: "35px" }} />
-            </Button>
-          </Popconfirm>
-        );
-      case "Facebook":
-        return (
-          <Popconfirm
-            overlayStyle={{ fontFamily: "VazirD" }}
-            title="آیا از حذف اکانت مطمئن هستید ؟"
-            onConfirm={this.deletesocial.bind(this, id)}
-            onCancel={this.cancel}
-            okText="بله"
-            cancelText="خیر"
-          >
-            <Button style={{ border: "hidden" }}>
-              <FacebookOutlined style={{ fontSize: "35px" }} />
-            </Button>
-          </Popconfirm>
-        );
-      case "Instagram":
-        return (
-          <Popconfirm
-            overlayStyle={{ fontFamily: "VazirD" }}
-            title="آیا از حذف اکانت مطمئن هستید ؟"
-            onConfirm={this.deletesocial.bind(this, id)}
-            onCancel={this.cancel}
-            okText="بله"
-            cancelText="خیر"
-          >
-            <Button style={{ border: "hidden" }}>
-              <InstagramOutlined style={{ fontSize: "35px" }} />
-            </Button>
-          </Popconfirm>
-        );
-      default:
-        break;
-    }
   };
 
   handleFormSubmit = (values) => {
@@ -175,165 +90,10 @@ class EditProfileForm extends React.Component {
       .catch((error) => console.error(error));
   };
 
-  cancelsocial = () => {
-    this.setState({
-      socialmodal: false,
-    });
-  };
-
-  showsocail = () => {
-    this.setState({
-      socialmodal: true,
-    });
-  };
-
-  handleOk = (values) => {
-    this.setState({ loading: true });
-    const token = localStorage.getItem("token");
-    Axios.post(
-      `${url}api/v1/account/socials/`,
-      {
-        account_type: values.type,
-        address: values.address,
-      },
-      { headers: { Authorization: `Token ${token}` } }
-    )
-      .then((res) => {
-        setTimeout(() => {
-          notification["success"]({
-            message: "اکانت شما با موفقیت ثبت شد",
-            style: {
-              fontFamily: "VazirD",
-              textAlign: "right",
-              float: "right",
-              width: "max-content",
-            },
-            duration: 3,
-          });
-        }, 1000);
-        setTimeout(() => {
-          this.setState({ socialmodal: false, loading: false });
-        }, 2000);
-        this.props.update();
-      })
-      .catch((err) => {
-        notification["error"]({
-          message: err.response.data.detail,
-          style: {
-            fontFamily: "VazirD",
-            textAlign: "right",
-            float: "right",
-            width: "max-content",
-          },
-          duration: 3,
-        });
-        setTimeout(() => {
-          this.setState({ socialmodal: false, loading: false });
-        }, 2000);
-      });
-  };
-
   render() {
     return (
       <div>
         <ConfigProvider direction="rtl">
-          <Divider plain orientation="center">
-            شبکه‌های اجتماعی
-          </Divider>
-          <p style={{ textAlign: "center" }}>
-            شبکه‌های اجتماعی جهت شناخت بیشتر کاربران هنگام بازدید آنها از صفحه
-            پروفایل شما نمایش داده می‌شوند
-          </p>
-          <Row style={{ display: "flex", justifyContent: "center" }}>
-            {this.props.social.length != 4 && (
-              <Button
-                icon={<PlusOutlined />}
-                style={{ border: "hidden" }}
-                size="large"
-                onClick={this.showsocail}
-              ></Button>
-            )}
-            <Space>
-              {this.props.social[0] &&
-                this.setIcon(
-                  this.props.social[0].account_type,
-                  this.props.social[0].slug
-                )}
-              {this.props.social[1] &&
-                this.setIcon(
-                  this.props.social[1].account_type,
-                  this.props.social[1].slug
-                )}
-              {this.props.social[2] &&
-                this.setIcon(
-                  this.props.social[2].account_type,
-                  this.props.social[2].slug
-                )}
-              {this.props.social[3] &&
-                this.setIcon(
-                  this.props.social[3].account_type,
-                  this.props.social[3].slug
-                )}
-            </Space>
-          </Row>
-          <br />
-          {this.props.social.length != 0 && (
-            <p style={{ textAlign: "center" }}>
-              برای حذف اکانت روی آن کلیک کنید
-            </p>
-          )}
-          <Modal
-            confirmLoading={this.state.loading}
-            style={{ fontFamily: "VazirD" }}
-            okButtonProps={{
-              form: "socail",
-              key: "submit",
-              htmlType: "submit",
-            }}
-            title="اضافه کردن اکانت اجتماعی"
-            visible={this.state.socialmodal}
-            onCancel={this.cancelsocial}
-            cancelText="بازگشت"
-            okText="ثبت"
-          >
-            <Form name="socail" onFinish={this.handleOk}>
-              <label>نوع اکانت</label>
-              <Form.Item
-                name="type"
-                style={{ textAlign: "right", fontFamily: "VazirD" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "نوع اکانت را وارد کنید",
-                  },
-                ]}
-              >
-                <Select dropdownStyle={{ fontFamily: "VazirD" }}>
-                  <Option value="0">لینکدین</Option>
-                  <Option value="1">فیسبوک</Option>
-                  <Option value="2">اینستاگرام</Option>
-                  <Option value="3">توییتر</Option>
-                </Select>
-              </Form.Item>
-              <label>آدرس اکانت</label>
-              <Form.Item
-                name="address"
-                style={{ textAlign: "right" }}
-                help={<p style={{direction:"ltr"}}>وارد کنید @example به شکل</p>}
-                rules={[
-                  {
-                    required: true,
-                    message: "آدرس اکانت را وارد کنید",
-                  },
-                ]}
-              >
-                <Input
-                  prefix="@"
-                  style={{ direction: "ltr" }}
-                />
-              </Form.Item>
-            </Form>
-          </Modal>
           <Form
             size="middle"
             onFinish={(values) => this.handleFormSubmit(values)}

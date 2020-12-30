@@ -3,7 +3,7 @@ import { Upload, message, Row, Col, Spin, Button, notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { config } from "../../Constant";
 import ImgCrop from "antd-img-crop";
-import 'antd/es/modal/style';
+import "antd/es/modal/style";
 import imageCompression from "browser-image-compression";
 var url = config.url.API_URL;
 
@@ -81,8 +81,7 @@ class UploadProfilePicture extends React.Component {
               <div style={{ margin: "100px" }}>
                 <Spin size="large" />
               </div>
-            ) : 
-            ( this.props.data ? (
+            ) : this.props.data ? (
               <div style={{ textAlign: "center" }}>
                 <img
                   src={`${url}dstatic/${this.props.data}`}
@@ -94,9 +93,7 @@ class UploadProfilePicture extends React.Component {
               </div>
             ) : (
               <UserOutlined style={{ fontSize: "100px" }} />
-            )
-            )
-            }
+            )}
             <br />
           </Col>
           <Col span={24}>

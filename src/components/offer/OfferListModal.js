@@ -1,52 +1,79 @@
 import React from "react";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 import PacketOffer from "../packet/PacketOffer";
+import { Redirect } from "react-router-dom";
 import { Breakpoint } from "react-socks";
+import { config } from "../../Constant";
+import Axios from "axios";
+import { socket } from "../../socket";
+
+var url = config.url.API_URL;
+const token = localStorage.getItem("token");
 
 class OfferListModal extends React.Component {
   state = {
-    offer_visible: false,
-    drawer_visible: false,
+    shouldRedirect: false,
+    buy: false,
+    packetOffer: [],
+    loading: true,
   };
 
-  offerlistmodal = () => {
-    this.setState({
-      offer_visible: true,
+  componentDidMount() {
+    this.getPacketOffer();
+    const userID = localStorage.getItem("user");
+    setTimeout(() => {
+      for (var i = 0; i < this.state.packetOffer.length; i++) {
+        const element = this.state.packetOffer[i].slug;
+        socket.emit("createJoinOfferRoom", {
+          offerID: element,
+          userID: userID,
+        });
+      }
+    }, 1000);
+    socket.on("updateOffer", () => {
+      this.getPacketOffer();
     });
+  }
+
+  getPacketOffer = () => {
+    const packetID = this.props.match.params.packetID;
+    Axios.get(`${url}api/v1/advertise/offers/${packetID}/`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) => {
+        this.setState({
+          packetOffer: res.data,
+          loading: false,
+        });
+      })
+      .catch((error) => console.error(error));
   };
 
   handleCancel = () => {
     this.setState({
-      offer_visible: false,
-      drawer_visible: false,
-    });
-  };
-
-  drawerofferlist = () => {
-    this.setState({
-      drawer_visible: true,
+      shouldRedirect: true,
     });
   };
 
   render() {
+    const packetID = this.props.match.params.packetID;
+    if (this.state.shouldRedirect) {
+      return <Redirect push to="/profile/mypacket" />;
+    }
     return (
       <div>
         <Breakpoint medium up>
-          <Button
-            style={{ border: "hidden", fontSize: "12px", borderRadius: "10px" }}
-            onClick={this.offerlistmodal}
-          >
-            پیشنهادها
-          </Button>
-          <span>{this.props.count}</span>
           <Modal
-            visible={this.state.offer_visible}
+            visible={true}
             title="پیشنهادهای دریافتی"
             onOk={this.handleCancel}
             onCancel={this.handleCancel}
             closable={false}
             okText="بازگشت"
-            okButtonProps={{ textAlign: "center", style:{position:"unset"} }}
+            okButtonProps={{
+              textAlign: "center",
+              style: { position: "unset" },
+            }}
             cancelButtonProps={{ hidden: "true" }}
             style={{
               fontFamily: "VazirD",
@@ -54,19 +81,17 @@ class OfferListModal extends React.Component {
               overflow: "hidden",
               borderRadius: "20px",
             }}
-            width="80%"
-            bodyStyle={{ borderRadius: "20px"}}
+            width="90%"
+            bodyStyle={{ borderRadius: "20px" }}
           >
-            <PacketOffer data={this.props.data} buy={this.props.buy} />
+            <PacketOffer
+              data={this.state.packetOffer}
+              buy={packetID.charAt(0) === "b"}
+              loading={this.state.loading}
+            />
           </Modal>
         </Breakpoint>
         <Breakpoint small down>
-          <Button
-            style={{border: "hidden", fontSize: "14px", borderRadius: "10px" }}
-            onClick={this.drawerofferlist}
-          >
-          پیشنهادها : <span style={{marginRight:"3px"}}> {this.props.count} </span>
-          </Button>
           <Modal
             title="پیشنهاد‌های آگهی"
             okText="بازگشت"
@@ -74,12 +99,15 @@ class OfferListModal extends React.Component {
             onOk={this.handleCancel}
             onCancel={this.handleCancel}
             width="100%"
-            bodyStyle={{ borderRadius: "20px"}}
-            visible={this.state.drawer_visible}
+            bodyStyle={{ borderRadius: "20px" }}
+            visible={true}
             style={{ textAlign: "right", fontFamily: "VazirD" }}
           >
             <div>
-              <PacketOffer data={this.props.data} buy={this.props.buy} />
+              <PacketOffer
+                data={this.state.packetOffer}
+                buy={packetID.charAt(0) === "b"}
+              />
             </div>
           </Modal>
         </Breakpoint>

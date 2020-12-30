@@ -192,9 +192,14 @@ class ChatRoom extends React.Component {
     this.setState({
       fileList: newFileList,
     });
-    setTimeout(() => {
-      this.handler();
-    },1200);
+    // setTimeout(() => {
+    //   this.handler(newFileList);
+    // },1200);
+    let msg = newFileList[0].response
+    console.log(msg);
+    if (msg !== undefined){
+      this.handler(msg);
+    } 
   };
 
   render() {
@@ -312,11 +317,10 @@ class ChatRoom extends React.Component {
                 >
                   <Col>
                     <Badge dot>
-                      <Tooltip title="پیام جدید دارید">
                         <Button
                           onClick={this.scrollToMyRef}
                           size="large"
-                          shape="circle-outline"
+                          shape="round"
                           style={{
                             display: "grid",
                             alignItems: "center",
@@ -327,7 +331,6 @@ class ChatRoom extends React.Component {
                           }}
                           icon={<DownOutlined />}
                         ></Button>
-                      </Tooltip>
                     </Badge>
                   </Col>
                 </Row>
@@ -392,7 +395,7 @@ class ChatRoom extends React.Component {
                   hasMore={this.state.hasMore}
                   loader={<Spin indicator={antIcon} style={style_center} />}
                   useWindow={false}
-                  threshold={10}
+                  threshold={80}
                   isReverse={true}
                 >
                   <List
@@ -482,7 +485,7 @@ class ChatRoom extends React.Component {
                     )}
                   />
                 </InfiniteScroll>
-                <div ref={this.myRef} style={{ height: "30px" }}></div>
+                <div ref={this.myRef} style={{ height: "20px" }}></div>
               </div>
             )}
           </Drawer>
@@ -595,11 +598,10 @@ class ChatRoom extends React.Component {
                 >
                   <Col>
                     <Badge dot>
-                      <Tooltip title="پیام جدید دارید">
                         <Button
                           onClick={this.scrollToMyRef}
                           size="large"
-                          shape="circle-outline"
+                          shape="circle"
                           style={{
                             display: "grid",
                             alignItems: "center",
@@ -610,7 +612,6 @@ class ChatRoom extends React.Component {
                           }}
                           icon={<DownOutlined />}
                         ></Button>
-                      </Tooltip>
                     </Badge>
                   </Col>
                 </Row>
@@ -618,7 +619,7 @@ class ChatRoom extends React.Component {
                   <div>
                     <Row style={{ padding: "5px 0 5px 0" }}>
                       <Col
-                        span={2}
+                        span={3}
                         style={{ justifyContent: "right", display: "flex" }}
                       >
                         <Upload
@@ -626,9 +627,11 @@ class ChatRoom extends React.Component {
                           name="billig"
                           headers={{ Authorization: `Token ${token}` }}
                           onChange={this.onChange}
-                          fileList={this.fileList}
+                          fileList={this.state.fileList}
                           multiple="true"
                           accept=".png,.jpeg"
+                          showUploadList={{showRemoveIcon:true,}}
+                          
                         >
                           <Button
                             size="large"
@@ -636,7 +639,7 @@ class ChatRoom extends React.Component {
                           ></Button>
                         </Upload>
                       </Col>
-                      <Col span={22}>
+                      <Col span={21}>
                         <TextInput data={chatID} handler={this.handler} />
                       </Col>
                     </Row>
@@ -669,7 +672,7 @@ class ChatRoom extends React.Component {
                   hasMore={this.state.hasMore}
                   loader={<Spin indicator={antIcon} style={style_center} />}
                   useWindow={false}
-                  threshold={10}
+                  threshold={80}
                   isReverse={true}
                 >
               <List
@@ -759,7 +762,7 @@ class ChatRoom extends React.Component {
                 )}
               />
               </InfiniteScroll>
-              <div ref={this.myRef} style={{ height: "10px" }}>
+              <div ref={this.myRef} style={{ height: "5px" }}>
                 <Spin style={{visibility:this.state.newloading?'block':'hidden'}}/>
               </div>
               </div>

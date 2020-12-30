@@ -35,7 +35,6 @@ const UploadFile = (props) => {
   };
 
   function beforeUpload(file) {
-    console.log(file.type)
     const isJpgOrPng = file.type == "image/jpeg" || file.type == "image/png";
     if (!isJpgOrPng) {
       notification["error"]({
@@ -62,8 +61,7 @@ const UploadFile = (props) => {
         duration: 3,
       });
     }
-
-    const lowerLimit = file.size / 1024 / 1024 > 0.01;
+    const lowerLimit = file.size / 1024 / 1024 > 0.001;
     if (!lowerLimit) {
       notification["error"]({
         message: "اندازه تصویر خیلی کم است",

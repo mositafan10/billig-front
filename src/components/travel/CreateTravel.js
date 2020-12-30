@@ -10,7 +10,6 @@ import {
   Tooltip,
   notification,
 } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import moment from "moment";
 import { config } from "../../Constant";
@@ -181,7 +180,6 @@ class CreateTravel extends React.Component {
     return (
       <div>
         <Button
-          icon={<PlusOutlined />}
           onClick={this.showcreatetravel}
           style={{
             borderRadius: "8px",
@@ -189,7 +187,7 @@ class CreateTravel extends React.Component {
             marginBottom: "20px",
           }}
         >
-          <b> ثبت سفر جدید</b>
+          <b>+ ثبت سفر جدید</b>
         </Button>
         <Modal
           visible={this.state.createtravelvisible}

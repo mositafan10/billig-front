@@ -15,10 +15,19 @@ import {
 } from "antd";
 import { Link } from "react-router-dom";
 import ConfirmPrice from "../profile/ConfirmPrice";
-// import SendMessage from "../packet/SendMessage";
 import { config } from "../../Constant";
 import RateAndComment from "../rating/RateAndComment";
 import { Breakpoint } from "react-socks";
+import { socket } from "../../socket";
+import DownloadPic from '../utils/DownloadPic';
+
+const style_center = {
+  display: "flex",
+  justifyContent: "center",
+  textAlign: "center",
+};
+
+
 var url = config.url.API_URL;
 
 class UserOffer extends React.Component {
@@ -46,8 +55,9 @@ class UserOffer extends React.Component {
               {dataIndex}
             </div>
           );
+        } else {
+          return dataIndex;
         }
-        else { return dataIndex}
       },
     },
     {
@@ -84,7 +94,8 @@ class UserOffer extends React.Component {
       key: "slug",
       width: 150,
       align: "center",
-      render: (dataIndex, row) => (row.buy ? this.currency(dataIndex) : "ندارد"),
+      render: (dataIndex, row) =>
+        row.buy ? this.currency(dataIndex) : "ندارد",
     },
     {
       title: " ",
@@ -94,11 +105,6 @@ class UserOffer extends React.Component {
       render: (dataIndex, row) => {
         if (row.status != "تمام شده") {
           return (
-            // <SendMessage
-            //   sender={row.sender_slug}
-            //   receiver={row.receiver_slug}
-            //   slug={dataIndex}
-            // />
             <Link to={`/profile/inbox/${dataIndex}`}>
               <Button
                 style={{
@@ -127,7 +133,7 @@ class UserOffer extends React.Component {
               parcel_price={row.parcel_price_offer}
               data={dataIndex}
               price1={row.price}
-              parentfunction={this.callbackfunction}
+              parentfunction={this.callbackfunction.bind(this, dataIndex)}
               buy={row.buy}
             />
           );
@@ -207,7 +213,10 @@ class UserOffer extends React.Component {
       key: "slug",
       align: "center",
       render: (dataIndex, row) => {
-        if (row.status == "در انتظار پاسخ" || row.status == "در انتظار تایید مسافر") {
+        if (
+          row.status == "در انتظار پاسخ" ||
+          row.status == "در انتظار تایید مسافر"
+        ) {
           return (
             <Popconfirm
               overlayStyle={{ fontFamily: "VazirD" }}
@@ -217,7 +226,7 @@ class UserOffer extends React.Component {
               okText="بله"
               cancelText="خیر"
             >
-              <a >
+              <a>
                 <Button
                   style={{
                     border: "hidden",
@@ -260,7 +269,7 @@ class UserOffer extends React.Component {
           },
           duration: 5,
         });
-        this.componentDidMount();
+        socket.emit("offerChanged", data);
       })
       .catch((error) => console.error(error));
   };
@@ -293,17 +302,16 @@ class UserOffer extends React.Component {
           },
           duration: 10,
         });
-        this.componentDidMount();
+        socket.emit("offerChanged", data);
       })
       .catch((error) => console.error(error));
   };
 
   delete = (data) => {
     const token = localStorage.getItem("token");
-    Axios.delete(
-      `${url}api/v1/advertise/offer/${data}/`,
-      { headers: { Authorization: `Token ${token}` } }
-    )
+    Axios.delete(`${url}api/v1/advertise/offer/${data}/`, {
+      headers: { Authorization: `Token ${token}` },
+    })
       .then(() => {
         notification["success"]({
           message: "پیشنهاد با موفقیت حذف شد",
@@ -315,37 +323,20 @@ class UserOffer extends React.Component {
           },
           duration: 5,
         });
-        this.componentDidMount();
+        this.props.update();
       })
       .catch((error) => console.error(error));
   };
 
-  componentDidMount() {
-    const token = localStorage.getItem("token");
-    Axios.get(`${url}api/v1/advertise/getuseroffer/${this.props.travel}`, {
-      headers: { Authorization: `Token ${token}` },
-    })
-      .then((res) =>
-        this.setState({
-          offer: res.data,
-          loading: false,
-        })
-      )
-  }
-
-  componentWillUnmount(){
-    this.componentDidMount();
-  }
-
-  callbackfunction = () => {
-    this.componentDidMount();
+  callbackfunction = (data) => {
+    socket.emit("offerChanged", data);
   };
 
   render() {
     return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div >
         <Breakpoint medium up>
-          {this.state.loading ? (
+          {this.props.loading ? (
             <div style={{ marginTop: "100px" }}>
               <Spin />
             </div>
@@ -355,15 +346,16 @@ class UserOffer extends React.Component {
                 hideOnSinglePage: true,
                 size: "small",
               }}
-              locale={{ emptyText: "در حال حاضر پیشنهادی وجود ندارد" }}
+              locale={{ emptyText: "پیشنهادی وجود ندارد" }}
               columns={this.columns}
-              dataSource={this.state.offer}
+              dataSource={this.props.data}
+              scroll={{x:"500px",scrollToFirstRowOnChange:"true"}}
             />
           )}
         </Breakpoint>
         <Breakpoint small down>
-          {this.state.loading ? (
-            <div style={{ marginTop: "100px" }}>
+          {this.props.loading ? (
+            <div style={{ marginTop: "50px", textAlign:"center" }}>
               <Spin />
             </div>
           ) : (
@@ -376,179 +368,182 @@ class UserOffer extends React.Component {
             >
               <List
                 locale={{ emptyText: "پیشنهادی وجود ندارد" }}
-                dataSource={this.state.offer}
+                dataSource={this.props.data}
                 renderItem={(item) => (
                   <List.Item>
-                    <Card>
-                    <Row>
-                      <Col
-                        xs={24}
-                        sm={24}
-                        md={24}
-                        lg={24}
-                        xl={24}
-                        xxl={24}
-                        style={{ textAlign: "center" }}
-                      >
-                        <p>
-                    وضعیت : {" "}‌
-                          <span style={{ color: "#46a0ae" }}>
-                            {item.status}
-                          </span>
-                        </p>
-                        <hr />
-                      </Col>
-                      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                        <Avatar
-                          src={`${url}dstatic/media/${item.receiver_avatar}`}
-                        ></Avatar>
-                        <span> {item.receiver} </span>
-                        <p style={{ textAlign: "left", marginTop: "20px" }}>
-                          {this.currency(item.price)} تومان
-                        </p>
-                        <hr />
-                      </Col>
-                      <Col>
-                        <Space>
-                          <Col>
-                            {item.status != "تمام شده" && (
-                              // <SendMessage
-                              //   sender={item.sender_slug}
-                              //   receiver={item.receiver_slug}
-                              //   slug={item.slug}
-                              // />
-                              <Link to={`/profile/inbox/${item.slug}`}>
-                                <Button
-                                  style={{
-                                    fontSize: "12px",
-                                    backgroundColor: "white",
-                                    color: "black",
-                                    borderRadius: "10px",
-                                  }}
-                                >
-                                  چت
-                                </Button>
-                              </Link>
-                            )}
+                    <Card style={{borderRadius:"8px"}}>
+                      <Row>
+                        <Col
+                          xs={24}
+                          sm={24}
+                          md={24}
+                          lg={24}
+                          xl={24}
+                          xxl={24}
+                          style={{ textAlign: "center" }}
+                        >
+                          <p>
+                            وضعیت : ‌
+                            <span style={{ color: "#46a0ae" }}>
+                              {item.status}
+                            </span>
+                          </p>
+                          <hr />
+                        </Col>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                          <Avatar
+                            src={`${url}dstatic/media/${item.receiver_avatar}`}
+                          ></Avatar>
+                          <span> {item.receiver} </span>
+                          <Row style={style_center}>
+                          <Col span={24}>
+                              <DownloadPic category={item.packet_category} data={item.packet_picture} size="60%" />
                           </Col>
-                          <Col>
-                            {item.status === "در انتظار تایید مسافر" && (
-                              <ConfirmPrice
-                                parcel_price={item.parcel_price_offer}
-                                data={item.slug}
-                                price1={item.price}
-                                parentfunction={this.callbackfunction}
-                                buy={item.buy}
-                              />
-                            )}
-                            {item.status === "در انتظار خرید" && (
-                              <Popconfirm
-                                overlayStyle={{ fontFamily: "VazirD" }}
-                                title={
-                                  item.buy ? (
-                                    <div>
-                                      آیا کالای مورد نظر را خریداری کرده‌اید ؟
-                                    </div>
-                                  ) : (
-                                    <div>
-                                      "آیا بسته مورد نظر را تحویل گرفته‌اید ؟"{" "}
-                                    </div>
-                                  )
-                                }
-                                onConfirm={this.buydone.bind(this, item.slug)}
-                                onCancel={this.cancel}
-                                okText="بله"
-                                cancelText="خیر"
-                              >
-                                <Button
-                                  style={{
-                                    fontSize: "12px",
-                                    border: "hidden",
-                                    color: "white",
-                                    backgroundColor: "green",
-                                    borderRadius: "10px",
-                                  }}
-                                >
-                                  خریداری کردم
-                                </Button>
-                              </Popconfirm>
-                            )}
-                            {item.status === "در انتظار تحویل" && (
-                              <Popconfirm
-                                overlayStyle={{ fontFamily: "VazirD" }}
-                                title={
-                                  item.buy ? (
-                                    <div>
-                                      آیا کالای مورد نظر را تحویل داده‌اید ؟
-                                    </div>
-                                  ) : (
-                                    <div>
-                                      "آیا بسته مورد نظر را تحویل داده‌اید ؟"{" "}
-                                    </div>
-                                  )
-                                }
-                                onConfirm={this.receivedone.bind(
-                                  this,
-                                  item.slug
-                                )}
-                                onCancel={this.cancel}
-                                okText="بله"
-                                cancelText="خیر"
-                              >
-                                <Button
-                                  style={{
-                                    fontSize: "12px",
-                                    border: "hidden",
-                                    color: "white",
-                                    backgroundColor: "green",
-                                    borderRadius: "10px",
-                                  }}
-                                >
-                                  تحویل دادم
-                                </Button>
-                              </Popconfirm>
-                            )}
-                            {item.status === "انجام شده" && (
-                              <RateAndComment
-                                signal={this.callbackfunction}
-                                data={item.slug}
-                                receiver={item.receiver_slug}
-                                loc={"آگهی‌دهنده"}
-                              />
-                            )}
-                          </Col>
-                          <Col>
-                          {(item.status == "در انتظار پاسخ" || item.status == "در انتظار تایید مسافر") &&
-                              <Popconfirm
-                                overlayStyle={{ fontFamily: "VazirD" }}
-                                title="آیا از حذف پیشنهاد مطمئن هستید ؟"
-                                onConfirm={this.delete.bind(this, item.slug)}
-                                onCancel={this.cancel}
-                                okText="بله"
-                                cancelText="خیر"
-                              >
-                                <a>
+                        </Row>
+                        <br/>
+                        <Link to={`/packet/${item.packet_slug}`}> <p style={{textAlign:"center", color: "black"}}>{item.packet_title}</p></Link>
+                          <p style={{ textAlign: "left", marginTop: "20px" }}>
+                            {this.currency(item.price)} تومان
+                          </p>
+                          <hr />
+                        </Col>
+                        <Col>
+                          <Space>
+                            <Col>
+                              {item.status != "تمام شده" && (
+                                <Link to={`/profile/inbox/${item.slug}`}>
                                   <Button
                                     style={{
-                                      border: "hidden",
                                       fontSize: "12px",
+                                      backgroundColor: "white",
+                                      color: "black",
                                       borderRadius: "10px",
-                                      color: "white",
-                                      backgroundColor: "red",
                                     }}
-                                    onClick={this.offerlistmodal}
                                   >
-                                    <b>حذف</b>
+                                    چت
                                   </Button>
-                                </a>
-                              </Popconfirm>
-                            }
-                          </Col>
-                        </Space>
-                      </Col>
-                    </Row>
+                                </Link>
+                              )}
+                            </Col>
+                            <Col>
+                              {item.status === "در انتظار تایید مسافر" && (
+                                <ConfirmPrice
+                                  parcel_price={item.parcel_price_offer}
+                                  data={item.slug}
+                                  price1={item.price}
+                                  parentfunction={this.callbackfunction}
+                                  buy={item.buy}
+                                />
+                              )}
+                              {item.status === "در انتظار خرید" && (
+                                <Popconfirm
+                                  overlayStyle={{ fontFamily: "VazirD" }}
+                                  title={
+                                    item.buy ? (
+                                      <div>
+                                        آیا کالای مورد نظر را خریداری کرده‌اید ؟
+                                      </div>
+                                    ) : (
+                                      <div>
+                                        "آیا بسته مورد نظر را تحویل گرفته‌اید ؟"{" "}
+                                      </div>
+                                    )
+                                  }
+                                  onConfirm={this.buydone.bind(this, item.slug)}
+                                  onCancel={this.cancel}
+                                  okText="بله"
+                                  cancelText="خیر"
+                                >
+                                  <Button
+                                    style={{
+                                      fontSize: "12px",
+                                      border: "hidden",
+                                      color: "white",
+                                      backgroundColor: "green",
+                                      borderRadius: "10px",
+                                    }}
+                                  >
+                                    خریداری کردم
+                                  </Button>
+                                </Popconfirm>
+                              )}
+                              {item.status === "در انتظار تحویل" && (
+                                <Popconfirm
+                                  overlayStyle={{ fontFamily: "VazirD" }}
+                                  title={
+                                    item.buy ? (
+                                      <div>
+                                        آیا کالای مورد نظر را تحویل داده‌اید ؟
+                                      </div>
+                                    ) : (
+                                      <div>
+                                        "آیا بسته مورد نظر را تحویل داده‌اید ؟"{" "}
+                                      </div>
+                                    )
+                                  }
+                                  onConfirm={this.receivedone.bind(
+                                    this,
+                                    item.slug
+                                  )}
+                                  onCancel={this.cancel}
+                                  okText="بله"
+                                  cancelText="خیر"
+                                >
+                                  <Button
+                                    style={{
+                                      fontSize: "12px",
+                                      border: "hidden",
+                                      color: "white",
+                                      backgroundColor: "green",
+                                      borderRadius: "10px",
+                                    }}
+                                  >
+                                    تحویل دادم
+                                  </Button>
+                                </Popconfirm>
+                              )}
+                              {item.status === "انجام شده" && (
+                                <RateAndComment
+                                  signal={this.callbackfunction}
+                                  data={item.slug}
+                                  receiver={item.receiver_slug}
+                                  loc={"آگهی‌دهنده"}
+                                />
+                              )}
+                            </Col>
+                            <Col>
+                              {(item.status == "در انتظار پاسخ" ||
+                                item.status == "در انتظار تایید مسافر") && (
+                                <Popconfirm
+                                  overlayStyle={{ fontFamily: "VazirD" }}
+                                  title="آیا از حذف پیشنهاد مطمئن هستید ؟"
+                                  onConfirm={this.delete.bind(this, item.slug)}
+                                  onCancel={this.cancel}
+                                  okText="بله"
+                                  cancelText="خیر"
+                                >
+                                  <a>
+                                    <Button
+                                      style={{
+                                        border: "hidden",
+                                        fontSize: "12px",
+                                        borderRadius: "10px",
+                                        color: "white",
+                                        backgroundColor: "red",
+                                      }}
+                                      onClick={this.offerlistmodal}
+                                    >
+                                      <b>حذف</b>
+                                    </Button>
+                                  </a>
+                                </Popconfirm>
+                              )}
+                            </Col>
+                          </Space>
+                        </Col>
+                      </Row>
                     </Card>
-                    </List.Item>
+                  </List.Item>
                 )}
               />
             </div>

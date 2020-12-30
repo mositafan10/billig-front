@@ -43,7 +43,6 @@ class TextInput extends Component {
 
   render() {
     return (
-      // <div>
         <Search
           size="large"
           id="search"
@@ -63,7 +62,6 @@ class TextInput extends Component {
           disabled={this.state.disabled}
           autoSize
         />
-      // </div>
     );
   }
 }

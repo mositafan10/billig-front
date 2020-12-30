@@ -10,6 +10,8 @@ import BookmarkPacket from '../components/packet/BookmarkPacket';
 import PageNotFound from '../components/errors/PageNotFound';
 import AllComments from '../components/rating/AllComments';
 import ChatRoom from '../components/chat/ChatRoom';
+import OfferListModal from '../components/offer/OfferListModal';
+import OfferListModalTravel from '../components/offer/OfferListModalTravel';
 
 class ProfileRoutes extends React.Component {
 
@@ -21,8 +23,10 @@ class ProfileRoutes extends React.Component {
         <Switch>
             <Route exact path='/profile/' render={(props) => <EditProfile/> }/>
             <Route exact path='/profile/comments' render={(props) => <AllComments/> }/>
-            <Route exact path='/profile/mypacket' render={(props) =>  <PacketUserList/>} />
-            <Route exact path='/profile/mytravel' render={(props) => <TravelProfile/> }/>
+            <Route exact path='/profile/mypacket' component={PacketUserList} />
+            <Route exact path='/profile/mypacket/:packetID' component={OfferListModal} />
+            <Route exact path='/profile/mytravel' component={TravelProfile}/>
+            <Route exact path='/profile/mytravel/:travelID' component={OfferListModalTravel}/>
             <Route exact path='/profile/myoffer' render={(props) => <UserOffer/> }/>
             <Route exact path='/profile/inbox' render={(props) => <InboxLayout {...this.props}/> }/>
             <Route exact path='/profile/inbox/:chatID' component={ChatRoom}/>

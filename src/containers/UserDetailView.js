@@ -63,8 +63,8 @@ class UserProfile extends React.Component {
             style={{ color: "black" }}
             target="_blank"
             rel="noopener noreferrer"
-            href={`https://www.linkdin.com/in/${address}`}
-          >
+            href={`https://www.linkedin.com/in/${address}`}
+            >
             <LinkedinOutlined style={{ fontSize: "35px" }} />
           </a>
         );
@@ -209,8 +209,8 @@ class UserProfile extends React.Component {
                   </Card>
                 </Col>
               </Row>
-              <Tabs tabPosition="top" style={{ textAlign: "center" }}>
-                <TabPane tab="نظرات دیگران " key="1">
+              <Tabs tabPosition="top" centered style={{ textAlign: "center" }}>
+                <TabPane tab="نظرات دیگران" key="1">
                   <CommentUser userID={userID} />
                 </TabPane>
               </Tabs>
@@ -313,8 +313,8 @@ class UserProfile extends React.Component {
                 </Card>
               </Col>
             </Row>
-            <Tabs tabPosition="top" style={{ textAlign: "center" }}>
-              <TabPane tab="نظرات دیگران " key="1">
+            <Tabs tabPosition="top" centered style={{ textAlign: "center" }}>
+              <TabPane tab="نظرات دیگران" key="1">
                 <CommentUser userID={userID} />
               </TabPane>
             </Tabs>

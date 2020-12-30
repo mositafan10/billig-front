@@ -8,9 +8,9 @@ import {
   InputNumber,
   Input,
   Spin,
-  Popconfirm
+  Popconfirm,
 } from "antd";
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -36,7 +36,7 @@ class OfferDetail extends React.Component {
     loading: false,
     spinning: true,
     visiblePriceInfo: false,
-    parcelPriceInfoVisible: false
+    parcelPriceInfoVisible: false,
   };
 
   offer = () => {
@@ -44,27 +44,27 @@ class OfferDetail extends React.Component {
   };
 
   closeInfo = () => {
-    this.setState({visiblePriceInfo: false})
-  }
+    this.setState({ visiblePriceInfo: false });
+  };
 
   showPriceInfo = () => {
-    this.setState({visiblePriceInfo: true})
-  }
+    this.setState({ visiblePriceInfo: true });
+  };
 
   showParcelPriceInfo = () => {
-    this.setState({parcelPriceInfoVisible: true})
-  }
+    this.setState({ parcelPriceInfoVisible: true });
+  };
 
   closeParcelPriceInfo = () => {
-    this.setState({parcelPriceInfoVisible: false})
-  }
+    this.setState({ parcelPriceInfoVisible: false });
+  };
 
   showModal = () => {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/advertise/travels/`, {
       headers: { Authorization: `Token ${token}` },
     })
-      .then((res) => this.setState({ travellist: res.data, spinning:false }))
+      .then((res) => this.setState({ travellist: res.data, spinning: false }))
       .catch((error) => console.error(error));
     this.setState({
       visible: true,
@@ -102,7 +102,7 @@ class OfferDetail extends React.Component {
             visible: false,
             loading: false,
           });
-          window.location.replace('/profile/mytravel')
+          window.location.replace("/profile/mytravel");
         }, 3000);
         setTimeout(() => {
           notification["success"]({
@@ -134,7 +134,7 @@ class OfferDetail extends React.Component {
   handleCancel = (e) => {
     this.setState({
       visible: false,
-      visiblePriceInfo: false
+      visiblePriceInfo: false,
     });
   };
 
@@ -168,7 +168,7 @@ class OfferDetail extends React.Component {
             form: "offering",
             key: "submit",
             htmlType: "submit",
-            hidden: !this.state.travellist.length && true 
+            hidden: !this.state.travellist.length && true,
           }}
           visible={this.state.visible}
           style={{ fontFamily: "VazirD" }}
@@ -176,121 +176,29 @@ class OfferDetail extends React.Component {
           {token ? (
             <div>
               <br />
-              {this.state.spinning ? 
-              <div style={{ margin: "100px" }}>
-                <Spin size="large" />
-              </div>
-             : 
-              <div>
-              {this.state.travellist.length ? (
-                <Form
-                  layout="vertical"
-                  name="offering"
-                  onFinish={this.handleOk}
-                  initialValues={{ description: this.state.description }}
-                >
-                  <p
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      fontSize: "16px",
-                    }}
-                  >
-                    ثبت پیشنهاد
-                  </p>
-                  <br/>
-                  <label
-                    style={{
-                      float: "right",
-                      textAlign: "right",
-                      marginTop: "-30px",
-                    }}
-                  >
-                    انتخاب سفر
-                  </label>
-                  <Form.Item
-                    name="travel"
-                    style={{ textAlign: "right", borderRadius: "10px" }}
-                    rules={[
-                      {
-                        required: true,
-                        message: "سفر خود را انتخاب کنید",
-                      },
-                    ]}
-                  >
-                    <Select
-                      style={{ textAlign: "right", borderRadius: "10px" }}
-                      dropdownStyle={{ fontFamily: "VazirD" }}
+              {this.state.spinning ? (
+                <div style={{ margin: "100px", textAlign: "center" }}>
+                  <Spin size="large" />
+                </div>
+              ) : (
+                <div>
+                  {this.state.travellist.length ? (
+                    <Form
+                      layout="vertical"
+                      name="offering"
+                      onFinish={this.handleOk}
+                      initialValues={{ description: this.state.description }}
                     >
-                      {this.state.travellist.map((e, key) => {
-                        return (
-                          <Option key={key} value={e.slug}>
-                            {e.destination.name} به {e.departure.name} در "
-                            {moment(e.flight_date_start).format("D MMM")}"{" "}
-                          </Option>
-                        );
-                      })}
-                    </Select>
-                  </Form.Item>
-                  <br/>
-                  <label
-                    style={{
-                      float: "right",
-                      textAlign: "right",
-                      marginTop: "-30px",
-                    }}
-                  >
-                    دستمزد پیشنهادی (تومان) 
-                    <Popconfirm
-                        overlayStyle={{ fontFamily: "VazirD" }}
-                        cancelButtonProps={{ hidden: "true" }}
-                        onConfirm={this.closeInfo}
-                        okText="متوجه شدم"
-                        visible={this.state.visiblePriceInfo}
-                        title={
-                          <div>
-                            <p>دستمزدی که در نظر دارید از آگهی دهنده دریافت کنید</p>
-                          </div>
-                        }
-                        ><QuestionCircleOutlined style={{marginRight:"5px"}} onClick={this.showPriceInfo}/>
-                      </Popconfirm> 
-                  </label>
-                  <Form.Item
-                    style={{
-                      textAlign: "right",
-                      fontSize: "10px",
-                      width: "auto",
-                    }}
-                    name="price"
-                    rules={[
-                      {
-                        required: true,
-                        message: "قیمت پیشنهادی خود را به انگلیسی وارد کنید",
-                      },
-                      ({ getFieldValue }) => ({
-                        validator(rule, value) {
-                          if (value > 10000) {
-                            return Promise.resolve();
-                          }
-                          return Promise.reject(
-                            "دستمزد‍ نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
-                          );
-                        },
-                      }),
-                    ]}
-                  >
-                    <InputNumber
-                      formatter={(value) =>
-                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                      }
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                      style={{ textAlign: "right", width: "auto" }}
-                      min={0}
-                    />
-                  </Form.Item>
-                  {this.props.buy && (
-                    <div>
-                      <br/>
+                      <p
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          fontSize: "16px",
+                        }}
+                      >
+                        ثبت پیشنهاد
+                      </p>
+                      <br />
                       <label
                         style={{
                           float: "right",
@@ -298,19 +206,61 @@ class OfferDetail extends React.Component {
                           marginTop: "-30px",
                         }}
                       >
-                        قیمت کالا (تومان) <Popconfirm
-                        overlayStyle={{ fontFamily: "VazirD" }}
-                        cancelButtonProps={{ hidden: "true" }}
-                        visible={this.state.parcelPriceInfoVisible}
-                        onConfirm={this.closeParcelPriceInfo}
-                        okText="متوجه شدم"
-                        title={
-                          <div>
-                            <p>قیمت کالایی که قرار است خریداری شود را جستجو کرده و در اینجا وارد نمایید</p>
-                          </div>
-                        }
-                      ><QuestionCircleOutlined style={{marginRight:"5px"}} onClick={this.showParcelPriceInfo}/>
-                      </Popconfirm> 
+                        انتخاب سفر
+                      </label>
+                      <Form.Item
+                        name="travel"
+                        style={{ textAlign: "right", borderRadius: "10px" }}
+                        rules={[
+                          {
+                            required: true,
+                            message: "سفر خود را انتخاب کنید",
+                          },
+                        ]}
+                      >
+                        <Select
+                          style={{ textAlign: "right", borderRadius: "10px" }}
+                          dropdownStyle={{ fontFamily: "VazirD" }}
+                        >
+                          {this.state.travellist.map((e, key) => {
+                            return (
+                              <Option key={key} value={e.slug}>
+                                {e.destination.name} به {e.departure.name} در "
+                                {moment(e.flight_date_start).format("D MMM")}"{" "}
+                              </Option>
+                            );
+                          })}
+                        </Select>
+                      </Form.Item>
+                      <br />
+                      <label
+                        style={{
+                          float: "right",
+                          textAlign: "right",
+                          marginTop: "-30px",
+                        }}
+                      >
+                        دستمزد پیشنهادی (تومان)
+                        <Popconfirm
+                          overlayStyle={{ fontFamily: "VazirD" }}
+                          cancelButtonProps={{ hidden: "true" }}
+                          onConfirm={this.closeInfo}
+                          okText="متوجه شدم"
+                          visible={this.state.visiblePriceInfo}
+                          title={
+                            <div>
+                              <p>
+                                دستمزدی که در نظر دارید از آگهی دهنده دریافت
+                                کنید
+                              </p>
+                            </div>
+                          }
+                        >
+                          <QuestionCircleOutlined
+                            style={{ marginRight: "5px" }}
+                            onClick={this.showPriceInfo}
+                          />
+                        </Popconfirm>
                       </label>
                       <Form.Item
                         style={{
@@ -318,25 +268,33 @@ class OfferDetail extends React.Component {
                           fontSize: "10px",
                           width: "auto",
                         }}
-                        name="parcelPrice"
+                        name="price"
+                        validateTrigger="onFinish"
                         rules={[
                           {
                             required: true,
-                            message: "قیمت کالا را با اعداد انگلیسی وارد کنید",
+                            message:
+                              "قیمت پیشنهادی خود را به انگلیسی وارد کنید",
                           },
                           ({ getFieldValue }) => ({
                             validator(rule, value) {
-                              if (value > 10000) {
+                              if ((value > 100000) & (value < 50000000)) {
                                 return Promise.resolve();
                               }
-                              return Promise.reject(
-                                "قیمت کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
-                              );
+                              if (value < 100000)
+                                return Promise.reject(
+                                  "دستمزد نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
+                                );
+                              if (value > 50000000)
+                                return Promise.reject(
+                                  "دستمزد نمی‌تواند از ۵۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
+                                );
                             },
                           }),
                         ]}
                       >
                         <InputNumber
+                          type="tel"
                           formatter={(value) =>
                             `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                           }
@@ -345,48 +303,126 @@ class OfferDetail extends React.Component {
                           min={0}
                         />
                       </Form.Item>
-                    </div>
+                      {this.props.buy && (
+                        <div>
+                          <br />
+                          <label
+                            style={{
+                              float: "right",
+                              textAlign: "right",
+                              marginTop: "-30px",
+                            }}
+                          >
+                            قیمت کالا (تومان)
+                            <Popconfirm
+                              overlayStyle={{ fontFamily: "VazirD" }}
+                              cancelButtonProps={{ hidden: "true" }}
+                              visible={this.state.parcelPriceInfoVisible}
+                              onConfirm={this.closeParcelPriceInfo}
+                              okText="متوجه شدم"
+                              title={
+                                <div>
+                                  <p>
+                                    قیمت کالایی که قرار است خریداری شود را جستجو
+                                    کرده و در اینجا وارد نمایید
+                                  </p>
+                                </div>
+                              }
+                            >
+                              <QuestionCircleOutlined
+                                style={{ marginRight: "5px" }}
+                                onClick={this.showParcelPriceInfo}
+                              />
+                            </Popconfirm>
+                          </label>
+                          <Form.Item
+                            style={{
+                              textAlign: "right",
+                              fontSize: "10px",
+                              width: "auto",
+                            }}
+                            name="parcelPrice"
+                            validateTrigger="onFinish"
+                            rules={[
+                              {
+                                required: true,
+                                message:
+                                  "قیمت کالا را با اعداد انگلیسی وارد کنید",
+                              },
+                              ({ getFieldValue }) => ({
+                                validator(rule, value) {
+                                  if ((value > 100000) & (value < 200000000)) {
+                                    return Promise.resolve();
+                                  }
+                                  if (value < 100000)
+                                    return Promise.reject(
+                                      "مبلغ کالا نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
+                                    );
+                                  if (value > 200000000)
+                                    return Promise.reject(
+                                      "مبلغ کالا نمی‌تواند از ۲۰۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
+                                    );
+                                },
+                              }),
+                            ]}
+                          >
+                            <InputNumber
+                              type="tel"
+                              formatter={(value) =>
+                                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                              }
+                              parser={(value) =>
+                                value.replace(/\$\s?|(,*)/g, "")
+                              }
+                              style={{ textAlign: "right", width: "auto" }}
+                              min={0}
+                            />
+                          </Form.Item>
+                        </div>
+                      )}
+                      <br />
+                      <label
+                        style={{
+                          float: "right",
+                          textAlign: "right",
+                          marginTop: "-30px",
+                        }}
+                      >
+                        متن پیشنهاد
+                      </label>
+                      <Form.Item name="description">
+                        <TextArea
+                          rows={5}
+                          style={{
+                            borderRadius: "10px",
+                            border: "1px solid",
+                            borderColor: "gainsboro",
+                            padding: "10px",
+                          }}
+                        />
+                      </Form.Item>
+                    </Form>
+                  ) : (
+                    <p style={{ textAlign: "center" }}>
+                      <b>
+                        برای ثبت پیشنهاد ابتدا باید سفر خود را ثبت نمایید
+                        <CreateTravel parentCallback={this.callbackfunction} />
+                      </b>
+                    </p>
                   )}
-                  <br/>
-                  <label
-                    style={{
-                      float: "right",
-                      textAlign: "right",
-                      marginTop: "-30px",
-                    }}
-                  >
-                    متن پیشنهاد
-                  </label>
-                  <Form.Item name="description">
-                    <TextArea
-                      rows={5}
-                      style={{
-                        borderRadius: "10px",
-                        border: "1px solid",
-                        borderColor: "gainsboro",
-                        padding: "10px",
-                      }}
-                    />
-                  </Form.Item>
-                </Form>
-              ) : (
-                <p style={{ textAlign: "center" }}>
-                  <b>
-                    برای ثبت پیشنهاد ابتدا باید سفر خود را ثبت نمایید
-                    <CreateTravel parentCallback={this.callbackfunction} />
-                  </b>
-                </p>
+                </div>
               )}
-              </div>}
             </div>
           ) : (
             <p style={{ textAlign: "center" }}>
-              ابتدا وارد <Link to={`/login/?next=${pathname}`}>حساب کاربری </Link>خود شوید
+              ابتدا وارد
+              <Link to={`/login/?next=${pathname}`}>حساب کاربری </Link>خود شوید
             </p>
           )}
         </Modal>
       </div>
-  )};
+    );
+  }
 }
 
 export default OfferDetail;

@@ -1,6 +1,14 @@
 import React, { Component } from "react";
-import { Button, message, notification, Form, Input, Modal, Row, Select } from "antd";
-import { PlusOutlined } from '@ant-design/icons';
+import {
+  Button,
+  message,
+  notification,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Select,
+} from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
 const { Option } = Select;
@@ -16,20 +24,20 @@ class PayTraveler extends Component {
     account_number: "",
     account_owner: "",
     accounts: [],
-    account: {}
-   };
+    account: {},
+  };
 
   // We should add one confirmation here to be sure the request is sent by main user not another one
   // By this step (otp sms) we can also pay to other acccount because the traveler wants that.
   pay = (values) => {
-    const account = values.accounts
-    this.setState({selectloading:true})
+    const account = values.accounts;
+    this.setState({ selectloading: true });
     Axios.post(
       `${url}api/v1/payment/paytraveler/`,
       {
         account: account,
         travel: this.props.travel,
-        amount: this.props.amount
+        amount: this.props.amount,
       },
       {
         headers: { Authorization: `Token ${token}` },
@@ -49,7 +57,9 @@ class PayTraveler extends Component {
             duration: 2.5,
           });
         }, 1500);
-        setTimeout(()=>{window.location.reload()},2500)
+        setTimeout(() => {
+          window.location.reload();
+        }, 2500);
       })
       .catch((err) => message.error(err.response.data.error));
   };
@@ -57,31 +67,30 @@ class PayTraveler extends Component {
   showmodal = () => {
     this.setState({ selectVisible: true, loading: false });
     this.modal();
-  }
+  };
 
   modal = () => {
-    this.setState({loading: false });
-    Axios.get(
-      `${url}api/v1/payment/accounts/`,
-      {
-        headers: { Authorization: `Token ${token}` },
-      }
-    )
-    .then(res => this.setState({
-      accounts: res.data
-    })) 
-    .catch(error => (
-      notification["info"]({
-        message: error.response.data.detail,
-        style: {
-          fontFamily: "VazirD",
-          textAlign: "right",
-          float: "right",
-          width: "max-content",
-        },
-        duration: 2.5,
-      })
-    ))
+    this.setState({ loading: false });
+    Axios.get(`${url}api/v1/payment/accounts/`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) =>
+        this.setState({
+          accounts: res.data,
+        })
+      )
+      .catch((error) =>
+        notification["info"]({
+          message: error.response.data.detail,
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+          },
+          duration: 2.5,
+        })
+      );
   };
 
   handlecanceladd = () => {
@@ -89,12 +98,12 @@ class PayTraveler extends Component {
   };
 
   handlecancelselect = () => {
-    this.setState({ selectVisible: false });
+    this.setState({ selectVisible: false});
   };
 
   showaddaccount = () => {
-    this.setState({addVisible: true})
-  }
+    this.setState({ addVisible: true });
+  };
 
   account = (values) => {
     this.setState({ loading: true });
@@ -123,7 +132,7 @@ class PayTraveler extends Component {
         }, 2000);
         setTimeout(() => {
           this.modal();
-          this.setState({addVisible:false})
+          this.setState({ addVisible: false });
         }, 2000);
       })
       .catch((err) => {
@@ -149,18 +158,21 @@ class PayTraveler extends Component {
           style={{
             border: "hidden",
             backgroundColor: "green",
-            color:"white",
+            color: "white",
             borderRadius: "10px",
-            fontSize:"12px"
+            fontSize: "12px",
           }}
         >
           تسویه حساب
         </Button>
-          <Modal 
-          title={<div style={{textAlign:"center"}}>لیست حساب‌های ثبت‌ شده</div>}
+        <Modal
+          title={
+            <div style={{ textAlign: "center" }}>لیست حساب‌های ثبت‌ شده</div>
+          }
           visible={this.state.selectVisible}
           onCancel={this.handlecancelselect}
           cancelText="بازگشت"
+          closable={false}
           okText="ثبت"
           style={{ fontFamily: "VazirD" }}
           confirmLoading={this.state.selectloading}
@@ -169,101 +181,112 @@ class PayTraveler extends Component {
             key: "submit",
             htmlType: "submit",
           }}
-          >
-            <Form 
+        >
+          <Form
             onFinish={(values) => this.pay(values)}
             size="middle"
             name="selectAccount"
-              >
+          >
             <p>حساب مورد نظر را انتخاب نمایید</p>
             <Form.Item
-                    name="accounts"
-                    style={{ textAlign: "right" }}
-                    rules={[
-                      { required: true, message: "حساب مورد نظر را انتخاب کنید" },
-                    ]}
-                  >
-                    <Select
-                      dropdownStyle={{ fontFamily: "VazirD" }}
-                    >
-                      {this.state.accounts.map((e, key) => {
-                        return (
-                          <Option key={e.slug} value={e.slug}>
-                            {e.number} - {e.name}
-                          </Option>
-                        );
-                      })}
-                    </Select>
-                  </Form.Item>
-            </Form>
-          <Row style={{justifyContent:"center", display:"flex"}}>
-          <Button
-            icon={<PlusOutlined />}
-            style={{ border: "hidden" }}
-            size="large"
-            onClick={this.showaddaccount}
-          >
-            اضافه کردن حساب جدید
-          </Button>
-          </Row>
-          <Modal
-          visible={this.state.addVisible}
-          onCancel={this.handlecanceladd}
-          cancelText="انصراف"
-          okText="ثبت"
-          style={{ fontFamily: "VazirD" }}
-          confirmLoading={this.state.loading}
-          okButtonProps={{
-            form: "account",
-            key: "submit",
-            htmlType: "submit",
-          }}
-        >
-          <Form name="account" onFinish={this.account.bind(this)}>
-            <br />
-            <label style={{ justifyContent: "right", display: "flex" }}>
-              شماره شبا*
-            </label>
-            <Form.Item
-              name="number"
-              style={{ textAlign: "center", fontFamily: "VazirD" }}
+              name="accounts"
+              style={{ textAlign: "right" }}
               rules={[
                 {
                   required: true,
-                  message: "شماره شبای حساب خود را وارد کنید",
+                  message: "حساب مورد نظر را انتخاب کنید",
                 },
               ]}
             >
-              <Input
-                prefix="IR"
-                style={{
-                  direction: "ltr",
-                  borderRadius: "10px",
-                  width: "100%",
-                  fontFamily: "VazirD",
-                  textAlign: "left",
-                }}
-                autoFocus
-              />
-            </Form.Item>
-            <br />
-            <label style={{ justifyContent: "right", display: "flex" }}>
-              نام صاحب حساب*
-            </label>
-            <Form.Item
-              name="name"
-              style={{ textAlign: "center", fontFamily: "VazirD" }}
-              rules={[
-                {
-                  required: true,
-                  message: "نام صاحب حساب را وارد کنید",
-                },
-              ]}
-            >
-              <Input style={{ borderRadius: "10px", fontFamily: "VazirD" }} />
+              <Select dropdownStyle={{ fontFamily: "VazirD" }}>
+                {this.state.accounts.map((e, key) => {
+                  return (
+                    <Option key={e.slug} value={e.slug}>
+                      {e.number} - {e.name}
+                    </Option>
+                  );
+                })}
+              </Select>
             </Form.Item>
           </Form>
-        </Modal>
+          <Row style={{ justifyContent: "center", display: "flex" }}>
+            <Button
+              style={{ border: "hidden" }}
+              size="large"
+              onClick={this.showaddaccount}
+            >
+             + اضافه کردن حساب جدید 
+            </Button>
+          </Row>
+          <Modal
+            visible={this.state.addVisible}
+            onCancel={this.handlecanceladd}
+            closable={false}
+            cancelText="انصراف"
+            okText="ثبت"
+            style={{ fontFamily: "VazirD" }}
+            confirmLoading={this.state.loading}
+            okButtonProps={{
+              form: "account",
+              key: "submit",
+              htmlType: "submit",
+            }}
+          >
+            <Form name="account" onFinish={this.account.bind(this)}>
+              <br />
+              <label style={{ justifyContent: "right", display: "flex" }}>
+                شماره شبا*
+              </label>
+              <Form.Item
+                name="number"
+                validateTrigger="onFinish"
+                style={{ textAlign: "center", fontFamily: "VazirD" }}
+                rules={[
+                  {
+                    required: true,
+                    message: "شماره شبای حساب خود را وارد کنید",
+                  },
+                  {
+                    min: 24,
+                    message: "شماره شبا معتبر نیست"
+                  },
+                  {
+                    max:24,
+                    message: "شماره شبا معتبر نیست"
+                  }
+                ]}
+              >
+                <Input
+                  type='tel'
+                  prefix="IR"
+                  style={{
+                    direction: "ltr",
+                    borderRadius: "10px",
+                    width: "100%",
+                    fontFamily: "VazirD",
+                    textAlign: "left",
+                  }}
+                  autoFocus
+                />
+              </Form.Item>
+              <br />
+              <label style={{ justifyContent: "right", display: "flex" }}>
+                نام صاحب حساب*
+              </label>
+              <Form.Item
+                name="name"
+                style={{ textAlign: "center", fontFamily: "VazirD" }}
+                rules={[
+                  {
+                    required: true,
+                    message: "نام صاحب حساب را وارد کنید",
+                  },
+                ]}
+              >
+                <Input style={{ borderRadius: "10px", fontFamily: "VazirD" }} />
+              </Form.Item>
+            </Form>
+          </Modal>
         </Modal>
       </div>
     );

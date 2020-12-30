@@ -44,14 +44,12 @@ class TravelProfile extends Component {
     return (
       <div>
         <CreateTravel parentCallback={this.callbackFunction} />
-        <div style={{ display: "flex", justifyContent: "center" }}>
           <TravelList
             parentCallback={this.callbackFunction}
             data={this.state.travel_user}
             data1={this.state.travel_user_completed}
             loading={this.state.loading}
           />
-        </div>
       </div>
     );
   }

@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { Divider, Spin, Modal, Radio, Input, Tooltip } from "antd";
 import { Popconfirm, notification, List, Row, Col, Button, Card } from "antd";
-import OfferListModal from "../offer/OfferListModal";
 import EditPacket from "./EditPacket";
 import { config } from "../../Constant";
 import DownloadPic from "../utils/DownloadPic";
-import { PlusOutlined } from "@ant-design/icons";
 import { socket } from '../../socket';
 
 const style_center = {
@@ -107,12 +105,6 @@ class PacketUserList extends React.Component {
           packet_user: current_packet.filter(
             (packet_user) => packet_user.slug !== slug),
         });
-      })
-      .catch((error) => console.error(error));
-    Axios.post(`${url}api/v1/advertise/packet/${slug}/`, {
-      headers: { Authorization: `Token ${token}` },
-    })
-      .then((res) => {
         notification["success"]({
           message: "از شما متشکریم",
           style: {
@@ -124,17 +116,33 @@ class PacketUserList extends React.Component {
           },
           duration: 2,
         });
-        this.setState({removeReason:false})
       })
       .catch((error) => console.error(error));
+    Axios.delete(`${url}api/v1/advertise/packet/${slug}/`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) => {
+        notification["success"]({
+          message: "آگهی با موفقیت حذف شد",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            fontSizeAdjust: "0.5",
+          },
+          duration: 2,
+        });
+      })
+      .catch((error) => console.error(error));
+      this.setState({removeReason:false})
   }
 
   delete1 = (slug) => {
     const current_packet = this.state.packet_user_completed;
-    const token = localStorage.getItem("token");
-    Axios.delete(`${url}api/v1/advertise/packet/${slug}`, {
-      headers: { Authorization: `Token ${token}` },
-    })
+    const token = localStorage.getItem('token');
+    Axios.delete(`${url}api/v1/advertise/packet/${slug}`,
+    { headers: { Authorization: `Token ${token}` } })
       .then((res) => {
         this.setState({
           packet_user_completed: current_packet.filter(
@@ -154,10 +162,9 @@ class PacketUserList extends React.Component {
         <Link to="/create-packet">
           <br />
           <Button
-            icon={<PlusOutlined />}
             style={{ borderRadius: "8px", marginBottom: "20px" }}
           >
-            <b> ثبت آگهی جدید</b>
+            <b>+ ثبت آگهی جدید</b>
           </Button>
         </Link>
         {this.state.loading ? (
@@ -206,7 +213,16 @@ class PacketUserList extends React.Component {
                               to={`/packet/${item.slug}`}
                               style={{ color: "black" }}
                             >
-                              <DownloadPic category={item.category} data={item.picture} size="60%" />
+                              <DownloadPic 
+                                title={item.title} 
+                                category={item.category} 
+                                origin_country={item.origin_country.name}
+                                destination_country={item.destination_country.name}
+                                origin_city={item.origin_city.name}
+                                destination_city={item.destination_city.name}
+                                no_matter_origin={item.no_matter_origin}
+                                data={item.picture}
+                                size="60%"  />
                             </Link>
                           </Col>
                         </Row>
@@ -234,11 +250,13 @@ class PacketUserList extends React.Component {
                             marginTop: "10px",
                           }}
                         >
-                          <OfferListModal
-                            data={item.slug}
-                            count={item.offer_count}
-                            buy={item.buy}
-                          />
+                           <Link to={`/profile/mypacket/${item.slug}`}>
+                            <Button
+                                style={{ border: "hidden", fontSize: "12px", borderRadius: "10px" }}
+                              >
+                                پیشنهادها ( {item.offer_count} )
+                              </Button>
+                            </Link>
                         </Row>
                         <hr />
                         <Row>

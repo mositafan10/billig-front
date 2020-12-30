@@ -1,52 +1,75 @@
 import React from "react";
 import { Button, Modal } from "antd";
 import { Breakpoint } from "react-socks";
-import UserOffer from './Useroffer';
+import UserOffer from "./Useroffer";
+import { config } from "../../Constant";
+import Axios from "axios";
+import { socket } from "../../socket";
+import { Redirect } from "react-router-dom";
 
-class OfferListModal extends React.Component {
+var url = config.url.API_URL;
+const token = localStorage.getItem("token");
+
+class OfferListModalTravel extends React.Component {
   state = {
-    offer_visible: false,
-    drawer_visible: false,
+    shouldRedirect: false,
+    travelOffer: [],
+    loading: true,
   };
 
-  offerlistmodal = () => {
-    this.setState({
-      offer_visible: true,
+  componentDidMount() {
+    this.getTravelOffer();
+    const userID = localStorage.getItem("user");
+    setTimeout(() => {
+      for (var i = 0; i < this.state.travelOffer.length; i++) {
+        const element = this.state.travelOffer[i].slug;
+        socket.emit("createJoinOfferRoom", {
+          offerID: element,
+          userID: userID,
+        });
+      }
+    }, 1000);
+    socket.on("updateOffer", () => {
+      this.getTravelOffer();
     });
+  }
+
+  getTravelOffer = () => {
+    const travelID = this.props.match.params.travelID;
+    const token = localStorage.getItem("token");
+    Axios.get(`${url}api/v1/advertise/getuseroffer/${travelID}`, {
+      headers: { Authorization: `Token ${token}` },
+    }).then((res) =>
+      this.setState({
+        travelOffer: res.data,
+        loading: false,
+      })
+    );
   };
 
   handleCancel = () => {
     this.setState({
-      offer_visible: false,
-      drawer_visible: false,
-    });
-  };
-
-  drawerofferlist = () => {
-    this.setState({
-      drawer_visible: true,
+      shouldRedirect: true,
     });
   };
 
   render() {
+    if (this.state.shouldRedirect) {
+      return <Redirect push to="/profile/mytravel" />;
+    }
     return (
       <div>
         <Breakpoint medium up>
-          <Button
-            style={{ border: "hidden", fontSize: "12px", borderRadius: "10px" }}
-            onClick={this.offerlistmodal}
-          >
-            پیشنهادها
-          </Button>
-          <span>{this.props.count}</span>
           <Modal
-            visible={this.state.offer_visible}
+            visible={true}
             title="پیشنهادهای ارسالی"
             onOk={this.handleCancel}
             onCancel={this.handleCancel}
             closable={false}
             okText="بازگشت"
-            okButtonProps={{ textAlign: "center", style:{position:"unset"} }}
+            okButtonProps={{
+              textAlign: "center",
+            }}
             cancelButtonProps={{ hidden: "true" }}
             style={{
               fontFamily: "VazirD",
@@ -54,19 +77,16 @@ class OfferListModal extends React.Component {
               overflow: "hidden",
               borderRadius: "20px",
             }}
-            width="80%"
-            bodyStyle={{ borderRadius: "20px"}}
+            width="90%"
           >
-            <UserOffer travel={this.props.travel} />
+            <UserOffer
+              data={this.state.travelOffer}
+              loading={this.state.loading}
+              update={this.getTravelOffer}
+            />
           </Modal>
         </Breakpoint>
         <Breakpoint small down>
-          <Button
-            style={{border: "hidden", fontSize: "14px", borderRadius: "10px" }}
-            onClick={this.drawerofferlist}
-          >
-          پیشنهادها : <span style={{marginRight:"3px"}}> {this.props.count} </span>
-          </Button>
           <Modal
             title="پیشنهاد‌های ارسالی"
             okText="بازگشت"
@@ -74,11 +94,15 @@ class OfferListModal extends React.Component {
             onOk={this.handleCancel}
             onCancel={this.handleCancel}
             width="100%"
-            bodyStyle={{ borderRadius: "20px"}}
-            visible={this.state.drawer_visible}
+            bodyStyle={{ borderRadius: "20px" }}
+            visible={true}
             style={{ textAlign: "right", fontFamily: "VazirD" }}
           >
-              <UserOffer travel={this.props.travel} />
+            <UserOffer
+              data={this.state.travelOffer}
+              loading={this.state.loading}
+              update={this.getTravelOffer}
+            />
           </Modal>
         </Breakpoint>
       </div>
@@ -86,4 +110,4 @@ class OfferListModal extends React.Component {
   }
 }
 
-export default OfferListModal;
+export default OfferListModalTravel;

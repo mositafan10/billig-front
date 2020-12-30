@@ -57,8 +57,16 @@ class PacketForEdit extends Component {
     }
   };
 
+  get_city_origin = (e) => {
+    Axios.get(`${url}api/v1/account/cities/${e}`).then((res) => {
+      this.setState({
+        cities_origin: res.data,
+        city_origin_dis: false,
+      });
+    });
+  };
+
   get_city_destination = (e) => {
-    console.log("country", e);
     Axios.get(`${url}api/v1/account/cities/${e}`).then((res) => {
       this.setState({
         cities_destination: res.data,
@@ -87,16 +95,6 @@ class PacketForEdit extends Component {
     const target = event.target;
     const name = target.name;
     this.setState({ [name]: target.value });
-  };
-
-  get_city_origin = (e) => {
-    console.log("country", e);
-    Axios.get(`${url}api/v1/account/cities/${e}`).then((res) => {
-      this.setState({
-        cities_origin: res.data,
-        city_origin_dis: false,
-      });
-    });
   };
 
   handleFormSubmit = (values) => {
@@ -206,6 +204,10 @@ class PacketForEdit extends Component {
         category: res.data,
       });
     });
+    if (this.props.data.origin_country.id !== 1) {
+      this.get_city_origin(this.props.data.origin_country.id);
+    }
+    this.get_city_destination(this.props.data.destination_country.id);
   };
 
   callbackFunction = (childData) => {
@@ -318,7 +320,8 @@ class PacketForEdit extends Component {
                   </Divider>
                   <Form.Item name="origin_city" style={{ textAlign: "right" }}>
                     <Select
-                      disabled={this.state.city_origin_dis}
+                    
+                      disabled={this.props.data.origin_country.id === 1 && this.state.city_origin_dis}
                       defaultValue={this.props.data.origin_city.name}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
@@ -370,7 +373,7 @@ class PacketForEdit extends Component {
                     style={{ textAlign: "right" }}
                   >
                     <Select
-                      disabled={this.state.city_destination_dis}
+                      // disabled={this.state.city_destination_dis}
                       defaultValue={this.props.data.destination_city.name}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >

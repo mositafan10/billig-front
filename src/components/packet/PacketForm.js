@@ -31,6 +31,7 @@ class PackForm extends React.Component {
     city_origin_dis: true,
     city_destination_dis: true,
     category: [],
+    categoryPost: [],
     pic_id: 1,
     buy: false,
     category_other: false,
@@ -48,10 +49,9 @@ class PackForm extends React.Component {
     infovisible6: false,
     infovisible7: false,
     infovisible8: false,
-    destination_city_select: []
+    destination_city_select: [],
   };
 
- 
   DIMENSION = [
     { value: "0", label: "کوچک" },
     { value: "1", label: "متوسط" },
@@ -74,63 +74,63 @@ class PackForm extends React.Component {
       infovisible6: false,
       infovisible7: false,
       infovisible8: false,
-    })
-  }
+    });
+  };
 
   showPopconfirm1 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible1: true
-    }) 
-  }
+      infovisible1: true,
+    });
+  };
   showPopconfirm2 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible2: true
-    }) 
-  }
+      infovisible2: true,
+    });
+  };
   showPopconfirm3 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible3: true
-    }) 
-  }
+      infovisible3: true,
+    });
+  };
   showPopconfirm3 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible3: true
-    }) 
-  }
+      infovisible3: true,
+    });
+  };
   showPopconfirm4 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible4: true
-    }) 
-  }
+      infovisible4: true,
+    });
+  };
   showPopconfirm5 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible5: true
-    }) 
-  }
+      infovisible5: true,
+    });
+  };
   showPopconfirm6 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible6: true
-    }) 
-  }
+      infovisible6: true,
+    });
+  };
   showPopconfirm7 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible7: true
-    }) 
-  }
+      infovisible7: true,
+    });
+  };
   showPopconfirm8 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible8: true
-    }) 
-  }
+      infovisible8: true,
+    });
+  };
 
   onChangedimension = (value) => {
     this.setState({ dimension: value });
@@ -166,9 +166,9 @@ class PackForm extends React.Component {
         cities_destination: res.data,
         city_destination_dis: false,
       });
-      this.setState({loadingCity:false})
+      this.setState({ loadingCity: false });
     });
-    this.setState({loadingCity: true, destination_city_select:" "})
+    this.setState({ loadingCity: true, destination_city_select: " " });
   };
 
   handlebuy = () => {
@@ -187,7 +187,7 @@ class PackForm extends React.Component {
     }
   };
 
-  // should fix due to new model 
+  // should fix due to new model
   changecategory = (value) => {
     this.setState({ category: value });
     if (value === "6") {
@@ -255,7 +255,7 @@ class PackForm extends React.Component {
       .then(function (res) {
         setTimeout(() => {
           window.location = "/profile/mypacket";
-          this.setState({loading:false})
+          this.setState({ loading: false });
         }, 3000);
         setTimeout(() => {
           notification["success"]({
@@ -287,10 +287,9 @@ class PackForm extends React.Component {
       });
   };
 
-  
   componentDidMount() {
     document.title = "ثبت آگهی ـ بیلیگ ";
-    window.scroll(0,0)
+    window.scroll(0, 0);
     Axios.get(`${url}api/v1/account/countries/`).then((res) => {
       this.setState({
         countries: res.data,
@@ -299,16 +298,18 @@ class PackForm extends React.Component {
     Axios.get(`${url}api/v1/advertise/categoryList/1`).then((res) => {
       this.setState({
         category: res.data,
+        categoryPost: res.data.filter(c => c.name === 'کتاب و مجلات')
       });
     });
   }
 
   render() {
     return (
-      <div style={{ margin: "45px" }}>
-        <Row>
-          <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6}></Col>
+      <div style={{ padding: "0 20px" }}>
+        <Row style={{display: "flex", justifyContent: "center" }}>
           <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+            <Divider>فرم ثبت آگهی</Divider>
+            <br/>
             <Form
               onFinish={(values) => this.handleFormSubmit(values)}
               size="middle"
@@ -331,7 +332,12 @@ class PackForm extends React.Component {
                       </div>
                     }
                   >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm1}><InfoCircleOutlined /></Button>
+                    <Button
+                      style={{ border: "hidden", margin: "-5px" }}
+                      onClick={this.showPopconfirm1}
+                    >
+                      <InfoCircleOutlined />
+                    </Button>
                   </Popconfirm>
                   <Checkbox onChange={this.handlebuy.bind(this)}>
                     <span style={{ marginRight: "10px" }}>
@@ -350,12 +356,12 @@ class PackForm extends React.Component {
                 rules={[
                   {
                     required: true,
-                    message: 'عنوان آگهی را وارد نمایید',
+                    message: "عنوان آگهی را وارد نمایید",
                   },
                   {
-                    pattern:'^([a-zA-Z0-9 \u0600-\u06FF])+$',
-                    message:"عنوان آگهی باید از حروف و اعداد تشکیل شده باشد"
-                  }
+                    pattern: "^([a-zA-Z0-9 \u0600-\u06FF])+$",
+                    message: "عنوان آگهی باید از حروف و اعداد تشکیل شده باشد",
+                  },
                 ]}
               >
                 <Input maxLength={50} style={{ textAlign: "right" }} />
@@ -384,7 +390,12 @@ class PackForm extends React.Component {
                           </div>
                         }
                       >
-                  <Button  style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm2}><InfoCircleOutlined /></Button>
+                        <Button
+                          style={{ border: "hidden", margin: "-5px" }}
+                          onClick={this.showPopconfirm2}
+                        >
+                          <InfoCircleOutlined />
+                        </Button>
                       </Popconfirm>
                       <Checkbox
                         onChange={this.handlenomattercountry.bind(this)}
@@ -400,7 +411,6 @@ class PackForm extends React.Component {
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
                     <Popconfirm
-                  
                       className="info3"
                       visible={this.state.infovisible3}
                       onConfirm={this.handleOkinfo}
@@ -419,7 +429,13 @@ class PackForm extends React.Component {
                         )
                       }
                     >
-                  <Button className="info3" style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm3}><InfoCircleOutlined /></Button>
+                      <Button
+                        className="info3"
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm3}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
                     </Popconfirm>
                     <span style={{ marginRight: "10px" }}>
                       {this.state.buy ? (
@@ -505,17 +521,22 @@ class PackForm extends React.Component {
                         this.state.buy ? (
                           <span style={{ marginRight: "10px" }}>
                             محلی است که کالا قرار است در آنجا تحویل گیرنده داده
-                            شود 
+                            شود
                           </span>
                         ) : (
                           <span style={{ marginRight: "10px" }}>
                             محلی است که بسته قرار است در آنجا تحویل گیرنده داده
-                            شود 
+                            شود
                           </span>
                         )
                       }
                     >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm4}><InfoCircleOutlined /></Button>
+                      <Button
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm4}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
                     </Popconfirm>
                     {this.state.buy ? (
                       <span style={{ marginRight: "10px" }}>
@@ -561,7 +582,6 @@ class PackForm extends React.Component {
                     )}
                   </Divider>
                   <Form.Item
-
                     name="destination_city"
                     style={{ textAlign: "right" }}
                     rules={[
@@ -571,7 +591,8 @@ class PackForm extends React.Component {
                     <Select
                       value={this.state.destination_city_select}
                       onChange={this.changeCityDestination}
-x                     disabled={this.state.city_destination_dis}
+                      x
+                      disabled={this.state.city_destination_dis}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
                       {this.state.cities_destination.map((e) => {
@@ -602,7 +623,12 @@ x                     disabled={this.state.city_destination_dis}
                         </div>
                       }
                     >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm5}><InfoCircleOutlined /></Button>
+                      <Button
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm5}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
                     </Popconfirm>
                     {this.state.buy ? (
                       <span style={{ marginRight: "10px" }}> ابعاد کالا *</span>
@@ -634,16 +660,24 @@ x                     disabled={this.state.city_destination_dis}
                       { required: true, message: "دسته‌بندی را انتخاب کنید" },
                     ]}
                   >
-                    <Select
-                      dropdownStyle={{ fontFamily: "VazirD" }}
-                    >
-                      {this.state.category.map((e, key) => {
+                    <Select dropdownStyle={{ fontFamily: "VazirD" }}>
+                      {this.state.buy ?
+                      this.state.category.map((e, key) => {
                         return (
                           <Option key={key} value={e.id}>
                             {e.name}
                           </Option>
                         );
-                      })}
+                      })
+                      :
+                      this.state.categoryPost.map((e, key) => {
+                        return (
+                          <Option key={key} value={e.id}>
+                            {e.name}
+                          </Option>
+                        );
+                      })
+                      }
                     </Select>
                   </Form.Item>
                   <div
@@ -689,7 +723,12 @@ x                     disabled={this.state.city_destination_dis}
                       okText="متوجه شدم"
                       title="وزن بسته باید عددی بین ۰.۱ تا ۳۰ کیلوگرم باشد"
                     >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm6}><InfoCircleOutlined /></Button>
+                      <Button
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm6}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
                     </Popconfirm>
                     {this.state.buy ? (
                       <span style={{ marginRight: "10px" }}>
@@ -722,7 +761,7 @@ x                     disabled={this.state.city_destination_dis}
                     ]}
                   >
                     <InputNumber
-                    type="tel"
+                      type="tel"
                       formatter={(value) =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
@@ -749,7 +788,12 @@ x                     disabled={this.state.city_destination_dis}
                         </p>
                       }
                     >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm7}><InfoCircleOutlined /></Button>
+                      <Button
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm7}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
                     </Popconfirm>
                     <span style={{ marginRight: "10px" }}>
                       مبلغ دستمزد (تومان) *
@@ -767,18 +811,23 @@ x                     disabled={this.state.city_destination_dis}
                       },
                       ({ getFieldValue }) => ({
                         validator(rule, value) {
-                          if (value > 10000) {
+                          if ((value > 100000) & (value < 50000000)) {
                             return Promise.resolve();
                           }
-                          return Promise.reject(
-                            "دستمزد نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
-                          );
+                          if (value < 100000)
+                            return Promise.reject(
+                              " دستمزد نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
+                            );
+                          if (value > 50000000)
+                            return Promise.reject(
+                              " دستمزد نمی‌تواند از ۵۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
+                            );
                         },
                       }),
                     ]}
                   >
                     <InputNumber
-                    type="tel"
+                      type="tel"
                       formatter={(value) =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
@@ -799,21 +848,22 @@ x                     disabled={this.state.city_destination_dis}
                 }}
               >
                 <Divider plain orientation="center">
-                  لینک کالا / وبسایت فروشگاه / آدرس فروشگاه
+                   لینک کالا
                 </Divider>
-                <Form.Item 
-                rules={[
-                  {
-                    required: this.state.buy ? true : false ,
-                    message:
-                      "مشخصات محل خرید کالا را وارد نمایید",
-                  },
-                ]}
-                name="buy_link">
-                  <TextArea
-                    rows={5}
-                    placeholder="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر برای مسافر مفید باشد"
-                  />
+                <Form.Item
+                  rules={[
+                    {
+                      required: this.state.buy ? true : false,
+                      message: "لینک خرید کالا را وارد نمایید",
+                    },
+                    {
+                     pattern:"[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?",
+                     message: "لینک معتبر نیست."
+                    }
+                  ]}
+                  name="buy_link"
+                >
+                  <Input placeholder="حتما با http یا https شروع شود" type="url"/>
                 </Form.Item>
                 <Divider plain orientation="center">
                   <Popconfirm
@@ -830,25 +880,38 @@ x                     disabled={this.state.city_destination_dis}
                       </div>
                     }
                   >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm8}><InfoCircleOutlined /></Button>
+                    <Button
+                      style={{ border: "hidden", margin: "-5px" }}
+                      onClick={this.showPopconfirm8}
+                    >
+                      <InfoCircleOutlined />
+                    </Button>
                   </Popconfirm>
                   <span style={{ marginRight: "10px" }}>قیمت کالا (تومان)</span>
                 </Divider>
-                <Form.Item name="parcel_price"
-                validateTrigger="onFinish"
-                rules={[
-                  ({ getFieldValue }) => ({
-                    validator(rule, value) {
-                      if (value > 10000 || value == null ) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(
-                        "مبلغ کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
-                      );
-                    },
-                  }),
-                ]}>
+                <Form.Item
+                  name="parcel_price"
+                  validateTrigger="onFinish"
+                  rules={[
+                    ({ getFieldValue }) => ({
+                      validator(rule, value) {
+                        if ((value > 100000) & (value < 200000000)) {
+                          return Promise.resolve();
+                        }
+                        if (value < 100000)
+                          return Promise.reject(
+                            "مبلغ کالا نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
+                          );
+                        if (value > 200000000)
+                          return Promise.reject(
+                            "مبلغ کالا نمی‌تواند از ۲۰۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
+                          );
+                      },
+                    }),
+                  ]}
+                >
                   <InputNumber
+                    type="tel"
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     }
@@ -861,18 +924,28 @@ x                     disabled={this.state.city_destination_dis}
               <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>
-              <Form.Item name="description" rules={[
-                {
-                  required: true,
-                  message: "توضیحات لازم را وارد نمایید"
-                },
+              <Form.Item
+                name="description"
+                rules={[
+                  {
+                    required: true,
+                    message: "توضیحات لازم را وارد نمایید",
+                  },
                   {
                     max: 1000,
                     message: "طول متن بیشتر از ۱۰۰۰ حرف است",
                   },
-                ]}>
+                  {
+                    min: 10,
+                    message: "لطفا کمی بیشتر توضیح دهید",
+                  },
+                ]}
+              >
                 <TextArea
-                  placeholder="نکاتی را که به واضح‌تر شدن درخواست شما برای بازدیدکننده آگهی کمک می‌کند، در اینجا یادداشت نمایید."
+                  placeholder={this.state.buy ?
+                  "نکاتی را که برای خرید کالا به مسافر کمک می کند در اینجا یادداشت نمایید "
+                  :
+                  "نکاتی را که به واضح‌تر شدن درخواست شما برای بازدیدکننده آگهی کمک می‌کند، در اینجا یادداشت نمایید."}
                   style={{ textAlign: "right", padding: "10px" }}
                   rows={5}
                 />
@@ -881,7 +954,7 @@ x                     disabled={this.state.city_destination_dis}
               <Form.Item style={{ textAlign: "center" }}>
                 <Button
                   loading={this.state.loading}
-                  style={{ borderRadius: "8px" }}
+                  style={{ borderRadius: "8px", padding: " 0 30px"}}
                   type="primary"
                   htmlType="submit"
                 >
@@ -890,7 +963,6 @@ x                     disabled={this.state.city_destination_dis}
               </Form.Item>
             </Form>
           </Col>
-          <Col xs={0} sm={0} md={0} lg={6} xl={6} xxl={6}></Col>
         </Row>
       </div>
     );

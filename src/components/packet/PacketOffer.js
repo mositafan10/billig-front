@@ -11,9 +11,9 @@ import {
   Divider,
   Spin,
   notification,
+  Card,
 } from "antd";
-import moment from 'moment';
-
+import moment from "moment";
 import Axios from "axios";
 import SendMessage from "./SendMessage";
 import { Link } from "react-router-dom";
@@ -21,16 +21,15 @@ import SendTransactionInfo from "../payment/SendTransactionInfo";
 import { config } from "../../Constant";
 import RateAndComment from "../rating/RateAndComment";
 import { Breakpoint } from "react-socks";
+import { socket } from "../../socket";
 
 var url = config.url.API_URL;
 const token = localStorage.getItem("token");
 
 class PacketOffer extends React.Component {
   state = {
-    packet_offer: [],
     disableconfirm: false,
     visible: false,
-    loading: true,
   };
 
   columns = [
@@ -47,8 +46,9 @@ class PacketOffer extends React.Component {
               {dataIndex}
             </div>
           );
+        } else {
+          return dataIndex;
         }
-        else { return dataIndex}
       },
     },
     {
@@ -57,7 +57,11 @@ class PacketOffer extends React.Component {
       key: "sender",
       width: 150,
       align: "center",
-      render: (key, row) => <a target="blank" href={`${url}users/` + row.sender_slug}>{key}</a>,
+      render: (key, row) => (
+        <a target="blank" href={`${url}users/` + row.sender_slug}>
+          {key}
+        </a>
+      ),
     },
     {
       title: "اطلاعات سفر",
@@ -65,23 +69,29 @@ class PacketOffer extends React.Component {
       key: "slug",
       width: 300,
       align: "center",
-      render: (dataIndex) => <div>{dataIndex.origin} / {dataIndex.origin_city} به {dataIndex.destination} / {dataIndex.destination_city} در {moment(dataIndex.flight_date).format("DD MMM")}</div>,
+      render: (dataIndex) => (
+        <div>
+          {dataIndex.origin} / {dataIndex.origin_city} به{" "}
+          {dataIndex.destination} / {dataIndex.destination_city} در{" "}
+          {moment(dataIndex.flight_date).format("DD MMM")}
+        </div>
+      ),
     },
     {
-      title: "دستمزد (ریال)",
+      title: "دستمزد (تومان)",
       dataIndex: "price",
       key: "y",
       width: 150,
       align: "center",
-      render: (dataIndex) => this.currency(dataIndex)
+      render: (dataIndex) => this.currency(dataIndex),
     },
     {
-      title: this.props.buy && "قیمت کالا (ریال)",
+      title: this.props.buy && "قیمت کالا (تومان)",
       dataIndex: "parcel_price_offer",
       key: "y",
       width: 150,
       align: "center",
-      render: (dataIndex) => this.props.buy && this.currency(dataIndex)
+      render: (dataIndex) => this.props.buy && this.currency(dataIndex),
     },
     {
       title: " ",
@@ -133,8 +143,15 @@ class PacketOffer extends React.Component {
           return (
             <Popconfirm
               overlayStyle={{ fontFamily: "VazirD" }}
-              title={<div>با رد شدن مبلغ، پیشنهاد به مرحله قبل بازمی‌گردد تا مسافر مبلغ را مجدد وارد نماید<br/>آیا پیشنهاد به مرحله قبل باز گردد؟</div>}
-              onConfirm={this.rejectpayment.bind(this,row.slug)}
+              title={
+                <div>
+                  با رد شدن مبلغ، پیشنهاد به مرحله قبل بازمی‌گردد تا مسافر مبلغ
+                  را مجدد وارد نماید
+                  <br />
+                  آیا پیشنهاد به مرحله قبل باز گردد؟
+                </div>
+              }
+              onConfirm={this.rejectpayment.bind(this, row.slug)}
               onCancel={this.cancel}
               okText="بله"
               cancelText="خیر"
@@ -167,18 +184,18 @@ class PacketOffer extends React.Component {
                   fontSize: "12px",
                   border: "hidden",
                   backgroundColor: "green",
-                  color:"white",
+                  color: "white",
                   borderRadius: "10px",
                 }}
               >
-               تحویل گرفتم
+                تحویل گرفتم
               </Button>
             </Popconfirm>
           );
         } else if (row.status === "انجام شده") {
           return (
             <RateAndComment
-              signal={this.callbackFunction}
+              signal={this.callbackFunction.bind(this, row.slug)}
               data={dataIndex}
               receiver={row.receiver_slug}
               loc={"مسافر"}
@@ -206,12 +223,12 @@ class PacketOffer extends React.Component {
   ];
 
   currency = (value) => {
-    const p =  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    return p
-}
+    const p = `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return p;
+  };
 
-  callbackFunction = () => {
-    this.componentDidMount();
+  callbackFunction = (data) => {
+    socket.emit("offerChanged", data);
   };
 
   rejectpayment = (data) => {
@@ -226,7 +243,8 @@ class PacketOffer extends React.Component {
       .then(() => {
         notification["warn"]({
           message: "مبلغ پیشنهاد شده تایید نشد",
-          description: "در مورد مبلغ مورد نظر خودتان با مسافر مذاکره کنید تا مبلغ پیشنهادی اصلاح شود",
+          description:
+            "در مورد مبلغ مورد نظر خودتان با مسافر مذاکره کنید تا مبلغ پیشنهادی اصلاح شود",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -235,10 +253,10 @@ class PacketOffer extends React.Component {
           },
           duration: 5,
         });
-        this.componentDidMount();
+        socket.emit("offerChanged", data);
       })
       .catch((error) => console.error(error));
-  }
+  };
 
   accept(data) {
     Axios.post(
@@ -261,7 +279,7 @@ class PacketOffer extends React.Component {
           },
           duration: 5,
         });
-        this.componentDidMount();
+        socket.emit("offerChanged", data);
       })
       .catch((error) => console.error(error));
   }
@@ -278,7 +296,13 @@ class PacketOffer extends React.Component {
       .then(() => {
         notification["success"]({
           message: "دریافت کالا از سوی شما تایید شد",
-          description:<div>حال می‌توانید نظر خود را در مورد مسافر بیان کنید و به ایشان امتیاز دهید. <br/>امتیاز شما می‌تواند به کاربران دیگر کمک کند</div>,
+          description: (
+            <div>
+              حال می‌توانید نظر خود را در مورد مسافر بیان کنید و به ایشان امتیاز
+              دهید. <br />
+              امتیاز شما می‌تواند به کاربران دیگر کمک کند
+            </div>
+          ),
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -287,43 +311,29 @@ class PacketOffer extends React.Component {
           },
           duration: 8,
         });
-        this.componentDidMount();
+        socket.emit("offerChanged", data);
       })
       .catch((error) => console.error(error));
   };
-
-  componentDidMount() {
-    const orderID = this.props.data;
-    Axios.get(`${url}api/v1/advertise/offers/${orderID}/`, {
-      headers: { Authorization: `Token ${token}` },
-    })
-      .then((res) => {
-        this.setState({
-          packet_offer: res.data,
-          loading: false,
-        });
-      })
-      .catch((error) => console.error(error));
-  }
 
   render() {
     return (
       <div>
         <Breakpoint medium up>
-          {this.state.loading ? (
+          {this.props.loading ? (
             <div style={{ marginTop: "100px" }}>
               <Spin />
             </div>
           ) : (
             <Table
-              pagination={{
-                onChange: (page) => {},
-                hideOnSinglePage: true,
-                size: "small",
-              }}
+            pagination={{
+              hideOnSinglePage: true,
+              size: "small",
+            }}
               locale={{ emptyText: "پیشنهادی وجود ندارد" }}
               columns={this.columns}
-              dataSource={this.state.packet_offer}
+              dataSource={this.props.data}
+              scroll={{x:"800px",scrollToFirstRowOnChange:"true"}}
             />
           )}
         </Breakpoint>
@@ -336,155 +346,166 @@ class PacketOffer extends React.Component {
               simple: true,
               hide: true,
             }}
-            dataSource={this.state.packet_offer}
+            dataSource={this.props.data}
             renderItem={(item) => (
-              <div>
-                <Row
-                  style={{
-                    color: "black",
-                    border: "1px solid",
-                    borderRadius: "10px",
-                    margin: "25px 15px 25px 15px",
-                    padding: "15px 15px 15px 15px",
-                    width: "90%",
-                    height: "auto",
-                  }}
-                >
-                  <Col
-                    xs={24}
-                    sm={24}
-                    md={24}
-                    lg={24}
-                    xl={24}
-                    xxl={24}
-                    style={{ textAlign: "center" }}
-                  >
-                    <p>
-                      وضعیت :
-                      <span style={{ color: "blue" }}>{item.status}</span>
-                    </p>
-                    <hr />
-                  </Col>
-                  <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                    <Avatar
-                      src={`${url}dstatic/media/${item.sender_avatar}`}
-                    ></Avatar>
-                    <span>
-                      <Link
-                        to={`/users/${item.sender_slug}`}
-                        style={{ color: "black", fontSize: "14px" }}
-                      >
-                        {item.sender}
-                      </Link>
-                    </span>
-                    <Divider style={{ marginTop: "5px", opacity: "0" }} />
-                    <p>{item.description}</p>
-                    <br />
-                    <p style={{ textAlign: "left" }}> {item.price} ریال </p><hr/>
-                  </Col>
-                  <Col style={{ display: "flex", justifyContent: "center" }}>
-                    <Space>
-                      <Col>
-                      {item.status != "تمام شده" && (
-                              <SendMessage
-                                sender={item.sender_slug}
-                                receiver={item.receiver_slug}
-                                slug={item.slug}
-                              />
-                            )}
-                      </Col>
-                      <Col>
-                        {item.status === "در انتظار پاسخ" && (
-                          <Popconfirm
-                            overlayStyle={{ fontFamily: "VazirD" }}
-                            title="آیا از تایید اولیه پیشنهاد مطمئن هستید ؟"
-                            onConfirm={this.accept.bind(this, item.slug)}
-                            onCancel={this.cancel}
-                            okText="بله"
-                            cancelText="خیر"
-                          >
-                            <Button
-                              style={{
-                                fontSize: "12px",
-                                border: "hidden",
-                                color: "white",
-                                backgroundColor: "green",
-                                borderRadius: "10px",
-                              }}
-                            >
-                              <b>تایید اولیه</b>
-                            </Button>
-                          </Popconfirm>
-                        )}
-                        {item.status === "در انتظار پرداخت" && (
-                          <Popconfirm
-                          overlayStyle={{ fontFamily: "VazirD" }}
-                          title={<div>با رد شدن مبلغ، پیشنهاد به مرحله قبل بازمی‌گردد تا مسافر مبلغ را مجدد وارد نماید<br/>آیا پیشنهاد به مرحله قبل باز گردد؟</div>}
-                          onConfirm={this.rejectpayment.bind(this,item.slug)}
-                          onCancel={this.cancel}
-                          okText="بله"
-                          cancelText="خیر"
+              <List.Item>
+                <Card style={{borderRadius:"8px"}}>
+                  <Row>
+                    <Col
+                      xs={24}
+                      sm={24}
+                      md={24}
+                      lg={24}
+                      xl={24}
+                      xxl={24}
+                      style={{ textAlign: "center" }}
+                    >
+                      <p>
+                        وضعیت :
+                        <span style={{ color: "blue" }}> {item.status} </span>
+                      </p>
+                      <hr />
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                      <Avatar
+                        src={`${url}dstatic/media/${item.sender_avatar}`}
+                      ></Avatar>
+                      <span>
+                        <Link
+                          to={`/users/${item.sender_slug}`}
+                          style={{ color: "black", fontSize: "14px" }}
                         >
-                          <Button
-                            style={{
-                              fontSize: "12px",
-                              border: "hidden",
-                              color: "white",
-                              backgroundColor: "red",
-                              borderRadius: "10px",
-                            }}
-                          >
-                            <b>رد مبلغ پیشنهادی</b>
-                          </Button>
-                        </Popconfirm>
-                        )}
-                        {item.status === "در انتظار تایید خریدار" && (
-                          <Popconfirm
-                            overlayStyle={{ fontFamily: "VazirD" }}
-                            title="آیا کالا را تحویل گرفته‌اید ؟"
-                            onConfirm={this.receiveconfirm.bind(
-                              this,
-                              item.slug
-                            )}
-                            onCancel={this.cancel}
-                            okText="بله"
-                            cancelText="خیر"
-                          >
-                            <Button
-                              style={{
-                                fontSize: "12px",
-                                border: "hidden",
-                                backgroundColor: "green",
-                                color: "white",
-                                borderRadius: "10px",
-                              }}
+                          {item.sender}
+                        </Link>
+                      </span>
+                      <br />
+                      <p>
+                        {item.travel_info.origin} (
+                        {item.travel_info.origin_city}) به{" "}
+                        {item.travel_info.destination} (
+                        {item.travel_info.destination_city}) در{" "}
+                        {moment(item.travel_info.flight_date).format("DD MMM")}{" "}
+                      </p>
+                      <p style={{ textAlign: "left" }}> {item.price} تومان </p>
+                      <hr />
+                    </Col>
+                    <Col style={{ display: "flex", justifyContent: "center" }}>
+                      <Space>
+                        <Col>
+                          {item.status != "تمام شده" && (
+                            <SendMessage
+                              sender={item.sender_slug}
+                              receiver={item.receiver_slug}
+                              slug={item.slug}
+                            />
+                          )}
+                        </Col>
+                        <Col>
+                          {item.status === "در انتظار پاسخ" && (
+                            <Popconfirm
+                              overlayStyle={{ fontFamily: "VazirD" }}
+                              title="آیا از تایید اولیه پیشنهاد مطمئن هستید ؟"
+                              onConfirm={this.accept.bind(this, item.slug)}
+                              onCancel={this.cancel}
+                              okText="بله"
+                              cancelText="خیر"
                             >
-                              تحویل گرفتم
-                            </Button>
-                          </Popconfirm>
-                        )}
-                        {item.status === "انجام شده" && (
-                          <RateAndComment
-                            signal={this.callbackFunction}
-                            data={item.slug}
-                            receiver={item.receiver_slug}
-                            loc={"مسافر"}
-                          />
-                        )}
-                      </Col>
-                      <Col>
-                        {item.status === "در انتظار پرداخت" && (
-                          <SendTransactionInfo
-                            amount={item.price + item.parcel_price}
-                            factorNumber={item.slug}
-                          />
-                        )}
-                      </Col>
-                    </Space>
-                  </Col>
-                </Row>
-                <Divider />
-              </div>
+                              <Button
+                                style={{
+                                  fontSize: "12px",
+                                  border: "hidden",
+                                  color: "white",
+                                  backgroundColor: "green",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                <b>تایید اولیه</b>
+                              </Button>
+                            </Popconfirm>
+                          )}
+                          {item.status === "در انتظار پرداخت" && (
+                            <Popconfirm
+                              overlayStyle={{ fontFamily: "VazirD" }}
+                              title={
+                                <div>
+                                  با رد شدن مبلغ، پیشنهاد به مرحله قبل
+                                  بازمی‌گردد تا مسافر مبلغ را مجدد وارد نماید
+                                  <br />
+                                  آیا پیشنهاد به مرحله قبل باز گردد؟
+                                </div>
+                              }
+                              onConfirm={this.rejectpayment.bind(
+                                this,
+                                item.slug
+                              )}
+                              onCancel={this.cancel}
+                              okText="بله"
+                              cancelText="خیر"
+                            >
+                              <Button
+                                style={{
+                                  fontSize: "12px",
+                                  border: "hidden",
+                                  color: "white",
+                                  backgroundColor: "red",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                <b>رد مبلغ پیشنهادی</b>
+                              </Button>
+                            </Popconfirm>
+                          )}
+                          {item.status === "در انتظار تایید خریدار" && (
+                            <Popconfirm
+                              overlayStyle={{ fontFamily: "VazirD" }}
+                              title="آیا کالا را تحویل گرفته‌اید ؟"
+                              onConfirm={this.receiveconfirm.bind(
+                                this,
+                                item.slug
+                              )}
+                              onCancel={this.cancel}
+                              okText="بله"
+                              cancelText="خیر"
+                            >
+                              <Button
+                                style={{
+                                  fontSize: "12px",
+                                  border: "hidden",
+                                  backgroundColor: "green",
+                                  color: "white",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                تحویل گرفتم
+                              </Button>
+                            </Popconfirm>
+                          )}
+                          {item.status === "انجام شده" && (
+                            <RateAndComment
+                              signal={this.callbackFunction.bind(
+                                this,
+                                item.slug
+                              )}
+                              data={item.slug}
+                              receiver={item.receiver_slug}
+                              loc={"مسافر"}
+                            />
+                          )}
+                        </Col>
+                        <Col>
+                          {item.status === "در انتظار پرداخت" && (
+                            <SendTransactionInfo
+                              amount={item.price + item.parcel_price}
+                              factorNumber={item.slug}
+                            />
+                          )}
+                        </Col>
+                      </Space>
+                    </Col>
+                  </Row>
+                  <Divider />
+                </Card>
+              </List.Item>
             )}
           />
         </Breakpoint>

@@ -1,6 +1,7 @@
 import React from "react";
 import Axios from "axios";
 import airplane from "../../media/airplane.png";
+import { Link } from "react-router-dom";
 import {
   Button,
   Popconfirm,
@@ -11,7 +12,7 @@ import {
   notification,
   Card,
   Tooltip,
-  Divider
+  Divider,
 } from "antd";
 import moment from "moment";
 import EditTravel from "./EditTravel";
@@ -20,7 +21,7 @@ import PayTraveler from "../payment/PayTraveler";
 import Modal from "antd/lib/modal/Modal";
 import UserOffer from "../offer/Useroffer";
 import Experience from "./Experience";
-import OfferListModalTravel from '../offer/OfferListModalTravel';
+import OfferListModalTravel from "../offer/OfferListModalTravel";
 
 var url = config.url.API_URL;
 const style_left = {
@@ -29,7 +30,12 @@ const style_left = {
   paddingLeft: "10px",
 };
 const style_right = { display: "flex", justifyContent: "right" };
-const style_center = { display: "flex", justifyContent: "center", alignItems:"center", textAlign:"center" };
+const style_center = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  textAlign: "center",
+};
 
 class TravelList extends React.Component {
   state = {
@@ -64,7 +70,7 @@ class TravelList extends React.Component {
       })
       .catch((error) => {
         notification["error"]({
-          message:error.response.data.detail,
+          message: error.response.data.detail,
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -73,7 +79,7 @@ class TravelList extends React.Component {
           },
           duration: 2,
         });
-    });
+      });
   };
 
   offermodal = () => {
@@ -104,48 +110,45 @@ class TravelList extends React.Component {
                 xl: 3,
                 xxl: 4,
               }}
-              locale={{ emptyText: "با بیلیگ هزینه سفرتان را کاهش دهید"}}
+              locale={{ emptyText: "با بیلیگ هزینه سفرتان را کاهش دهید" }}
               dataSource={this.props.data}
-              style={{ display: "flex" }}
               renderItem={(item) => (
                 <List.Item key={item.slug}>
-                  <Card>
+                  <Card style={{ borderRadius: "8px" }}>
                     <Row>
-                        <Row style={style_center} >
-                          <Col span={8} style={style_center}>
-                            <div>
-                            <img
-                              src={`${url}dstatic/${item.departure.icon}`}
-                              alt={item.departure.name}
-                              width="80%"
-                              style={{ borderRadius: "5px" }}
-                            />
-                            <p style={{ margin: "10px 5px" }}>
-                              {item.departure_city.name}
-                            </p>
-                            </div>
-                          </Col>
-                          <Col span={8} style={style_center}>
-                            <div>
-                              <img src={airplane} alt="billlig.com" width="80%" />
-                              <p style={{color:"white"}}>.</p>
-                            </div>  
-                          </Col>
-                          <Col span={8} style={style_center}>
-                            <div>
-                            <img
-                              src={`${url}dstatic/${item.destination.icon}`}
-                              alt={item.destination.name}
-                              width="80%"
-                              style={{ borderRadius: "5px" }}
-                            />
-                            <p style={{ margin: "10px 25px" }}>
-                              {item.destination_city.name}
-                            </p>
-                            </div>
-                          </Col>
-                        </Row>
-                      <hr style={{ marginBottom: "20px", color:"white" }} />
+                      <Col span={8} style={style_center}>
+                        <div>
+                          <img
+                            src={`${url}dstatic/${item.departure.icon}`}
+                            alt={item.departure.name}
+                            width="90%"
+                            style={{ borderRadius: "50%" }}
+                          />
+                          <p style={{ margin: "10px 25px" }}>
+                            {item.departure_city.name}
+                          </p>
+                        </div>
+                      </Col>
+                      <Col span={8} style={style_center}>
+                        <div>
+                          <img src={airplane} alt="billlig.com" width="60%" />
+                          <p style={{ color: "white" }}>.</p>
+                        </div>
+                      </Col>
+                      <Col span={8} style={style_center}>
+                        <div>
+                          <img
+                            src={`${url}dstatic/${item.destination.icon}`}
+                            alt={item.destination.name}
+                            width="90%"
+                            style={{ borderRadius: "50%" }}
+                          />
+                          <p style={{ margin: "10px 25px" }}>
+                            {item.destination_city.name}
+                          </p>
+                        </div>
+                      </Col>
+                      <hr style={{ marginBottom: "20px", color: "white" }} />
                       <Row>
                         <Col span={24}>
                           <Row style={style_right}>
@@ -184,11 +187,19 @@ class TravelList extends React.Component {
                                 <p style={{ marginRight: "5px" }}> تومان </p>
                               )}
                             </Col>
-                            </Row>
-                            <Row style={style_center}>
-                                <OfferListModalTravel 
-                                count = {item.offer_count}
-                                travel={item.slug} />
+                          </Row>
+                          <Row style={style_center}>
+                            <Link to={`/profile/mytravel/${item.slug}`}>
+                              <Button
+                                style={{
+                                  border: "hidden",
+                                  fontSize: "12px",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                پیشنهادها ( {item.offer_count} )
+                              </Button>
+                            </Link>
                           </Row>
                           <Row
                             style={{
@@ -202,65 +213,64 @@ class TravelList extends React.Component {
                             )}
                           </Row>
                           <hr style={{ margin: "15px 0 15px 0" }} />
-                          <Row  style={{display:"block"}}>
-                              <Col>
-                                {item.status == 4 ? (
-                                  <PayTraveler
-                                    travel={item.slug}
-                                    amount={item.income}
-                                  />
-                                ) : item.status == 8 && (
-                                  <span>در انتظار تسویه</span>
-                                )}
-                              </Col>
-                              <Col>
-                                {item.status == 2 &&
-                                  <EditTravel
-                                    signal={this.editsignal}
-                                    data={item.slug}
-                                  />
-                                }
-                              </Col>
-                              <Col style={{float:"left"}}>
-                                {(item.status == 0 || item.status == 2 ) ? (
-                                  <Popconfirm
-                                    overlayStyle={{ fontFamily: "VazirD" }}
-                                    title="آیا از حذف آگهی مطمئن هستید ؟"
-                                    onConfirm={this.delete.bind(
-                                      this,
-                                      item.slug
-                                    )}
-                                    onCancel={this.cancel}
-                                    okText="بله"
-                                    cancelText="خیر"
+                          <Row style={{ display: "block" }}>
+                            <Col>
+                              {item.status == 4 ? (
+                                <PayTraveler
+                                  travel={item.slug}
+                                  amount={item.income}
+                                />
+                              ) : (
+                                item.status == 8 && <span>در انتظار تسویه</span>
+                              )}
+                            </Col>
+                            <Col>
+                              {item.status == 2 && (
+                                <EditTravel
+                                  signal={this.editsignal}
+                                  data={item.slug}
+                                />
+                              )}
+                            </Col>
+                            <Col style={{ float: "left" }}>
+                              {item.status == 0 || item.status == 2 ? (
+                                <Popconfirm
+                                  overlayStyle={{ fontFamily: "VazirD" }}
+                                  title="آیا از حذف آگهی مطمئن هستید ؟"
+                                  onConfirm={this.delete.bind(this, item.slug)}
+                                  onCancel={this.cancel}
+                                  okText="بله"
+                                  cancelText="خیر"
+                                >
+                                  <Button
+                                    style={{
+                                      borderRadius: "10px",
+                                      fontSize: "12px",
+                                      backgroundColor: "red",
+                                      color: "white",
+                                    }}
                                   >
-                                    <Button
-                                      style={{
-                                        borderRadius: "10px",
-                                        fontSize: "12px",
-                                        backgroundColor: "red",
-                                        color: "white",
-                                      }}
-                                    >
-                                      <b>حذف</b>
-                                    </Button>
-                                  </Popconfirm>)
-                                  : (
-                                    <Tooltip overlayStyle={{fontFamily:"VazirD"}} title="چنانچه سفر پیشنهاد داشته باشد، امکان حذف آن وجود ندارد">
-                                    <Button
-                                      style={{
-                                        border: "hidden",
-                                        fontSize: "14px",
-                                        borderRadius: "10px",
-                                      }}
-                                      disabled={true}
-                                    >
-                                      حذف
-                                    </Button>
-                                    </Tooltip>
-                                  )  
-                                }
-                              </Col>
+                                    <b>حذف</b>
+                                  </Button>
+                                </Popconfirm>
+                              ) : (
+                                <Tooltip
+                                  overlayStyle={{ fontFamily: "VazirD" }}
+                                  title="چنانچه سفر پیشنهاد داشته باشد، امکان حذف آن وجود ندارد"
+                                >
+                                  <Button
+                                    style={{
+                                      border: "hidden",
+                                      fontSize: "14px",
+                                      borderRadius: "10px",
+                                    }}
+                                    disabled={true}
+                                  >
+                                    حذف
+                                  </Button>
+                                </Tooltip>
+                              )}
+                            </Col>
                           </Row>
                         </Col>
                       </Row>
@@ -271,191 +281,170 @@ class TravelList extends React.Component {
             />
           </div>
         )}
-        {this.props.data1.length != 0 &&
-        <Divider>سفرهای انجام شده</Divider>
-        }
-            <List
-              grid={{
-                gutter: 16,
-                xs: 1,
-                sm: 1,
-                md: 2,
-                lg: 2,
-                xl: 3,
-                xxl: 4,
-              }}
-              locale={{ emptyText: " " }}
-              dataSource={this.props.data1}
-              style={{ display: "flex" }}
-              renderItem={(item) => (
-                <List.Item key={item.slug}>
-                  <Card>
-                    <Row>
-                        <Row style={style_center} >
-                          <Col span={8} style={style_center}>
-                            <div>
-                            <img
-                              src={`${url}dstatic/${item.departure.icon}`}
-                              alt={item.departure.name}
-                              width="80%"
-                              style={{ borderRadius: "5px" }}
-                            />
-                            <p style={{ margin: "10px 5px" }}>
-                              {item.departure_city.name}
-                            </p>
-                            </div>
-                          </Col>
-                          <Col span={8} style={style_center}>
-                            <div>
-                              <img src={airplane} alt="billlig.com" width="80%" />
-                              <p style={{color:"white"}}>.</p>
-                            </div>  
-                          </Col>
-                          <Col span={8} style={style_center}>
-                            <div>
-                            <img
-                              src={`${url}dstatic/${item.destination.icon}`}
-                              alt={item.destination.name}
-                              width="80%"
-                              style={{ borderRadius: "5px" }}
-                            />
-                            <p style={{ margin: "10px 25px" }}>
-                              {item.destination_city.name}
-                            </p>
-                            </div>
-                          </Col>
-                        </Row>
-                      <hr style={{ marginBottom: "20px", color:"white" }} />
-                      <Row>
-                        <Col span={24}>
-                          <Row style={style_right}>
-                            <Col style={style_right} span={12}>
-                              <h4>تاریخ سفر</h4>
-                            </Col>
-                            <Col style={style_left} span={12}>
-                              {moment(item.flight_date_start).format("D MMM")}
-                            </Col>
-                          </Row>
-                        </Col>
-                        <hr
-                          style={{ backgroundColor: "white", color: "white" }}
-                        />
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                          <Row style={style_right}>
-                            <Col style={style_right} span={22}>
-                              <h4>تعداد بسته‌های پذیرش شده</h4>
-                            </Col>
-                            <Col style={style_left} span={2}>
-                              {item.approved_packet}
-                            </Col>
-                          </Row>
-                        </Col>
-                        <hr
-                          style={{ backgroundColor: "white", color: "white" }}
-                        />
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                          <Row style={style_right}>
-                            <Col style={style_right} span={20}>
-                              <h4>مجموع درآمد</h4>
-                            </Col>
-                            <Col style={style_left} span={4}>
-                              <p> {item.income} </p>
-                              {item.income !== 0 && (
-                                <p style={{ marginRight: "5px" }}> تومان </p>
-                              )}
-                            </Col>
-                            </Row>
-                            <Row style={style_center}>
-                            <Col >
-                                <Button
-                                  onClick={this.offermodal}
-                                  style={{
-                                    borderRadius: "10px",
-                                    fontSize: "12px",
-                                    border:"hidden"
-                                  }}
-                                >
-                                  پیشنهادها  <span style={{marginRight:"10px"}}>{item.offer_count}</span>
-                                </Button>
-                              </Col>
-                              <Modal
-                                visible={this.state.visible}
-                                onCancel={this.offermodalcancle}
-                                closable={true}
-                                title=" پیشنهادهای ارسالی"
-                                width="90%"
-                                cancelText="بازگشت"
-                                okButtonProps={{ hidden: "true" }}
-                                style={{
-                                  fontFamily: "VazirD",
-                                  textAlign: "center",
-                                  overflow: "hidden",
-                                  borderRadius: "20px",
-                                }}
-                              >
-                                <UserOffer />
-                              </Modal>
-                          </Row>
-                          <Row
+        {this.props.data1.length != 0 && <Divider>سفرهای انجام شده</Divider>}
+        <List
+          grid={{
+            gutter: 16,
+            xs: 1,
+            sm: 1,
+            md: 2,
+            lg: 2,
+            xl: 3,
+            xxl: 4,
+          }}
+          locale={{ emptyText: " " }}
+          dataSource={this.props.data1}
+          renderItem={(item) => (
+            <List.Item key={item.slug}>
+              <Card style={{ borderRadius: "8px" }}>
+                <Row>
+                  <Col span={8} style={style_center}>
+                    <div>
+                      <img
+                        src={`${url}dstatic/${item.departure.icon}`}
+                        alt={item.departure.name}
+                        width="90%"
+                        style={{ borderRadius: "50%" }}
+                      />
+                      <p style={{ margin: "10px 25px" }}>
+                        {item.departure_city.name}
+                      </p>
+                    </div>
+                  </Col>
+                  <Col span={8} style={style_center}>
+                    <div>
+                      <img src={airplane} alt="billlig.com" width="60%" />
+                      <p style={{ color: "white" }}>.</p>
+                    </div>
+                  </Col>
+                  <Col span={8} style={style_center}>
+                    <div>
+                      <img
+                        src={`${url}dstatic/${item.destination.icon}`}
+                        alt={item.destination.name}
+                        width="90%"
+                        style={{ borderRadius: "50%" }}
+                      />
+                      <p style={{ margin: "10px 25px" }}>
+                        {item.destination_city.name}
+                      </p>
+                    </div>
+                  </Col>
+                </Row>
+                <hr style={{ marginBottom: "20px", color: "white" }} />
+                <Row>
+                  <Col span={24}>
+                    <Row style={style_right}>
+                      <Col style={style_right} span={12}>
+                        <h4>تاریخ سفر</h4>
+                      </Col>
+                      <Col style={style_left} span={12}>
+                        {moment(item.flight_date_start).format("D MMM")}
+                      </Col>
+                    </Row>
+                  </Col>
+                  <hr style={{ backgroundColor: "white", color: "white" }} />
+                  <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                    <Row style={style_right}>
+                      <Col style={style_right} span={22}>
+                        <h4>تعداد بسته‌های پذیرش شده</h4>
+                      </Col>
+                      <Col style={style_left} span={2}>
+                        {item.approved_packet}
+                      </Col>
+                    </Row>
+                  </Col>
+                  <hr style={{ backgroundColor: "white", color: "white" }} />
+                  <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                    <Row style={style_right}>
+                      <Col style={style_right} span={20}>
+                        <h4>مجموع درآمد</h4>
+                      </Col>
+                      <Col style={style_left} span={4}>
+                        <p> {item.income} </p>
+                        {item.income !== 0 && (
+                          <p style={{ marginRight: "5px" }}> تومان </p>
+                        )}
+                      </Col>
+                    </Row>
+                    <Row style={style_center}>
+                      <Col>
+                        <Link to={`/profile/mytravel/${item.slug}`}>
+                          <Button
                             style={{
-                              display: "flex",
-                              justifyContent: "center",
+                              border: "hidden",
+                              fontSize: "12px",
+                              borderRadius: "10px",
                             }}
                           >
-                            <br />
-                            {item.income != 0 && item.status == 4 && (
-                              <div></div>
-                            )}
-                          </Row>
-                          <hr style={{ margin: "15px 0 15px 0" }} />
-                          <Row  style={{display:"block"}}>
-                              <Col>
-                                {item.status == 4 ? (
-                                  <PayTraveler
-                                    travel={item.slug}
-                                    amount={item.income}
-                                  />
-                                ) : item.status == 8 ? (
-                                  <span>در انتظار تسویه</span>
-                                ) : (
-                                  <EditTravel
-                                    signal={this.editsignal}
-                                    data={item.slug}
-                                  />
-                                )}
-                              </Col>
-                              <Col style={{float:"left"}}>
-                              <Popconfirm
-                                    overlayStyle={{ fontFamily: "VazirD" }}
-                                    title="آیا از حذف آگهی مطمئن هستید ؟"
-                                    onConfirm={this.delete.bind(
-                                      this,
-                                      item.slug
-                                    )}
-                                    onCancel={this.cancel}
-                                    okText="بله"
-                                    cancelText="خیر"
-                                  >
-                                    <Button
-                                      style={{
-                                        borderRadius: "10px",
-                                        fontSize: "12px",
-                                        backgroundColor: "red",
-                                        color: "white",
-                                      }}
-                                    >
-                                      <b>حذف</b>
-                                    </Button>
-                                  </Popconfirm>
-                              </Col>
-                          </Row>
-                        </Col>
-                      </Row>
+                            پیشنهادها
+                          </Button>
+                        </Link>
+                      </Col>
                     </Row>
-                  </Card>
-                </List.Item>
-              )}
-            />
+                    <Row
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <br />
+                      {item.income != 0 && item.status == 4 && <div></div>}
+                    </Row>
+                    <hr style={{ margin: "15px 0 15px 0" }} />
+                    <Row style={{ display: "block" }}>
+                      <Col span={10}>
+                        {item.status == 4 ? (
+                          <PayTraveler
+                            travel={item.slug}
+                            amount={item.income}
+                          />
+                        ) : item.status == 8 ? (
+                          <span style={{
+                            border: "hidden",
+                            backgroundColor: "green",
+                            color:"white",
+                            borderRadius: "10px",
+                            fontSize:"14px",
+                            padding:"3px 10px"
+                          }}>در انتظار تسویه</span>
+                        ) : (
+                          <EditTravel
+                            signal={this.editsignal}
+                            data={item.slug}
+                          />
+                        )}
+                      </Col>
+                      <Col span={12} style={{ float: "left" }}>
+                        {item.status == 6 &&
+                        <Popconfirm
+                          overlayStyle={{ fontFamily: "VazirD" }}
+                          title="آیا از حذف آگهی مطمئن هستید ؟"
+                          onConfirm={this.delete.bind(this, item.slug)}
+                          onCancel={this.cancel}
+                          okText="بله"
+                          cancelText="خیر"
+                        >
+                          <Button
+                            style={{
+                              borderRadius: "10px",
+                              fontSize: "12px",
+                              backgroundColor: "red",
+                              color: "white",
+                            }}
+                          >
+                            <b>حذف</b>
+                          </Button>
+                        </Popconfirm>
+                        }
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Card>
+            </List.Item>
+          )}
+        />
       </div>
     );
   }

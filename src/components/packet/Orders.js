@@ -63,23 +63,19 @@ class Orders extends React.Component {
                   <Col span={12}>
                     <Row style={style_center}>
                       <Col span={8} style={style_center}  >
-                        {item.no_matter_origin == true ?
-                        <GlobalOutlined style={{fontSize:"25px", marginRight:"10px"}} />
-                        :
                         <img
                           loading="lazy"
                           alt={item.origin_country.name}
                           src={`${url}dstatic/${item.origin_country.icon}`}
-                          width="100%"
-                          style={{ borderRadius: "5px" }}
+                          width="90%"
+                          style={{ borderRadius: "50%" }}
                         />
-                        }
                       </Col>
                       <Col span={8} style={style_center}>
                         <img
                           src={airplane}
                           alt="billligAirplane"
-                          width="100%"
+                          width="60%"
                           style={{ marginRight: "5px" }}
                         />
                       </Col>
@@ -88,8 +84,8 @@ class Orders extends React.Component {
                           loading="lazy"
                           alt={item.destination_country.name}
                           src={`${url}dstatic/${item.destination_country.icon}`}
-                          width="100%"
-                          style={{ borderRadius: "5px" }}
+                          width="90%"
+                          style={{ borderRadius: "50%" }}
                         />
                       </Col>
                     </Row>
