@@ -59,7 +59,6 @@ class SendMessage extends React.Component {
       <div style={{ display: "flex", alignItems: "center" }}>
         <Link to={`/profile/inbox/${this.props.slug}`}>
         <Button
-          // onClick={this.show_modal}
           style={{
             fontSize: "12px",
             backgroundColor: "white",

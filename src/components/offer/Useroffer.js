@@ -12,6 +12,7 @@ import {
   Spin,
   Space,
   Card,
+  Modal
 } from "antd";
 import { Link } from "react-router-dom";
 import ConfirmPrice from "../profile/ConfirmPrice";
@@ -20,6 +21,7 @@ import RateAndComment from "../rating/RateAndComment";
 import { Breakpoint } from "react-socks";
 import { socket } from "../../socket";
 import DownloadPic from '../utils/DownloadPic';
+import OfferAdvices from '../offer/OfferAdvices';
 
 const style_center = {
   display: "flex",
@@ -34,7 +36,17 @@ class UserOffer extends React.Component {
   state = {
     offer: [],
     loading: true,
+    // visible: false,
+    adviceVisible: false
   };
+
+  showAdvice = () => {
+    this.setState({adviceVisible:true})
+  }
+
+  closeAdviceVisible = () => {
+    this.setState({adviceVisible:false})
+  }
 
   currency = (value) => {
     const p = `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -243,6 +255,19 @@ class UserOffer extends React.Component {
             </Popconfirm>
           );
         }
+      },
+    },
+    {
+      title: "",
+      dataIndex: "status",
+      key: "slug",
+      align: "center",
+      render: (dataIndex, row) => {
+          return (
+            <div>
+              <OfferAdvices data={dataIndex} buy={row.buy} type={"traveler"} />
+            </div>
+          );
       },
     },
   ];
@@ -541,6 +566,10 @@ class UserOffer extends React.Component {
                             </Col>
                           </Space>
                         </Col>
+                      </Row>
+                      <hr />
+                      <Row style={{display:"flex",justifyContent: "center" }}>
+                      <OfferAdvices data={item.status} buy={item.buy} type="traveler"/>
                       </Row>
                     </Card>
                   </List.Item>

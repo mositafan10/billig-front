@@ -20,6 +20,7 @@ import {
   DownOutlined,
   ArrowLeftOutlined,
   LoadingOutlined,
+  MoreOutlined
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { config } from "../../Constant";
@@ -192,11 +193,7 @@ class ChatRoom extends React.Component {
     this.setState({
       fileList: newFileList,
     });
-    // setTimeout(() => {
-    //   this.handler(newFileList);
-    // },1200);
     let msg = newFileList[0].response
-    console.log(msg);
     if (msg !== undefined){
       this.handler(msg);
     } 
@@ -217,7 +214,7 @@ class ChatRoom extends React.Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
-                    <Col span={3}></Col>
+                    <Col span={3}><Button size="large" style={{border:"hidden", color:"black"}}><MoreOutlined/></Button></Col>
                     <Col
                       span={18}
                       style={{ display: "flex", justifyContent: "right" }}
@@ -497,10 +494,8 @@ class ChatRoom extends React.Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
-                    <Col
-                      span={3}
-                      style={{ display: "flex", justifyContent: "right" }}
-                    ></Col>
+                  <Col span={3}><Button size="large" style={{border:"hidden", color:"black"}}><MoreOutlined/></Button></Col>
+
                     <Col
                       span={18}
                       style={{ display: "flex", justifyContent: "right" }}

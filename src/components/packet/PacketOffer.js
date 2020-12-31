@@ -15,13 +15,13 @@ import {
 } from "antd";
 import moment from "moment";
 import Axios from "axios";
-import SendMessage from "./SendMessage";
 import { Link } from "react-router-dom";
 import SendTransactionInfo from "../payment/SendTransactionInfo";
 import { config } from "../../Constant";
 import RateAndComment from "../rating/RateAndComment";
 import { Breakpoint } from "react-socks";
 import { socket } from "../../socket";
+import OfferAdvices from '../offer/OfferAdvices';
 
 var url = config.url.API_URL;
 const token = localStorage.getItem("token");
@@ -29,7 +29,6 @@ const token = localStorage.getItem("token");
 class PacketOffer extends React.Component {
   state = {
     disableconfirm: false,
-    visible: false,
   };
 
   columns = [
@@ -101,11 +100,16 @@ class PacketOffer extends React.Component {
       render: (dataIndex, row) => {
         if (row.status != "تمام شده") {
           return (
-            <SendMessage
-              sender={row.sender_slug}
-              receiver={row.receiver_slug}
-              slug={dataIndex}
-            />
+            <Button
+            style={{
+              fontSize: "12px",
+              backgroundColor: "white",
+              color: "black",
+              borderRadius: "10px",
+            }}
+          >
+            چت
+          </Button>
           );
         }
       },
@@ -220,8 +224,22 @@ class PacketOffer extends React.Component {
         }
       },
     },
+    {
+      title: "",
+      dataIndex: "status",
+      key: "slug",
+      align: "center",
+      render: (dataIndex, row) => {
+          return (
+            <div>
+              <OfferAdvices data={dataIndex} buy={row.buy} type={"billliger"} />
+            </div>
+          );
+      },
+    },
   ];
 
+  
   currency = (value) => {
     const p = `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return p;
@@ -386,18 +404,23 @@ class PacketOffer extends React.Component {
                         {item.travel_info.destination_city}) در{" "}
                         {moment(item.travel_info.flight_date).format("DD MMM")}{" "}
                       </p>
-                      <p style={{ textAlign: "left" }}> {item.price} تومان </p>
+                      <p style={{ textAlign: "left" }}> {this.currency(item.price)} تومان </p>
                       <hr />
                     </Col>
                     <Col style={{ display: "flex", justifyContent: "center" }}>
                       <Space>
                         <Col>
                           {item.status != "تمام شده" && (
-                            <SendMessage
-                              sender={item.sender_slug}
-                              receiver={item.receiver_slug}
-                              slug={item.slug}
-                            />
+                             <Button
+                             style={{
+                               fontSize: "12px",
+                               backgroundColor: "white",
+                               color: "black",
+                               borderRadius: "10px",
+                             }}
+                           >
+                             چت
+                           </Button>
                           )}
                         </Col>
                         <Col>
@@ -504,6 +527,9 @@ class PacketOffer extends React.Component {
                     </Col>
                   </Row>
                   <Divider />
+                  <Row style={{display:"flex",justifyContent: "center" }}>
+                  <OfferAdvices data={item.status} buy={item.buy} type="billliger"/>
+                  </Row>
                 </Card>
               </List.Item>
             )}

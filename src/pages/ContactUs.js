@@ -1,16 +1,5 @@
 import React, { Component } from "react";
 import { Form, Input, Button, Row, Col } from "antd";
-// import { SMTPClient } from 'emailjs';
-
-
-// const client = new SMTPClient({
-// 	user: 'user',
-// 	password: 'password',
-// 	host: 'smtp.your-email.com',
-// 	ssl: true,
-// });
-
-
 
 class ContactUs extends Component {
   onFinish = (values) => {
