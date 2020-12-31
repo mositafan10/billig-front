@@ -386,13 +386,16 @@ class TravelList extends React.Component {
                   سفرم کنسل شد
                 </Radio>
                 <Radio style={radioStyle} value={2}>
-                  از قبول آگهی منصرف شدم 
+                هیچ کدوم از پیشنهاداتم قبول نشد 
                 </Radio>
                 <Radio style={radioStyle} value={3}>
+                دستمزدها کم بود 
+                </Radio>
+                <Radio style={radioStyle} value={4}>
                   به دلایل دیگر
                 </Radio>
               </Radio.Group>
-              {this.state.value === 3 ? (
+              {this.state.value === 4 ? (
                 <TextArea
                   name="text"
                   value={this.state.text}

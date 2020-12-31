@@ -51,7 +51,7 @@ const BillligerLanding = () => {
       <Breakpoint medium up>
         {/* <Carousel autoplay effect="scrollx"> */}
         <Tabs centered animated size="large" type="card" >
-        <TabPane tab="بیلیگر" key="1" style={{fontSize:"20px"}}>
+        <TabPane tab={<p style={{color:"#ff9a00", padding:"0 10px 0 10px", fontSize:"16px", marginTop:"10px"}}>بیلیگر</p>} key="1">
           <div style={{ backgroundColor: "white" }}>
             <Row
               style={{
@@ -201,13 +201,12 @@ const BillligerLanding = () => {
             </Row>
           </div>
           </TabPane>
-          <TabPane tab="مسافر" key="2">
+          <TabPane tab={<p style={{color:"#067fc8", padding:"0 10px 0 10px", fontSize:"16px", marginTop:"10px"}}>مسافر</p>} key="2">
           <div>
             <Row
               style={{
                 justifyContent: "center",
                 display: "flex",
-                // backgroundColor: "#067fc8",
               }}
             >
               <Col>

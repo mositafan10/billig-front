@@ -6,8 +6,6 @@ import {
   Col,
   Drawer,
   Spin,
-  Tooltip,
-  Upload,
   Button,
   Badge,
 } from "antd";
@@ -16,7 +14,6 @@ import TextInput from "./TextInput";
 import moment from "moment";
 import { Redirect } from 'react-router-dom'
 import {
-  LinkOutlined,
   DownOutlined,
   ArrowLeftOutlined,
   LoadingOutlined,
@@ -334,31 +331,7 @@ class ChatRoom extends React.Component {
                 {this.state.info.is_active ? (
                   <div>
                     <Row style={{ padding: "5px 0 5px 0" }}>
-                      <Col
-                        xs={1}
-                        sm={1}
-                        md={1}
-                        lg={1}
-                        xl={1}
-                        xxl={1}
-                        style={{ justifyContent: "right", display: "flex" }}
-                      >
-                        <Upload
-                          action={`${url}api/v1/chat/messages/${chatID}`}
-                          name="billig"
-                          headers={{ Authorization: `Token ${token}` }}
-                          onChange={this.onChange}
-                          fileList={this.fileList}
-                          multiple="true"
-                          accept=".png,.jpeg"
-                        >
-                          <Button
-                            size="large"
-                            icon={<LinkOutlined style={{ marginTop: "5px" }} />}
-                          ></Button>
-                        </Upload>
-                      </Col>
-                      <Col xs={23} sm={23} md={23} lg={23} xl={23} xxl={23}>
+                      <Col span={24}>
                         <TextInput data={chatID} handler={this.handler} />
                       </Col>
                     </Row>
@@ -613,28 +586,7 @@ class ChatRoom extends React.Component {
                 {this.state.info.is_active ? (
                   <div>
                     <Row style={{ padding: "5px 0 5px 0" }}>
-                      <Col
-                        span={3}
-                        style={{ justifyContent: "right", display: "flex" }}
-                      >
-                        <Upload
-                          action={`${url}api/v1/chat/messages/${chatID}`}
-                          name="billig"
-                          headers={{ Authorization: `Token ${token}` }}
-                          onChange={this.onChange}
-                          fileList={this.state.fileList}
-                          multiple="true"
-                          accept=".png,.jpeg"
-                          showUploadList={{showRemoveIcon:true,}}
-                          
-                        >
-                          <Button
-                            size="large"
-                            icon={<LinkOutlined style={{ marginTop: "5px" }} />}
-                          ></Button>
-                        </Upload>
-                      </Col>
-                      <Col span={21}>
+                      <Col span={24}>
                         <TextInput data={chatID} handler={this.handler} />
                       </Col>
                     </Row>

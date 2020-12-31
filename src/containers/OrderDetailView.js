@@ -402,7 +402,7 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                        تعداد پیشنهادهای آگهی
+                        تعداد داوطلبان حمل این مرسوله
                       </Col>
                       <Col
                         style={style_left}
@@ -500,10 +500,6 @@ class OrderDetail extends React.Component {
                   <Report data={this.state.order.slug}/>
                 </Row>
                 <br/>
-                  {/* <Row style={style_center}>
-                  <p> خواندن و مرور<Link to='/advices'> این مطلب</Link> قبل از انجام معامله توصیه می‌شود</p>
-                  </Row>
-                <br /> */}
               </Col>
               <Col span={22}>
                 <Card
@@ -791,7 +787,7 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                        تعداد پیشنهادهای آگهی
+                        تعداد داوطلبان حمل این مرسوله
                       </Col>
                       <Col
                         style={style_left}

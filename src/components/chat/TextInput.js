@@ -1,18 +1,31 @@
 import React, { Component } from "react";
-import { Input } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { Input, Upload, Button } from "antd";
+import { SendOutlined, LoadingOutlined, LinkOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;
-
 const { Search } = Input;
 
 class TextInput extends Component {
   state = {
     search: "",
     loading: false,
-    disable: false
+    disable: false,
+    fileList: [],
+  };
+
+  onChange = ({ fileList: newFileList }) => {
+    this.setState({
+      fileList: newFileList,
+      loading: true,
+    });
+    let msg = newFileList[0].response
+    console.log(msg);
+    if (msg !== undefined){
+      this.props.handler(msg);
+      this.setState({fileList:[], loading: false});
+    } 
   };
 
   send = (value) => {
@@ -42,7 +55,9 @@ class TextInput extends Component {
   handleFields = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
+    const token = localStorage.getItem("token");
     return (
+      <div >
         <Search
           size="large"
           id="search"
@@ -53,15 +68,29 @@ class TextInput extends Component {
           onSearch={(value) => this.send(value)}
           enterButton={
             this.state.loading ? (
-              <LoadingOutlined style={{ margin: "5px 7px" }} />
+              <LoadingOutlined />
             ) : (
-              "ارسال"
+              <SendOutlined style={{rotate: "180deg", marginBottom:"9px"}}/>
             )
           }
-          autoComplete={false}
+          autoComplete="off"
           disabled={this.state.disabled}
           autoSize
+          suffix={
+          <Upload
+            action={`${url}api/v1/chat/messages/${this.props.data}`}
+            name="billig"
+            headers={{ Authorization: `Token ${token}` }}
+            onChange={this.onChange}
+            fileList={this.state.fileList}
+            multiple="true"
+            accept=".png,.jpeg"
+            showUploadList={false}
+          >
+              <LinkOutlined style={{ marginTop: "5px" }} />
+          </Upload>}
         />
+        </div>
     );
   }
 }

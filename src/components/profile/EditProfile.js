@@ -86,7 +86,7 @@ class EditProfile extends React.Component {
           });
         }, 1000);
         setTimeout(() => {
-          this.setState({ socialmodal: false, loading: false });
+          this.setState({ loading: false });
         }, 2000);
         this.componentDidMount();
       })
@@ -409,8 +409,9 @@ class EditProfile extends React.Component {
               <Row style={{ display: "flex", justifyContent: "center" }}>
                 {this.state.social.length != 4 && (
                   <Button
-                    style={{ border: "hidden" }}
+                    style={{ marginLeft: "10px", borderColor:"black" }}
                     size="large"
+                    shape="circle"
                     onClick={this.showsocail}
                   >
                     +
