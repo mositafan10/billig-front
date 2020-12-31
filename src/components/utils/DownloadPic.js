@@ -85,16 +85,16 @@ class DownloadPic extends React.Component {
             closeIcon=" "
             onCancel={this.handlecancle}
             footer={false}
-            // width="100%"
+            width="100%"
             okButtoops={{ hidden: true }}
             bodyStyle={{ opacity:"1", position:"absolute", zIndex:"1", maxWidth:"100%", maxHeight:"100%"}}
-          >
+            >
             <Row style={{ display: "flex", justifyContent: "center" }}>
               <img
                 loading="lazy"
                 alt={alt}
                 src={`${url}dstatic/${this.state.url}`}
-                style={{ borderRadius: "10px" }}
+                style={{ borderRadius: "10px", width:"100%",height:"100%" }}
               />
             </Row>
           </Modal>
@@ -106,7 +106,7 @@ class DownloadPic extends React.Component {
             closeIcon=" "
             onCancel={this.handlecancle}
             footer={false}
-            // width="100%"
+            width="100%"
             bodyStyle={{ opacity:"1", position:"absolute", zIndex:"1", maxWidth:"100%", maxHeight:"100%"}}
           >
             <Row style={{ display: "flex", justifyContent: "center" }}>
@@ -114,7 +114,7 @@ class DownloadPic extends React.Component {
                 alt={alt}
                 loading="lazy"
                 src={`${url}dstatic/${this.state.url}`}
-                style={{ borderRadius: "10px"}}
+                style={{ borderRadius: "10px", width:"100%",height:"100%" }}
               />
             </Row>
           </Modal>

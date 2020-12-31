@@ -154,10 +154,10 @@ class OfferDetail extends React.Component {
         }}
       >
         <Button
-          style={{ borderRadius: "10px", fontSize: "12px" }}
+          style={{ borderRadius: "8px", fontSize: "14px", backgroundColor:"#067fc8", color:"white", padding:"2px 10px" }}
           onClick={this.offer}
         >
-          <b> ثبت پیشنهاد </b>
+          ثبت پیشنهاد
         </Button>
         <Modal
           onCancel={this.handleCancel}

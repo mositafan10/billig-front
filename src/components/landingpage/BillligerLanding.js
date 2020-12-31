@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Carousel, Card, Divider } from "antd";
+import { Col, Row, Carousel, Card, Tabs } from "antd";
 import OfferAccept from "../../media/PacketGuide/OfferAccept.svg";
 import chat from "../../media/traveler_guide/chat.svg";
 import Payment from "../../media/PacketGuide/Payment.svg";
@@ -11,6 +11,7 @@ import deliverd from "../../media/traveler_guide/deliverd.svg";
 import buy from "../../media/traveler_guide/buy.svg";
 import { Breakpoint } from "react-socks";
 const { Meta } = Card;
+const { TabPane } = Tabs;
 const center = {display:"center", justifyContent:"center"}
 const travel_guide = { color: "black" };
 const style_icon1 = { width: "30%", display: "inline" };
@@ -48,7 +49,9 @@ const BillligerLanding = () => {
   return (
     <div>
       <Breakpoint medium up>
-        <Carousel autoplay effect="scrollx">
+        {/* <Carousel autoplay effect="scrollx"> */}
+        <Tabs centered animated size="large" type="card" >
+        <TabPane tab="بیلیگر" key="1" style={{fontSize:"20px"}}>
           <div style={{ backgroundColor: "white" }}>
             <Row
               style={{
@@ -72,7 +75,7 @@ const BillligerLanding = () => {
                 </h1>
               </Col>
               <Col span={24}>
-                <h2 style={{color:"#ff9a00", textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته‌ای را پست کنم.</h2>
+                <h3 style={{textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته‌ای را پست کنم.</h3>
               </Col>
             </Row>
             <Row
@@ -197,6 +200,8 @@ const BillligerLanding = () => {
               </Col>
             </Row>
           </div>
+          </TabPane>
+          <TabPane tab="مسافر" key="2">
           <div>
             <Row
               style={{
@@ -221,7 +226,7 @@ const BillligerLanding = () => {
                 </h1>
               </Col>
               <Col span={24}>
-                <h2 style={{color:"#067fc8", textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته دیگران را به مقصد برسانم.</h2>
+                <h2 style={{ textAlign:"center", marginBottom:"20px"}}>می‌خواهم بسته دیگران را به مقصد برسانم.</h2>
               </Col>
             </Row>
             <Row style={{ textAlign: "center", backgroundColor: "white" }}>
@@ -334,7 +339,8 @@ const BillligerLanding = () => {
               </Col>
             </Row>
           </div>
-        </Carousel>
+          </TabPane>
+        </Tabs>
       </Breakpoint>
       <Breakpoint small down>
         <div>

@@ -23,6 +23,7 @@ var url = config.url.API_URL;
 
 const style_left = { display: "flex", justifyContent: "flex-end" };
 const style_right = { display: "flex", justifyContent: "right" };
+const style_center = { justifyContent: "center", display: "flex" }
 
 class OrderDetail extends React.Component {
   state = {
@@ -183,7 +184,7 @@ class OrderDetail extends React.Component {
                               ? this.state.order.origin_country.name
                               : ""}{" "}
                             {" "}
-                            </Link>,
+                            </Link>{" "},{" "}
                             {this.state.order.origin_city
                               ? this.state.order.origin_city.name
                               : ""}
@@ -211,15 +212,17 @@ class OrderDetail extends React.Component {
                         lg={10}
                         xl={10}
                       >
+                        <div>
                       <Link to={`/orders/${this.state.order.destination_country.eng_name}`}>
                         {this.state.order.destination_country
                           ? this.state.order.destination_country.name
                           : ""}{" "}
-                        {" "}
-                        </Link>,
+                            {" "}
+                            </Link>{" "},{" "}
                         {this.state.order.destination_city
                           ? this.state.order.destination_city.name
                           : ""}
+                          </div>
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />
@@ -390,11 +393,33 @@ class OrderDetail extends React.Component {
                         <p> تومان </p>
                       </Col>
                     </Row>
+                    <Row>
+                    <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        تعداد پیشنهادهای آگهی
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        {this.state.order.offer_count}
+                        </Col>
+                    </Row>
                     <OfferDetail
                       data={this.state.order.slug}
                       buy={this.state.order.buy}
                       {...this.props}
-                    ></OfferDetail>
+                    />
                   </Card>
                   <br />
                 </Col>
@@ -430,14 +455,20 @@ class OrderDetail extends React.Component {
                     </Tooltip>
                     <Report data={this.state.order.slug}/>
                   </Row>
+                  <br/>
+                   <Row style={style_center}>
+                  <p> خواندن و مرور<Link to='/advices'> این مطلب</Link> قبل از انجام معامله توصیه می‌شود</p>
+                  </Row>
+                <br />
+                  <br/>
                 </Col>
               </Row>
             )}
           </Breakpoint>
           <Breakpoint small down>
-            <Row style={{ display: "flex", justifyContent: "center", marginTop:"50px" }}>
+            <Row style={{ display: "flex", justifyContent: "center", marginTop:"10px" }}>
               <Col>
-              <DownloadPic 
+                <DownloadPic 
                   title={this.state.order.title} 
                   category={this.state.order.category} 
                   origin_country={this.state.order.origin_country && this.state.order.origin_country.name}
@@ -468,9 +499,13 @@ class OrderDetail extends React.Component {
                   </Tooltip>
                   <Report data={this.state.order.slug}/>
                 </Row>
-                <br />
+                <br/>
+                  {/* <Row style={style_center}>
+                  <p> خواندن و مرور<Link to='/advices'> این مطلب</Link> قبل از انجام معامله توصیه می‌شود</p>
+                  </Row>
+                <br /> */}
               </Col>
-              <Col span={24}>
+              <Col span={22}>
                 <Card
                   style={{ borderRadius: "20px" }}
                   title={this.state.order.title}
@@ -747,13 +782,39 @@ class OrderDetail extends React.Component {
                       <p> تومان </p>
                     </Col>
                   </Row>
+                  <Row>
+                    <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        تعداد پیشنهادهای آگهی
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        {this.state.order.offer_count}
+                        </Col>
+                    </Row>
+                    <br/>
                   <OfferDetail
                     data={this.state.order.slug}
                     buy={this.state.order.buy}
                     {...this.props}
-                  ></OfferDetail>
+                  />
                 </Card>
                 <br />
+                <Row style={style_center}>
+                    <p> خواندن و مرور<Link to='/advices'> این مطلب</Link> قبل از انجام معامله توصیه می‌شود</p>
+                  </Row>
               </Col>
             </Row>
           </Breakpoint>

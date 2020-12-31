@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-import { Divider, Spin, Modal, Radio, Input, Tooltip } from "antd";
-import { Popconfirm, notification, List, Row, Col, Button, Card } from "antd";
+import { Divider, Spin, Modal, Radio, Input, Tooltip, Popconfirm, notification, List, Row, Col, Button, Card } from "antd";
 import EditPacket from "./EditPacket";
 import { config } from "../../Constant";
 import DownloadPic from "../utils/DownloadPic";
-import { socket } from '../../socket';
+import { socket } from "../../socket";
 
 const style_center = {
   display: "flex",
@@ -15,9 +14,9 @@ const style_center = {
 };
 
 const radioStyle = {
-  display: 'block',
-  height: '30px',
-  lineHeight: '30px',
+  display: "block",
+  height: "30px",
+  lineHeight: "30px",
 };
 
 var url = config.url.API_URL;
@@ -31,15 +30,15 @@ class PacketUserList extends React.Component {
     removeReason: false,
     value: 1,
     slug: "",
-    text:""
+    text: "",
   };
 
   componentDidMount() {
     document.title = "بیلیگ - لیست آگهی‌های من";
     this.getUserPacket();
-    socket.on("shouldUpdateOffer", ()=>{
+    socket.on("shouldUpdateOffer", () => {
       this.getUserPacket();
-    })
+    });
   }
 
   getUserPacket = () => {
@@ -60,7 +59,7 @@ class PacketUserList extends React.Component {
         loading: false,
       });
     });
-  }
+  };
 
   cancel(e) {
     notification["error"]({
@@ -77,33 +76,38 @@ class PacketUserList extends React.Component {
   }
 
   handleCancel = () => {
-    this.setState({removeReason:false})
-  }
+    this.setState({ removeReason: false });
+  };
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
   delete = (slug) => {
-    this.setState({removeReason:true, slug:slug})
+    this.setState({ removeReason: true, slug: slug });
   };
 
   sendReason = () => {
     const current_packet = this.state.packet_user;
     const slug = this.state.slug;
     const token = localStorage.getItem("token");
-    Axios.post(`${url}api/v1/advertise/removeReason/${slug}/`,{
-      type_remove : this.state.value,
-      description: this.state.text,
-    }, {
-      headers: { Authorization: `Token ${token}` },
-    })
+    Axios.post(
+      `${url}api/v1/advertise/removeReason/${slug}/`,
+      {
+        type_remove: this.state.value,
+        description: this.state.text,
+      },
+      {
+        headers: { Authorization: `Token ${token}` },
+      }
+    )
       .then((res) => {
         this.setState({
           packet_user: current_packet.filter(
-            (packet_user) => packet_user.slug !== slug),
+            (packet_user) => packet_user.slug !== slug
+          ),
         });
         notification["success"]({
           message: "از شما متشکریم",
@@ -135,18 +139,20 @@ class PacketUserList extends React.Component {
         });
       })
       .catch((error) => console.error(error));
-      this.setState({removeReason:false})
-  }
+    this.setState({ removeReason: false });
+  };
 
   delete1 = (slug) => {
     const current_packet = this.state.packet_user_completed;
-    const token = localStorage.getItem('token');
-    Axios.delete(`${url}api/v1/advertise/packet/${slug}`,
-    { headers: { Authorization: `Token ${token}` } })
+    const token = localStorage.getItem("token");
+    Axios.delete(`${url}api/v1/advertise/packet/${slug}`, {
+      headers: { Authorization: `Token ${token}` },
+    })
       .then((res) => {
         this.setState({
           packet_user_completed: current_packet.filter(
-            (packet_user_completed) => packet_user_completed.slug !== slug),
+            (packet_user_completed) => packet_user_completed.slug !== slug
+          ),
         });
       })
       .catch((error) => console.error(error));
@@ -161,9 +167,7 @@ class PacketUserList extends React.Component {
       <div>
         <Link to="/create-packet">
           <br />
-          <Button
-            style={{ borderRadius: "8px", marginBottom: "20px" }}
-          >
+          <Button style={{ borderRadius: "8px", marginBottom: "20px" }}>
             <b>+ ثبت آگهی جدید</b>
           </Button>
         </Link>
@@ -213,16 +217,19 @@ class PacketUserList extends React.Component {
                               to={`/packet/${item.slug}`}
                               style={{ color: "black" }}
                             >
-                              <DownloadPic 
-                                title={item.title} 
-                                category={item.category} 
+                              <DownloadPic
+                                title={item.title}
+                                category={item.category}
                                 origin_country={item.origin_country.name}
-                                destination_country={item.destination_country.name}
+                                destination_country={
+                                  item.destination_country.name
+                                }
                                 origin_city={item.origin_city.name}
                                 destination_city={item.destination_city.name}
                                 no_matter_origin={item.no_matter_origin}
                                 data={item.picture}
-                                size="60%"  />
+                                size="60%"
+                              />
                             </Link>
                           </Col>
                         </Row>
@@ -250,13 +257,17 @@ class PacketUserList extends React.Component {
                             marginTop: "10px",
                           }}
                         >
-                           <Link to={`/profile/mypacket/${item.slug}`}>
+                          <Link to={`/profile/mypacket/${item.slug}`}>
                             <Button
-                                style={{ border: "hidden", fontSize: "12px", borderRadius: "10px" }}
-                              >
-                                پیشنهادها ( {item.offer_count} )
-                              </Button>
-                            </Link>
+                              style={{
+                                border: "hidden",
+                                fontSize: "12px",
+                                borderRadius: "10px",
+                              }}
+                            >
+                              پیشنهادها ( {item.offer_count} )
+                            </Button>
+                          </Link>
                         </Row>
                         <hr />
                         <Row>
@@ -318,17 +329,20 @@ class PacketUserList extends React.Component {
                                 </a>
                               </Popconfirm>
                             ) : (
-                              <Tooltip overlayStyle={{fontFamily:"VazirD"}} title="چنانچه آگهی پیشنهاد داشته باشد، امکان حذف آن وجود ندارد">
-                              <Button
-                                style={{
-                                  border: "hidden",
-                                  fontSize: "14px",
-                                  borderRadius: "10px",
-                                }}
-                                disabled={true}
+                              <Tooltip
+                                overlayStyle={{ fontFamily: "VazirD" }}
+                                title="چنانچه آگهی پیشنهاد داشته باشد، امکان حذف آن وجود ندارد"
                               >
-                                حذف
-                              </Button>
+                                <Button
+                                  style={{
+                                    border: "hidden",
+                                    fontSize: "14px",
+                                    borderRadius: "10px",
+                                  }}
+                                  disabled={true}
+                                >
+                                  حذف
+                                </Button>
                               </Tooltip>
                             )}
                           </Col>
@@ -340,36 +354,48 @@ class PacketUserList extends React.Component {
               )}
             />
             <Modal
-              title = "چرا می‌خواهید آگهی را حذف کنید؟"
+              title="چرا می‌خواهید آگهی را حذف کنید؟"
               onCancel={this.handleCancel}
               onOk={this.sendReason.bind(this.state.slug)}
               cancelText="انصراف"
               okText="حذف"
               confirmLoading={this.state.loading}
-              okButtonProps={{
-                form: "offering",
-                key: "submit",
-                htmlType: "submit",
-              }}
+              // okButtonProps={{
+              //   form: "offering",
+              //   key: "submit",
+              //   htmlType: "submit",
+              // }}
               visible={this.state.removeReason}
               style={{ fontFamily: "VazirD" }}
+            >
+              <Radio.Group
+                name="value"
+                onChange={this.onChange}
+                value={this.state.value}
               >
-                <Radio.Group name="value" onChange={this.onChange} value={this.state.value}>
-                  <Radio style={radioStyle} value={0}>
-                    بسته از طریق دیگری ارسال شد.
-                  </Radio>
-                  <Radio style={radioStyle} value={1}>
-                    پیشنهادی دریافت نکردم
-                  </Radio>
-                  <Radio style={radioStyle} value={2}>
-                    منصرف شدم
-                  </Radio>
-                  <Radio style={radioStyle} value={3}>
-                    به دلایل دیگر
-                  </Radio>
-                </Radio.Group>
-                    {this.state.value === 3 ? <TextArea name="text" value={this.state.text} onChange={this.onChange} style={{ borderRadius:"10px", marginTop:"20px" }} rows={5} /> : null}
-              </Modal>
+                <Radio style={radioStyle} value={0}>
+                  بسته از طریق دیگری ارسال شد.
+                </Radio>
+                <Radio style={radioStyle} value={1}>
+                  پیشنهادی دریافت نکردم
+                </Radio>
+                <Radio style={radioStyle} value={2}>
+                  منصرف شدم
+                </Radio>
+                <Radio style={radioStyle} value={3}>
+                  به دلایل دیگر
+                </Radio>
+              </Radio.Group>
+              {this.state.value === 3 ? (
+                <TextArea
+                  name="text"
+                  value={this.state.text}
+                  onChange={this.onChange}
+                  style={{ borderRadius: "10px", marginTop: "20px" }}
+                  rows={5}
+                />
+              ) : null}
+            </Modal>
           </div>
         )}
         {this.state.packet_user_completed.length != 0 && (
@@ -420,7 +446,11 @@ class PacketUserList extends React.Component {
                           to={`/packet/${item.slug}`}
                           style={{ color: "black" }}
                         >
-                          <DownloadPic data={item.picture} category={item.category} size="60%" />
+                          <DownloadPic
+                            data={item.picture}
+                            category={item.category}
+                            size="60%"
+                          />
                         </Link>
                       </Col>
                     </Row>

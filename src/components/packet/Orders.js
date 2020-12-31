@@ -91,7 +91,7 @@ class Orders extends React.Component {
                     </Row>
                     <Row style={{height:"70%", marginTop:"10px"}}>
                       <Col style={{ color: "black", }} span={24}>{item.title}</Col>
-                      <Col style={{ color: "black", fontSize:"12px", display:"flex", alignItems:"end" }} span={24}>پیشنهاد : {item.offer_count}</Col>
+                      <Col style={{ color: "black", fontSize:"12px", display:"flex", alignItems:"end" }} span={24}>{item.offer_count !== 0 ? (`پیشنهاد : ${item.offer_count}`) : "" }</Col>
                       <Col style={{ color: "black", display:"flex", alignItems:"end"}} span={24}>
                         <TimeDiff data={item.create_at} />
                       </Col>

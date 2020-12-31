@@ -193,7 +193,7 @@ class UserProfile extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                        <h4>تعداد سفرهای انجام شده</h4>
+                        <h4> سفرهای انجام شده</h4>
                       </Col>
                       <Col
                         style={style_left}
@@ -206,6 +206,28 @@ class UserProfile extends React.Component {
                         {this.state.user_profile.travel_done}
                       </Col>
                     </Row>
+                    <Row style={style_right}>
+                    <Col
+                      style={style_right}
+                      xs={14}
+                      sm={14}
+                      md={14}
+                      lg={14}
+                      xl={14}
+                    >
+                      <h4> بسته‌های آگهی شده</h4>
+                    </Col>
+                    <Col
+                      style={style_left}
+                      xs={10}
+                      sm={10}
+                      md={10}
+                      lg={10}
+                      xl={10}
+                    >
+                      {this.state.user_profile.billlig_done}
+                    </Col>
+                  </Row>
                   </Card>
                 </Col>
               </Row>
@@ -297,7 +319,7 @@ class UserProfile extends React.Component {
                       lg={14}
                       xl={14}
                     >
-                      <h4>تعداد سفرهای انجام شده</h4>
+                      <h4> سفرهای انجام شده</h4>
                     </Col>
                     <Col
                       style={style_left}
@@ -308,6 +330,28 @@ class UserProfile extends React.Component {
                       xl={10}
                     >
                       {this.state.user_profile.travel_done}
+                    </Col>
+                  </Row>
+                  <Row style={style_right}>
+                    <Col
+                      style={style_right}
+                      xs={14}
+                      sm={14}
+                      md={14}
+                      lg={14}
+                      xl={14}
+                    >
+                      <h4> بسته‌های آگهی شده</h4>
+                    </Col>
+                    <Col
+                      style={style_left}
+                      xs={10}
+                      sm={10}
+                      md={10}
+                      lg={10}
+                      xl={10}
+                    >
+                      {this.state.user_profile.billlig_done}
                     </Col>
                   </Row>
                 </Card>

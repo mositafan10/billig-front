@@ -9,13 +9,13 @@ var url = config.url.API_URL;
 class ConfirmPrice extends React.Component {
   state = {
     price_visible: false,
-    loading:false
+    loading: false,
   };
 
   currency = (value) => {
-    const p =  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    return p
-  }
+    const p = `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return p;
+  };
 
   pricelistmodal = () => {
     this.setState({
@@ -30,9 +30,9 @@ class ConfirmPrice extends React.Component {
   };
 
   onFinish = (values) => {
-    this.setState({loading:true})
+    this.setState({ loading: true });
     const price = values.price;
-    const parcelPrice = values.parcelPrice ;
+    const parcelPrice = values.parcelPrice;
     const token = localStorage.getItem("token");
     Axios.post(
       `${url}api/v1/advertise/offer/update/`,
@@ -40,26 +40,27 @@ class ConfirmPrice extends React.Component {
         slug: this.props.data,
         price: price,
         parcelPrice: parcelPrice,
-        status: 2
+        status: 2,
       },
       { headers: { Authorization: `Token ${token}` } }
     )
       .then(() => {
-        setTimeout(()=>{
-          this.props.parentfunction()
-            this.setState({ price_visible: false, loading:false });
-          },3000)
-          notification["success"]({
-            message: "مبلغ با موفقیت ثبت شد",
-            description: "منتظر تایید و پرداخت مبلغ از سوی بیلیگر باشید",
-            style: {
-              fontFamily: "VazirD",
-              textAlign: "right",
-              float: "right",
-              width: "max-content",
-            },
-            duration: 5,
-          });
+        setTimeout(() => {
+          this.props.parentfunction();
+          this.setState({ price_visible: false, loading: false });
+        }, 300);
+        notification["success"]({
+          message: "مبلغ با موفقیت ثبت شد",
+          description: "منتظر تایید و پرداخت مبلغ از سوی بیلیگر باشید",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+          },
+          duration: 5,
+        });
+        this.props.update();
       })
       .catch((error) => {
         notification["error"]({
@@ -83,7 +84,13 @@ class ConfirmPrice extends React.Component {
       <div>
         <Button
           onClick={this.pricelistmodal}
-          style={{ fontSize: "12px", backgroundColor:"green",color:"white", borderColor:"white", borderRadius: "10px" }}
+          style={{
+            fontSize: "12px",
+            backgroundColor: "green",
+            color: "white",
+            borderColor: "white",
+            borderRadius: "10px",
+          }}
         >
           تعیین مبلغ نهایی
         </Button>
@@ -110,7 +117,7 @@ class ConfirmPrice extends React.Component {
             bodyStyle={{ borderRadius: "20px" }}
             maskStyle={{ borderRadius: "20px" }}
           >
-            <p>مبلغ توافق فعلی: {this.currency(price1)} تومان</p> 
+            <p>مبلغ توافق فعلی: {this.currency(price1)} تومان</p>
             <Form
               size="middle"
               layout="vertical"
@@ -121,7 +128,10 @@ class ConfirmPrice extends React.Component {
               onFinish={this.onFinish}
               onFinishFailed={this.onFinishFailed}
             >
-              <p>دستمزدی را که پس از مذاکره با صاحب آگهی توافق کرده‌اید، وارد نمایید.</p>
+              <p>
+                دستمزدی را که پس از مذاکره با صاحب آگهی توافق کرده‌اید، وارد
+                نمایید.
+              </p>
               <Form.Item
                 name="price"
                 size="large"
@@ -132,71 +142,79 @@ class ConfirmPrice extends React.Component {
                   },
                   ({ getFieldValue }) => ({
                     validator(rule, value) {
-                      if (value > 100000 & value < 50000000) {
+                      if ((value > 10000) & (value < 50000000)) {
                         return Promise.resolve();
                       }
-                      if ( value < 100000 )
-                      return Promise.reject(
-                        "دستمزد نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
-                      );
-                      if ( value > 50000000 )
-                      return Promise.reject(
-                        "دستمزد نمی‌تواند از ۵۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
-                      );
+                      if (value < 10000)
+                        return Promise.reject(
+                          "دستمزد نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                        );
+                      if (value > 50000000)
+                        return Promise.reject(
+                          "دستمزد نمی‌تواند از ۵۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
+                        );
                     },
                   }),
                 ]}
               >
                 <InputNumber
-                placeholder="به تومان وارد کنید"
-                  formatter={(value) =>
-                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
-                  parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                  style={{ textAlign: "right", width:"200px" }}
-                  min={0}
-                />
-              </Form.Item>
-              {buy &&
-              <div>
-              <p>مبلغ فعلی کالا : {parcelPrice ? this.currency(parcelPrice) : 0 } تومان</p> 
-              <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
-              <Form.Item
-                name="parcelPrice"
-                size="large"
-                rules={[
-                  {
-                    required: true,
-                    message: "مبلغ نهایی کالا را وارد کنید",
-                  },
-                  ({ getFieldValue }) => ({
-                    validator(rule, value) {
-                      if (value > 100000 & value < 200000000) {
-                        return Promise.resolve();
-                      }
-                      if ( value < 100000 )
-                      return Promise.reject(
-                        "مبلغ کالا نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
-                      );
-                      if ( value > 200000000 )
-                      return Promise.reject(
-                        "مبلغ کالا نمی‌تواند از ۲۰۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
-                      );
-                    },
-                  }),
-                ]}
-              >
-                <InputNumber
+                  type="tel"
                   placeholder="به تومان وارد کنید"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
                   parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                  style={{ textAlign: "right", width:"200px" }}
+                  style={{ textAlign: "right", width: "200px" }}
                   min={0}
                 />
               </Form.Item>
-              </div>}
+              {buy && (
+                <div>
+                  <p>
+                    مبلغ فعلی کالا :{" "}
+                    {parcelPrice ? this.currency(parcelPrice) : 0} تومان
+                  </p>
+                  <p>
+                    قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید
+                  </p>
+                  <Form.Item
+                    name="parcelPrice"
+                    size="large"
+                    rules={[
+                      {
+                        required: true,
+                        message: "مبلغ نهایی کالا را وارد کنید",
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(rule, value) {
+                          if ((value > 10000) & (value < 200000000)) {
+                            return Promise.resolve();
+                          }
+                          if (value < 10000)
+                            return Promise.reject(
+                              "مبلغ کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                            );
+                          if (value > 200000000)
+                            return Promise.reject(
+                              "مبلغ کالا نمی‌تواند از ۲۰۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
+                            );
+                        },
+                      }),
+                    ]}
+                  >
+                    <InputNumber
+                      type="tel"
+                      placeholder="به تومان وارد کنید"
+                      formatter={(value) =>
+                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      }
+                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                      style={{ textAlign: "right", width: "200px" }}
+                      min={0}
+                    />
+                  </Form.Item>
+                </div>
+              )}
             </Form>
           </Modal>
         </Breakpoint>
@@ -218,14 +236,14 @@ class ConfirmPrice extends React.Component {
               textAlign: "center",
               overflow: "hidden",
               borderRadius: "10px",
-              display:"flex",
-              justifyContent:"center"
+              display: "flex",
+              justifyContent: "center",
             }}
             width="90%"
             bodyStyle={{ borderRadius: "20px" }}
             maskStyle={{ borderRadius: "20px" }}
           >
-            <p>مبلغ توافق فعلی: {this.currency(price1)} تومان</p> 
+            <p>مبلغ توافق فعلی: {this.currency(price1)} تومان</p>
             <Form
               size="middle"
               layout="vertical"
@@ -236,7 +254,10 @@ class ConfirmPrice extends React.Component {
               onFinish={this.onFinish}
               onFinishFailed={this.onFinishFailed}
             >
-              <p>دستمزدی را که پس از مذاکره با صاحب آگهی توافق کرده‌اید، وارد نمایید.</p>
+              <p>
+                دستمزدی را که پس از مذاکره با صاحب آگهی توافق کرده‌اید، وارد
+                نمایید.
+              </p>
               <Form.Item
                 name="price"
                 size="large"
@@ -248,40 +269,48 @@ class ConfirmPrice extends React.Component {
                 ]}
               >
                 <InputNumber
+                  type="tel"
                   placeholder="به تومان وارد کنید"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
                   parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                  style={{ textAlign: "right", width:"200px" }}
+                  style={{ textAlign: "right", width: "200px" }}
                   min={0}
                 />
               </Form.Item>
-              {buy &&
-              <div>
-              <p>مبلغ فعلی کالا : {parcelPrice ? this.currency(parcelPrice) : 0 } تومان</p> 
-              <p>قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید</p>
-              <Form.Item
-                name="parcelPrice"
-                size="large"
-                rules={[
-                  {
-                    required: true,
-                    message: "مبلغ نهایی کالا را وارد کنید",
-                  },
-                ]}
-              >
-                <InputNumber
-                  placeholder="به تومان وارد کنید"
-                  formatter={(value) =>
-                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
-                  parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                  style={{ textAlign: "right", width:"200px" }}
-                  min={0}
-                />
-              </Form.Item>
-              </div>}
+              {buy && (
+                <div>
+                  <p>
+                    مبلغ فعلی کالا :{" "}
+                    {parcelPrice ? this.currency(parcelPrice) : 0} تومان
+                  </p>
+                  <p>
+                    قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید
+                  </p>
+                  <Form.Item
+                    name="parcelPrice"
+                    size="large"
+                    rules={[
+                      {
+                        required: true,
+                        message: "مبلغ نهایی کالا را وارد کنید",
+                      },
+                    ]}
+                  >
+                    <InputNumber
+                      type="tel"
+                      placeholder="به تومان وارد کنید"
+                      formatter={(value) =>
+                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      }
+                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                      style={{ textAlign: "right", width: "200px" }}
+                      min={0}
+                    />
+                  </Form.Item>
+                </div>
+              )}
             </Form>
           </Modal>
         </Breakpoint>

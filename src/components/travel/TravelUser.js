@@ -4,6 +4,7 @@ import airplane from "../../media/airplane.png";
 import { Link } from "react-router-dom";
 import {
   Button,
+  Radio,
   Popconfirm,
   Row,
   Col,
@@ -13,17 +14,22 @@ import {
   Card,
   Tooltip,
   Divider,
+  Modal,
+  Input,
 } from "antd";
 import moment from "moment";
 import EditTravel from "./EditTravel";
 import { config } from "../../Constant";
 import PayTraveler from "../payment/PayTraveler";
-import Modal from "antd/lib/modal/Modal";
-import UserOffer from "../offer/Useroffer";
-import Experience from "./Experience";
-import OfferListModalTravel from "../offer/OfferListModalTravel";
 
+const { TextArea } = Input; 
 var url = config.url.API_URL;
+
+const radioStyle = {
+  display: "block",
+  height: "30px",
+  lineHeight: "30px",
+};
 const style_left = {
   display: "flex",
   justifyContent: "flex-end",
@@ -40,6 +46,9 @@ const style_center = {
 class TravelList extends React.Component {
   state = {
     visible: false,
+    removeReason: false,
+    value: 1,
+    slug: ""
   };
 
   cancel(e) {
@@ -56,31 +65,102 @@ class TravelList extends React.Component {
     });
   }
 
-  editsignal = () => {
-    this.props.parentCallback();
+  onChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   };
 
-  delete = (id) => {
+
+  delete = (slug) => {
+    this.setState({ removeReason: true, slug: slug });
+  };
+
+
+  handleCancel = () => {
+    this.setState({ removeReason: false });
+  };
+
+
+  sendReason = () => {
+    const current_packet = this.state.packet_user;
+    const slug = this.state.slug;
     const token = localStorage.getItem("token");
-    Axios.delete(`${url}api/v1/advertise/travel/${id}/`, {
-      headers: { Authorization: `Token ${token}` },
-    })
+    Axios.post(
+      `${url}api/v1/advertise/travelRemoveReason/${slug}/`,
+      {
+        type_remove: this.state.value,
+        description: this.state.text,
+      },
+      {
+        headers: { Authorization: `Token ${token}` },
+      }
+    )
       .then((res) => {
-        this.props.parentCallback();
-      })
-      .catch((error) => {
-        notification["error"]({
-          message: error.response.data.detail,
+        this.setState({
+          packet_user: current_packet.filter(
+            (packet_user) => packet_user.slug !== slug
+          ),
+        });
+        notification["success"]({
+          message: "از شما متشکریم",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
             float: "right",
             width: "max-content",
+            fontSizeAdjust: "0.5",
           },
           duration: 2,
         });
-      });
+      })
+      .catch((error) => console.error(error));
+    Axios.delete(`${url}api/v1/advertise/travel/${slug}/`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) => {
+        this.props.parentCallback();
+        notification["success"]({
+          message: "آگهی با موفقیت حذف شد",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+            fontSizeAdjust: "0.5",
+          },
+          duration: 2,
+        });
+      })
+      .catch((error) => console.error(error));
+    this.setState({ removeReason: false });
   };
+
+  editsignal = () => {
+    this.props.parentCallback();
+  };
+
+  // delete = (id) => {
+  //   const token = localStorage.getItem("token");
+  //   Axios.delete(`${url}api/v1/advertise/travel/${id}/`, {
+  //     headers: { Authorization: `Token ${token}` },
+  //   })
+  //     .then((res) => {
+  //       this.props.parentCallback();
+  //     })
+  //     .catch((error) => {
+  //       notification["error"]({
+  //         message: error.response.data.detail,
+  //         style: {
+  //           fontFamily: "VazirD",
+  //           textAlign: "right",
+  //           float: "right",
+  //           width: "max-content",
+  //         },
+  //         duration: 2,
+  //       });
+  //     });
+  // };
 
   offermodal = () => {
     this.setState({ visible: true });
@@ -236,7 +316,7 @@ class TravelList extends React.Component {
                               {item.status == 0 || item.status == 2 ? (
                                 <Popconfirm
                                   overlayStyle={{ fontFamily: "VazirD" }}
-                                  title="آیا از حذف آگهی مطمئن هستید ؟"
+                                  title="آیا از حذف سفر مطمئن هستید ؟"
                                   onConfirm={this.delete.bind(this, item.slug)}
                                   onCancel={this.cancel}
                                   okText="بله"
@@ -279,6 +359,49 @@ class TravelList extends React.Component {
                 </List.Item>
               )}
             />
+            <Modal
+              title="چرا می‌خواهید سفر را حذف کنید؟"
+              onCancel={this.handleCancel}
+              onOk={this.sendReason.bind(this.state.slug)}
+              cancelText="انصراف"
+              okText="حذف"
+              confirmLoading={this.state.loading}
+              // okButtonProps={{
+              //   form: "offering",
+              //   key: "submit",
+              //   htmlType: "submit",
+              // }}
+              visible={this.state.removeReason}
+              style={{ fontFamily: "VazirD" }}
+            >
+              <Radio.Group
+                name="value"
+                onChange={this.onChange}
+                value={this.state.value}
+              >
+                <Radio style={radioStyle} value={0}>
+                  آگهی مناسبی پیدا نکردم
+                </Radio>
+                <Radio style={radioStyle} value={1}>
+                  سفرم کنسل شد
+                </Radio>
+                <Radio style={radioStyle} value={2}>
+                  از قبول آگهی منصرف شدم 
+                </Radio>
+                <Radio style={radioStyle} value={3}>
+                  به دلایل دیگر
+                </Radio>
+              </Radio.Group>
+              {this.state.value === 3 ? (
+                <TextArea
+                  name="text"
+                  value={this.state.text}
+                  onChange={this.onChange}
+                  style={{ borderRadius: "10px", marginTop: "20px" }}
+                  rows={5}
+                />
+              ) : null}
+            </Modal>
           </div>
         )}
         {this.props.data1.length != 0 && <Divider>سفرهای انجام شده</Divider>}
