@@ -113,6 +113,13 @@ class ChatRoom extends React.Component {
     });
   }
 
+  componentWillUnmount(){
+    const chatID = this.props.match.params.chatID;
+    Axios.get(`${url}api/v1/chat/massageSeen/${chatID}`, {
+      headers: { Authorization: `Token ${token}` },
+    })
+  }
+
 
   handler = (data) => {
     const chatID = this.props.match.params.chatID;
@@ -314,7 +321,7 @@ class ChatRoom extends React.Component {
                         <Button
                           onClick={this.scrollToMyRef}
                           size="large"
-                          shape="round"
+                          shape="circle"
                           style={{
                             display: "grid",
                             alignItems: "center",

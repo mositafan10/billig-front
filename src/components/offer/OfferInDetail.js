@@ -154,7 +154,13 @@ class OfferDetail extends React.Component {
         }}
       >
         <Button
-          style={{ borderRadius: "8px", fontSize: "14px", backgroundColor:"#067fc8", color:"white", padding:"2px 10px" }}
+          style={{
+            borderRadius: "8px",
+            fontSize: "14px",
+            backgroundColor: "#067fc8",
+            color: "white",
+            padding: "2px 10px",
+          }}
           onClick={this.offer}
         >
           ثبت پیشنهاد
@@ -278,17 +284,12 @@ class OfferDetail extends React.Component {
                           },
                           ({ getFieldValue }) => ({
                             validator(rule, value) {
-                              if ((value > 100000) & (value < 50000000)) {
+                              if (value > 10000) {
                                 return Promise.resolve();
                               }
-                              if (value < 100000)
-                                return Promise.reject(
-                                  "دستمزد نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
-                                );
-                              if (value > 50000000)
-                                return Promise.reject(
-                                  "دستمزد نمی‌تواند از ۵۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
-                                );
+                              return Promise.reject(
+                                "دستمزد نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                              );
                             },
                           }),
                         ]}
@@ -351,17 +352,12 @@ class OfferDetail extends React.Component {
                               },
                               ({ getFieldValue }) => ({
                                 validator(rule, value) {
-                                  if ((value > 100000) & (value < 200000000)) {
+                                  if (value > 100000) {
                                     return Promise.resolve();
                                   }
-                                  if (value < 100000)
-                                    return Promise.reject(
-                                      "مبلغ کالا نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
-                                    );
-                                  if (value > 200000000)
-                                    return Promise.reject(
-                                      "مبلغ کالا نمی‌تواند از ۲۰۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
-                                    );
+                                  return Promise.reject(
+                                    "مبلغ کالا نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
+                                  );
                                 },
                               }),
                             ]}

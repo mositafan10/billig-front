@@ -6,7 +6,7 @@ import DownloadPic from "../utils/DownloadPic";
 import TimeDiff from "../utils/TimeDiff";
 import { config } from "../../Constant";
 import InfiniteScroll from "react-infinite-scroller";
-import { LoadingOutlined, GlobalOutlined } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 

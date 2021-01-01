@@ -35,7 +35,7 @@ class ProfileRoutes extends React.Component {
             <Route component={PageNotFound} />
         </Switch>
         :
-        <Redirect to='/signup/'/>
+        <Redirect to='/login/'/>
         );
     }
 }

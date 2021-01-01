@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Upload, Button } from "antd";
+import { Input, Upload } from "antd";
 import { SendOutlined, LoadingOutlined, LinkOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../../Constant";
@@ -70,7 +70,7 @@ class TextInput extends Component {
             this.state.loading ? (
               <LoadingOutlined />
             ) : (
-              <SendOutlined style={{rotate: "180deg", marginBottom:"9px"}}/>
+              <SendOutlined rotate={180}/>
             )
           }
           autoComplete="off"
@@ -83,7 +83,6 @@ class TextInput extends Component {
             headers={{ Authorization: `Token ${token}` }}
             onChange={this.onChange}
             fileList={this.state.fileList}
-            multiple="true"
             accept=".png,.jpeg"
             showUploadList={false}
           >

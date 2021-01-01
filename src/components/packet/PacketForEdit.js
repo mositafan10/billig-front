@@ -77,7 +77,7 @@ class PacketForEdit extends Component {
 
   handlebuy = () => {
     if (this.state.buy) {
-      this.setState({ buy: false });
+      this.setState({ buy: false, no_matter_origin: false });
     } else {
       this.setState({ buy: true });
     }

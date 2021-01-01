@@ -398,9 +398,6 @@ class EditProfile extends React.Component {
             </Button>
             <br />
             <br />
-            <ChangePassword />
-
-            <br />
             <Card title="شبکه‌های اجتماعی" style={{ borderRadius: "20px" }}>
               <p style={{ textAlign: "center" }}>
                 شبکه‌های اجتماعی جهت شناخت بیشتر کاربران هنگام بازدید آنها از
@@ -518,6 +515,8 @@ class EditProfile extends React.Component {
             </Modal>
           </Col>
         </Row>
+          <br/>
+            <ChangePassword />
         <Divider />
       </div>
     );
