@@ -31,10 +31,10 @@ class PackForm extends React.Component {
     city_origin_dis: true,
     city_destination_dis: true,
     category: [],
+    subcategory: [],
     categotyPost: [],
     pic_id: 1,
     buy: false,
-    category_other: false,
     loading: false,
     loadingCity: false,
     radio_value: false,
@@ -52,6 +52,21 @@ class PackForm extends React.Component {
     destination_city_select: []
   };
 
+  componentDidMount() {
+    document.title = "ثبت آگهی ـ بیلیگ ";
+    window.scroll(0,0)
+    Axios.get(`${url}api/v1/account/countries/`).then((res) => {
+      this.setState({
+        countries: res.data,
+      });
+    });
+    Axios.get(`${url}api/v1/advertise/categoryList/`).then((res) => {
+      this.setState({
+        category: res.data,
+        categotyPost: res.data.filter(c => c.name === "کتاب و مجلات")
+      });
+    });
+  }
  
   DIMENSION = [
     { value: "0", label: "کوچک" },
@@ -171,6 +186,14 @@ class PackForm extends React.Component {
     });
     this.setState({loadingCity: true, destination_city_select:" "})
   };
+  
+  get_subcategory = (e) => {
+    Axios.get(`${url}api/v1/advertise/subCategoryList/${e}`).then((res) => {
+      this.setState({
+        subcategory: res.data,
+      });
+    });
+  }
 
   handlebuy = () => {
     if (this.state.buy) {
@@ -287,23 +310,6 @@ class PackForm extends React.Component {
         });
       });
   };
-
-  
-  componentDidMount() {
-    document.title = "ثبت آگهی ـ بیلیگ ";
-    window.scroll(0,0)
-    Axios.get(`${url}api/v1/account/countries/`).then((res) => {
-      this.setState({
-        countries: res.data,
-      });
-    });
-    Axios.get(`${url}api/v1/advertise/categoryList/1`).then((res) => {
-      this.setState({
-        category: res.data,
-        categotyPost: res.data.filter(c => c.name === "کتاب و مجلات")
-      });
-    });
-  }
 
   render() {
     return (
@@ -638,6 +644,7 @@ x                     disabled={this.state.city_destination_dis}
                   >
                     <Select
                       dropdownStyle={{ fontFamily: "VazirD" }}
+                      onChange={this.get_subcategory.bind(this)}
                     >
                       {this.state.buy ?
                       this.state.category.map((e, key) => {
@@ -719,7 +726,7 @@ x                     disabled={this.state.city_destination_dis}
                     rules={[
                       {
                         required: true,
-                        message: "وزن بسته را وارد نمایید",
+                        message: "وزن بسته را با صفحه کلید انگلیسی وارد نمایید",
                       },
                       ({ getFieldValue }) => ({
                         validator(rule, value) {
@@ -756,15 +763,15 @@ x                     disabled={this.state.city_destination_dis}
                       okText="متوجه شدم"
                       title={
                         <p>
-                          مبلغی است که به صورت توافقی تعیین و به عنوان دستمزد به
-                          مسافر پرداخت می‌شود
+                          مبلغی است که به عنوان دستمزد به
+                          مسافر پیشنهاد می‌شود.
                         </p>
                       }
                     >
                   <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm7}><InfoCircleOutlined /></Button>
                     </Popconfirm>
                     <span style={{ marginRight: "10px" }}>
-                      مبلغ دستمزد (تومان) *
+                       دستمزد پیشنهادی (تومان) *
                     </span>
                   </Divider>
                   <Form.Item
@@ -775,7 +782,7 @@ x                     disabled={this.state.city_destination_dis}
                       {
                         required: true,
                         message:
-                          "مبلغ پیشنهادی خود را با کیبورد انگلیسی وارد کنید",
+                          "دستمزد پیشنهادی خود را با صفحه کلید انگلیسی وارد کنید",
                       },
                       ({ getFieldValue }) => ({
                         validator(rule, value) {
@@ -818,13 +825,13 @@ x                     disabled={this.state.city_destination_dis}
                   {
                     required: this.state.buy ? true : false ,
                     message:
-                      "لینک خرید کالا را وارد نمایید",
+                      "لینک کالا را وارد نمایید",
                   },
                 ]}
                 name="buy_link">
                   <TextArea
                     rows={2}
-                    placeholder="اگر کالا در فروشگاه آنلاینی وجود دارد لینک آن را وارد نمایید"
+                    placeholder="لینک کالا که در آن مشخصات کالا وجود دارد را وارد کنید"
                   />
                 </Form.Item>
                 <Divider plain orientation="center">
@@ -844,11 +851,15 @@ x                     disabled={this.state.city_destination_dis}
                   >
                   <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm8}><InfoCircleOutlined /></Button>
                   </Popconfirm>
-                  <span style={{ marginRight: "10px" }}>قیمت کالا (تومان)</span>
+                  <span style={{ marginRight: "10px" }}>قیمت حدودی کالا (تومان)</span>
                 </Divider>
                 <Form.Item name="parcel_price"
                 validateTrigger="onFinish"
                 rules={[
+                  {
+                    required: true,
+                    message:"قیمت حدودی کالا را وارد نمایید"
+                  },
                   ({ getFieldValue }) => ({
                     validator(rule, value) {
                       if (value > 10000 || value == null ) {
@@ -874,18 +885,24 @@ x                     disabled={this.state.city_destination_dis}
               <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>
-              <Form.Item name="description" rules={[
+              <Form.Item name="description" 
+              validateTrigger="onFinish"
+              rules={[
                 {
                   required: true,
                   message: "توضیحات لازم را وارد نمایید"
                 },
-                  {
-                    max: 1000,
-                    message: "طول متن بیشتر از ۱۰۰۰ حرف است",
-                  },
+                {
+                  max: 1000,
+                  message: "طول متن بیشتر از ۱۰۰۰ حرف است",
+                },
+                {
+                  min: 10,
+                  message: "مقداری بیشتر توضیح دهید"
+                }
                 ]}>
                 <TextArea
-                  placeholder="نکاتی را که به واضح‌تر شدن درخواست شما برای بازدیدکننده آگهی کمک می‌کند، در اینجا یادداشت نمایید."
+                  placeholder="در مورد بسته و یا کالای مورد نظر توضیحاتی دهید."
                   style={{ textAlign: "right", padding: "10px" }}
                   rows={5}
                 />

@@ -396,25 +396,26 @@ class OrderDetail extends React.Component {
                     <Row>
                     <Col
                         style={style_right}
-                        xs={14}
-                        sm={14}
-                        md={14}
-                        lg={14}
-                        xl={14}
+                        xs={18}
+                        sm={18}
+                        md={18}
+                        lg={18}
+                        xl={18}
                       >
-                        تعداد داوطلبان حمل این مرسوله
+                        تعداد داوطلبان حمل مرسوله
                       </Col>
                       <Col
                         style={style_left}
-                        xs={10}
-                        sm={10}
-                        md={10}
-                        lg={10}
-                        xl={10}
+                        xs={6}
+                        sm={6}
+                        md={6}
+                        lg={6}
+                        xl={6}
                       >
                         {this.state.order.offer_count}
                         </Col>
                     </Row>
+                    <br/>
                     <OfferDetail
                       data={this.state.order.slug}
                       buy={this.state.order.buy}
@@ -572,13 +573,15 @@ class OrderDetail extends React.Component {
                         </div>
                       ) : (
                         <div>
-                          {this.state.order.origin_country
-                            ? this.state.order.origin_country.name
-                            : ""}{" "}
-                          ,{" "}
-                          {this.state.order.origin_city
-                            ? this.state.order.origin_city.name
-                            : ""}
+                        <Link to={`/orders/${this.state.order.origin_country && this.state.order.origin_country.eng_name}`}>
+                            {this.state.order.origin_country
+                              ? this.state.order.origin_country.name
+                              : ""}{" "}
+                            {" "}
+                            </Link>{" "},{" "}
+                            {this.state.order.origin_city
+                              ? this.state.order.origin_city.name
+                              : ""}
                         </div>
                       )}
                     </Col>
@@ -603,13 +606,17 @@ class OrderDetail extends React.Component {
                       lg={10}
                       xl={10}
                     >
-                      {this.state.order.destination_country
-                        ? this.state.order.destination_country.name
-                        : ""}{" "}
-                      ,{" "}
-                      {this.state.order.destination_city
-                        ? this.state.order.destination_city.name
-                        : ""}
+                      <div>
+                      <Link to={`/orders/${this.state.order.destination_country && this.state.order.destination_country.eng_name}`}>
+                        {this.state.order.destination_country
+                          ? this.state.order.destination_country.name
+                          : ""}{" "}
+                            {" "}
+                            </Link>{" "},{" "}
+                        {this.state.order.destination_city
+                          ? this.state.order.destination_city.name
+                          : ""}
+                        </div>
                     </Col>
                   </Row>
                   <hr style={{ color: "aliceblue" }} />
@@ -781,21 +788,21 @@ class OrderDetail extends React.Component {
                   <Row>
                     <Col
                         style={style_right}
-                        xs={14}
-                        sm={14}
-                        md={14}
-                        lg={14}
-                        xl={14}
+                        xs={18}
+                        sm={18}
+                        md={18}
+                        lg={18}
+                        xl={18}
                       >
-                        تعداد داوطلبان حمل این مرسوله
+                        تعداد داوطلبان حمل مرسوله
                       </Col>
                       <Col
                         style={style_left}
-                        xs={10}
-                        sm={10}
-                        md={10}
-                        lg={10}
-                        xl={10}
+                        xs={6}
+                        sm={6}
+                        md={6}
+                        lg={6}
+                        xl={6}
                       >
                         {this.state.order.offer_count}
                         </Col>

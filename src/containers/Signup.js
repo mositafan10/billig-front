@@ -145,7 +145,7 @@ class SignUpForm extends React.Component {
               rules={[
                 {
                   required: true,
-                  message: ".شماره موبایل خود را وارد کنید",
+                  message: ".شماره موبایل خود را با صفحه کلید انگلیسی وارد کنید",
                 },
                 {
                   min: 8,
@@ -268,7 +268,7 @@ class SignUpForm extends React.Component {
                   rules={[
                     {
                       required: true,
-                      message: "کد تایید را با کیبورد انگلیسی وارد کنید",
+                      message: "کد تایید را با صفحه کلید انگلیسی وارد کنید",
                     },
                   ]}
                 >

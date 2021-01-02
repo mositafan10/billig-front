@@ -25,6 +25,7 @@ import EditProfileForm from "./EditProfileForm";
 import Axios from "axios";
 import { config } from "../../Constant";
 import ChangePassword from "./ChangePassword";
+import BankAccountList from './BankAccountList';
 
 var url = config.url.API_URL;
 const Option = { Select };
@@ -518,6 +519,7 @@ class EditProfile extends React.Component {
           <br/>
             <ChangePassword />
         <Divider />
+        <BankAccountList />
       </div>
     );
   }

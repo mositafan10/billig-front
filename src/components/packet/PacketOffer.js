@@ -249,11 +249,10 @@ class PacketOffer extends React.Component {
     socket.emit("offerChanged", data);
   };
 
-  rejectpayment = (data) => {
+  rejectpayment = (slug) => {
     Axios.post(
-      `${url}api/v1/advertise/offer/update/`,
+      `${url}api/v1/advertise/offer/update/${slug}`,
       {
-        slug: data,
         status: 1,
       },
       { headers: { Authorization: `Token ${token}` } }
@@ -271,16 +270,15 @@ class PacketOffer extends React.Component {
           },
           duration: 5,
         });
-        socket.emit("offerChanged", data);
+        socket.emit("offerChanged", slug);
       })
       .catch((error) => console.error(error));
   };
 
-  accept(data) {
+  accept(slug) {
     Axios.post(
-      `${url}api/v1/advertise/offer/update/`,
+      `${url}api/v1/advertise/offer/update/${slug}`,
       {
-        slug: data,
         status: 1,
       },
       { headers: { Authorization: `Token ${token}` } }
@@ -297,16 +295,15 @@ class PacketOffer extends React.Component {
           },
           duration: 5,
         });
-        socket.emit("offerChanged", data);
+        socket.emit("offerChanged", slug);
       })
       .catch((error) => console.error(error));
   }
 
-  receiveconfirm = (data) => {
+  receiveconfirm = (slug) => {
     Axios.post(
-      `${url}api/v1/advertise/offer/update/`,
+      `${url}api/v1/advertise/offer/update/${slug}`,
       {
-        slug: data,
         status: 6,
       },
       { headers: { Authorization: `Token ${token}` } }
@@ -329,7 +326,7 @@ class PacketOffer extends React.Component {
           },
           duration: 8,
         });
-        socket.emit("offerChanged", data);
+        socket.emit("offerChanged", slug);
       })
       .catch((error) => console.error(error));
   };

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { List, Avatar, Col, Row, Spin, Card } from "antd";
+import { List, Avatar, Col, Row, Spin, Card, Rate } from "antd";
 import { Link } from 'react-router-dom';
 import Axios from "axios";
 import { config } from "../../Constant";
@@ -71,6 +71,9 @@ class CommentList extends Component {
                       <p style={{ textAlign: "center", marginTop: "20px" }}>
                         {item.text}
                       </p>
+                      <Rate                
+                      value={item.score}>
+                      </Rate>
                     </Col>
                   </Row>
                 </Card>

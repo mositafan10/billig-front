@@ -272,12 +272,11 @@ class UserOffer extends React.Component {
     },
   ];
 
-  buydone = (data) => {
+  buydone = (slug) => {
     const token = localStorage.getItem("token");
     Axios.post(
-      `${url}api/v1/advertise/offer/update/`,
+      `${url}api/v1/advertise/offer/update/${slug}`,
       {
-        slug: data,
         status: 4,
       },
       { headers: { Authorization: `Token ${token}` } }
@@ -294,17 +293,16 @@ class UserOffer extends React.Component {
           },
           duration: 5,
         });
-        socket.emit("offerChanged", data);
+        socket.emit("offerChanged", slug);
       })
       .catch((error) => console.error(error));
   };
 
-  receivedone = (data) => {
+  receivedone = (slug) => {
     const token = localStorage.getItem("token");
     Axios.post(
-      `${url}api/v1/advertise/offer/update/`,
+      `${url}api/v1/advertise/offer/update/${slug}`,
       {
-        slug: data,
         status: 5,
       },
       { headers: { Authorization: `Token ${token}` } }
@@ -327,14 +325,14 @@ class UserOffer extends React.Component {
           },
           duration: 10,
         });
-        socket.emit("offerChanged", data);
+        socket.emit("offerChanged", slug);
       })
       .catch((error) => console.error(error));
   };
 
-  delete = (data) => {
+  delete = (slug) => {
     const token = localStorage.getItem("token");
-    Axios.delete(`${url}api/v1/advertise/offer/${data}/`, {
+    Axios.delete(`${url}api/v1/advertise/offer/${slug}/`, {
       headers: { Authorization: `Token ${token}` },
     })
       .then(() => {
@@ -353,8 +351,8 @@ class UserOffer extends React.Component {
       .catch((error) => console.error(error));
   };
 
-  callbackfunction = (data) => {
-    socket.emit("offerChanged", data);
+  callbackfunction = (slug) => {
+    socket.emit("offerChanged", slug);
   };
 
   render() {

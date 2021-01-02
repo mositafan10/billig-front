@@ -279,8 +279,11 @@ class OfferDetail extends React.Component {
                         rules={[
                           {
                             required: true,
-                            message:
-                              "قیمت پیشنهادی خود را به انگلیسی وارد کنید",
+                            message: "قیمت پیشنهادی خود را با صفحه کلید انگلیسی وارد کنید",
+                          },
+                          {
+                            max: 500000000,
+                            message: "عدد وارد شده معتبر نیست"
                           },
                           ({ getFieldValue }) => ({
                             validator(rule, value) {
@@ -348,7 +351,7 @@ class OfferDetail extends React.Component {
                               {
                                 required: true,
                                 message:
-                                  "قیمت کالا را با اعداد انگلیسی وارد کنید",
+                                  "قیمت کالا را با صفحه کلید انگلیسی وارد کنید",
                               },
                               ({ getFieldValue }) => ({
                                 validator(rule, value) {

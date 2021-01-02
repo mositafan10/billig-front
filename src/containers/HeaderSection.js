@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { notification } from "antd"
 import { Link, withRouter, Redirect } from "react-router-dom";
 import { Breakpoint } from "react-socks";
 import { connect } from "react-redux";
@@ -100,12 +101,25 @@ class HeaderSection extends Component {
         } else {
           this.props.logout();
         }
-      });
-      socket.on('shouldUpdateMessage', () => {
-        this.setState((state) => ({
-          total: state.total + 1,
-        }));
+        socket.on('shouldUpdateMessage', () => {
+          this.setState((state) => ({
+            total: state.total + 1,
+          }));
+        })
       })
+      .catch((err) => { 
+      notification["error"]({
+        message: err.response.data.detail,
+        style: {
+          fontFamily: "VazirD",
+          textAlign: "right",
+          float: "right",
+          width: "max-content",
+        },
+        duration: 5,
+      });
+      this.props.logout();
+    })
   }
 
   render() {

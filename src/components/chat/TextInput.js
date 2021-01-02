@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Input, Upload } from "antd";
-import { SendOutlined, LoadingOutlined, LinkOutlined } from "@ant-design/icons";
+import { SendOutlined, LoadingOutlined, CameraOutlined, CameraTwoTone } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../../Constant";
 
@@ -86,7 +86,7 @@ class TextInput extends Component {
             accept=".png,.jpeg"
             showUploadList={false}
           >
-              <LinkOutlined style={{ marginTop: "5px" }} />
+              <CameraTwoTone style={{ marginTop: "5px" }} />
           </Upload>}
         />
         </div>

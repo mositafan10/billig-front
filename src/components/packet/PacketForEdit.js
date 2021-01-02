@@ -135,8 +135,12 @@ class PacketForEdit extends Component {
     const buy = this.state.buy;
     const phonenumber_visible = this.state.phonenumber_visible;
     const no_matter_origin = this.state.no_matter_origin;
-    const parcel_price = values.parcel_price ? values.parcel_price : this.state.parcel_price;
-    const parcel_link = values.buy_link ? values.buy_link : this.state.parcel_link;
+    const parcel_price = values.parcel_price
+      ? values.parcel_price
+      : this.state.parcel_price;
+    const parcel_link = values.buy_link
+      ? values.buy_link
+      : this.state.parcel_link;
     const token = localStorage.getItem("token");
 
     Axios.put(
@@ -177,20 +181,19 @@ class PacketForEdit extends Component {
           this.props.updatelist();
         }, 1000);
       })
-      .catch(
-        (error) => {
-          notification["warn"]({
-            message: error.response.data.detail,
-            style: {
-              fontFamily: "VazirD",
-              textAlign: "right",
-              float: "right",
-              width: "max-content",
-            },
-            duration: 3,
-          });
-        this.setState({ loading: false })
+      .catch((error) => {
+        notification["warn"]({
+          message: error.response.data.detail,
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+          },
+          duration: 3,
         });
+        this.setState({ loading: false });
+      });
   };
 
   componentDidMount = () => {
@@ -242,8 +245,11 @@ class PacketForEdit extends Component {
               onFinish={(values) => this.handleFormSubmit(values)}
               id="edit"
             >
-              <Form.Item name="buy" style={{ textAlign: "center"}}>
-                <Checkbox onChange={this.handlebuy.bind(this)} defaultChecked={this.state.buy}>
+              <Form.Item name="buy" style={{ textAlign: "center" }}>
+                <Checkbox
+                  onChange={this.handlebuy.bind(this)}
+                  defaultChecked={this.state.buy}
+                >
                   <span style={{ marginRight: "10px" }}>
                     بسته باید توسط مسافر خریداری شود
                   </span>
@@ -275,13 +281,13 @@ class PacketForEdit extends Component {
                     name="no_matter_origin"
                     style={{ textAlign: "center" }}
                   >
-                      <Checkbox
-                        defaultChecked = {this.state.no_matter_origin}
-                        onChange={this.handlenomattercountry.bind(this)}
-                        style={{ textAlign: "right" }}
-                      >
-                        محل خرید کالا فرقی نمی‌کند
-                      </Checkbox>
+                    <Checkbox
+                      defaultChecked={this.state.no_matter_origin}
+                      onChange={this.handlenomattercountry.bind(this)}
+                      style={{ textAlign: "right" }}
+                    >
+                      محل خرید کالا فرقی نمی‌کند
+                    </Checkbox>
                   </Form.Item>
                 </div>
               )}
@@ -320,8 +326,10 @@ class PacketForEdit extends Component {
                   </Divider>
                   <Form.Item name="origin_city" style={{ textAlign: "right" }}>
                     <Select
-                    
-                      disabled={this.props.data.origin_country.id === 1 && this.state.city_origin_dis}
+                      disabled={
+                        this.props.data.origin_country.id === 1 &&
+                        this.state.city_origin_dis
+                      }
                       defaultValue={this.props.data.origin_city.name}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
@@ -423,13 +431,32 @@ class PacketForEdit extends Component {
               </Row>
               <Row style={{ justifyContent: "center", display: "flex" }}>
                 <Divider plain orientation="center">
-                  مبلغ پیشنهادی (تومان)
+                  دستمزد پیشنهادی (تومان)
                 </Divider>
                 <Form.Item
                   name="suggested_price"
                   style={{ textAlign: "right" }}
+                  validateTrigger="onFinish"
+                  rules={[
+                    {
+                      required: true,
+                      message:
+                        "دستمزد پیشنهادی خود را با صفحه کلید انگلیسی وارد کنید",
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(rule, value) {
+                        if (value > 10000) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          "دستمزد نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                        );
+                      },
+                    }),
+                  ]}
                 >
                   <InputNumber
+                    type="tel"
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     }
@@ -449,7 +476,7 @@ class PacketForEdit extends Component {
                   rules={[
                     {
                       required: true,
-                      message: "وزن بسته را با کیبورد انگلیسی وارد کنید",
+                      message: "وزن بسته را با صفحه کلید انگلیسی وارد کنید",
                     },
                     ({ getFieldValue }) => ({
                       validator(rule, value) {
@@ -464,6 +491,7 @@ class PacketForEdit extends Component {
                   ]}
                 >
                   <InputNumber
+                    type="tel"
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     }
@@ -483,20 +511,46 @@ class PacketForEdit extends Component {
                 }}
               >
                 <Divider plain orientation="center">
-                  لینک کالا / وبسایت فروشگاه / آدرس فروشگاه
+                  لینک کالا
                 </Divider>
-                <Form.Item name="buy_link">
+                <Form.Item name="buy_link"
+                rules={[
+                  {
+                    required: this.state.buy ? true : false ,
+                    message:
+                      "لینک کالا را وارد نمایید",
+                  },
+                ]}>
                   <TextArea
-                    rows={5}
-                    placeholder="هر مشخصاتی که بتواند در پیدا کردن کالای مورد نظر برای مسافر مفید باشد"
+                    rows={2}
+                    placeholder="لینک کالا که در آن مشخصات کالا وجود دارد را وارد کنید"
                   />
                 </Form.Item>
                 <Divider plain orientation="center">
-                  <span style={{ marginRight: "10px" }}>قیمت کالا (تومان)</span>
+                  <span style={{ marginRight: "10px" }}>قیمت حدودی کالا (تومان)</span>
                 </Divider>
-                <Form.Item name="parcel_price">
+                <Form.Item
+                  name="parcel_price"
+                  validateTrigger="onFinish"
+                  rules={[
+                    {
+                      required: this.state.buy ? true : false ,
+                      message:"قیمت حدودی کالا را وارد کنید"
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(rule, value) {
+                        if (value > 10000 || value == null) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          "مبلغ کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                        );
+                      },
+                    }),
+                  ]}
+                >
                   <InputNumber
-
+                    type="tel"
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     }
@@ -506,29 +560,6 @@ class PacketForEdit extends Component {
                   />
                 </Form.Item>
               </div>
-              <Form.Item
-                name="phonenumber_visible"
-                style={{ textAlign: "center" }}
-              >
-                <Checkbox
-                  onChange={this.handlephonenumber.bind(this)}
-                  defaultChecked={this.props.data.phonenumber_visible}
-                  style={{ textAlign: "right" }}
-                >
-                  شماره تماس من در‌ آگهی نمایش داده شود
-                </Checkbox>
-              </Form.Item>
-              {/* <Form.Item
-                name="picture"
-                style={{ display: "flex", justifyContent: "center" }}
-              >
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <UploadFile
-                    parentCallback={this.callbackFunction}
-                    picture={this.props.data.picture}
-                  />
-                </div>
-              </Form.Item> */}
               <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>
