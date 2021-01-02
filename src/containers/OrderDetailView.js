@@ -347,7 +347,7 @@ class OrderDetail extends React.Component {
                             lg={10}
                             xl={10}
                           >
-                            <a target="_blank" rel="noopener noreferrer" href={`${this.state.order.parcel_link}`}>
+                            <a target="_blank" rel="noopener noreferrer" href={`/${this.state.order.parcel_link}`}>
                             {this.state.order.parcel_link}
                             </a>
                           </Col>

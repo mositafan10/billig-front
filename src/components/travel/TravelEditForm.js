@@ -107,7 +107,7 @@ class TravelEditForm extends Component {
                         <Col span={24}>
                         <Divider plain orientation="center">کشور مبدا</Divider>
                             <Form.Item name="departure" style={{textAlign:"right"}} >
-                                <Select defaultValue={this.props.data.departure ? this.props.data.departure.name : ""} onChange={this.get_city_origin.bind()}>
+                                <Select dropdownStyle={{fontFamily:"VazirD"}} defaultValue={this.props.data.departure ? this.props.data.departure.name : ""} onChange={this.get_city_origin.bind()}>
                                     {this.state.countries.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>
@@ -116,7 +116,7 @@ class TravelEditForm extends Component {
                         <Col span={24}>
                         <Divider plain orientation="center">شهر مبدا</Divider>
                             <Form.Item name="departure_city" style={{textAlign:"right"}}>
-                            <Select disabled={this.state.city_origin_dis} defaultValue={this.props.data.departure_city.name}>
+                            <Select dropdownStyle={{fontFamily:"VazirD"}} disabled={this.state.city_origin_dis} defaultValue={this.props.data.departure_city.name}>
                                     {this.state.cities_origin.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>   
@@ -127,7 +127,7 @@ class TravelEditForm extends Component {
                         <Col span={24}>
                         <Divider plain orientation="center">کشور مقصد</Divider>
                             <Form.Item  name="destination" style={{textAlign:"right"}} >
-                                <Select defaultValue={this.props.data.destination ? this.props.data.destination.name : ""} onChange={this.get_city_destination.bind()}>
+                                <Select dropdownStyle={{fontFamily:"VazirD"}} defaultValue={this.props.data.destination ? this.props.data.destination.name : ""} onChange={this.get_city_destination.bind()}>
                                     {this.state.countries.map((e, key) => {
                                     return <option key={key} value={e.id}>{e.name}</option>;})}
                                 </Select>
@@ -136,7 +136,7 @@ class TravelEditForm extends Component {
                         <Col span={24}>
                         <Divider plain orientation="center">شهر مقصد</Divider>
                             <Form.Item name="destination_city" style={{textAlign:"right"}} >
-                            <Select disabled={this.state.city_destination_dis} defaultValue={this.props.data.destination_city.name}>
+                            <Select dropdownStyle={{fontFamily:"VazirD"}} disabled={this.state.city_destination_dis} defaultValue={this.props.data.destination_city.name}>
                                     {this.state.cities_destination.map((e, key) => {
                                     return <Option key={key} value={e.id}>{e.name}</Option>;})}
                                 </Select>   

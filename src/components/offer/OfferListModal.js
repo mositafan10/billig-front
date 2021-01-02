@@ -82,7 +82,7 @@ class OfferListModal extends React.Component {
               borderRadius: "20px",
             }}
             width="90%"
-            bodyStyle={{ borderRadius: "20px" }}
+            bodyStyle={{ borderRadius: "15px" }}
           >
             <PacketOffer
               data={this.state.packetOffer}
@@ -101,7 +101,7 @@ class OfferListModal extends React.Component {
             width="100%"
             bodyStyle={{ borderRadius: "20px" }}
             visible={true}
-            style={{ textAlign: "right", fontFamily: "VazirD" }}
+            style={{ textAlign: "right", fontFamily: "VazirD", overflow:"hidden", borderRadius: "15px"}}
           >
             <div>
               <PacketOffer

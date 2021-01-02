@@ -15,7 +15,6 @@ import moment from "moment";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;
-const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 class CreateTravel extends React.Component {
@@ -26,7 +25,7 @@ class CreateTravel extends React.Component {
     cities_destination: [],
     city_origin_dis: true,
     city_destination_dis: true,
-    radio_value: true,
+    radio_value: false,
     confirmLoading: false,
   };
 
@@ -60,10 +59,10 @@ class CreateTravel extends React.Component {
             departure_city: values.origin_city,
             destination: values.destination_country,
             destination_city: values.destination_city,
-            flight_date_start: moment(values.flight_date2[0]).format(
+            flight_date_start: moment(values.flight_date1).format(
               "YYYY-MM-DD"
             ),
-            flight_date_end: moment(values.flight_date2[1]).format(
+            flight_date_end: moment(values.flight_date2).format(
               "YYYY-MM-DD"
             ),
             description: values.description,
@@ -103,7 +102,7 @@ class CreateTravel extends React.Component {
             departure_city: values.origin_city,
             destination: values.destination_country,
             destination_city: values.destination_city,
-            flight_date_start: moment(values.flight_date._d).format(
+            flight_date_start: moment(values.flight_date1).format(
               "YYYY-MM-DD"
             ),
             description: values.description,
@@ -357,7 +356,7 @@ class CreateTravel extends React.Component {
                 value={this.state.radio_value}
               >
                 <Radio value={false}>یک طرفه</Radio>
-                <Tooltip title="در صورت انتخاب این گزینه، دو سفر برای شما ثبت خواهد شد.">
+                <Tooltip overlayStyle={{fontFamily:"VazirD"}} title="در صورت انتخاب این گزینه، دو سفر برای شما ثبت خواهد شد.">
                   <Radio value={true}>دو طرفه</Radio>
                 </Tooltip>
               </Radio.Group>
@@ -374,8 +373,9 @@ class CreateTravel extends React.Component {
               تاریخ سفر
             </label>
             {this.state.radio_value ? (
+              <div>
               <Form.Item
-                name="flight_date2"
+                name="flight_date1"
                 style={{ textAlign: "center" }}
                 rules={[
                   {
@@ -384,15 +384,43 @@ class CreateTravel extends React.Component {
                   },
                 ]}
               >
-                <RangePicker
+                <DatePicker
                   placeholder=""
                   style={{ display: "flex" }}
                   disabledDate={this.disabledDate}
                 />
               </Form.Item>
+              <br/>
+              <label
+              style={{
+                fontFamily: "VazirD",
+                float: "right",
+                textAlign: "right",
+                marginTop: "-30px",
+              }}
+            >
+              تاریخ برگشت
+            </label>
+              <Form.Item
+              name="flight_date2"
+              style={{ textAlign: "center" }}
+              rules={[
+                {
+                  required: true,
+                  message: "تاریخ پرواز خود را انتخاب کنید",
+                },
+              ]}
+            >
+              <DatePicker
+                placeholder=""
+                style={{ display: "flex" }}
+                disabledDate={this.disabledDate}
+              />
+            </Form.Item>
+            </div>
             ) : (
               <Form.Item
-                name="flight_date"
+                name="flight_date1"
                 style={{ textAlign: "center" }}
                 rules={[
                   {

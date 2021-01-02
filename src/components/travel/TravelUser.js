@@ -16,13 +16,14 @@ import {
   Divider,
   Modal,
   Input,
+  Space
 } from "antd";
 import moment from "moment";
 import EditTravel from "./EditTravel";
 import { config } from "../../Constant";
 import PayTraveler from "../payment/PayTraveler";
 
-const { TextArea } = Input; 
+const { TextArea } = Input;
 var url = config.url.API_URL;
 
 const radioStyle = {
@@ -48,7 +49,7 @@ class TravelList extends React.Component {
     visible: false,
     removeReason: false,
     value: 1,
-    slug: ""
+    slug: "",
   };
 
   cancel(e) {
@@ -71,16 +72,13 @@ class TravelList extends React.Component {
     });
   };
 
-
   delete = (slug) => {
     this.setState({ removeReason: true, slug: slug });
   };
 
-
   handleCancel = () => {
     this.setState({ removeReason: false });
   };
-
 
   sendReason = () => {
     const current_packet = this.state.packet_user;
@@ -140,28 +138,6 @@ class TravelList extends React.Component {
     this.props.parentCallback();
   };
 
-  // delete = (id) => {
-  //   const token = localStorage.getItem("token");
-  //   Axios.delete(`${url}api/v1/advertise/travel/${id}/`, {
-  //     headers: { Authorization: `Token ${token}` },
-  //   })
-  //     .then((res) => {
-  //       this.props.parentCallback();
-  //     })
-  //     .catch((error) => {
-  //       notification["error"]({
-  //         message: error.response.data.detail,
-  //         style: {
-  //           fontFamily: "VazirD",
-  //           textAlign: "right",
-  //           float: "right",
-  //           width: "max-content",
-  //         },
-  //         duration: 2,
-  //       });
-  //     });
-  // };
-
   offermodal = () => {
     this.setState({ visible: true });
   };
@@ -196,6 +172,7 @@ class TravelList extends React.Component {
                 <List.Item key={item.slug}>
                   <Card style={{ borderRadius: "8px" }}>
                     <Row>
+                      <Row>
                       <Col span={8} style={style_center}>
                         <div>
                           <img
@@ -228,6 +205,7 @@ class TravelList extends React.Component {
                           </p>
                         </div>
                       </Col>
+                      </Row>
                       <hr style={{ marginBottom: "20px", color: "white" }} />
                       <Row>
                         <Col span={24}>
@@ -240,9 +218,7 @@ class TravelList extends React.Component {
                             </Col>
                           </Row>
                         </Col>
-                        <hr
-                          style={{ backgroundColor: "white", color: "white" }}
-                        />
+                        <hr style={{ backgroundColor: "white", color: "white" }}/>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                           <Row style={style_right}>
                             <Col style={style_right} span={22}>
@@ -253,9 +229,7 @@ class TravelList extends React.Component {
                             </Col>
                           </Row>
                         </Col>
-                        <hr
-                          style={{ backgroundColor: "white", color: "white" }}
-                        />
+                        <hr style={{ backgroundColor: "white", color: "white" }}/>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                           <Row style={style_right}>
                             <Col style={style_right} span={20}>
@@ -272,12 +246,12 @@ class TravelList extends React.Component {
                             <Link to={`/profile/mytravel/${item.slug}`}>
                               <Button
                                 style={{
-                                  border: "hidden",
+                                  padding: "0 20px",
                                   fontSize: "12px",
-                                  borderRadius: "10px",
+                                  borderRadius: "15px",
                                 }}
                               >
-                                پیشنهادها ( {item.offer_count} )
+                                پیشنهادهای ارسالی ( {item.offer_count} )
                               </Button>
                             </Link>
                           </Row>
@@ -292,8 +266,9 @@ class TravelList extends React.Component {
                               <div></div>
                             )}
                           </Row>
-                          <hr style={{ margin: "15px 0 15px 0" }} />
-                          <Row style={{ display: "block" }}>
+                          <hr style={{ margin: "5px 0 15px 0" }} />
+                          <Row style={{display: "flex", justifyContent:"center"}}>
+                            <Space>
                             <Col>
                               {item.status == 4 ? (
                                 <PayTraveler
@@ -330,7 +305,7 @@ class TravelList extends React.Component {
                                       color: "white",
                                     }}
                                   >
-                                    <b>حذف</b>
+                                    حذف
                                   </Button>
                                 </Popconfirm>
                               ) : (
@@ -351,6 +326,7 @@ class TravelList extends React.Component {
                                 </Tooltip>
                               )}
                             </Col>
+                            </Space>
                           </Row>
                         </Col>
                       </Row>
@@ -366,11 +342,6 @@ class TravelList extends React.Component {
               cancelText="انصراف"
               okText="حذف"
               confirmLoading={this.state.loading}
-              // okButtonProps={{
-              //   form: "offering",
-              //   key: "submit",
-              //   htmlType: "submit",
-              // }}
               visible={this.state.removeReason}
               style={{ fontFamily: "VazirD" }}
             >
@@ -386,10 +357,10 @@ class TravelList extends React.Component {
                   سفرم کنسل شد
                 </Radio>
                 <Radio style={radioStyle} value={2}>
-                هیچ کدوم از پیشنهاداتم قبول نشد 
+                  هیچ کدوم از پیشنهاداتم قبول نشد
                 </Radio>
                 <Radio style={radioStyle} value={3}>
-                دستمزدها کم بود 
+                  دستمزدها کم بود
                 </Radio>
                 <Radio style={radioStyle} value={4}>
                   به دلایل دیگر
@@ -498,12 +469,12 @@ class TravelList extends React.Component {
                         <Link to={`/profile/mytravel/${item.slug}`}>
                           <Button
                             style={{
-                              border: "hidden",
+                              padding: "0 20px",
                               fontSize: "12px",
-                              borderRadius: "10px",
+                              borderRadius: "15px",
                             }}
                           >
-                            پیشنهادها
+                            پیشنهادهای ارسالی
                           </Button>
                         </Link>
                       </Col>
@@ -526,14 +497,18 @@ class TravelList extends React.Component {
                             amount={item.income}
                           />
                         ) : item.status == 8 ? (
-                          <span style={{
-                            border: "hidden",
-                            backgroundColor: "green",
-                            color:"white",
-                            borderRadius: "10px",
-                            fontSize:"14px",
-                            padding:"3px 10px"
-                          }}>در انتظار تسویه</span>
+                          <span
+                            style={{
+                              border: "hidden",
+                              backgroundColor: "green",
+                              color: "white",
+                              borderRadius: "10px",
+                              fontSize: "14px",
+                              padding: "3px 10px",
+                            }}
+                          >
+                            در انتظار تسویه
+                          </span>
                         ) : (
                           <EditTravel
                             signal={this.editsignal}
@@ -542,27 +517,27 @@ class TravelList extends React.Component {
                         )}
                       </Col>
                       <Col span={12} style={{ float: "left" }}>
-                        {item.status == 6 &&
-                        <Popconfirm
-                          overlayStyle={{ fontFamily: "VazirD" }}
-                          title="آیا از حذف آگهی مطمئن هستید ؟"
-                          onConfirm={this.delete.bind(this, item.slug)}
-                          onCancel={this.cancel}
-                          okText="بله"
-                          cancelText="خیر"
-                        >
-                          <Button
-                            style={{
-                              borderRadius: "10px",
-                              fontSize: "12px",
-                              backgroundColor: "red",
-                              color: "white",
-                            }}
+                        {item.status == 6 && (
+                          <Popconfirm
+                            overlayStyle={{ fontFamily: "VazirD" }}
+                            title="آیا از حذف آگهی مطمئن هستید ؟"
+                            onConfirm={this.delete.bind(this, item.slug)}
+                            onCancel={this.cancel}
+                            okText="بله"
+                            cancelText="خیر"
                           >
-                            <b>حذف</b>
-                          </Button>
-                        </Popconfirm>
-                        }
+                            <Button
+                              style={{
+                                borderRadius: "10px",
+                                fontSize: "12px",
+                                backgroundColor: "red",
+                                color: "white",
+                              }}
+                            >
+                              حذف
+                            </Button>
+                          </Popconfirm>
+                        )}
                       </Col>
                     </Row>
                   </Col>

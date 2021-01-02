@@ -260,12 +260,13 @@ class PacketUserList extends React.Component {
                           <Link to={`/profile/mypacket/${item.slug}`}>
                             <Button
                               style={{
-                                border: "hidden",
+                                padding:"0 20px",
                                 fontSize: "12px",
-                                borderRadius: "10px",
+                                borderRadius: "15px",
+                                marginBottom:"10px"
                               }}
                             >
-                              پیشنهادها ( {item.offer_count} )
+                              پیشنهادهای دریافتی ( {item.offer_count} )
                             </Button>
                           </Link>
                         </Row>
