@@ -355,11 +355,11 @@ class OfferDetail extends React.Component {
                               },
                               ({ getFieldValue }) => ({
                                 validator(rule, value) {
-                                  if (value > 100000) {
+                                  if (value > 10000) {
                                     return Promise.resolve();
                                   }
                                   return Promise.reject(
-                                    "مبلغ کالا نمی‌تواند از ۱۰۰٫۰۰۰ تومان کمتر باشد"
+                                    "مبلغ کالا نمی‌تواند از ۱۰٫۰۰ تومان کمتر باشد"
                                   );
                                 },
                               }),
