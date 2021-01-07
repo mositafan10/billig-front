@@ -370,7 +370,7 @@ class CreateTravel extends React.Component {
                 marginTop: "-30px",
               }}
             >
-              تاریخ سفر
+              تاریخ رفت
             </label>
             {this.state.radio_value ? (
               <div>

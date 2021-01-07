@@ -337,7 +337,7 @@ class OrderDetail extends React.Component {
                             lg={6}
                             xl={6}
                           >
-                            <h4>لینک خرید</h4>
+                            <h4>لینک کالا</h4>
                           </Col>
                           <Col
                             style={style_left}

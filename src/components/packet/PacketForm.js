@@ -63,7 +63,7 @@ class PackForm extends React.Component {
     Axios.get(`${url}api/v1/advertise/categoryList/`).then((res) => {
       this.setState({
         category: res.data,
-        categotyPost: res.data.filter(c => c.name === "کتاب و مجلات")
+        categotyPost: res.data.filter(c => c.name === "کتاب و مجله" || c.name === "مدارک و مستندات")
       });
     });
   }
