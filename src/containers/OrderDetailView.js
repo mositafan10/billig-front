@@ -723,25 +723,28 @@ class OrderDetail extends React.Component {
                       </Row>
                       <hr style={{ color: "aliceblue" }} />
                       <Row style={style_right}>
-                        <Col
+                      <Col
                           style={style_right}
-                          xs={14}
-                          sm={14}
-                          md={14}
-                          lg={14}
-                          xl={14}
+                          xs={6}
+                          sm={6}
+                          md={6}
+                          lg={6}
+                          xl={6}
                         >
-                          <h4>لینک خرید</h4>
+                          <h4>لینک کالا</h4>
                         </Col>
                         <Col
                           style={style_left}
-                          xs={10}
-                          sm={10}
-                          md={10}
-                          lg={10}
-                          xl={10}
+                          xs={18}
+                          sm={18}
+                          md={18}
+                          lg={18}
+                          xl={18}
                         >
+                          <br/>
+                          <a target="_blank"  href={this.state.order.parcel_link}>
                           {this.state.order.parcel_link}
+                          </a>
                         </Col>
                       </Row>
                     </div>

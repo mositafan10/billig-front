@@ -52,7 +52,7 @@ class OrderList extends React.Component {
         countries: res.data,
       });
     });
-    Axios.get(`${url}api/v1/advertise/categoryList/1`).then((res) => {
+    Axios.get(`${url}api/v1/advertise/categoryList/`).then((res) => {
       this.setState({
         categories: res.data,
       });

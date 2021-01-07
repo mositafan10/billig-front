@@ -73,19 +73,6 @@ const BillligerLanding = () => {
                   display: "flex",
                 }}
               >
-                {/* <Col>
-                  <h1
-                    style={{
-                      color: "#ff9a00",
-                      fontSize: "26px",
-                      textAlign: "center",
-                      padding: "0 25px 0 25px",
-                      marginTop: "20px",
-                    }}
-                  >
-                    بیلیگر
-                  </h1>
-                </Col> */}
                 <Col span={24}>
                   <h2 style={{ textAlign: "center", marginBottom: "20px",color: "#ff9a00", }}>
                     می‌خواهم بسته‌ای را پست کنم.
@@ -242,21 +229,6 @@ const BillligerLanding = () => {
                   display: "flex",
                 }}
               >
-                {/* <Col>
-                  <h1
-                    style={{
-                      backgroundColor: "white",
-                      color: "#067fc8",
-                      fontSize: "26px",
-                      textAlign: "center",
-                      borderRadius: "20px",
-                      padding: "0 25px 0 25px",
-                      marginTop: "20px",
-                    }}
-                  >
-                    مسافر
-                  </h1>
-                </Col> */}
                 <Col span={24}>
                   <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#067fc8", }}>
                     می‌خواهم از سفرم درآمد کسب کنم.

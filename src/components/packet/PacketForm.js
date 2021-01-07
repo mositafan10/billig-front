@@ -604,7 +604,7 @@ x                     disabled={this.state.city_destination_dis}
                         <div>
                           <p>کوچک :‌ بسته‌هایی که در جیب جا بشوند.</p>
                           <p>متوسط :‌ بسته‌هایی که در کوله‌پشتی جا بشوند.</p>
-                          <p>بزرگ :‌ بسته‌هایی که در چمدان جا بشوند.</p>
+                          <p>بزرگ :‌ بسته‌هایی که به اندازه چمدان و یا بزرگتر هستند.</p>
                         </div>
                       }
                     >
@@ -855,7 +855,7 @@ x                     disabled={this.state.city_destination_dis}
                 validateTrigger="onFinish"
                 rules={[
                   {
-                    required: true,
+                    required: this.state.buy ? true : false ,
                     message:"قیمت حدودی کالا را وارد نمایید"
                   },
                   ({ getFieldValue }) => ({
