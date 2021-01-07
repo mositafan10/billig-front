@@ -66,7 +66,7 @@ class PackForm extends React.Component {
         categotyPost: res.data.filter(c => c.name === "کتاب و مجله" || c.name === "مدارک و مستندات")
       });
     });
-  }
+  }إ
  
   DIMENSION = [
     { value: "0", label: "کوچک" },
@@ -449,7 +449,6 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
-                      showSearch
                       disabled={this.state.no_matter_origin}
                       onChange={this.get_city_origin.bind()}
                       dropdownStyle={{ fontFamily: "VazirD" }}
@@ -485,7 +484,6 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
-                      showSearch
                       disabled={this.state.city_origin_dis}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                       loading={this.state.loadingCity}
@@ -544,7 +542,6 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
-                      showSearch
                       onChange={this.get_city_destination.bind()}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
@@ -578,7 +575,6 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
-                      showSearch
                       value={this.state.destination_city_select}
                       onChange={this.changeCityDestination}
 x                     disabled={this.state.city_destination_dis}
