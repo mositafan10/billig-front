@@ -342,7 +342,7 @@ class PackForm extends React.Component {
                   <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm1}><InfoCircleOutlined /></Button>
                   </Popconfirm>
                   <Checkbox onChange={this.handlebuy.bind(this)}>
-                    <span style={{ marginRight: "10px" }}>
+                    <span style={{ marginRight: "10px", fontSize:"16px" }}>
                       بسته باید توسط مسافر خریداری شود
                     </span>
                   </Checkbox>
@@ -739,7 +739,7 @@ x                     disabled={this.state.city_destination_dis}
                     ]}
                   >
                     <InputNumber
-                    type="tel"
+                    // type="tel"
                       formatter={(value) =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
@@ -895,7 +895,7 @@ x                     disabled={this.state.city_destination_dis}
                   message: "طول متن بیشتر از ۱۰۰۰ حرف است",
                 },
                 {
-                  min: 10,
+                  min: 5,
                   message: "مقداری بیشتر توضیح دهید"
                 }
                 ]}>

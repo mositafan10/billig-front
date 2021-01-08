@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { List, Card, Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import Iran from "../../media/counntry rules/Iran.jpg";

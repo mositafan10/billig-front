@@ -255,7 +255,7 @@ class OrderList extends React.Component {
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
                   onChange={this.countryfilter.bind(this)}
                   value={
-                    this.state.country == "all" ? "همه" : this.state.country
+                    this.state.country == "all" ? "کشور" : this.state.country
                   }
                 >
                   {this.state.countries.map((e, key) => {
@@ -272,7 +272,7 @@ class OrderList extends React.Component {
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
                   onChange={this.categoryfilter.bind(this)}
                   value={
-                    this.state.category == "all" ? "همه" : this.state.category
+                    this.state.category == "all" ? "دسته‌بندی" : this.state.category
                   }
                 >
                   {this.state.categories.map((e, key) => {
@@ -283,7 +283,7 @@ class OrderList extends React.Component {
                     );
                   })}
                 </Select>
-                <Select
+                {/* <Select
                   placeholder="نوع آگهی"
                   style={{ width: "150px", borderRadius:"10px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
@@ -302,7 +302,7 @@ class OrderList extends React.Component {
                   <Option key="buy" value="buy">
                     خرید
                   </Option>
-                </Select>
+                </Select> */}
                 <Button
                   style={{ borderRadius: "10px", fontSize: "13px", padding:"0 45px 0 45px"  }}
                   onClick={this.canclefilter.bind(this)}
@@ -329,7 +329,7 @@ class OrderList extends React.Component {
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px", borderRadius:"10px" }}
                   onChange={this.countryfilter.bind(this)}
                   value={
-                    this.state.country == "all" ? "همه" : this.state.country
+                    this.state.country == "all" ? "کشور" : this.state.country
                   }
                 >
                   {this.state.countries.map((e, key) => {
@@ -346,7 +346,7 @@ class OrderList extends React.Component {
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
                   onChange={this.categoryfilter.bind(this)}
                   value={
-                    this.state.category == "all" ? "همه" : this.state.category
+                    this.state.category == "all" ? "دسته‌بندی" : this.state.category
                   }
                 >
                   {this.state.categories.map((e, key) => {
@@ -357,7 +357,7 @@ class OrderList extends React.Component {
                     );
                   })}
                 </Select>
-                <Select
+                {/* <Select
                   placeholder="نوع آگهی"
                   style={{ width: "150px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
@@ -376,7 +376,7 @@ class OrderList extends React.Component {
                   <Option key="buy" value="buy">
                     خرید
                   </Option>
-                </Select>
+                </Select> */}
                 <Button
                   style={{ borderRadius: "5px", fontSize: "13px", padding:"0 45px 0 45px" }}
                   onClick={this.canclefilter.bind(this)}
@@ -389,7 +389,7 @@ class OrderList extends React.Component {
           </Col>
         </Row>
         <br />
-        <Row style={{ display: "flex", justifyContent: "center" }}>
+        <Row >
           <Spin spinning={this.state.loading}>
             <Orders
               data={this.state.orders}

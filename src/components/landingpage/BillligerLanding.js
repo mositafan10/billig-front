@@ -99,14 +99,14 @@ const BillligerLanding = () => {
                       />
                     }
                   >
-                    <h3 style={h_style}>مرحله ۱ :‌ثبت‌نام و ثبت آگهی</h3>
+                    <h3 style={h_style}>مرحله ۱ : ‌ثبت‌نام و ثبت آگهی</h3>
                     <Meta
                       style={card_style_packet}
                       description={
                         <div style={travel_guide}>
-                          اول باید در پلتفرم بیلیگ{" "}
+                          اول باید در پلتفرم بیلیگ
                           <Link to="/signup">ثبت نام</Link> کنی و بعد درخواستت
-                          رو آگهی کنی.{" "}
+                          رو آگهی کنی.
                         </div>
                       }
                     />
@@ -168,7 +168,7 @@ const BillligerLanding = () => {
                       />
                     }
                   >
-                    <h3 style={h_style}>مرحله ۴ :‌پرداخت</h3>
+                    <h3 style={h_style}>مرحله ۴ :‌ پرداخت</h3>
                     <Meta
                       style={card_style_packet}
                       description={
@@ -192,7 +192,7 @@ const BillligerLanding = () => {
                       />
                     }
                   >
-                    <h3 style={h_style}>مرحله ۵ :‌دریافت بسته </h3>
+                    <h3 style={h_style}>مرحله ۵ :‌ دریافت بسته </h3>
                     <Meta
                       style={card_style_packet}
                       description={
@@ -294,7 +294,7 @@ const BillligerLanding = () => {
                       <img alt="billlig.com" src={chat} style={style_icon1} />
                     }
                   >
-                    <h3 style={h_style}>مرحله ۳: مذاکره </h3>
+                    <h3 style={h_style}>مرحله ۳ : مذاکره </h3>
                     <Meta
                       style={card_style_travel}
                       description={

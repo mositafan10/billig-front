@@ -281,10 +281,6 @@ class OfferDetail extends React.Component {
                             required: true,
                             message: "قیمت پیشنهادی خود را با صفحه کلید انگلیسی وارد کنید",
                           },
-                          {
-                            max: 500000000,
-                            message: "عدد وارد شده معتبر نیست"
-                          },
                           ({ getFieldValue }) => ({
                             validator(rule, value) {
                               if (value > 10000) {

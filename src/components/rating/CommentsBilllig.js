@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { List, Avatar, Spin, Card } from "antd";
+import { List, Spin, Card } from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
 import { UserOutlined } from "@ant-design/icons";

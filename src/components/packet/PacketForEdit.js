@@ -491,7 +491,7 @@ class PacketForEdit extends Component {
                   ]}
                 >
                   <InputNumber
-                    type="tel"
+                    // type="tel"
                     formatter={(value) =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     }

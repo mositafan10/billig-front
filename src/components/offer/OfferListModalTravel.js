@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 import { Breakpoint } from "react-socks";
 import UserOffer from "./Useroffer";
 import { config } from "../../Constant";
@@ -8,7 +8,6 @@ import { socket } from "../../socket";
 import { Redirect } from "react-router-dom";
 
 var url = config.url.API_URL;
-const token = localStorage.getItem("token");
 
 class OfferListModalTravel extends React.Component {
   state = {
