@@ -152,7 +152,7 @@ const RulesCountry = () => {
               و مقررات گمرکی همون سال مراجعه بکنید.
             </p>
             <p style={justify}>
-            <a href="http://tpo.ir/index.aspx?siteid=1&fkeyid=&siteid=1&pageid=25938" rel="noopener noreferrer">
+            <a target="_blank" href="http://tpo.ir/index.aspx?siteid=1&fkeyid=&siteid=1&pageid=25938" rel="noopener noreferrer">
                 برای مشاهده و دانلود کتاب مقررات گمرکی سال ۹۹ اینجا کلیک کنید.
               </a>
             </p>
@@ -162,7 +162,7 @@ const RulesCountry = () => {
               پرسیده شده رو بخونید.
             </p>
             <p style={justify}>
-              <a href="http://tccim.ir/consultation.aspx?mode=doit&ctype=9" rel="noopener noreferrer">
+              <a target="_blank" href="http://tccim.ir/consultation.aspx?mode=doit&ctype=9" rel="noopener noreferrer">
                 برای ورود به بخش پرسش و پاسخ قوانین گمرکی اتاق بازرگانی اینجا
                 کلیک کنید.
               </a>
@@ -175,7 +175,7 @@ const RulesCountry = () => {
               کالا در سیستم گمرکی کشوره که با اون شناخته میشه)
             </p>
             <p style={justify}>
-              <a href="https://sifam.ir/pages/sh_code?" rel="noopener noreferrer">
+              <a target="_blank" href="https://sifam.ir/pages/sh_code?" rel="noopener noreferrer">
                 برای ورود به سایت سایت دبیرخانه شورای عالی مناطق آزاد تجاری و
                 صنعتی و ویژه اقتصادی کلیک کنید.
               </a>

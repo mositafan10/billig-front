@@ -253,6 +253,8 @@ class OrderList extends React.Component {
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Space>
                 <Select
+                  showSearch
+                  optionFilterProp="key"
                   placeholder="کشور"
                   style={{ width: "150px", borderRadius:"10px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
@@ -261,15 +263,17 @@ class OrderList extends React.Component {
                     this.state.country == "all" ? "کشور" : this.state.country
                   }
                 >
-                  {this.state.countries.map((e, key) => {
+                  {this.state.countries.map((e) => {
                     return (
-                      <Option key={key} value={e.eng_name}>
+                      <Option key={e.name} value={e.eng_name}>
                         {e.name}
                       </Option>
                     );
                   })}
                 </Select>
                 <Select
+                  showSearch
+                  optionFilterProp="key"
                   placeholder="دسته‌بندی"
                   style={{ width: "150px", borderRadius:"10px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
@@ -278,9 +282,9 @@ class OrderList extends React.Component {
                     this.state.category == "all" ? "دسته‌بندی" : this.state.category
                   }
                 >
-                  {this.state.categories.map((e, key) => {
+                  {this.state.categories.map((e) => {
                     return (
-                      <Option key={key} value={e.eng_name}>
+                      <Option key={e.name} value={e.eng_name}>
                         {e.name}
                       </Option>
                     );
@@ -326,7 +330,8 @@ class OrderList extends React.Component {
               >
                 <Space direction="vertical">
                 <Select
-                
+                  showSearch
+                  optionFilterProp="key"
                   placeholder="کشور"
                   style={{ width: "150px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px", borderRadius:"10px" }}
@@ -335,15 +340,17 @@ class OrderList extends React.Component {
                     this.state.country == "all" ? "کشور" : this.state.country
                   }
                 >
-                  {this.state.countries.map((e, key) => {
+                  {this.state.countries.map((e) => {
                     return (
-                      <Option key={key} value={e.eng_name}>
+                      <Option key={e.name} value={e.eng_name}>
                         {e.name}
                       </Option>
                     );
                   })}
                 </Select>
                 <Select
+                  showSearch
+                  optionFilterProp="key"
                   placeholder="دسته‌بندی"
                   style={{ width: "250px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
@@ -352,9 +359,9 @@ class OrderList extends React.Component {
                     this.state.category == "all" ? "دسته‌بندی" : this.state.category
                   }
                 >
-                  {this.state.categories.map((e, key) => {
+                  {this.state.categories.map((e) => {
                     return (
-                      <Option key={key} value={e.eng_name}>
+                      <Option key={e.name} value={e.eng_name}>
                         {e.name}
                       </Option>
                     );

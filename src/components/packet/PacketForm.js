@@ -592,7 +592,7 @@ class PackForm extends React.Component {
                       optionFilterProp="key"
                       value={this.state.destination_city_select}
                       onChange={this.changeCityDestination}
-x                     disabled={this.state.city_destination_dis}
+                      disabled={this.state.city_destination_dis}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
                       {this.state.cities_destination.map((e) => {
