@@ -12,16 +12,15 @@ import {
   Spin,
   Space,
   Card,
-  Modal
 } from "antd";
 import { Link } from "react-router-dom";
 import ConfirmPrice from "../profile/ConfirmPrice";
 import { config } from "../../Constant";
-import RateAndComment from "../rating/RateAndComment";
 import { Breakpoint } from "react-socks";
 import { socket } from "../../socket";
 import DownloadPic from '../utils/DownloadPic';
 import OfferAdvices from '../offer/OfferAdvices';
+import PayTraveler from '../payment/PayTraveler';
 
 const style_center = {
   display: "flex",
@@ -207,15 +206,24 @@ class UserOffer extends React.Component {
               </Button>
             </Popconfirm>
           );
-        } else if (row.status === "انجام شده") {
+        } 
+        // else if (row.status === "انجام شده") {
+        //   return (
+        //     <RateAndComment
+        //       signal={this.callbackfunction}
+        //       data={row.slug}
+        //       receiver={row.receiver_slug}
+        //       loc={"آگهی‌دهنده"}
+        //     />
+        //   );
+        // }
+        else if (row.status === 'انجام شده') {
           return (
-            <RateAndComment
-              signal={this.callbackfunction}
-              data={row.slug}
-              receiver={row.receiver_slug}
-              loc={"آگهی‌دهنده"}
-            />
-          );
+            <PayTraveler
+            offer={row.status}
+            amount={row.parcel_price_offer + row.price}
+          />
+          )
         }
       },
     },
@@ -525,13 +533,19 @@ class UserOffer extends React.Component {
                                   </Button>
                                 </Popconfirm>
                               )}
-                              {item.status === "انجام شده" && (
+                              {/* {item.status === "انجام شده" && (
                                 <RateAndComment
                                   signal={this.callbackfunction}
                                   data={item.slug}
                                   receiver={item.receiver_slug}
                                   loc={"آگهی‌دهنده"}
                                 />
+                              )} */}
+                              {item.status === "انجام شده" && (
+                                <PayTraveler
+                                offer={item.slug}
+                                amount={item.parcel_price_offer + item.price}
+                              />
                               )}
                             </Col>
                             <Col>

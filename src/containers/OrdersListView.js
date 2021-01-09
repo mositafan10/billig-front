@@ -173,8 +173,10 @@ class OrderList extends React.Component {
         )
       );
     }
+    const firstTime = localStorage.getItem('first_time')
     return (
-      <div style={{ padding: "0 10px 0 10px", direction: "rtl" }}>
+      <div style={{ padding: "0 10px 0 10px", direction: "rtl", minHeight:"700px" }}>
+        {firstTime &&
         <Row>
           <Col
             xs={24}
@@ -243,8 +245,9 @@ class OrderList extends React.Component {
             </Row>
           </Col>
           <br />
+          <Divider />
         </Row>
-        <Divider />
+        }
         <Row style={{ display: "flex", justifyContent: "center" }}>
           <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24}>
             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -389,7 +392,7 @@ class OrderList extends React.Component {
           </Col>
         </Row>
         <br />
-        <Row >
+        <Row style={{display: 'flex', justifyContent: 'center'}} >
           <Spin spinning={this.state.loading}>
             <Orders
               data={this.state.orders}

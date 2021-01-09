@@ -41,6 +41,13 @@ class PacketForEdit extends Component {
     { value: 2, label: "بزرگ" },
   ];
 
+  WEIGHT = [
+    { value: "0", label: "کمتر از ۱ کیلوگرم" },
+    { value: "1", label: "بین ۱ تا ۵ کیلوگرم" },
+    { value: "2", label: "بین ۵ تا ۱۰ کیلوگرم" },
+    { value: "3", label: "بیشتر از ۱۰ کیلوگرم" },
+  ];
+
   search(nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
       if (myArray[i].label === nameKey) {
@@ -245,17 +252,6 @@ class PacketForEdit extends Component {
               onFinish={(values) => this.handleFormSubmit(values)}
               id="edit"
             >
-              <Form.Item name="buy" style={{ textAlign: "center" }}>
-                <Checkbox
-                  onChange={this.handlebuy.bind(this)}
-                  defaultChecked={this.state.buy}
-                >
-                  <span style={{ marginRight: "10px" }}>
-                    بسته باید توسط مسافر خریداری شود
-                  </span>
-                </Checkbox>
-                <br />
-              </Form.Item>
               <Divider plain orientation="center">
                 عنوان آگهی
               </Divider>
@@ -274,6 +270,17 @@ class PacketForEdit extends Component {
                   onChange={this.handleChangevalue}
                   style={{ textAlign: "right" }}
                 />
+              </Form.Item>
+              <Form.Item name="buy" style={{ textAlign: "center" }}>
+                <Checkbox
+                  onChange={this.handlebuy.bind(this)}
+                  defaultChecked={this.state.buy}
+                >
+                  <span style={{ marginRight: "10px" }}>
+                    بسته باید توسط مسافر خریداری شود
+                  </span>
+                </Checkbox>
+                <br />
               </Form.Item>
               {this.state.buy && (
                 <div>
@@ -478,27 +485,12 @@ class PacketForEdit extends Component {
                       required: true,
                       message: "وزن بسته را با صفحه کلید انگلیسی وارد کنید",
                     },
-                    ({ getFieldValue }) => ({
-                      validator(rule, value) {
-                        if (value <= 30 && value > 0) {
-                          return Promise.resolve();
-                        }
-                        return Promise.reject(
-                          "وزن بسته باید عددی بین ۱۰۰ گرم تا ۳۰ کیلوگرم باشد"
-                        );
-                      },
-                    }),
                   ]}
                 >
-                  <InputNumber
-                    // type="tel"
-                    formatter={(value) =>
-                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    }
-                    parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                    style={{ textAlign: "right", width: "200px" }}
-                    min={0}
-                  />
+                  <Select
+                      options={this.WEIGHT}
+                      dropdownStyle={{ fontFamily: "VazirD" }}
+                    />
                 </Form.Item>
               </Row>
               <div
@@ -513,14 +505,7 @@ class PacketForEdit extends Component {
                 <Divider plain orientation="center">
                   لینک کالا
                 </Divider>
-                <Form.Item name="buy_link"
-                rules={[
-                  {
-                    required: this.state.buy ? true : false ,
-                    message:
-                      "لینک کالا را وارد نمایید",
-                  },
-                ]}>
+                <Form.Item name="buy_link">
                   <TextArea
                     rows={2}
                     placeholder="لینک کالا که در آن مشخصات کالا وجود دارد را وارد کنید"
@@ -530,24 +515,14 @@ class PacketForEdit extends Component {
                   <span style={{ marginRight: "10px" }}>قیمت حدودی کالا (تومان)</span>
                 </Divider>
                 <Form.Item
-                  name="parcel_price"
-                  validateTrigger="onFinish"
-                  rules={[
-                    {
-                      required: this.state.buy ? true : false ,
-                      message:"قیمت حدودی کالا را وارد کنید"
-                    },
-                    ({ getFieldValue }) => ({
-                      validator(rule, value) {
-                        if (value > 10000 || value == null) {
-                          return Promise.resolve();
-                        }
-                        return Promise.reject(
-                          "مبلغ کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
-                        );
-                      },
-                    }),
-                  ]}
+                  // name="parcel_price"
+                  // validateTrigger="onFinish"
+                  // rules={[
+                  //   {
+                  //     required: this.state.buy ? true : false ,
+                  //     message:"قیمت حدودی کالا را وارد کنید"
+                  //   },
+                  // ]}
                 >
                   <InputNumber
                     type="tel"
@@ -563,7 +538,22 @@ class PacketForEdit extends Component {
               <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>
-              <Form.Item name="description">
+              <Form.Item name="description"
+              validateTrigger="onFinish"
+              rules={[
+                {
+                  required: true,
+                  message: "توضیحات لازم را وارد نمایید"
+                },
+                {
+                  max: 1000,
+                  message: "طول متن بیشتر از ۱۰۰۰ حرف است",
+                },
+                {
+                  min: 5,
+                  message: "مقداری بیشتر توضیح دهید"
+                }
+                ]}>
                 <TextArea
                   initialValues={this.props.data.description}
                   style={{ textAlign: "right", padding: "10px" }}

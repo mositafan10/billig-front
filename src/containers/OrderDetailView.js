@@ -246,7 +246,6 @@ class OrderDetail extends React.Component {
                         xl={10}
                       >
                         {this.state.order.weight}
-                        <span style={{ marginRight: "5px" }}> کیلوگرم </span>
                       </Col>
                     </Row>
                     <hr style={{ color: "aliceblue" }} />
@@ -301,7 +300,7 @@ class OrderDetail extends React.Component {
                     </Row>
                     {this.state.order.buy && (
                       <div>
-                        {this.state.order.parcel_price && 
+                        {this.state.order.parcel_price != 0 && 
                         <div>
                         <hr style={{ color: "aliceblue" }} />
                         <Row style={style_right}>
@@ -365,7 +364,7 @@ class OrderDetail extends React.Component {
                     <hr style={{ color: "aliceblue" }} />
                     <br />
                     <p style={{ textAlign: "right" }}>
-                      {this.state.order.description}
+                    {this.state.order.description}
                     </p>
                     <br />
                     <hr style={{ color: "aliceblue" }} />
@@ -648,7 +647,6 @@ class OrderDetail extends React.Component {
                       xl={10}
                     >
                       {this.state.order.weight}
-                      <span style={{ marginRight: "5px" }}> کیلوگرم </span>
                     </Col>
                   </Row>
                   <hr style={{ color: "aliceblue" }} />
@@ -703,7 +701,7 @@ class OrderDetail extends React.Component {
                   </Row>
                   {this.state.order.buy && (
                     <div>
-                      {this.state.order.parcel_price &&
+                      {this.state.order.parcel_price != 0 &&
                       <div>
                       <hr style={{ color: "aliceblue" }} />
                       <Row style={style_right}>

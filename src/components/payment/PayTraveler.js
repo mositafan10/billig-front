@@ -36,7 +36,7 @@ class PayTraveler extends Component {
       `${url}api/v1/payment/paytraveler/`,
       {
         account: account,
-        travel: this.props.travel,
+        offer: this.props.offer,
         amount: this.props.amount,
       },
       {

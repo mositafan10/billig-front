@@ -198,7 +198,7 @@ class PacketOffer extends React.Component {
               </Button>
             </Popconfirm>
           );
-        } else if (row.status === "انجام شده") {
+        } else if (row.status === "انجام شده" || row.status === "در انتظار خرید" || row.status === "در انتظار تحویل") {
           return (
             <RateAndComment
               signal={this.callbackFunction.bind(this, row.slug)}
@@ -504,7 +504,7 @@ class PacketOffer extends React.Component {
                               </Button>
                             </Popconfirm>
                           )}
-                          {item.status === "انجام شده" && (
+                          {(item.status === "انجام شده" || item.status === "در انتظار خرید" || item.status === "در انتظار تحویل" ) && (
                             <RateAndComment
                               signal={this.callbackFunction.bind(
                                 this,

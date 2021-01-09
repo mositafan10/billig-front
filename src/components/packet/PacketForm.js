@@ -77,6 +77,13 @@ class PackForm extends React.Component {
     { value: "2", label: "بزرگ" },
   ];
 
+  WEIGHT = [
+    { value: "0", label: "کمتر از ۱ کیلوگرم" },
+    { value: "1", label: "بین ۱ تا ۵ کیلوگرم" },
+    { value: "2", label: "بین ۵ تا ۱۰ کیلوگرم" },
+    { value: "3", label: "بیشتر از ۱۰ کیلوگرم" },
+  ];
+
   radiochange = (e) => {
     this.setState({
       radio_value: e.target.value,
@@ -90,7 +97,7 @@ class PackForm extends React.Component {
       infovisible3: false,
       infovisible4: false,
       infovisible5: false,
-      infovisible6: false,
+      // infovisible6: false,
       infovisible7: false,
       infovisible8: false,
     })
@@ -132,12 +139,12 @@ class PackForm extends React.Component {
       infovisible5: true
     }) 
   }
-  showPopconfirm6 = () => {
-    this.handleOkinfo()
-    this.setState({
-      infovisible6: true
-    }) 
-  }
+  // showPopconfirm6 = () => {
+  //   this.handleOkinfo()
+  //   this.setState({
+  //     infovisible6: true
+  //   }) 
+  // }
   showPopconfirm7 = () => {
     this.handleOkinfo()
     this.setState({
@@ -495,7 +502,7 @@ class PackForm extends React.Component {
                       onChange={this.citychanged.bind(this)}
                     >
                       {this.state.cities_origin.map((e) => (
-                          <Option key={e.name}>
+                          <Option key={e.name} value={e.id}>
                             {e.name}
                           </Option>
                       ))}
@@ -628,7 +635,9 @@ x                     disabled={this.state.city_destination_dis}
                     name="dimension"
                     style={{ textAlign: "right" }}
                     rules={[
-                      { required: true, message: "ابعاد بسته را انتخاب کنید" },
+                      { 
+                        required: true,
+                        message: this.state.buy ? "ابعاد کالا را انتخاب کنید" : "ابعاد بسته را انتخاب کنید" },
                     ]}
                   >
                     <Select
@@ -638,7 +647,62 @@ x                     disabled={this.state.city_destination_dis}
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                  <Divider plain orientation="center">
+                <Divider plain orientation="center">
+                    {/* <Popconfirm
+                      visible={this.state.infovisible6}
+                      onConfirm={this.handleOkinfo}
+                      overlayStyle={{ fontFamily: "VazirD" }}
+                      cancelButtonProps={{ hidden: "true" }}
+                      okText="متوجه شدم"
+                      title="وزن بسته باید عددی بین ۰.۱ تا ۳۰ کیلوگرم باشد"
+                    >
+                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm6}><InfoCircleOutlined /></Button>
+                    </Popconfirm> */}
+                    {this.state.buy ? (
+                      <span style={{ marginRight: "10px" }}>
+                        وزن حدودی کالا *
+                      </span>
+                    ) : (
+                      <span style={{ marginRight: "10px" }}>
+                        وزن حدودی بسته *
+                      </span>
+                    )}
+                  </Divider>
+                  <Form.Item
+                    name="weight"
+                    style={{ textAlign: "center" }}
+                    rules={[
+                      {
+                        required: true,
+                        message: "وزن بسته را انتخاب کنید",
+                      },
+                    ]}
+                  >
+                     <Select
+                      options={this.WEIGHT}
+                      dropdownStyle={{ fontFamily: "VazirD" }}
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Divider plain orientation="center">
+                {this.state.buy ? (
+                  <span style={{ marginRight: "10px" }}> تصویر کالا</span>
+                ) : (
+                  <span style={{ marginRight: "10px" }}> تصویر بسته</span>
+                )}
+              </Divider>
+              <Form.Item
+                name="picture"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <UploadFile parentCallback={this.callbackFunction} />
+                </div>
+              </Form.Item>
+              <Row style={{ display: "flex", justifyContent: "center" }}>
+                <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
+                <Divider plain orientation="center">
                     دسته‌بندی *
                   </Divider>
                   <Form.Item
@@ -673,7 +737,7 @@ x                     disabled={this.state.city_destination_dis}
                       }
                     </Select>
                   </Form.Item>
-                  <div
+                  {/* <div
                     style={{
                       display: this.state.category_other ? "block" : "none",
                     }}
@@ -687,77 +751,7 @@ x                     disabled={this.state.city_destination_dis}
                     >
                       <Input maxLength={50} />
                     </Form.Item>
-                  </div>
-                </Col>
-              </Row>
-              <Divider plain orientation="center">
-                {this.state.buy ? (
-                  <span style={{ marginRight: "10px" }}> تصویر کالا</span>
-                ) : (
-                  <span style={{ marginRight: "10px" }}> تصویر بسته</span>
-                )}
-              </Divider>
-              <Form.Item
-                name="picture"
-                style={{ display: "flex", justifyContent: "center" }}
-              >
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <UploadFile parentCallback={this.callbackFunction} />
-                </div>
-              </Form.Item>
-              <Row style={{ display: "flex", justifyContent: "center" }}>
-                <Col xs={24} sm={24} md={24} lg={20} xl={20} xxl={20}>
-                  <Divider plain orientation="center">
-                    <Popconfirm
-                      visible={this.state.infovisible6}
-                      onConfirm={this.handleOkinfo}
-                      overlayStyle={{ fontFamily: "VazirD" }}
-                      cancelButtonProps={{ hidden: "true" }}
-                      okText="متوجه شدم"
-                      title="وزن بسته باید عددی بین ۰.۱ تا ۳۰ کیلوگرم باشد"
-                    >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm6}><InfoCircleOutlined /></Button>
-                    </Popconfirm>
-                    {this.state.buy ? (
-                      <span style={{ marginRight: "10px" }}>
-                        وزن حدودی کالا (کیلوگرم) *
-                      </span>
-                    ) : (
-                      <span style={{ marginRight: "10px" }}>
-                        وزن حدودی بسته (کیلوگرم) *
-                      </span>
-                    )}
-                  </Divider>
-                  <Form.Item
-                    name="weight"
-                    style={{ textAlign: "center" }}
-                    rules={[
-                      {
-                        required: true,
-                        message: "وزن بسته را با صفحه کلید انگلیسی وارد نمایید",
-                      },
-                      ({ getFieldValue }) => ({
-                        validator(rule, value) {
-                          if (value <= 30 && value > 0) {
-                            return Promise.resolve();
-                          }
-                          return Promise.reject(
-                            "وزن بسته باید عددی بین ۱۰۰ گرم تا ۳۰ کیلوگرم باشد"
-                          );
-                        },
-                      }),
-                    ]}
-                  >
-                    <InputNumber
-                    // type="tel"
-                      formatter={(value) =>
-                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                      }
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                      style={{ textAlign: "right", width: "200px" }}
-                      min={0}
-                    />
-                  </Form.Item>
+                  </div> */}
                 </Col>
               </Row>
               <Row style={{ display: "flex", justifyContent: "center" }}>
