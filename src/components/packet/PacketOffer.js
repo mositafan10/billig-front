@@ -251,7 +251,7 @@ class PacketOffer extends React.Component {
 
   rejectpayment = (slug) => {
     Axios.post(
-      `${url}api/v1/advertise/offer/update/${slug}`,
+      `${url}api/v1/advertise/offer/update/${slug}/`,
       {
         status: 1,
       },
@@ -277,7 +277,7 @@ class PacketOffer extends React.Component {
 
   accept(slug) {
     Axios.post(
-      `${url}api/v1/advertise/offer/update/${slug}`,
+      `${url}api/v1/advertise/offer/update/${slug}/`,
       {
         status: 1,
       },
@@ -302,7 +302,7 @@ class PacketOffer extends React.Component {
 
   receiveconfirm = (slug) => {
     Axios.post(
-      `${url}api/v1/advertise/offer/update/${slug}`,
+      `${url}api/v1/advertise/offer/update/${slug}/`,
       {
         status: 6,
       },
