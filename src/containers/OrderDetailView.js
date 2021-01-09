@@ -353,7 +353,7 @@ class OrderDetail extends React.Component {
                             lg={18}
                             xl={18}
                           >
-                            <a target="_blank"  href={this.state.order.parcel_link}>
+                            <a rel="nofollow" target="_blank" href={this.state.order.parcel_link}>
                             <span style={{border:"hidden", }}>لینک</span>
                             </a>
                           </Col>
@@ -756,7 +756,7 @@ class OrderDetail extends React.Component {
                           xl={18}
                         >
                           <br/>
-                          <a target="_blank"  href={this.state.order.parcel_link}>
+                          <a target="_blank" rel="nofollow" href={this.state.order.parcel_link}>
                           <span>لینک</span>
                           </a>
                         </Col>

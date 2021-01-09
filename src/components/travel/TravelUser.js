@@ -249,6 +249,7 @@ class TravelList extends React.Component {
                                   padding: "0 20px",
                                   fontSize: "12px",
                                   borderRadius: "15px",
+                                  marginBottom:"10px"
                                 }}
                               >
                                 پیشنهادهای ارسالی ( {item.offer_count} )

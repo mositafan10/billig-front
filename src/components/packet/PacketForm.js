@@ -50,7 +50,8 @@ class PackForm extends React.Component {
     infovisible6: false,
     infovisible7: false,
     infovisible8: false,
-    destination_city_select: []
+    destination_city_select: [],
+    selected: ""
   };
 
   componentDidMount() {
@@ -212,6 +213,11 @@ class PackForm extends React.Component {
     }
   };
 
+  changecity = () => {
+    console.log("hi");
+    this.setState({selected:""})
+  }
+
   // should fix due to new model 
   changecategory = (value) => {
     console.log(this.state.cat);
@@ -346,7 +352,7 @@ class PackForm extends React.Component {
                   }
                 ]}
               >
-                <Input maxLength={50} style={{ textAlign: "right" }} />
+                <Input autoComplete="off" maxLength={50} style={{ textAlign: "right" }} />
               </Form.Item>
               <Form.Item name="buy" style={{ textAlign: "center" }}>
                 <Space>
@@ -456,13 +462,16 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
+                      showSearch
+                      optionFilterProp="key"
                       disabled={this.state.no_matter_origin}
                       onChange={this.get_city_origin.bind()}
                       dropdownStyle={{ fontFamily: "VazirD" }}
+                      onSelect={this.changecity}
                     >
-                      {this.state.countries.map((e, key) => {
+                      {this.state.countries.map((e) => {
                         return (
-                          <Option key={key} value={e.id}>
+                          <Option key={e.name} value={e.id}>
                             {e.name}
                           </Option>
                         );
@@ -491,13 +500,16 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
+                      showSearch
+                      optionFilterProp="key"
                       disabled={this.state.city_origin_dis}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                       loading={this.state.loadingCity}
+                      value={this.state.selected}
                     >
-                      {this.state.cities_origin.map((e, key) => {
+                      {this.state.cities_origin.map((e) => {
                         return (
-                          <Option key={key} value={e.id}>
+                          <Option key={e.name} value={e.id}>
                             {e.name}
                           </Option>
                         );
@@ -549,12 +561,14 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
+                      showSearch
+                      optionFilterProp="key"
                       onChange={this.get_city_destination.bind()}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
-                      {this.state.countries.map((e, key) => {
+                      {this.state.countries.map((e) => {
                         return (
-                          <option key={key} value={e.id}>
+                          <option key={e.name} value={e.id}>
                             {e.name}
                           </option>
                         );
@@ -582,6 +596,8 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
+                      showSearch
+                      optionFilterProp="key"
                       value={this.state.destination_city_select}
                       onChange={this.changeCityDestination}
 x                     disabled={this.state.city_destination_dis}
@@ -589,7 +605,7 @@ x                     disabled={this.state.city_destination_dis}
                     >
                       {this.state.cities_destination.map((e) => {
                         return (
-                          <Option key={e.id} value={e.id}>
+                          <Option key={e.name} value={e.id}>
                             {e.name}
                           </Option>
                         );
@@ -650,12 +666,13 @@ x                     disabled={this.state.city_destination_dis}
                     <Select
                       dropdownStyle={{ fontFamily: "VazirD" }}
                       onChange={this.changecategory.bind()}
-
+                      showSearch
+                      optionFilterProp="key"
                     >
                       {this.state.buy ?
-                      this.state.category.map((e, key) => {
+                      this.state.category.map((e) => {
                         return (
-                          <Option key={key} value={e.id}>
+                          <Option key={e.name} value={e.id}>
                             {e.name}
                           </Option>
                         );

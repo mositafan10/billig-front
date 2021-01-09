@@ -338,7 +338,7 @@ const BillligerLanding = () => {
                       />
                     }
                   >
-                    <h3 style={h_style}>مرحله ۵ : تحویل و دریافت دستمزد</h3>
+                    <h3 style={h_style}>مرحله ۵ : دریافت دستمزد</h3>
 
                     <Meta
                       style={card_style_travel}

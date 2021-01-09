@@ -174,7 +174,7 @@ class OrderList extends React.Component {
       );
     }
     return (
-      <div style={{ padding: "0 30px 0 30px", direction: "rtl" }}>
+      <div style={{ padding: "0 10px 0 10px", direction: "rtl" }}>
         <Row>
           <Col
             xs={24}
@@ -200,7 +200,7 @@ class OrderList extends React.Component {
             xxl={12}
             style={style_text}
           >
-            <Row style={{ display: "flex", justifyContent: "center" }}>
+            <Row style={{ display: "flex", justifyContent: "center", padding:"10px" }}>
               <Col
                 xs={24}
                 sm={24}
