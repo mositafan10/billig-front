@@ -8,7 +8,6 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 class LoginForm extends React.Component {
-  
   state = {
     toDashboard: false,
     visible: false,
@@ -18,7 +17,7 @@ class LoginForm extends React.Component {
   };
 
   onFinish = (values) => {
-    const path = window.location.search.replace("?next=/","")
+    const path = window.location.search.replace("?next=/", "");
     const otp = "";
     this.props.onAuth(values.phone_number, values.password, path, otp);
   };
@@ -101,15 +100,15 @@ class LoginForm extends React.Component {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  style={{ borderRadius: "10px", padding:"0 25px 0 25px" }}
-                ><b>
-                  ورود
-                  </b>
+                  style={{ borderRadius: "10px", padding: "0 25px 0 25px" }}
+                >
+                  <b>ورود</b>
                 </Button>
               </Form.Item>
               <Form.Item style={{ textAlign: "center" }}>
+                هنوز ثبت نام نکرده اید ؟
                 <NavLink style={{ marginRight: "20px" }} to="/signup/">
-                  هنوز ثبت نام نکرده اید؟
+                  ثبت نام کنید
                 </NavLink>
               </Form.Item>
             </Form>

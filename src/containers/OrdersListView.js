@@ -342,7 +342,7 @@ class OrderList extends React.Component {
                 </Select>
                 <Select
                   placeholder="دسته‌بندی"
-                  style={{ width: "150px" }}
+                  style={{ width: "250px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
                   onChange={this.categoryfilter.bind(this)}
                   value={

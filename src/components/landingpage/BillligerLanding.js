@@ -56,9 +56,9 @@ const BillligerLanding = () => {
               <p
                 style={{
                   color: "#ff9a00",
-                  padding: "0 10px 0 10px",
+                  // padding: "0 10px 0 10px",
                   fontSize: "16px",
-                  marginTop: "10px",
+                  // marginTop: "10px",
                 }}
               >
                 بیلیگر
@@ -105,7 +105,7 @@ const BillligerLanding = () => {
                       description={
                         <div style={travel_guide}>
                           اول باید در پلتفرم بیلیگ
-                          <Link to="/signup">ثبت نام</Link> کنی و بعد درخواستت
+                          <Link to="/signup"> ثبت نام</Link> کنی و بعد درخواستت
                           رو آگهی کنی.
                         </div>
                       }
@@ -212,9 +212,9 @@ const BillligerLanding = () => {
               <p
                 style={{
                   color: "#067fc8",
-                  padding: "0 10px 0 10px",
+                  // padding: "0 10px 0 10px",
                   fontSize: "16px",
-                  marginTop: "10px",
+                  // marginTop: "10px",
                 }}
               >
                 مسافر

@@ -301,6 +301,8 @@ class OrderDetail extends React.Component {
                     </Row>
                     {this.state.order.buy && (
                       <div>
+                        {this.state.order.parcel_price && 
+                        <div>
                         <hr style={{ color: "aliceblue" }} />
                         <Row style={style_right}>
                           <Col
@@ -327,6 +329,10 @@ class OrderDetail extends React.Component {
                             <span> تومان </span>
                           </Col>
                         </Row>
+                        </div>
+                        }
+                        {this.state.order.parcel_link &&
+                        <div>
                         <hr style={{ color: "aliceblue" }} />
                         <Row style={style_right}>
                           <Col
@@ -348,10 +354,12 @@ class OrderDetail extends React.Component {
                             xl={18}
                           >
                             <a target="_blank"  href={this.state.order.parcel_link}>
-                            {this.state.order.parcel_link}
+                            <span style={{border:"hidden", }}>لینک</span>
                             </a>
                           </Col>
                         </Row>
+                        </div>
+                      }
                       </div>
                     )}
                     <hr style={{ color: "aliceblue" }} />
@@ -695,6 +703,8 @@ class OrderDetail extends React.Component {
                   </Row>
                   {this.state.order.buy && (
                     <div>
+                      {this.state.order.parcel_price &&
+                      <div>
                       <hr style={{ color: "aliceblue" }} />
                       <Row style={style_right}>
                         <Col
@@ -721,6 +731,10 @@ class OrderDetail extends React.Component {
                           <span> تومان </span>
                         </Col>
                       </Row>
+                      </div>
+                      }
+                      {this.state.order.parcel_link &&
+                      <div>
                       <hr style={{ color: "aliceblue" }} />
                       <Row style={style_right}>
                       <Col
@@ -743,10 +757,12 @@ class OrderDetail extends React.Component {
                         >
                           <br/>
                           <a target="_blank"  href={this.state.order.parcel_link}>
-                          {this.state.order.parcel_link}
+                          <span>لینک</span>
                           </a>
                         </Col>
                       </Row>
+                      </div>
+                  }
                     </div>
                   )}
                   <hr style={{ color: "aliceblue" }} />

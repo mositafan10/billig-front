@@ -88,7 +88,7 @@ class OfferDetail extends React.Component {
       `${url}api/v1/advertise/offer/`,
       {
         price: this.state.price,
-        parcelPrice: this.state.parcelPrice,
+        parcelPrice: this.state.parcelPrice ? this.state.parcelPrice : 0,
         travel: this.state.travel,
         description: this.state.description,
         packet: this.state.slug,
@@ -157,8 +157,8 @@ class OfferDetail extends React.Component {
           style={{
             borderRadius: "8px",
             fontSize: "14px",
-            backgroundColor: "#067fc8",
-            color: "white",
+            backgroundColor: "#edf2f0",
+            // color: "white",
             padding: "2px 10px",
           }}
           onClick={this.offer}
@@ -279,7 +279,7 @@ class OfferDetail extends React.Component {
                         rules={[
                           {
                             required: true,
-                            message: "قیمت پیشنهادی خود را با صفحه کلید انگلیسی وارد کنید",
+                            message: "دستمزد پیشنهادی خود را با صفحه کلید انگلیسی وارد کنید",
                           },
                           ({ getFieldValue }) => ({
                             validator(rule, value) {
@@ -323,8 +323,8 @@ class OfferDetail extends React.Component {
                               title={
                                 <div>
                                   <p>
-                                    قیمت کالایی که قرار است خریداری شود را جستجو
-                                    کرده و در اینجا وارد نمایید
+                                    چنانچه قیمت کالای مورد نظر را می‌دانید
+                                    .در اینجا وارد نمایید
                                   </p>
                                 </div>
                               }
@@ -344,11 +344,6 @@ class OfferDetail extends React.Component {
                             name="parcelPrice"
                             validateTrigger="onFinish"
                             rules={[
-                              {
-                                required: true,
-                                message:
-                                  "قیمت کالا را با صفحه کلید انگلیسی وارد کنید",
-                              },
                               ({ getFieldValue }) => ({
                                 validator(rule, value) {
                                   if (value > 10000) {

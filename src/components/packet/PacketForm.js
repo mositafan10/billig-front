@@ -31,6 +31,7 @@ class PackForm extends React.Component {
     city_origin_dis: true,
     city_destination_dis: true,
     category: [],
+    cat: "",
     subcategory: [],
     categotyPost: [],
     pic_id: 1,
@@ -197,9 +198,9 @@ class PackForm extends React.Component {
 
   handlebuy = () => {
     if (this.state.buy) {
-      this.setState({ buy: false, no_matter_origin: false });
+      this.setState({ buy: false, no_matter_origin: false, cat: " " });
     } else {
-      this.setState({ buy: true });
+      this.setState({ buy: true, cat: " " });
     }
   };
 
@@ -213,22 +214,24 @@ class PackForm extends React.Component {
 
   // should fix due to new model 
   changecategory = (value) => {
-    this.setState({ category: value });
-    if (value === "6") {
-      if (this.state.category_other === false) {
-        this.setState({
-          category_other: true,
-        });
-      } else {
-        this.setState({
-          category_other: false,
-        });
-      }
-    } else {
-      this.setState({
-        category_other: false,
-      });
-    }
+    console.log(this.state.cat);
+    console.log("cat",value);
+    this.setState({ cat: value });
+    // if (value === "6") {
+    //   if (this.state.category_other === false) {
+    //     this.setState({
+    //       category_other: true,
+    //     });
+    //   } else {
+    //     this.setState({
+    //       category_other: false,
+    //     });
+    //   }
+    // } else {
+    //   this.setState({
+    //     category_other: false,
+    //   });
+    // }
   };
 
   handleFormSubmit = (values) => {
@@ -322,6 +325,29 @@ class PackForm extends React.Component {
               size="middle"
               scrollToFirstError={true}
             >
+              <Divider plain orientation="center">
+                عنوان آگهی *
+              </Divider>
+              <Form.Item
+                name="title"
+                style={{ textAlign: "right" }}
+                rules={[
+                  {
+                    required: true,
+                    message: 'عنوان آگهی را وارد نمایید',
+                  },
+                  {
+                    pattern:'^([a-zA-Z0-9 \u0600-\u06FF])+$',
+                    message:"عنوان آگهی باید از حروف و اعداد تشکیل شده باشد"
+                  },
+                  {
+                    max:50,
+                    message:"عنوان کوتاه‌تری انتخاب کنید"
+                  }
+                ]}
+              >
+                <Input maxLength={50} style={{ textAlign: "right" }} />
+              </Form.Item>
               <Form.Item name="buy" style={{ textAlign: "center" }}>
                 <Space>
                   <Popconfirm
@@ -342,31 +368,12 @@ class PackForm extends React.Component {
                   <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm1}><InfoCircleOutlined /></Button>
                   </Popconfirm>
                   <Checkbox onChange={this.handlebuy.bind(this)}>
-                    <span style={{ marginRight: "10px", fontSize:"16px" }}>
-                      بسته باید توسط مسافر خریداری شود
+                    <span style={{ marginRight: "10px"}}>
+                      کالا باید توسط مسافر خریداری شود
                     </span>
                   </Checkbox>
                 </Space>
                 <br />
-              </Form.Item>
-              <Divider plain orientation="center">
-                عنوان آگهی *
-              </Divider>
-              <Form.Item
-                name="title"
-                style={{ textAlign: "right" }}
-                rules={[
-                  {
-                    required: true,
-                    message: 'عنوان آگهی را وارد نمایید',
-                  },
-                  {
-                    pattern:'^([a-zA-Z0-9 \u0600-\u06FF])+$',
-                    message:"عنوان آگهی باید از حروف و اعداد تشکیل شده باشد"
-                  }
-                ]}
-              >
-                <Input maxLength={50} style={{ textAlign: "right" }} />
               </Form.Item>
               {this.state.buy && (
                 <div>
@@ -642,7 +649,8 @@ x                     disabled={this.state.city_destination_dis}
                   >
                     <Select
                       dropdownStyle={{ fontFamily: "VazirD" }}
-                      onChange={this.get_subcategory.bind(this)}
+                      onChange={this.changecategory.bind()}
+
                     >
                       {this.state.buy ?
                       this.state.category.map((e, key) => {
@@ -819,13 +827,13 @@ x                     disabled={this.state.city_destination_dis}
                   لینک کالا
                 </Divider>
                 <Form.Item 
-                rules={[
-                  {
-                    required: this.state.buy ? true : false ,
-                    message:
-                      "لینک کالا را وارد نمایید",
-                  },
-                ]}
+                // rules={[
+                //   {
+                //     required: this.state.buy ? true : false ,
+                //     message:
+                //       "لینک کالا را وارد نمایید",
+                //   },
+                // ]}
                 name="buy_link">
                   <TextArea
                     rows={2}
@@ -854,10 +862,10 @@ x                     disabled={this.state.city_destination_dis}
                 <Form.Item name="parcel_price"
                 validateTrigger="onFinish"
                 rules={[
-                  {
-                    required: this.state.buy ? true : false ,
-                    message:"قیمت حدودی کالا را وارد نمایید"
-                  },
+                  // {
+                  //   required: this.state.buy ? true : false ,
+                  //   message:"قیمت حدودی کالا را وارد نمایید"
+                  // },
                   ({ getFieldValue }) => ({
                     validator(rule, value) {
                       if (value > 10000 || value == null ) {
@@ -900,7 +908,7 @@ x                     disabled={this.state.city_destination_dis}
                 }
                 ]}>
                 <TextArea
-                  placeholder="در مورد بسته و یا کالای مورد نظر توضیحاتی دهید."
+                  placeholder= {this.state.buy ? "در مورد کالایی که قصد خرید دارید توضیحات بیشتری دهید" : "در مورد بسته توضیحاتی دهید."}
                   style={{ textAlign: "right", padding: "10px" }}
                   rows={5}
                 />

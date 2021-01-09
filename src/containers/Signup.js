@@ -241,7 +241,7 @@ class SignUpForm extends React.Component {
             </Form.Item>
             <Form.Item style={{ textAlign: "center" }}>
               <br />
-              <Link style={{ marginRight: "20px" }} to="/login/">
+              <Link to="/login/">
                 ورود با حساب کاربری
               </Link>
             </Form.Item>
