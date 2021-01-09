@@ -346,7 +346,7 @@ class OfferDetail extends React.Component {
                             rules={[
                               ({ getFieldValue }) => ({
                                 validator(rule, value) {
-                                  if (value > 10000) {
+                                  if (value > 10000 || value == null) {
                                     return Promise.resolve();
                                   }
                                   return Promise.reject(

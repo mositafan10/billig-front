@@ -68,6 +68,7 @@ class PackForm extends React.Component {
         categotyPost: res.data.filter(c => c.name === "کتاب و مجله" || c.name === "مدارک و مستندات")
       });
     });
+    this.setState({selected:this.state.cities_origin[0]})
   }إ
  
   DIMENSION = [
@@ -174,8 +175,10 @@ class PackForm extends React.Component {
       this.setState({
         cities_origin: res.data,
         city_origin_dis: false,
+        selected: res.data[0].name
       });
     });
+    console.log(this.state.selected);
   };
 
   get_city_destination = (e) => {
@@ -213,9 +216,10 @@ class PackForm extends React.Component {
     }
   };
 
-  changecity = () => {
-    console.log("hi");
-    this.setState({selected:""})
+  citychanged = (e) => {
+    console.log(e);
+    this.setState({selected:e})
+    console.log(this.state.selected);
   }
 
   // should fix due to new model 
@@ -223,21 +227,6 @@ class PackForm extends React.Component {
     console.log(this.state.cat);
     console.log("cat",value);
     this.setState({ cat: value });
-    // if (value === "6") {
-    //   if (this.state.category_other === false) {
-    //     this.setState({
-    //       category_other: true,
-    //     });
-    //   } else {
-    //     this.setState({
-    //       category_other: false,
-    //     });
-    //   }
-    // } else {
-    //   this.setState({
-    //     category_other: false,
-    //   });
-    // }
   };
 
   handleFormSubmit = (values) => {
@@ -467,15 +456,12 @@ class PackForm extends React.Component {
                       disabled={this.state.no_matter_origin}
                       onChange={this.get_city_origin.bind()}
                       dropdownStyle={{ fontFamily: "VazirD" }}
-                      onSelect={this.changecity}
                     >
-                      {this.state.countries.map((e) => {
-                        return (
+                      {this.state.countries.map((e) => (
                           <Option key={e.name} value={e.id}>
                             {e.name}
                           </Option>
-                        );
-                      })}
+                      ))}
                     </Select>
                   </Form.Item>
                 </Col>
@@ -506,14 +492,13 @@ class PackForm extends React.Component {
                       dropdownStyle={{ fontFamily: "VazirD" }}
                       loading={this.state.loadingCity}
                       value={this.state.selected}
+                      onChange={this.citychanged.bind(this)}
                     >
-                      {this.state.cities_origin.map((e) => {
-                        return (
-                          <Option key={e.name} value={e.id}>
+                      {this.state.cities_origin.map((e) => (
+                          <Option key={e.name}>
                             {e.name}
                           </Option>
-                        );
-                      })}
+                      ))}
                     </Select>
                   </Form.Item>
                 </Col>

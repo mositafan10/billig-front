@@ -102,7 +102,7 @@ class LoginForm extends React.Component {
                   htmlType="submit"
                   style={{ borderRadius: "10px", padding: "0 25px 0 25px" }}
                 >
-                  <b>ورود</b>
+                  ورود
                 </Button>
               </Form.Item>
               <Form.Item style={{ textAlign: "center" }}>
