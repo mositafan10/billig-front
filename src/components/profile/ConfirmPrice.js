@@ -35,9 +35,8 @@ class ConfirmPrice extends React.Component {
     const parcelPrice = values.parcelPrice;
     const token = localStorage.getItem("token");
     Axios.post(
-      `${url}api/v1/advertise/offer/update/`,
+      `${url}api/v1/advertise/offer/update/${this.props.data}`,
       {
-        slug: this.props.data,
         price: price,
         parcelPrice: parcelPrice,
         status: 2,
