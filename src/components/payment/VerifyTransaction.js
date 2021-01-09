@@ -225,7 +225,7 @@ class VerifyTransaction extends Component {
                     lg={14}
                     xl={14}
                   >
-                    {this.cardnumber(this.state.cardNumber)}
+                    {this.state.cardNumber}
                   </Col>
                 </Row>
                 <Divider/>

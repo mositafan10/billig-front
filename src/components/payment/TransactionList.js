@@ -96,7 +96,7 @@ class TransactionList extends Component {
 
   currency = (value) => {
     const p = `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return p;
+    return p/10;
   };
 
   render() {

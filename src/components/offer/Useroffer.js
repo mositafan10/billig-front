@@ -275,7 +275,7 @@ class UserOffer extends React.Component {
   buydone = (slug) => {
     const token = localStorage.getItem("token");
     Axios.post(
-      `${url}api/v1/advertise/offer/update/${slug}`,
+      `${url}api/v1/advertise/offer/update/${slug}/`,
       {
         status: 4,
       },
@@ -301,7 +301,7 @@ class UserOffer extends React.Component {
   receivedone = (slug) => {
     const token = localStorage.getItem("token");
     Axios.post(
-      `${url}api/v1/advertise/offer/update/${slug}`,
+      `${url}api/v1/advertise/offer/update/${slug}/`,
       {
         status: 5,
       },
