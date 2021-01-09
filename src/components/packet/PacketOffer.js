@@ -219,7 +219,7 @@ class PacketOffer extends React.Component {
         if (row.status === "در انتظار پرداخت") {
           return (
             <SendTransactionInfo
-              amount={row.price + row.parcel_price}
+              amount={row.price + row.parcel_price_offer}
               factorNumber={dataIndex}
             />
           );
@@ -519,7 +519,7 @@ class PacketOffer extends React.Component {
                         <Col>
                           {item.status === "در انتظار پرداخت" && (
                             <SendTransactionInfo
-                              amount={item.price + item.parcel_price}
+                              amount={item.price + item.parcel_price_offer}
                               factorNumber={item.slug}
                             />
                           )}
