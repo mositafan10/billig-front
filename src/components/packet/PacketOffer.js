@@ -100,6 +100,7 @@ class PacketOffer extends React.Component {
       render: (dataIndex, row) => {
         if (row.status != "تمام شده") {
           return (
+            <Link to={`/profile/inbox/${dataIndex}`}>
             <Button
             style={{
               fontSize: "12px",
@@ -110,6 +111,7 @@ class PacketOffer extends React.Component {
           >
             چت
           </Button>
+          </Link>
           );
         }
       },
@@ -408,6 +410,7 @@ class PacketOffer extends React.Component {
                       <Space>
                         <Col>
                           {item.status != "تمام شده" && (
+                            <Link to={`/profile/inbox/${item.slug}`}>
                              <Button
                              style={{
                                fontSize: "12px",
@@ -418,6 +421,7 @@ class PacketOffer extends React.Component {
                            >
                              چت
                            </Button>
+                           </Link>
                           )}
                         </Col>
                         <Col>
