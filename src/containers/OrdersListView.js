@@ -256,7 +256,7 @@ class OrderList extends React.Component {
                   showSearch
                   optionFilterProp="key"
                   placeholder="کشور"
-                  style={{ width: "150px", borderRadius:"10px" }}
+                  style={{ width: "250px", borderRadius:"10px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
                   onChange={this.countryfilter.bind(this)}
                   value={
@@ -275,7 +275,7 @@ class OrderList extends React.Component {
                   showSearch
                   optionFilterProp="key"
                   placeholder="دسته‌بندی"
-                  style={{ width: "150px", borderRadius:"10px" }}
+                  style={{ width: "250px", borderRadius:"10px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
                   onChange={this.categoryfilter.bind(this)}
                   value={
@@ -324,7 +324,7 @@ class OrderList extends React.Component {
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button style={{borderRadius:"8px"}} onClick={this.showfilter}> ‌فیلتر آگهی‌ها</Button>
               </div>
-              <Divider />
+              {/* <Divider /> */}
               <div
                 style={{ display: this.state.filter, justifyContent: "center", textAlign:"center" }}
               >
@@ -333,7 +333,7 @@ class OrderList extends React.Component {
                   showSearch
                   optionFilterProp="key"
                   placeholder="کشور"
-                  style={{ width: "150px" }}
+                  style={{ width: "250px", borderRadius:"10px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px", borderRadius:"10px" }}
                   onChange={this.countryfilter.bind(this)}
                   value={
@@ -352,7 +352,7 @@ class OrderList extends React.Component {
                   showSearch
                   optionFilterProp="key"
                   placeholder="دسته‌بندی"
-                  style={{ width: "250px" }}
+                  style={{ width: "250px", borderRadius:"10px" }}
                   dropdownStyle={{ fontFamily: "VazirD", borderRadius:"10px" }}
                   onChange={this.categoryfilter.bind(this)}
                   value={
