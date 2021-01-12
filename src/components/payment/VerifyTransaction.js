@@ -3,6 +3,7 @@ import Axios from "axios";
 import { Button, Divider, Col, Row, notification, Card, Spin } from "antd";
 import { config } from "../../Constant";
 import { Link } from "react-router-dom";
+import Payment from '../../media/Payment.jpg'; 
 
 var url = config.url.API_URL;
 const style_left = { display: "flex", justifyContent: "flex-end", fontSize:"14px" };
@@ -90,15 +91,10 @@ class VerifyTransaction extends Component {
     if (this.state.payment_status !== "OK") {
       return (
         <div>
-          <p
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              margin: "20px 0 20px",
-            }}
-          >
-            عملیات ناموفق
-          </p>
+          <Row style={{display:"flex", justifyContent:"center"}}>
+          <img src={Payment} alt="Payment" width="30%" />
+
+          </Row>
           <Divider />
           <div
             style={{
@@ -107,7 +103,7 @@ class VerifyTransaction extends Component {
               margin: "20px 0 20px",
             }}
           >
-            <Link to="/profile/">
+            <Link to="/profile/mypacket">
               <Button
                 style={{
                   borderRadius: "15px",
