@@ -521,6 +521,7 @@ class PacketOffer extends React.Component {
                             <SendTransactionInfo
                               amount={item.price + item.parcel_price_offer}
                               factorNumber={item.slug}
+                              fee={item.fee}
                             />
                           )}
                         </Col>

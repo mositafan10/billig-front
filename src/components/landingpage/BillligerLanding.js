@@ -1,14 +1,15 @@
 import React from "react";
 import { Col, Row, Card, Tabs } from "antd";
-import OfferAccept from "../../media/PacketGuide/OfferAccept.svg";
-import chat from "../../media/traveler_guide/chat.svg";
-import Payment from "../../media/PacketGuide/Payment.svg";
-import Receive_parcel from "../../media/PacketGuide/Receive_parcel.svg";
-import Register from "../../media/PacketGuide/Register.svg";
-import add_trip from "../../media/traveler_guide/add_trip.svg";
-import make_offer from "../../media/traveler_guide/make_offer.svg";
-import deliverd from "../../media/traveler_guide/deliverd.svg";
-import buy from "../../media/traveler_guide/buy.svg";
+import OfferAccept from "../../media/PacketGuide/OfferAccept.png";
+import chatT from "../../media/traveler_guide/chat.png";
+import chatB from "../../media/PacketGuide/chat.png";
+import Payment from "../../media/PacketGuide/Payment.png";
+import Receive_parcel from "../../media/PacketGuide/Receive_parcel.png";
+import Register from "../../media/PacketGuide/Register.png";
+import add_trip from "../../media/traveler_guide/add_trip.png";
+import make_offer from "../../media/traveler_guide/make_offer.png";
+import deliverd from "../../media/traveler_guide/deliverd.png";
+import buy from "../../media/traveler_guide/buy.png";
 import { Breakpoint } from "react-socks";
 import { Link } from "react-router-dom";
 const { Meta } = Card;
@@ -141,7 +142,7 @@ const BillligerLanding = () => {
                     style={card_icon_billliger}
                     bordered={false}
                     cover={
-                      <img alt="billlig.com" src={chat} style={style_icon1} />
+                      <img alt="billlig.com" src={chatB} style={style_icon1} />
                     }
                   >
                     <h3 style={h_style}>مرحله ۳ : مذاکره </h3>
@@ -291,7 +292,7 @@ const BillligerLanding = () => {
                     style={card_icon}
                     bordered={false}
                     cover={
-                      <img alt="billlig.com" src={chat} style={style_icon1} />
+                      <img alt="billlig.com" src={chatT} style={style_icon1} />
                     }
                   >
                     <h3 style={h_style}>مرحله ۳ : مذاکره </h3>
@@ -299,7 +300,7 @@ const BillligerLanding = () => {
                       style={card_style_travel}
                       description={
                         <div style={travel_guide}>
-                          حالا باید با آگهی‌دهنده درباره دستمزد، محل تحویل و...
+                          حالا باید با آگهی‌دهنده درباره دستمزد، محل تحویل و ...
                           به توافق برسی.
                         </div>
                       }

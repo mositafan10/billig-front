@@ -188,7 +188,7 @@ class PacketUserList extends React.Component {
                 xl: 3,
                 xxl: 4,
               }}
-              locale={{ emptyText: "شما هنوز آگهی ثبت نکرده‌اید." }}
+              locale={{ emptyText: "موردی برای نمایش وجود ندارد." }}
               dataSource={this.state.packet_user}
               renderItem={(item) => (
                 <List.Item>
