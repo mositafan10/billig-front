@@ -42,7 +42,7 @@ class SignUpForm extends React.Component {
       }
       this.setState({ loading: false });
     }, 2000);
-    this.props.onAuth(values.phone_number, values.password);
+    this.props.onAuth(values.phone_number, values.password, values.name);
     this.setState({
       password: values.password,
       phone_number: values.phone_number,
@@ -323,8 +323,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (phone_number, password) =>
-      dispatch(actions.authSignup(phone_number, password)),
+    onAuth: (phone_number, password, name) =>
+      dispatch(actions.authSignup(phone_number, password, name)),
     onAuth1: (phone_number, password, otp, name) =>
       dispatch(actions.authLogin(phone_number, password, otp, name)),
     onAuth2: (phone_number, password, otp, name) =>

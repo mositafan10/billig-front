@@ -77,6 +77,7 @@ export const authLogin = (phone_number, password, path, otp) => {
       .catch((error) => {
         notification["error"]({
           message: error.response.data.detail,
+          closeIcon: " ",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -97,6 +98,7 @@ export const authSignup = (phone_number, password, name) => {
     Axios.post(`${url}api/v1/account/signup/`, {
       phone_number: phone_number,
       password: password,
+      name: name
     })
       .then((res) => {
         const expirationDate = new Date(new Date().getTime() + 360000 * 1000);
@@ -108,8 +110,9 @@ export const authSignup = (phone_number, password, name) => {
       .catch((error) => {
         dispatch(authFail(error));
         localStorage.setItem("signup", "notready");
-        notification["error"]({
+        notification["info"]({
           message: error.response.data.detail,
+          closeIcon: " ",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -150,6 +153,7 @@ export const authSignup1 = (phone_number, password, otp, name) => {
         localStorage.setItem("signup", "notready");
         notification["error"]({
           message: error.response.data.detail,
+          closeIcon: " ",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",

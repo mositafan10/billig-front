@@ -8,6 +8,7 @@ import {
   Spin,
   Button,
   Badge,
+  Modal
 } from "antd";
 import Axios from "axios";
 import TextInput from "./TextInput";
@@ -90,6 +91,7 @@ class ChatRoom extends React.Component {
     count: 0,
     redirect: false,
     onlineStatus: false,
+    offerStatusModal: false
   };
 
   myRef = React.createRef();
@@ -191,7 +193,6 @@ class ChatRoom extends React.Component {
     }, 100);
   };
 
-
   onChange = ({ fileList: newFileList }) => {
     this.setState({
       fileList: newFileList,
@@ -201,6 +202,15 @@ class ChatRoom extends React.Component {
       this.handler(msg);
     } 
   };
+
+  showOfferStatus = () => {
+    console.log("hi");
+    this.setState({offerStatusModal:true})
+  }
+
+  closeOfferStatus = () => {
+    this.setState({offerStatusModal:false})
+  }
 
   render() {
     if (this.state.redirect) {
@@ -217,7 +227,17 @@ class ChatRoom extends React.Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
-                    <Col span={3}><Button size="large" style={{border:"hidden", color:"black"}}><MoreOutlined/></Button></Col>
+                    <Col span={3}><Button size="large" onclick={this.showOfferStatus.bind(this)} style={{border:"hidden", color:"black"}}><MoreOutlined/></Button></Col>
+                    {/* <Modal 
+                    onCancel={this.closeOfferStatus}
+                    visible={this.state.offerStatusModal}
+                    cancelText="بازگشت"
+                    style={{ fontFamily: "VazirD" }}
+                    okButtonProps={{
+                      hidden:  true,
+                    }}>
+                    <p>وضعیت آگهی :‌{this.state.info.status}</p>
+                    </Modal> */}
                     <Col
                       span={18}
                       style={{ display: "flex", justifyContent: "right" }}
@@ -469,8 +489,7 @@ class ChatRoom extends React.Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <Row>
-                  <Col span={3}><Button size="large" style={{border:"hidden", color:"black"}}><MoreOutlined/></Button></Col>
-
+                  <Col span={3}><Button size="large" onclick={this.showOfferStatus} style={{border:"hidden", color:"black"}}><MoreOutlined/></Button></Col>
                     <Col
                       span={18}
                       style={{ display: "flex", justifyContent: "right" }}

@@ -42,7 +42,6 @@ class ChatContacs extends Component {
       }
     }
     var result = result1.concat(result2);
-    console.log(result);
     this.setState({ contacs: result });
   };
 
