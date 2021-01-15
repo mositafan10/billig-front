@@ -159,12 +159,14 @@ class ChatContacs extends Component {
                             backgroundColor: !item.is_active && "#db540b",
                           }}
                         >
+                          <div>
                           <span style={{ fontSize: "14px", textAlign: "right" }}>
-                            {item.receiver_name}
-                          </span>
+                             {item.receiver_name}
+                          </span> 
                           {item.sender_name != "ادمین بیلیگ" && (
-                            <span> {"  "}در آگهی {item.packetTitle}</span>
+                            <span style={{textAlign:"left"}}>  در آگهی "  {item.packetTitle}  "</span>
                           )}
+                          </div>
                         </Button>
                       </Link>
                     </div>
@@ -178,12 +180,14 @@ class ChatContacs extends Component {
                             backgroundColor: !item.is_active && "#db540b",
                           }}
                         >
+                          <div>
                           <span style={{ fontSize: "14px", textAlign: "right" }}>
-                            {item.sender_name}
+                             {item.sender_name}
                           </span>
                           {item.sender_name != "ادمین بیلیگ" && (
-                            <span> {"  "}در آگهی {item.packetTitle}</span>
-                            )}
+                            <span>  در آگهی "  {item.packetTitle}  "</span>
+                          )}
+                          </div>
                         </Button>
                       </Link>
                     </div>
