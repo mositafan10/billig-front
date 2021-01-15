@@ -82,6 +82,7 @@ class CreateTravel extends React.Component {
                   float: "right",
                   width: "max-content",
                 },
+                closeIcon: " ",
                 duration: 3,
               });
             } else {
@@ -100,6 +101,7 @@ class CreateTravel extends React.Component {
                   float: "right",
                   width: "max-content",
                 },
+                closeIcon: " ",
                 duration: 8,
               });
             }
@@ -107,6 +109,7 @@ class CreateTravel extends React.Component {
           .catch((error) => {
             notification["error"]({
               message: error.response.data.detail,
+              closeIcon: " ",
               style: {
                 fontFamily: "VazirD",
                 textAlign: "right",
@@ -148,6 +151,7 @@ class CreateTravel extends React.Component {
                     float: "right",
                     width: "max-content",
                   },
+                  closeIcon: " ",
                   duration: 3,
                 });
               }, 500);
@@ -167,6 +171,7 @@ class CreateTravel extends React.Component {
                     float: "right",
                     width: "max-content",
                   },
+                  closeIcon: " ",
                   duration: 8,
                 });
               }, 500);
@@ -183,6 +188,7 @@ class CreateTravel extends React.Component {
                   float: "right",
                   width: "max-content",
                 },
+                closeIcon: " ",
                 duration: 3,
               }),
             this.setState({ confirmLoading: false })
@@ -275,12 +281,14 @@ class CreateTravel extends React.Component {
               ]}
             >
               <Select
+                showSearch
+                optionFilterProp="key"
                 onChange={this.get_city_origin.bind()}
                 dropdownStyle={{ fontFamily: "VazirD" }}
               >
-                {this.state.countries.map((e, key) => {
+                {this.state.countries.map((e) => {
                   return (
-                    <Option key={e.id} value={e.id}>
+                    <Option key={e.name} value={e.id}>
                       {e.name}
                     </Option>
                   );
@@ -310,12 +318,14 @@ class CreateTravel extends React.Component {
               ]}
             >
               <Select
+                showSearch
+                optionFilterProp="key"
                 disabled={this.state.city_origin_dis}
                 dropdownStyle={{ fontFamily: "VazirD" }}
               >
-                {this.state.cities_origin.map((e, key) => {
+                {this.state.cities_origin.map((e) => {
                   return (
-                    <option key={e.id} value={e.id}>
+                    <option key={e.name} value={e.id}>
                       {e.name}
                     </option>
                   );
@@ -344,12 +354,14 @@ class CreateTravel extends React.Component {
               ]}
             >
               <Select
+                showSearch
+                optionFilterProp="key"
                 onChange={this.get_city_destination.bind()}
                 dropdownStyle={{ fontFamily: "VazirD" }}
               >
-                {this.state.countries.map((e, key) => {
+                {this.state.countries.map((e) => {
                   return (
-                    <Option key={key} value={e.id}>
+                    <Option key={e.name} value={e.id}>
                       {e.name}
                     </Option>
                   );
@@ -378,12 +390,14 @@ class CreateTravel extends React.Component {
               ]}
             >
               <Select
+                showSearch
+                optionFilterProp="key"
                 disabled={this.state.city_destination_dis}
                 dropdownStyle={{ fontFamily: "VazirD" }}
               >
-                {this.state.cities_destination.map((e, key) => {
+                {this.state.cities_destination.map((e) => {
                   return (
-                    <option key={key} value={e.id}>
+                    <option key={e.name} value={e.id}>
                       {e.name}
                     </option>
                   );

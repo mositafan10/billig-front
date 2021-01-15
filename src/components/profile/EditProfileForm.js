@@ -131,7 +131,14 @@ class EditProfileForm extends React.Component {
                   />
                   نام
                 </Divider>
-                <Form.Item name="name">
+                <Form.Item name="name"
+                rules={[
+                  {
+                    pattern:'^([a-zA-Zئؤإأآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی ])+$',
+                    message:"نام باید صرفا از حروف تشکیل شده باشد"
+                  }
+                ]}
+                >
                   <Input
                     defaultValue={this.props.data && this.props.data.name}
                     style={{ borderRadius: "8px", direction: "rtl" }}

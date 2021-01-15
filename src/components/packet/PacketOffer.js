@@ -70,7 +70,7 @@ class PacketOffer extends React.Component {
       ),
     },
     {
-      title: "اطلاعات سفر",
+      title: " اطلاعات سفر مسافر",
       dataIndex: "travel_info",
       key: "slug",
       width: 300,
@@ -278,6 +278,7 @@ class PacketOffer extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 5,
         });
         socket.emit("offerChanged", slug);
@@ -303,6 +304,7 @@ class PacketOffer extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 5,
         });
         socket.emit("offerChanged", slug);
@@ -334,6 +336,7 @@ class PacketOffer extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 8,
         });
         socket.emit("offerChanged", slug);

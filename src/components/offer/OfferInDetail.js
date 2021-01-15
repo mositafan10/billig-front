@@ -113,6 +113,7 @@ class OfferDetail extends React.Component {
               float: "right",
               width: "max-content",
             },
+            closeIcon: " ",
             duration: 3,
           });
         }, 1500);
@@ -126,6 +127,7 @@ class OfferDetail extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 3,
         });
       });
