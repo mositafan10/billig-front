@@ -6,7 +6,6 @@ import {
   Select,
   DatePicker,
   Radio,
-  message,
   Tooltip,
   notification,
 } from "antd";
@@ -59,12 +58,8 @@ class CreateTravel extends React.Component {
             departure_city: values.origin_city,
             destination: values.destination_country,
             destination_city: values.destination_city,
-            flight_date_start: moment(values.flight_date1).format(
-              "YYYY-MM-DD"
-            ),
-            flight_date_end: moment(values.flight_date2).format(
-              "YYYY-MM-DD"
-            ),
+            flight_date_start: moment(values.flight_date1).format("YYYY-MM-DD"),
+            flight_date_end: moment(values.flight_date2).format("YYYY-MM-DD"),
             description: values.description,
           },
           { headers: { Authorization: `Token ${token}` } }
@@ -77,24 +72,51 @@ class CreateTravel extends React.Component {
                 confirmLoading: false,
               });
             }, 2000);
-            this.props.loc === "offer"
-              ? this.props.parent()
-              : this.props.parentCallback();
-            notification["success"]({
-              message: "سفر شما با موفقیت ثبت شد",
+            if (this.props.loc === "offer") {
+              this.props.parentCallback();
+              notification["success"]({
+                message: <div>سفر شما با موفقیت ثبت شد </div>,
+                style: {
+                  fontFamily: "VazirD",
+                  textAlign: "right",
+                  float: "right",
+                  width: "max-content",
+                },
+                duration: 3,
+              });
+            } else {
+              this.props.parent();
+              notification["success"]({
+                message: (
+                  <div>
+                    سفر شما با موفقیت ثبت شد <br />
+                    الان می‌توانید به صفحه لیست اگهی‌ها برید
+                    <br /> و روی آگهی‌ها پیشنهاد بگذارید
+                  </div>
+                ),
+                style: {
+                  fontFamily: "VazirD",
+                  textAlign: "right",
+                  float: "right",
+                  width: "max-content",
+                },
+                duration: 8,
+              });
+            }
+          })
+          .catch((error) => {
+            notification["error"]({
+              message: error.response.data.detail,
               style: {
                 fontFamily: "VazirD",
                 textAlign: "right",
                 float: "right",
                 width: "max-content",
               },
-              duration: 2,
+              duration: 3,
             });
+            this.setState({ confirmLoading: false });
           })
-          .catch(
-            (error) => message.warn(error.response.data.detail),
-            this.setState({ confirmLoading: false })
-          )
       : Axios.post(
           `${url}api/v1/advertise/travel/`,
           {
@@ -102,9 +124,7 @@ class CreateTravel extends React.Component {
             departure_city: values.origin_city,
             destination: values.destination_country,
             destination_city: values.destination_city,
-            flight_date_start: moment(values.flight_date1).format(
-              "YYYY-MM-DD"
-            ),
+            flight_date_start: moment(values.flight_date1).format("YYYY-MM-DD"),
             description: values.description,
           },
           { headers: { Authorization: `Token ${token}` } }
@@ -117,19 +137,41 @@ class CreateTravel extends React.Component {
                 confirmLoading: false,
               });
             }, 2000);
-            setTimeout(() => {
-              notification["success"]({
-                message: "سفر شما با موفقیت ثبت شد",
-                style: {
-                  fontFamily: "VazirD",
-                  textAlign: "right",
-                  float: "right",
-                  width: "max-content",
-                },
-                duration: 2,
-              });
-            }, 500);
-            this.props.parentCallback();
+            if (this.props.loc === "offer") {
+              this.props.parentCallback();
+              setTimeout(() => {
+                notification["success"]({
+                  message: <div>سفر شما با موفقیت ثبت شد </div>,
+                  style: {
+                    fontFamily: "VazirD",
+                    textAlign: "right",
+                    float: "right",
+                    width: "max-content",
+                  },
+                  duration: 3,
+                });
+              }, 500);
+            } else {
+              setTimeout(() => {
+                notification["success"]({
+                  message: (
+                    <div>
+                      سفر شما با موفقیت ثبت شد <br />
+                      الان می‌توانید به صفحه لیست اگهی‌ها برید
+                      <br /> و روی آگهی‌ها پیشنهاد بگذارید
+                    </div>
+                  ),
+                  style: {
+                    fontFamily: "VazirD",
+                    textAlign: "right",
+                    float: "right",
+                    width: "max-content",
+                  },
+                  duration: 8,
+                });
+              }, 500);
+              this.props.parent();
+            }
           })
           .catch(
             (error) =>
@@ -141,7 +183,7 @@ class CreateTravel extends React.Component {
                   float: "right",
                   width: "max-content",
                 },
-                duration: 2,
+                duration: 3,
               }),
             this.setState({ confirmLoading: false })
           );
@@ -356,7 +398,10 @@ class CreateTravel extends React.Component {
                 value={this.state.radio_value}
               >
                 <Radio value={false}>یک طرفه</Radio>
-                <Tooltip overlayStyle={{fontFamily:"VazirD"}} title="در صورت انتخاب این گزینه، دو سفر برای شما ثبت خواهد شد.">
+                <Tooltip
+                  overlayStyle={{ fontFamily: "VazirD" }}
+                  title="در صورت انتخاب این گزینه، دو سفر برای شما ثبت خواهد شد."
+                >
                   <Radio value={true}>دو طرفه</Radio>
                 </Tooltip>
               </Radio.Group>
@@ -374,50 +419,50 @@ class CreateTravel extends React.Component {
             </label>
             {this.state.radio_value ? (
               <div>
-              <Form.Item
-                name="flight_date1"
-                style={{ textAlign: "center" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "تاریخ پرواز خود را انتخاب کنید",
-                  },
-                ]}
-              >
-                <DatePicker
-                  placeholder=""
-                  style={{ display: "flex" }}
-                  disabledDate={this.disabledDate}
-                />
-              </Form.Item>
-              <br/>
-              <label
-              style={{
-                fontFamily: "VazirD",
-                float: "right",
-                textAlign: "right",
-                marginTop: "-30px",
-              }}
-            >
-              تاریخ برگشت
-            </label>
-              <Form.Item
-              name="flight_date2"
-              style={{ textAlign: "center" }}
-              rules={[
-                {
-                  required: true,
-                  message: "تاریخ پرواز خود را انتخاب کنید",
-                },
-              ]}
-            >
-              <DatePicker
-                placeholder=""
-                style={{ display: "flex" }}
-                disabledDate={this.disabledDate}
-              />
-            </Form.Item>
-            </div>
+                <Form.Item
+                  name="flight_date1"
+                  style={{ textAlign: "center" }}
+                  rules={[
+                    {
+                      required: true,
+                      message: "تاریخ پرواز خود را انتخاب کنید",
+                    },
+                  ]}
+                >
+                  <DatePicker
+                    placeholder=""
+                    style={{ display: "flex" }}
+                    disabledDate={this.disabledDate}
+                  />
+                </Form.Item>
+                <br />
+                <label
+                  style={{
+                    fontFamily: "VazirD",
+                    float: "right",
+                    textAlign: "right",
+                    marginTop: "-30px",
+                  }}
+                >
+                  تاریخ برگشت
+                </label>
+                <Form.Item
+                  name="flight_date2"
+                  style={{ textAlign: "center" }}
+                  rules={[
+                    {
+                      required: true,
+                      message: "تاریخ پرواز خود را انتخاب کنید",
+                    },
+                  ]}
+                >
+                  <DatePicker
+                    placeholder=""
+                    style={{ display: "flex" }}
+                    disabledDate={this.disabledDate}
+                  />
+                </Form.Item>
+              </div>
             ) : (
               <Form.Item
                 name="flight_date1"

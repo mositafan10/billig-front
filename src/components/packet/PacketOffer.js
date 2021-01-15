@@ -38,16 +38,23 @@ class PacketOffer extends React.Component {
       key: "status",
       width: 150,
       align: "center",
-      render: (dataIndex) => {
+      render: (dataIndex, row) => {
         if (dataIndex == "تمام شده") {
           return (
             <div style={{ backgroundColor: "green", color: "white" }}>
               {dataIndex}
             </div>
           );
-        } else {
-          return dataIndex;
-        }
+        } else if (row.status === "در انتظار خرید") {
+          if (row.buy) {
+            return dataIndex
+          } else {
+            return "در انتظار تحویل بسته"
+          }
+          
+      } else {
+        return dataIndex;
+      }
       },
     },
     {
@@ -175,7 +182,7 @@ class PacketOffer extends React.Component {
               </Button>
             </Popconfirm>
           );
-        } else if (row.status === "در انتظار تایید خریدار") {
+        } else if (row.status === "در انتظار تایید بیلیگر") {
           return (
             <Popconfirm
               overlayStyle={{ fontFamily: "VazirD" }}
@@ -221,6 +228,7 @@ class PacketOffer extends React.Component {
             <SendTransactionInfo
               amount={row.price + row.parcel_price_offer}
               factorNumber={dataIndex}
+              fee={row.packet_category.fee}
             />
           );
         }
@@ -379,7 +387,9 @@ class PacketOffer extends React.Component {
                     >
                       <p>
                         وضعیت :
-                        <span style={{ color: "blue" }}> {item.status} </span>
+                        <span style={{ color: "blue" }}>
+                        {item.buy ? item.status : "در انتظار تحویل بسته"}
+                           </span>
                       </p>
                       <hr />
                     </Col>
@@ -479,7 +489,7 @@ class PacketOffer extends React.Component {
                               </Button>
                             </Popconfirm>
                           )}
-                          {item.status === "در انتظار تایید خریدار" && (
+                          {item.status === "در انتظار تایید بیلیگر" && (
                             <Popconfirm
                               overlayStyle={{ fontFamily: "VazirD" }}
                               title="آیا کالا را تحویل گرفته‌اید ؟"
@@ -521,7 +531,7 @@ class PacketOffer extends React.Component {
                             <SendTransactionInfo
                               amount={item.price + item.parcel_price_offer}
                               factorNumber={item.slug}
-                              fee={item.fee}
+                              fee={item.packet_category.fee}
                             />
                           )}
                         </Col>

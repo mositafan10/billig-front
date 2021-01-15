@@ -59,7 +59,6 @@ class ConfirmPrice extends React.Component {
           },
           duration: 5,
         });
-        this.props.update();
       })
       .catch((error) => {
         notification["error"]({
@@ -141,18 +140,13 @@ class ConfirmPrice extends React.Component {
                   },
                   ({ getFieldValue }) => ({
                     validator(rule, value) {
-                      if ((value > 10000) & (value < 50000000)) {
+                      if (value >= 10000) {
                         return Promise.resolve();
                       }
-                      if (value < 10000)
                         return Promise.reject(
                           "دستمزد نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
-                        );
-                      if (value > 50000000)
-                        return Promise.reject(
-                          "دستمزد نمی‌تواند از ۵۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
-                        );
-                    },
+                        )
+                    }
                   }),
                 ]}
               >
@@ -170,7 +164,7 @@ class ConfirmPrice extends React.Component {
               {buy && (
                 <div>
                   <p>
-                    مبلغ فعلی کالا :{" "}
+                    مبلغ فعلی کالا :
                     {parcelPrice ? this.currency(parcelPrice) : 0} تومان
                   </p>
                   <p>
@@ -182,21 +176,16 @@ class ConfirmPrice extends React.Component {
                     rules={[
                       {
                         required: true,
-                        message: "مبلغ نهایی کالا را وارد کنید",
+                        message: "مبلغ نهایی کالا را با کیبورد انگلیسی وارد کنید",
                       },
                       ({ getFieldValue }) => ({
                         validator(rule, value) {
-                          if ((value > 10000) & (value < 200000000)) {
+                          if (value >= 10000) {
                             return Promise.resolve();
                           }
-                          if (value < 10000)
                             return Promise.reject(
                               "مبلغ کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
-                            );
-                          if (value > 200000000)
-                            return Promise.reject(
-                              "مبلغ کالا نمی‌تواند از ۲۰۰٫۰۰۰٫۰۰۰ تومان بیشتر باشد"
-                            );
+                            )
                         },
                       }),
                     ]}

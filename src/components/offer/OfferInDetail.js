@@ -102,7 +102,7 @@ class OfferDetail extends React.Component {
             visible: false,
             loading: false,
           });
-          window.location.replace("/profile/mytravel");
+          window.location.replace(`/profile/mytravel/${this.state.travel}`);
         }, 3000);
         setTimeout(() => {
           notification["success"]({
@@ -158,7 +158,6 @@ class OfferDetail extends React.Component {
             borderRadius: "8px",
             fontSize: "14px",
             backgroundColor: "#edf2f0",
-            // color: "white",
             padding: "2px 10px",
           }}
           onClick={this.offer}
@@ -396,7 +395,7 @@ class OfferDetail extends React.Component {
                     <p style={{ textAlign: "center" }}>
                       <b>
                         برای ثبت پیشنهاد ابتدا باید سفر خود را ثبت نمایید
-                        <CreateTravel parentCallback={this.callbackfunction} />
+                        <CreateTravel parentCallback={this.callbackfunction} loc={"offer"} />
                       </b>
                     </p>
                   )}

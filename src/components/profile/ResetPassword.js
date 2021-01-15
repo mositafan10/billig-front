@@ -205,7 +205,7 @@ class ResetPassword extends React.Component {
             <Modal
              visible={this.state.new_pass_vis}
              onCancel={this.handleCancelNewPass}
-             width="40%"
+             width="100%"
              okButtonProps={{
               hidden:"true"
             }}

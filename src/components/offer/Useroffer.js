@@ -35,6 +35,7 @@ class UserOffer extends React.Component {
   state = {
     offer: [],
     loading: true,
+    actionLoading: false,
     // visible: false,
     adviceVisible: false
   };
@@ -59,13 +60,20 @@ class UserOffer extends React.Component {
       key: "slug",
       width: 200,
       align: "center",
-      render: (dataIndex) => {
+      render: (dataIndex, row) => {
         if (dataIndex == "تمام شده") {
           return (
             <div style={{ backgroundColor: "green", color: "white" }}>
               {dataIndex}
             </div>
           );
+        } else if (row.status === "در انتظار خرید") {
+            if (row.buy) {
+              return dataIndex
+            } else {
+              return "در انتظار تحویل بسته"
+            }
+            
         } else {
           return dataIndex;
         }
@@ -173,7 +181,11 @@ class UserOffer extends React.Component {
                   borderRadius: "10px",
                 }}
               >
-                خریداری کردم
+                {(row.buy) ?
+                 "خریداری کردم"
+                  :
+                  "تحویل گرفتم"
+                 }
               </Button>
             </Popconfirm>
           );
@@ -220,7 +232,7 @@ class UserOffer extends React.Component {
         else if (row.status === 'انجام شده') {
           return (
             <PayTraveler
-            offer={row.status}
+            offer={row.slug}
             amount={row.parcel_price_offer + row.price}
           />
           )
@@ -291,7 +303,7 @@ class UserOffer extends React.Component {
     )
       .then(() => {
         notification["success"]({
-          message: "خریداری کالا با موفقیت انجام شد",
+          message: "از شما متشکریم",
           description: "حالا باید کالا را به بیلیگر تحویل دهید",
           style: {
             fontFamily: "VazirD",
@@ -317,7 +329,7 @@ class UserOffer extends React.Component {
     )
       .then(() => {
         notification["success"]({
-          message: "تحویل کالا با موفقیت انجام شد",
+          message: "از شما متشکریم",
           description: (
             <div>
               حالا از بیلیگر بخواهید که تحویل کالا را تایید کند.
@@ -345,7 +357,7 @@ class UserOffer extends React.Component {
     })
       .then(() => {
         notification["success"]({
-          message: "پیشنهاد با موفقیت حذف شد",
+          message: "پیشنهاد حذف شد",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -416,7 +428,7 @@ class UserOffer extends React.Component {
                           <p>
                             وضعیت : ‌
                             <span style={{ color: "#46a0ae" }}>
-                              {item.status}
+                            {item.buy ? item.status : "در انتظار تحویل بسته"}
                             </span>
                           </p>
                           <hr />
@@ -476,7 +488,7 @@ class UserOffer extends React.Component {
                                       </div>
                                     ) : (
                                       <div>
-                                        "آیا بسته مورد نظر را تحویل گرفته‌اید ؟"{" "}
+                                        "آیا بسته مورد نظر را تحویل گرفته‌اید ؟"
                                       </div>
                                     )
                                   }
@@ -494,7 +506,7 @@ class UserOffer extends React.Component {
                                       borderRadius: "10px",
                                     }}
                                   >
-                                    خریداری کردم
+                                    {item.buy ? "خریداری کردم" : "تحویل گرفتم"}
                                   </Button>
                                 </Popconfirm>
                               )}
@@ -508,7 +520,7 @@ class UserOffer extends React.Component {
                                       </div>
                                     ) : (
                                       <div>
-                                        "آیا بسته مورد نظر را تحویل داده‌اید ؟"{" "}
+                                        "آیا بسته مورد نظر را تحویل داده‌اید ؟"
                                       </div>
                                     )
                                   }

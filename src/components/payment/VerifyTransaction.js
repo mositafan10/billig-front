@@ -3,11 +3,19 @@ import Axios from "axios";
 import { Button, Divider, Col, Row, notification, Card, Spin } from "antd";
 import { config } from "../../Constant";
 import { Link } from "react-router-dom";
-import Payment from '../../media/Payment.jpg'; 
+import Payment from "../../media/Payment.jpg";
 
 var url = config.url.API_URL;
-const style_left = { display: "flex", justifyContent: "flex-end", fontSize:"14px" };
-const style_right = { display: "flex", justifyContent: "right", fontSize:"14px" };
+const style_left = {
+  display: "flex",
+  justifyContent: "flex-end",
+  fontSize: "14px",
+};
+const style_right = {
+  display: "flex",
+  justifyContent: "right",
+  fontSize: "14px",
+};
 
 class VerifyTransaction extends Component {
   state = {
@@ -29,7 +37,7 @@ class VerifyTransaction extends Component {
       token: token,
     });
     setTimeout(() => {
-      this.verify()
+      this.verify();
     }, 1000);
   }
 
@@ -44,24 +52,24 @@ class VerifyTransaction extends Component {
     )
       .then((res) => {
         setTimeout(() => {
-          this.setState({ 
+          this.setState({
             amount: res.data.amount,
             transId: res.data.transId,
             cardNumber: res.data.cardNumber,
             paymentDate: res.data.paymentDate,
-            loading: false });
+            loading: false,
+          });
           notification["success"]({
-              message: "پرداخت شما با موفقیت انجام شد",
-              style: {
-                fontFamily: "VazirD",
-                textAlign: "right",
-                float: "right",
-                width: "max-content",
-              },
-              duration: 3.5,
-            });
+            message: "پرداخت شما با موفقیت انجام شد",
+            style: {
+              fontFamily: "VazirD",
+              textAlign: "right",
+              float: "right",
+              width: "max-content",
+            },
+            duration: 3.5,
+          });
         }, 4000);
-        
       })
       .catch((error) =>
         notification["errors"]({
@@ -78,22 +86,34 @@ class VerifyTransaction extends Component {
   };
 
   currency = (value) => {
-    const p =  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    return (p/10)
-  }
+    const p = `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return p / 10;
+  };
 
   cardnumber = (value) => {
-    const p =  `${value}`.replace(/\B(?=(\d{4})+(?!\d))/g, " - ")
-    return p
-  }
+    const p = `${value}`.replace(/\B(?=(\d{4})+(?!\d))/g, " - ");
+    return p;
+  };
 
   render() {
     if (this.state.payment_status !== "OK") {
       return (
         <div>
-          <Row style={{display:"flex", justifyContent:"center"}}>
-          <img src={Payment} alt="Payment" width="30%" />
-
+          <Row style={{ display: "flex", justifyContent: "center" }}>
+            <Col
+              xs={0}
+              sm={0}
+              md={0}
+              lg={24}
+              xl={24}
+              xxl={24}
+              style={{ textAlign: "center" }}
+            >
+              <img src={Payment} alt="Payment" width="40%" />
+            </Col>
+            <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
+              <img src={Payment} alt="Payment" width="100%" />
+            </Col>
           </Row>
           <Divider />
           <div
@@ -119,138 +139,166 @@ class VerifyTransaction extends Component {
       );
     } else {
       return (
-        <div >
+        <div>
           {this.state.loading ? (
-            <div style={{ margin: "100px 0 100px", display:"flex", justifyContent:"center" }}>
+            <div
+              style={{
+                margin: "100px 0 100px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <Spin />
+              <p>لطفا کمی صبر نمایید</p>
             </div>
           ) : (
             <div>
-          <Row
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              margin: "20px 0 20px",
-            }}
-          >
-            <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} style={{textAlign:"center"}}>
-              <Link to={`/profile/payment`}>
-              <Button
-                loading={this.state.loading}
+              <Row
                 style={{
-                  borderRadius: "10px",
-                  backgroundColor: "green",
-                  color: "white",
-                  fontSize:"16px"
+                  display: "flex",
+                  justifyContent: "center",
+                  margin: "20px 0 20px",
                 }}
               >
-               لیست پرداخت‌ها
-              </Button>
-              </Link>
-            </Col>
-            </Row>
-            <Row style={{
-              display: "flex",
-              justifyContent: "center",
-              margin: "20px 0 20px",
-            }}>
-            <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8} style={{textAlign:"center"}}>
-              <Card style={{ borderRadius: "20px", fontSize:"20px" }} title="اطلاعات پرداخت">
-                <Row style={style_right}>
-                  <Col
-                    style={style_right}
-                    xs={14}
-                    sm={14}
-                    md={14}
-                    lg={14}
-                    xl={14}
+                <Col
+                  xs={24}
+                  sm={24}
+                  md={24}
+                  lg={12}
+                  xl={12}
+                  xxl={12}
+                  style={{ textAlign: "center" }}
+                >
+                  <Link to={`/profile/payment`}>
+                    <Button
+                      loading={this.state.loading}
+                      style={{
+                        borderRadius: "10px",
+                        backgroundColor: "green",
+                        color: "white",
+                        fontSize: "16px",
+                      }}
+                    >
+                      لیست پرداخت‌ها
+                    </Button>
+                  </Link>
+                </Col>
+              </Row>
+              <Row
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  margin: "20px 0 20px",
+                }}
+              >
+                <Col
+                  xs={24}
+                  sm={24}
+                  md={24}
+                  lg={8}
+                  xl={8}
+                  xxl={8}
+                  style={{ textAlign: "center" }}
+                >
+                  <Card
+                    style={{ borderRadius: "20px", fontSize: "20px" }}
+                    title="اطلاعات پرداخت"
                   >
-                    <h4>شماره پیگیری</h4>
-                  </Col>
-                  <Col
-                    style={style_left}
-                    xs={10}
-                    sm={10}
-                    md={10}
-                    lg={10}
-                    xl={10}
-                  >
-                    {this.state.transId}
-                  </Col>
-                </Row>
-                <Divider/>
-                <Row style={style_right}>
-                  <Col
-                    style={style_right}
-                    xs={14}
-                    sm={14}
-                    md={14}
-                    lg={14}
-                    xl={14}
-                  >
-                    <h4>مبلغ تراکنش (تومان)</h4>
-                  </Col>
-                  <Col
-                    style={style_left}
-                    xs={10}
-                    sm={10}
-                    md={10}
-                    lg={10}
-                    xl={10}
-                  >
-                    {this.currency(this.state.amount)}
-                  </Col>
-                </Row>
-                <Divider/>
-                <Row style={style_right}>
-                  <Col
-                    style={style_right}
-                    xs={10}
-                    sm={10}
-                    md={10}
-                    lg={10}
-                    xl={10}
-                  >
-                    <h4>شماره کارت</h4>
-                  </Col>
-                  <Col
-                    style={style_left}
-                    xs={14}
-                    sm={14}
-                    md={14}
-                    lg={14}
-                    xl={14}
-                  >
-                    {this.state.cardNumber}
-                  </Col>
-                </Row>
-                <Divider/>
-                <Row style={style_right}>
-                  <Col
-                    style={style_right}
-                    xs={14}
-                    sm={14}
-                    md={14}
-                    lg={14}
-                    xl={14}
-                  >
-                    <h4>تاریخ تراکنش</h4>
-                  </Col>
-                  <Col
-                    style={style_left}
-                    xs={10}
-                    sm={10}
-                    md={10}
-                    lg={10}
-                    xl={10}
-                  >
-                    {this.state.paymentDate}
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          </Row>
-          </div>
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>شماره پیگیری</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        {this.state.transId}
+                      </Col>
+                    </Row>
+                    <Divider />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>مبلغ تراکنش (تومان)</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        {this.currency(this.state.amount)}
+                      </Col>
+                    </Row>
+                    <Divider />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        <h4>شماره کارت</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        {this.state.cardNumber}
+                      </Col>
+                    </Row>
+                    <Divider />
+                    <Row style={style_right}>
+                      <Col
+                        style={style_right}
+                        xs={14}
+                        sm={14}
+                        md={14}
+                        lg={14}
+                        xl={14}
+                      >
+                        <h4>تاریخ تراکنش</h4>
+                      </Col>
+                      <Col
+                        style={style_left}
+                        xs={10}
+                        sm={10}
+                        md={10}
+                        lg={10}
+                        xl={10}
+                      >
+                        {this.state.paymentDate}
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>
+              </Row>
+            </div>
           )}
         </div>
       );

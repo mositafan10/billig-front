@@ -140,9 +140,10 @@ class ChatContacs extends Component {
                           backgroundColor: !item.is_active && "#db540b",
                         }}
                       >
-                        <span style={{ fontSize: "14px", textAlign: "right" }}>
+                        <p style={{ fontSize: "14px", textAlign: "right" }}>
                           {item.receiver_name}
-                        </span>
+                        </p>
+                        <p>در آگهی {item.packetTitle}</p>
                       </Button>
                       </Link>
                     </div>
@@ -156,9 +157,10 @@ class ChatContacs extends Component {
                           backgroundColor: !item.is_active && "#db540b",
                         }}
                       >
-                        <span style={{ fontSize: "14px", textAlign: "right" }}>
+                        <p style={{ fontSize: "14px", textAlign: "right" }}>
                           {item.sender_name}
-                        </span>
+                        </p>
+                        <p>در آگهی {item.packetTitle}</p>
                       </Button>
                       </Link>
                     </div>

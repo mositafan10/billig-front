@@ -119,7 +119,7 @@ class TravelList extends React.Component {
       .then((res) => {
         this.props.parentCallback();
         notification["success"]({
-          message: "آگهی با موفقیت حذف شد",
+          message: "سفر با موفقیت حذف شد",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -172,13 +172,13 @@ class TravelList extends React.Component {
                 <List.Item key={item.slug}>
                   <Card style={{ borderRadius: "8px" }}>
                     <Row>
-                      <Row>
+                      <Row >
                       <Col span={8} style={style_center}>
                         <div>
                           <img
                             src={`${url}dstatic/${item.departure.icon}`}
                             alt={item.departure.name}
-                            width="90%"
+                            width={85}
                             style={{ borderRadius: "50%" }}
                           />
                           <p style={{ margin: "10px 25px" }}>
@@ -197,7 +197,7 @@ class TravelList extends React.Component {
                           <img
                             src={`${url}dstatic/${item.destination.icon}`}
                             alt={item.destination.name}
-                            width="90%"
+                            width={85}
                             style={{ borderRadius: "50%" }}
                           />
                           <p style={{ margin: "10px 25px" }}>
@@ -206,8 +206,8 @@ class TravelList extends React.Component {
                         </div>
                       </Col>
                       </Row>
-                      <hr style={{ marginBottom: "20px", color: "white" }} />
                       <Row>
+                      <hr style={{ marginBottom: "20px", color: "white" }} />
                         <Col span={24}>
                           <Row style={style_right}>
                             <Col style={style_right} span={12}>

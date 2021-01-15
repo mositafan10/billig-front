@@ -12,7 +12,6 @@ import {
 import Axios from "axios";
 import TextInput from "./TextInput";
 import moment from "moment";
-import { Redirect } from 'react-router-dom'
 import {
   DownOutlined,
   ArrowLeftOutlined,
@@ -205,7 +204,7 @@ class ChatRoom extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect push to="/profile/inbox" />;
+      window.history.back()
     }
     const chatID = this.props.match.params.chatID;
     const user = localStorage.getItem("user");
@@ -242,11 +241,9 @@ class ChatRoom extends React.Component {
                           </div>
                           :
                           <div>
-                          {/* <Badge status="warning"> */}
                           <Avatar
                             src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
                           />
-                          {/* </Badge> */}
                           <span
                             style={{ paddingRight: "10px", color: "black" }}
                           >
@@ -274,11 +271,9 @@ class ChatRoom extends React.Component {
                           </div>
                           :
                           <div>
-                          {/* <Badge status="warning"> */}
                           <Avatar
                             src={`${url}dstatic/media/${this.state.info.sender_avatar}`}
                           />
-                          {/* </Badge> */}
                           <span
                             style={{ paddingRight: "10px", color: "black" }}
                           >
@@ -499,11 +494,9 @@ class ChatRoom extends React.Component {
                         </div>
                         :
                         <div>
-                        {/* <Badge status="warning"> */}
                         <Avatar
                           src={`${url}dstatic/media/${this.state.info.receiver_avatar}`}
                         />
-                        {/* </Badge> */}
                         <span
                           style={{ paddingRight: "10px", color: "black" }}
                         >
@@ -529,11 +522,9 @@ class ChatRoom extends React.Component {
                         </div>
                         :
                         <div>
-                        {/* <Badge status="warning"> */}
                         <Avatar
                           src={`${url}dstatic/media/${this.state.info.sender_avatar}`}
                         />
-                        {/* </Badge> */}
                         <span
                           style={{ paddingRight: "10px", color: "black" }}
                         >

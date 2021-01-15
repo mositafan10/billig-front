@@ -84,7 +84,13 @@ class RateAndComment extends Component {
                         onFinish={this.handleOk}
                         >
                         <Divider> امتیازی که به {this.props.loc} می‌دهید </Divider>
-                        <Form.Item name="score">
+                        <Form.Item name="score"
+                         rules={[
+                            {
+                                required:"true",
+                                message: "به مسافر امتیاز دهید"
+                            }
+                        ]}>
                             <Rate defaultValue={0}/>
                         </Form.Item>
                         <Divider> نظر خود را در مورد {this.props.loc} بیان کنید </Divider>
@@ -123,7 +129,13 @@ class RateAndComment extends Component {
                         onFinish={this.handleOk}
                         >
                         <Divider> امتیازی که به مسافر می‌دهید </Divider>
-                        <Form.Item name="score">
+                        <Form.Item name="score" 
+                        rules={[
+                            {
+                                required:"true",
+                                message: "به مسافر امتیاز دهید"
+                            }
+                        ]}>
                             <Rate defaultValue={2}/>
                         </Form.Item>
                         <Divider> ‌نظر خود را در مورد مسافر بیان کنید </Divider>

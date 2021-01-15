@@ -129,6 +129,7 @@ class HeaderSection extends Component {
       });
       return <Redirect to="/login" />;
     }
+    const firstTime = localStorage.getItem('first_time')
     return (
       <div style={{ boxShadow: "0 0 5px 1px", zIndex: 1 }}>
         <Breakpoint medium up>
@@ -261,7 +262,7 @@ class HeaderSection extends Component {
                               borderRadius: "10px",
                             }}
                           >
-                            کسب درآمد از سفر
+                           {firstTime ? "کسب درآمد از سفر" : "لیست آگهی‌ها"}
                           </span>
                         </Link>
                       </Menu.Item>

@@ -48,29 +48,9 @@ class Bookmark extends Component {
       .then((res) => {
           this.setState({ loading: false});
           if (res.status == 201) {
-          notification["success"]({
-            message: "آگهی با موفقیت نشان شد",
-            style: {
-              fontFamily: "VazirD",
-              textAlign: "right",
-              float: "right",
-              width: "max-content",
-            },
-            duration: 2,
-          });
-        this.setState({bookmark:true})
+            this.setState({bookmark:true})
         }
           else if(res.status ==204) {
-            notification["success"]({
-              message: "آگهی از لیست نشان حذف شد",
-              style: {
-                fontFamily: "VazirD",
-                textAlign: "right",
-                float: "right",
-                width: "max-content",
-              },
-              duration: 2,
-            });
           this.setState({bookmark:false})
           }
       })
