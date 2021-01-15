@@ -54,10 +54,9 @@ class ChatContacs extends Component {
         this.setState({
           contacs: res.data,
           length: res.data.length,
-        }),
-      setTimeout(() => {
-        this.sortContacs();
-      }, 500)
+        }, () => {
+          this.sortContacs();
+      })
     );
   };
 

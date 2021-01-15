@@ -60,8 +60,11 @@ class PackForm extends React.Component {
     Axios.get(`${url}api/v1/account/countries/`).then((res) => {
       this.setState({
         countries: res.data,
-      });
+      }, () => {
+        this.sortCountries();
     });
+    });
+
     Axios.get(`${url}api/v1/advertise/categoryList/`).then((res) => {
       this.setState({
         category: res.data,
@@ -314,6 +317,22 @@ class PackForm extends React.Component {
           loading: false,
         });
       });
+  };
+
+  sortCountries = () => {
+    var result1 = [],
+      result2 = [];
+    const arr = this.state.countries;
+    for (var i = 0; i < arr.length; i++) {
+      if (
+        arr[i].name == "ایران"  || arr[i].name == "کانادا" || arr[i].name == "آلمان" || arr[i].name == "آمریکا") {
+        result1.push(arr[i]);
+      } else {
+        result2.push(arr[i]);
+      }
+    }
+    var result = result1.concat(result2);
+    this.setState({ countries: result });
   };
 
   render() {

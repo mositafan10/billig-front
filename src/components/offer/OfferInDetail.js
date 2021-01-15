@@ -89,9 +89,9 @@ class OfferDetail extends React.Component {
       {
         price: this.state.price,
         parcelPrice: this.state.parcelPrice ? this.state.parcelPrice : 0,
+        packet: this.state.slug,
         travel: this.state.travel,
         description: this.state.description,
-        packet: this.state.slug,
       },
       { headers: { Authorization: `Token ${token}` } }
     )
