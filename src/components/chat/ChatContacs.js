@@ -3,8 +3,8 @@ import { List, Avatar, Button, Badge, Popconfirm } from "antd";
 import { CloseOutlined, UserOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import { config } from "../../Constant";
-import { socket } from '../../socket';
-import { Link } from 'react-router-dom';  
+import { socket } from "../../socket";
+import { Link } from "react-router-dom";
 
 var url = config.url.API_URL;
 
@@ -13,34 +13,54 @@ class ChatContacs extends Component {
     contacs: [],
     loading: false,
     visible: true,
-    length: 0
+    length: 0,
   };
 
   componentDidMount() {
     this.getLastMassage();
-    const userID = localStorage.getItem('user');
+    const userID = localStorage.getItem("user");
     setTimeout(() => {
       for (var i = 0; i < this.state.contacs.length; i++) {
         const element = this.state.contacs[i].slug;
-        socket.emit('createJoinRoom', {'chatID':element,'userID':userID});
+        socket.emit("createJoinRoom", { chatID: element, userID: userID });
       }
     }, 1000);
-    socket.on('shouldUpdateMessage', () => {
+    socket.on("shouldUpdateMessage", () => {
       this.getLastMassage();
     });
   }
+
+  sortContacs = () => {
+    var result1 = [],
+      result2 = [];
+    const arr = this.state.contacs;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].sender_name == "ادمین بیلیگ") {
+        result1.push(arr[i]);
+      } else {
+        result2.push(arr[i]);
+      }
+    }
+    var result = result1.concat(result2);
+    console.log(result);
+    this.setState({ contacs: result });
+  };
 
   getLastMassage = () => {
     const token = localStorage.getItem("token");
     Axios.get(`${url}api/v1/chat/chatlist/`, {
       headers: { Authorization: `Token ${token}` },
-    }).then((res) =>
-      this.setState({
-        contacs: res.data,
-        length: res.data.length
-      })
+    }).then(
+      (res) =>
+        this.setState({
+          contacs: res.data,
+          length: res.data.length,
+        }),
+      setTimeout(() => {
+        this.sortContacs();
+      }, 500)
     );
-  }
+  };
 
   handleOkinfo = (slug) => {
     const token = localStorage.getItem("token");
@@ -74,7 +94,7 @@ class ChatContacs extends Component {
           locale={{
             emptyText: (
               <div>
-                شما مذاکره‌ای شروع نکرده‌اید
+                مذاکره‌ای وجود ندارد
                 <br /> مذاکره با ثبت پیشنهاد روی آگهی شروع می شود.
               </div>
             ),
@@ -133,35 +153,39 @@ class ChatContacs extends Component {
                   user == item.sender_slug ? (
                     <div>
                       <Link to={`/profile/inbox/${item.slug}`}>
-                      <Button
-                        style={{
-                          border: "hidden",
-                          fontSize: "12px",
-                          backgroundColor: !item.is_active && "#db540b",
-                        }}
-                      >
-                        <p style={{ fontSize: "14px", textAlign: "right" }}>
-                          {item.receiver_name}
-                        </p>
-                        <p>در آگهی {item.packetTitle}</p>
-                      </Button>
+                        <Button
+                          style={{
+                            border: "hidden",
+                            fontSize: "12px",
+                            backgroundColor: !item.is_active && "#db540b",
+                          }}
+                        >
+                          <p style={{ fontSize: "14px", textAlign: "right" }}>
+                            {item.receiver_name}
+                          </p>
+                          {item.sender_name != "ادمین بیلیگ" && (
+                            <p>در آگهی {item.packetTitle}</p>
+                          )}
+                        </Button>
                       </Link>
                     </div>
                   ) : (
                     <div>
                       <Link to={`/profile/inbox/${item.slug}`}>
-                      <Button
-                        style={{
-                          border: "hidden",
-                          fontSize: "12px",
-                          backgroundColor: !item.is_active && "#db540b",
-                        }}
-                      >
-                        <p style={{ fontSize: "14px", textAlign: "right" }}>
-                          {item.sender_name}
-                        </p>
-                        <p>در آگهی {item.packetTitle}</p>
-                      </Button>
+                        <Button
+                          style={{
+                            border: "hidden",
+                            fontSize: "12px",
+                            backgroundColor: !item.is_active && "#db540b",
+                          }}
+                        >
+                          <p style={{ fontSize: "14px", textAlign: "right" }}>
+                            {item.sender_name}
+                          </p>
+                          {item.sender_name != "ادمین بیلیگ" && (
+                            <p>در آگهی {item.packetTitle}</p>
+                          )}
+                        </Button>
                       </Link>
                     </div>
                   )
@@ -170,7 +194,7 @@ class ChatContacs extends Component {
               {!item.is_active && (
                 <Popconfirm
                   overlayStyle={{ fontFamily: "VazirD" }}
-                  onConfirm={this.handleOkinfo.bind(this,item.slug)}
+                  onConfirm={this.handleOkinfo.bind(this, item.slug)}
                   okText="حذف"
                   cancelText="انصراف"
                   title={
