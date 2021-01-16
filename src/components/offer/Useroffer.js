@@ -124,7 +124,7 @@ class UserOffer extends React.Component {
       render: (dataIndex, row) => {
         if (row.status != "تمام شده") {
           return (
-            <Link to={`/profile/inbox/${row.conversationSlug}`}>
+            <Link to={`/profile/inbox/${dataIndex}`}>
               <Button
                 style={{
                   fontSize: "12px",
@@ -454,7 +454,7 @@ class UserOffer extends React.Component {
                           <Space>
                             <Col>
                               {item.status != "تمام شده" && (
-                                <Link to={`/profile/inbox/${item.conversationSlug}`}>
+                                <Link to={`/profile/inbox/${item.slug}`}>
                                   <Button
                                     style={{
                                       fontSize: "12px",
