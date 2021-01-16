@@ -53,30 +53,41 @@ class SendTransactionInfo extends Component {
           );
         }
       })
-      .catch((error) =>{
+      .catch((error) => {
         notification["error"]({
-            message:error.reponse.data.error,
-            description:
-              "در مورد مبلغ مورد نظر خودتان با مسافر مذاکره کنید تا مبلغ پیشنهادی اصلاح شود",
-            style: {
-              fontFamily: "VazirD",
-              textAlign: "right",
-              float: "right",
-              width: "max-content",
-            },
-            closeIcon: " ",
-            duration: 5,
-          });
-      }
-      );
+          message: error.reponse.data.error,
+          description:
+            "در مورد مبلغ مورد نظر خودتان با مسافر مذاکره کنید تا مبلغ پیشنهادی اصلاح شود",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+          },
+          closeIcon: " ",
+          duration: 5,
+        });
+      });
   };
 
   render() {
     return (
       <div>
+        <Button
+          onClick={this.showInfo.bind(this)}
+          style={{
+            fontSize: "12px",
+            border: "hidden",
+            backgroundColor: "green",
+            color: "white",
+            borderRadius: "10px",
+          }}
+        >
+          تایید و پرداخت
+        </Button>
         <Modal
           visible={this.state.visible}
-          onConfirm={this.sendapi}
+          onOk={this.sendapi}
           style={{ fontFamily: "VazirD" }}
           cancelText="انصراف"
           okText="پرداخت"
@@ -88,20 +99,7 @@ class SendTransactionInfo extends Component {
               <br /> مبلغ پرداختی شما {this.props.amount} خواهد بود
             </p>
           }
-        >
-          <Button
-            onClick={this.showInfo.bind(this)}
-            style={{
-              fontSize: "12px",
-              border: "hidden",
-              backgroundColor: "green",
-              color: "white",
-              borderRadius: "10px",
-            }}
-          >
-            تایید و پرداخت
-          </Button>
-        </Modal>
+        ></Modal>
       </div>
     );
   }
