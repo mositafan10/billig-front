@@ -13,6 +13,13 @@ class SendTransactionInfo extends Component {
     net_amount: 0
   };
 
+  componentDidMount() {
+    const fee = this.props.fee;
+    const amount_w = this.props.amount;
+    const net_amount = (1 + fee / 100) * amount_w * 10;
+    this.setState({net_amount:net_amount});
+  }
+
   handleOkinfo = () => {
     this.setState({ visible: false });
   };
@@ -74,10 +81,6 @@ class SendTransactionInfo extends Component {
   };
 
   render() {
-    const fee = this.props.fee;
-    const amount_w = this.props.amount;
-    const net_amount = (1 + fee / 100) * amount_w * 10;
-    this.setState({net_amount:net_amount});
     return (
       <div>
         <Button
