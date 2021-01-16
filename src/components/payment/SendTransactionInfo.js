@@ -10,7 +10,8 @@ class SendTransactionInfo extends Component {
   state = {
     token: "",
     visible: false,
-    net_amount: 0
+    net_amount: 0,
+    loading: false
   };
 
   componentDidMount() {
@@ -42,7 +43,7 @@ class SendTransactionInfo extends Component {
   };
 
   sendapi = () => {
-    this.setState({ visible: true });
+    this.setState({ visible: true, loading: true });
     const token = localStorage.getItem("token");
     Axios.post(
       `${url}api/v1/payment/send/`,
@@ -100,6 +101,7 @@ class SendTransactionInfo extends Component {
           onOk={this.sendapi}
           onCancel={this.cancleInfo}
           style={{ fontFamily: "VazirD" }}
+          confirmLoading={this.state.loading}
           cancelText="انصراف"
           okText="پرداخت"
           closable
@@ -108,7 +110,7 @@ class SendTransactionInfo extends Component {
             <p style={{textAlign:"center"}}>
               طبق قوانین بیلیگ،‌ به میزان {this.props.fee} درصد به مبلغ تایید
               شده به عنوان کارمزد افزوده خواهد شد.
-              <br /> مبلغ پرداختی شما {this.currency(this.state.net_amount)} خواهد بود
+              <br /> مبلغ پرداختی شما {this.currency(this.state.net_amount)} ریال خواهد بود
             </p>
           }
         ></Modal>
