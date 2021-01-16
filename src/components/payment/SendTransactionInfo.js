@@ -10,6 +10,7 @@ class SendTransactionInfo extends Component {
   state = {
     token: "",
     visible: false,
+    net_amount: 0
   };
 
   handleOkinfo = () => {
@@ -28,12 +29,18 @@ class SendTransactionInfo extends Component {
     });
   };
 
+  currency = (value) => {
+    const p = `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return p;
+  };
+
   sendapi = () => {
     this.setState({ visible: true });
     const fee = this.props.fee;
     const token = localStorage.getItem("token");
     const amount_w = this.props.amount;
     const net_amount = (1 + fee / 100) * amount_w * 10;
+    this.setState({net_amount:net_amount});
     Axios.post(
       `${url}api/v1/payment/send/`,
       {
@@ -93,10 +100,10 @@ class SendTransactionInfo extends Component {
           okText="پرداخت"
           width="70%"
           title={
-            <p>
+            <p style={{textAlign:"center"}}>
               طبق قوانین بیلیگ،‌ به میزان {this.props.fee} درصد به مبلغ تایید
               شده به عنوان کارمزد افزوده خواهد شد.
-              <br /> مبلغ پرداختی شما {this.props.amount} خواهد بود
+              <br /> مبلغ پرداختی شما {this.currency(this.state.net_amount)} خواهد بود
             </p>
           }
         ></Modal>
