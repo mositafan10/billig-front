@@ -36,15 +36,11 @@ class SendTransactionInfo extends Component {
 
   sendapi = () => {
     this.setState({ visible: true });
-    const fee = this.props.fee;
     const token = localStorage.getItem("token");
-    const amount_w = this.props.amount;
-    const net_amount = (1 + fee / 100) * amount_w * 10;
-    this.setState({net_amount:net_amount});
     Axios.post(
       `${url}api/v1/payment/send/`,
       {
-        amount: net_amount,
+        amount: this.state.net_amount,
         callback_url: callback_url,
         factorNumber: this.props.factorNumber,
       },
@@ -78,6 +74,10 @@ class SendTransactionInfo extends Component {
   };
 
   render() {
+    const fee = this.props.fee;
+    const amount_w = this.props.amount;
+    const net_amount = (1 + fee / 100) * amount_w * 10;
+    this.setState({net_amount:net_amount});
     return (
       <div>
         <Button
@@ -95,9 +95,11 @@ class SendTransactionInfo extends Component {
         <Modal
           visible={this.state.visible}
           onOk={this.sendapi}
+          onCancel={this.cancleInfo}
           style={{ fontFamily: "VazirD" }}
           cancelText="انصراف"
           okText="پرداخت"
+          closable
           width="70%"
           title={
             <p style={{textAlign:"center"}}>
