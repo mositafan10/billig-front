@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Button, Modal } from "antd";
 import Axios from "axios";
 import { config } from "../../Constant";
-import { Modal } from "bootstrap";
 
 var url = config.url.API_URL;
 const callback_url = "https://billlig.com/payment/verify/";
