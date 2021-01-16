@@ -298,7 +298,8 @@ class PackForm extends React.Component {
               float: "right",
               width: "max-content",
             },
-            duration: 2,
+            closeIcon: " ",
+            duration: 3,
           });
         }, 1000);
       })
@@ -851,6 +852,7 @@ class PackForm extends React.Component {
                 // ]}
                 name="buy_link">
                   <TextArea
+                    style={{textAlign:"left"}}
                     rows={2}
                     placeholder="لینک کالا که در آن مشخصات کالا وجود دارد را وارد کنید"
                   />

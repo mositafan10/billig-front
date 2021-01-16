@@ -83,6 +83,7 @@ class EditProfile extends React.Component {
               float: "right",
               width: "max-content",
             },
+            closeIcon: " ",
             duration: 3,
           });
         }, 1000);
@@ -100,6 +101,7 @@ class EditProfile extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 3,
         });
         setTimeout(() => {
@@ -254,7 +256,8 @@ class EditProfile extends React.Component {
   };
 
   callbackFunction = () => {
-    this.componentDidMount();
+    // this.componentDidMount();
+    window.location.reload();
   };
 
   render() {

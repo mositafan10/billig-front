@@ -114,7 +114,7 @@ class UserProfile extends React.Component {
           {this.state.error === 404 ? (
             <PageNotFound />
           ) : (
-            <div style={{ textAlign: "center" }}>
+            <div style={{ textAlign: "center", padding: "3px" }}>
               {this.state.user_profile.picture ? (
                 <img
                   alt={this.state.user_profile.name}

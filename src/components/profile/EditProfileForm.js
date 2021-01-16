@@ -11,10 +11,7 @@ import {
   ConfigProvider,
   notification,
 } from "antd";
-import {
-  MailOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { MailOutlined, UserOutlined } from "@ant-design/icons";
 import { config } from "../../Constant";
 
 var url = config.url.API_URL;
@@ -26,7 +23,7 @@ class EditProfileForm extends React.Component {
     cities: [],
     city_dis: true,
     loading: false,
-    mainloading: false
+    mainloading: false,
   };
 
   componentDidMount() {
@@ -34,7 +31,9 @@ class EditProfileForm extends React.Component {
       .then((res) => {
         this.setState({
           countries: res.data,
-        });
+        }, () => {
+          this.sortCountries();
+      });
       })
       .catch((err) => console.log(err));
 
@@ -58,36 +57,59 @@ class EditProfileForm extends React.Component {
 
   handleFormSubmit = (values) => {
     const token = localStorage.getItem("token");
-    this.setState({mainloading:true})
+    this.setState({ mainloading: true });
     Axios.post(
       `${url}api/v1/account/users/update/`,
       {
         country: values.living_country
-        ? values.living_country
-        : (this.props.data.country ? this.props.data.country.id : this.props.data.country),
-        city: values.living_city ? values.living_city : (this.props.data.city ? this.props.data.city.id : this.props.data.city),
+          ? values.living_country
+          : this.props.data.country
+          ? this.props.data.country.id
+          : this.props.data.country,
+        city: values.living_city
+          ? values.living_city
+          : this.props.data.city
+          ? this.props.data.city.id
+          : this.props.data.city,
         name: values.name ? values.name : this.props.data.name,
         email: values.email ? values.email : this.props.data.email,
       },
       { headers: { Authorization: `Token ${token}` } }
     )
       .then((res) => {
-        setTimeout(()=>{
-          notification["success"]({
-            message: "با موفقیت به روزرسانی شد",
-            style: {
-              fontFamily: "VazirD",
-              textAlign: "right",
-              float: "right",
-              width: "max-content",
-            },
-            duration: 3,
-          });
-          this.setState({mainloading:false})
+        notification["success"]({
+          message: "با موفقیت به روزرسانی شد",
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+          },
+          closeIcon: " ",
+          duration: 3,
+        });
+        setTimeout(() => {
+          this.setState({ mainloading: false });
           this.props.update();
-        },1000)
+        }, 1000);
       })
       .catch((error) => console.error(error));
+  };
+
+  sortCountries = () => {
+    var result1 = [],
+      result2 = [];
+    const arr = this.state.countries;
+    for (var i = 0; i < arr.length; i++) {
+      if (
+        arr[i].name == "ایران"  || arr[i].name == "کانادا" || arr[i].name == "آلمان" || arr[i].name == "آمریکا") {
+        result1.push(arr[i]);
+      } else {
+        result2.push(arr[i]);
+      }
+    }
+    var result = result1.concat(result2);
+    this.setState({ countries: result });
   };
 
   render() {
@@ -131,13 +153,15 @@ class EditProfileForm extends React.Component {
                   />
                   نام
                 </Divider>
-                <Form.Item name="name"
-                rules={[
-                  {
-                    pattern:'^([a-zA-Zئؤإأآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی ])+$',
-                    message:"نام باید صرفا از حروف تشکیل شده باشد"
-                  }
-                ]}
+                <Form.Item
+                  name="name"
+                  rules={[
+                    {
+                      pattern:
+                        "^([a-zA-Zئؤإأآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی ])+$",
+                      message: "نام باید صرفا از حروف تشکیل شده باشد",
+                    },
+                  ]}
                 >
                   <Input
                     defaultValue={this.props.data && this.props.data.name}
@@ -157,6 +181,8 @@ class EditProfileForm extends React.Component {
                   style={{ display: "flex", justifyContent: "right" }}
                 >
                   <Select
+                    showSearch
+                    optionFilterProp="key"
                     dropdownStyle={{ fontFamily: "VazirD" }}
                     defaultValue={
                       this.props.data.country
@@ -165,9 +191,9 @@ class EditProfileForm extends React.Component {
                     }
                     onChange={this.get_city.bind()}
                   >
-                    {this.state.countries.map((e, key) => {
+                    {this.state.countries.map((e) => {
                       return (
-                        <Option key={key} value={e.id}>
+                        <Option key={e.name} value={e.id}>
                           {e.name}
                         </Option>
                       );
