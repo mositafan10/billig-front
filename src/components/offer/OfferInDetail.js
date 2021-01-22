@@ -257,7 +257,7 @@ class OfferDetail extends React.Component {
                           title={
                             <div>
                               <p>
-                                دستمزدی که در نظر دارید از آگهی دهنده دریافت
+                                دستمزدی که در نظر دارید از بیلیگر دریافت
                                 کنید
                               </p>
                             </div>
@@ -304,7 +304,7 @@ class OfferDetail extends React.Component {
                           min={0}
                         />
                       </Form.Item>
-                      {this.props.buy && (
+                      {/* {this.props.buy && (
                         <div>
                           <br />
                           <label
@@ -370,7 +370,7 @@ class OfferDetail extends React.Component {
                             />
                           </Form.Item>
                         </div>
-                      )}
+                      )} */}
                       <br />
                       <label
                         style={{

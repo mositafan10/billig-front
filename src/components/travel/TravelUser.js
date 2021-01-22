@@ -48,7 +48,7 @@ class TravelList extends React.Component {
   state = {
     visible: false,
     removeReason: false,
-    value: 1,
+    value: 0,
     slug: "",
   };
 
@@ -251,6 +251,7 @@ class TravelList extends React.Component {
                                   borderRadius: "15px",
                                   marginBottom:"10px"
                                 }}
+                                disabled = {item.offer_count == 0 ? true : false}
                               >
                                 پیشنهادهای ارسالی ( {item.offer_count} )
                               </Button>
@@ -270,7 +271,7 @@ class TravelList extends React.Component {
                           <hr style={{ margin: "5px 0 15px 0" }} />
                           <Row style={{display: "flex", justifyContent:"center"}}>
                             <Space>
-                            <Col>
+                            {/* <Col>
                               {item.status == 4 ? (
                                 <PayTraveler
                                   travel={item.slug}
@@ -279,7 +280,7 @@ class TravelList extends React.Component {
                               ) : (
                                 item.status == 8 && <span>در انتظار تسویه</span>
                               )}
-                            </Col>
+                            </Col> */}
                             <Col>
                               {item.status == 2 && (
                                 <EditTravel
@@ -352,13 +353,13 @@ class TravelList extends React.Component {
                 value={this.state.value}
               >
                 <Radio style={radioStyle} value={0}>
-                  آگهی مناسبی پیدا نکردم
+                  آگهی مناسبی پیدا نشد
                 </Radio>
                 <Radio style={radioStyle} value={1}>
                   سفرم کنسل شد
                 </Radio>
                 <Radio style={radioStyle} value={2}>
-                  هیچ کدوم از پیشنهاداتم قبول نشد
+                  هیچ کدام از پیشنهادهای من قبول نشد
                 </Radio>
                 <Radio style={radioStyle} value={3}>
                   دستمزدها کم بود
@@ -474,6 +475,7 @@ class TravelList extends React.Component {
                               fontSize: "12px",
                               borderRadius: "15px",
                             }}
+                            disabled = {item.offer_count == 0 ? true : false}
                           >
                             پیشنهادهای ارسالی
                           </Button>
@@ -492,7 +494,7 @@ class TravelList extends React.Component {
                     <hr style={{ margin: "15px 0 15px 0" }} />
                     <Row style={{ display: "block" }}>
                       <Col span={10}>
-                        {item.status == 4 ? (
+                        {/* {item.status == 4 ? (
                           <PayTraveler
                             travel={item.slug}
                             amount={item.income}
@@ -510,12 +512,12 @@ class TravelList extends React.Component {
                           >
                             در انتظار تسویه
                           </span>
-                        ) : (
+                        ) : ( */}
                           <EditTravel
                             signal={this.editsignal}
                             data={item.slug}
                           />
-                        )}
+                        {/* )} */}
                       </Col>
                       <Col span={12} style={{ float: "left" }}>
                         {item.status == 6 && (

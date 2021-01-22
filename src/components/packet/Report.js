@@ -72,6 +72,7 @@ class Bookmark extends Component {
               float: "right",
               width: "max-content",
             },
+            closeIcon: " ",
             duration: 2,
           });
         this.setState({visible:false})
@@ -88,6 +89,7 @@ class Bookmark extends Component {
               width: "max-content",
               fontSizeAdjust: "0.5 ",
             },
+            closeIcon: " ",
             duration: 2,
           }),
         this.setState({ loading: false })

@@ -176,7 +176,7 @@ class OrderList extends React.Component {
     const firstTime = localStorage.getItem('first_time')
     return (
       <div style={{ padding: "0 10px 0 10px", direction: "rtl", minHeight:"700px" }}>
-        {firstTime &&
+        {firstTime != false &&
         <Row>
           <Col
             xs={24}

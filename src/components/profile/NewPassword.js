@@ -15,6 +15,7 @@ class NewPassword extends Component {
       phone_number: phone_number,
     })
       .then((res) => {
+        this.props.parentcallback()
         notification["success"]({
           message: <div>{res.data.detail}</div>,
           style: {
@@ -23,9 +24,9 @@ class NewPassword extends Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 5,
-        });
-        this.props.parentcallback()
+        })
       })
       .catch((error) => {
         notification["error"]({
@@ -36,6 +37,7 @@ class NewPassword extends Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 5,
         });
       })
@@ -45,7 +47,7 @@ class NewPassword extends Component {
     return (
       <div>
         <Row style={style_center}>
-          <Col span={12}>
+          <Col span={16}>
             <Form name="change_pass" onFinish={this.handleOk}>
               <Divider plain orientation="center">
                 رمز جدید
@@ -100,7 +102,7 @@ class NewPassword extends Component {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  style={{ borderRadius: "10px", padding: "0 10px 0 10px" }}
+                  style={{ borderRadius: "10px", padding: "0 30px 0 30px" }}
                 >
                   ارسال
                 </Button>

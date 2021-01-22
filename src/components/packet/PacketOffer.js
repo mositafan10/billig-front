@@ -97,7 +97,7 @@ class PacketOffer extends React.Component {
       key: "y",
       width: 150,
       align: "center",
-      render: (dataIndex) => this.props.buy && this.currency(dataIndex),
+      render: (dataIndex) => this.props.buy && (this.currency(dataIndex) != 0 ? this.currency(dataIndex) : "!"),
     },
     {
       title: " ",
@@ -210,7 +210,7 @@ class PacketOffer extends React.Component {
             <RateAndComment
               signal={this.callbackFunction.bind(this, row.slug)}
               data={dataIndex}
-              receiver={row.receiver_slug}
+              receiver={row.sender_slug}
               loc={"مسافر"}
             />
           );
@@ -327,7 +327,7 @@ class PacketOffer extends React.Component {
             <div>
               حال می‌توانید نظر خود را در مورد مسافر بیان کنید و به ایشان امتیاز
               دهید. <br />
-              امتیاز شما می‌تواند به کاربران دیگر کمک کند
+              نظر شما می‌تواند به کاربران دیگر کمک کند
             </div>
           ),
           style: {
@@ -524,7 +524,7 @@ class PacketOffer extends React.Component {
                                 item.slug
                               )}
                               data={item.slug}
-                              receiver={item.receiver_slug}
+                              receiver={item.sender_slug}
                               loc={"مسافر"}
                             />
                           )}

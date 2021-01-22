@@ -163,12 +163,12 @@ class ConfirmPrice extends React.Component {
               </Form.Item>
               {buy && (
                 <div>
-                  <p>
+                  {/* <p>
                     مبلغ فعلی کالا :
                     {parcelPrice ? this.currency(parcelPrice) : 0} تومان
-                  </p>
+                  </p> */}
                   <p>
-                    قیمت نهایی کالایی را که قرار است خریداری شود وارد نمایید
+                    قیمت نهایی کالا را وارد نمایید
                   </p>
                   <Form.Item
                     name="parcelPrice"

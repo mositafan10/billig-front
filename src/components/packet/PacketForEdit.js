@@ -31,8 +31,9 @@ class PacketForEdit extends Component {
     loading: false,
     phonenumber_visible: this.props.data.phonenumber_visible,
     no_matter_origin: this.props.data.no_matter_origin,
-    parcel_price: this.props.data.parcel_price,
-    parcel_link: this.props.data.parcel_link,
+    parcel_price: this.props.data.buy ? this.props.data.buyinfo.price : "",
+    parcel_link: this.props.data.buy ? this.props.data.buyinfo.link : "",
+    currency: this.props.data.buy ? this.props.data.buyinfo.currency : "",
   };
 
   Dimension = [
@@ -42,10 +43,16 @@ class PacketForEdit extends Component {
   ];
 
   WEIGHT = [
-    { value: "0", label: "کمتر از ۱ کیلوگرم" },
-    { value: "1", label: "بین ۱ تا ۵ کیلوگرم" },
-    { value: "2", label: "بین ۵ تا ۱۰ کیلوگرم" },
-    { value: "3", label: "بیشتر از ۱۰ کیلوگرم" },
+    { value: 0, label: "کمتر از ۱ کیلوگرم" },
+    { value: 1, label: "بین ۱ تا ۵ کیلوگرم" },
+    { value: 2, label: "بین ۵ تا ۱۰ کیلوگرم" },
+    { value: 3, label: "بیشتر از ۱۰ کیلوگرم" },
+  ];
+
+  CURRENCY = [
+    { value: "تومان", label: "تومان" },
+    { value: "دلار", label: "دلار" },
+    { value: "یورو", label: "یورو" },
   ];
 
   search(nameKey, myArray) {
@@ -129,7 +136,9 @@ class PacketForEdit extends Component {
       : this.props.data.category
       ? this.props.data.category.id
       : "";
-    const weight = values.weight ? values.weight : this.props.data.weight;
+    const weight = values.weight
+      ? this.search(values.weight, this.WEIGHT)
+      : this.search(this.props.data.weight, this.WEIGHT);
     const dimension = values.dimension
       ? values.dimension
       : this.search(this.props.data.dimension, this.Dimension);
@@ -148,6 +157,7 @@ class PacketForEdit extends Component {
     const parcel_link = values.buy_link
       ? values.buy_link
       : this.state.parcel_link;
+    const currency = values.currency ? values.currency : this.state.currency;
     const token = localStorage.getItem("token");
 
     Axios.put(
@@ -168,6 +178,7 @@ class PacketForEdit extends Component {
         description: description,
         parcel_price: parcel_price,
         parcel_link: parcel_link,
+        currency: currency,
       },
       { headers: { Authorization: `Token ${token}` } }
     )
@@ -181,6 +192,7 @@ class PacketForEdit extends Component {
               float: "right",
               width: "max-content",
             },
+            closeIcon: " ",
             duration: 3,
           });
           this.setState({ loading: false });
@@ -189,7 +201,7 @@ class PacketForEdit extends Component {
         }, 1000);
       })
       .catch((error) => {
-        notification["warn"]({
+        notification["error"]({
           message: error.response.data.detail,
           style: {
             fontFamily: "VazirD",
@@ -197,6 +209,7 @@ class PacketForEdit extends Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 3,
         });
         this.setState({ loading: false });
@@ -205,13 +218,16 @@ class PacketForEdit extends Component {
 
   componentDidMount = () => {
     Axios.get(`${url}api/v1/account/countries/`).then((res) => {
-      this.setState({
-        countries: res.data,
-      }, () => {
-        this.sortCountries();
+      this.setState(
+        {
+          countries: res.data,
+        },
+        () => {
+          this.sortCountries();
+        }
+      );
     });
-    });
-    Axios.get(`${url}api/v1/advertise/categoryList/1`).then((res) => {
+    Axios.get(`${url}api/v1/advertise/categoryList/`).then((res) => {
       this.setState({
         category: res.data,
       });
@@ -243,7 +259,11 @@ class PacketForEdit extends Component {
     const arr = this.state.countries;
     for (var i = 0; i < arr.length; i++) {
       if (
-        arr[i].name == "ایران"  || arr[i].name == "کانادا" || arr[i].name == "آلمان" || arr[i].name == "آمریکا") {
+        arr[i].name == "ایران" ||
+        arr[i].name == "کانادا" ||
+        arr[i].name == "آلمان" ||
+        arr[i].name == "آمریکا"
+      ) {
         result1.push(arr[i]);
       } else {
         result2.push(arr[i]);
@@ -264,8 +284,9 @@ class PacketForEdit extends Component {
                 description: this.props.data.description,
                 weight: this.props.data.weight,
                 suggested_price: this.props.data.suggested_price,
-                buy_link: this.props.data.parcel_link,
-                parcel_price: this.props.data.parcel_price,
+                buy_link: this.props.data.buyinfo.link,
+                parcel_price: this.props.data.buyinfo.price,
+                currency: this.props.data.buyinfo.currency,
               }}
               onFinish={(values) => this.handleFormSubmit(values)}
               id="edit"
@@ -278,6 +299,10 @@ class PacketForEdit extends Component {
                 style={{ textAlign: "right" }}
                 rules={[
                   { required: true, message: "عنوان آگهی را وارد نمایید" },
+                  {
+                    pattern: "^([a-zA-Z0-9 \u0600-\u06FF])+$",
+                    message: "عنوان آگهی باید از حروف و اعداد تشکیل شده باشد",
+                  },
                   {
                     max: 50,
                     message: "عنوان آگهی نباید بیشتر از ۵۰ کاراکتر باشد",
@@ -319,7 +344,11 @@ class PacketForEdit extends Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
-                    کشور مبدا
+                    {this.state.buy ? (
+                      <span>خرید کالا از کشور</span>
+                    ) : (
+                      <span>دریافت بسته در کشور</span>
+                    )}
                   </Divider>
                   <Form.Item
                     name="origin_country"
@@ -347,7 +376,11 @@ class PacketForEdit extends Component {
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
-                    شهر مبدا
+                    {this.state.buy ? (
+                      <span>خرید کالا از شهر</span>
+                    ) : (
+                      <span>دریافت بسته در شهر</span>
+                    )}
                   </Divider>
                   <Form.Item name="origin_city" style={{ textAlign: "right" }}>
                     <Select
@@ -372,7 +405,15 @@ class PacketForEdit extends Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
-                    کشور مقصد
+                    {this.state.buy ? (
+                      <span style={{ marginRight: "10px" }}>
+                        تحویل کالا در کشور *
+                      </span>
+                    ) : (
+                      <span style={{ marginRight: "10px" }}>
+                        تحویل بسته در کشور *
+                      </span>
+                    )}
                   </Divider>
                   <Form.Item
                     name="destination_country"
@@ -399,7 +440,15 @@ class PacketForEdit extends Component {
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
-                    شهر مقصد
+                    {this.state.buy ? (
+                      <span style={{ marginRight: "10px" }}>
+                        تحویل کالا در شهر *
+                      </span>
+                    ) : (
+                      <span style={{ marginRight: "10px" }}>
+                        تحویل بسته در شهر *
+                      </span>
+                    )}
                   </Divider>
                   <Form.Item
                     name="destination_city"
@@ -424,7 +473,7 @@ class PacketForEdit extends Component {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                   <Divider plain orientation="center">
-                    ابعاد بسته
+                    ابعاد
                   </Divider>
                   <Form.Item name="dimension" style={{ textAlign: "right" }}>
                     <Select
@@ -493,7 +542,7 @@ class PacketForEdit extends Component {
               </Row>
               <Row style={{ justifyContent: "center", display: "flex" }}>
                 <Divider plain orientation="center">
-                  وزن حدودی بسته (کیلوگرم)
+                  وزن حدودی
                 </Divider>
                 <Form.Item
                   name="weight"
@@ -501,14 +550,14 @@ class PacketForEdit extends Component {
                   rules={[
                     {
                       required: true,
-                      message: "وزن بسته را با صفحه کلید انگلیسی وارد کنید",
+                      message: "وزن بسته را انتخاب کنید",
                     },
                   ]}
                 >
                   <Select
-                      options={this.WEIGHT}
-                      dropdownStyle={{ fontFamily: "VazirD" }}
-                    />
+                    options={this.WEIGHT}
+                    dropdownStyle={{ fontFamily: "VazirD" }}
+                  />
                 </Form.Item>
               </Row>
               <div
@@ -524,54 +573,78 @@ class PacketForEdit extends Component {
                   لینک کالا
                 </Divider>
                 <Form.Item name="buy_link">
-                  <TextArea
-                    rows={2}
-                    placeholder="لینک کالا که در آن مشخصات کالا وجود دارد را وارد کنید"
-                  />
+                  <TextArea rows={2} placeholder="لینک مشخصات کالا وارد کنید" />
                 </Form.Item>
-                <Divider plain orientation="center">
-                  <span style={{ marginRight: "10px" }}>قیمت حدودی کالا (تومان)</span>
-                </Divider>
-                <Form.Item
-                  // name="parcel_price"
-                  // validateTrigger="onFinish"
-                  // rules={[
-                  //   {
-                  //     required: this.state.buy ? true : false ,
-                  //     message:"قیمت حدودی کالا را وارد کنید"
-                  //   },
-                  // ]}
-                >
-                  <InputNumber
-                    type="tel"
-                    formatter={(value) =>
-                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    }
-                    parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                    style={{ textAlign: "center", width: "200px" }}
-                    min={0}
-                  />
-                </Form.Item>
+
+                <Row style={{ display: "flex", justifyContent: "center" }}>
+                  <Divider plain orientation="center">
+                    <span style={{ marginRight: "10px" }}>قیمت حدودی کالا</span>
+                  </Divider>
+                  <Col
+                    xs={14}
+                    sm={14}
+                    md={14}
+                    lg={12}
+                    xl={12}
+                    xxl={12}
+                    style={{ textAlign: "left" }}
+                  >
+                    <Form.Item name="parcel_price">
+                      <InputNumber
+                        type="tel"
+                        formatter={(value) =>
+                          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                        style={{ textAlign: "center", width: "100px" }}
+                        min={0}
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col
+                    xs={10}
+                    sm={10}
+                    md={10}
+                    lg={12}
+                    xl={12}
+                    xxl={12}
+                    style={{ textAlign: "right" }}
+                  >
+                    <Form.Item
+                      name="currency"
+                      style={{ textAlign: "right", width: "60px" }}
+                    >
+                      <Select
+                        options={this.CURRENCY}
+                        dropdownStyle={{ fontFamily: "VazirD" }}
+                        defaultValue={this.CURRENCY[0].label}
+                        showArrow={false}
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
               </div>
               <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>
-              <Form.Item name="description"
-              validateTrigger="onFinish"
-              rules={[
-                {
-                  required: true,
-                  message: "توضیحات لازم را وارد نمایید"
-                },
-                {
-                  max: 1000,
-                  message: "طول متن بیشتر از ۱۰۰۰ حرف است",
-                },
-                {
-                  min: 5,
-                  message: "مقداری بیشتر توضیح دهید"
-                }
-                ]}>
+              <Form.Item
+                name="description"
+                validateTrigger="onFinish"
+                rules={[
+                  {
+                    required: true,
+                    message: "توضیحات لازم را وارد نمایید",
+                  },
+                  {
+                    max: 1000,
+                    message: "طول متن بیشتر از ۱۰۰۰ حرف است",
+                  },
+                  {
+                    min: 5,
+                    message: "مقداری بیشتر توضیح دهید",
+                  },
+                ]}
+              >
                 <TextArea
                   initialValues={this.props.data.description}
                   style={{ textAlign: "right", padding: "10px" }}

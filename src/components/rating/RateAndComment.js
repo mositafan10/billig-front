@@ -51,6 +51,7 @@ class RateAndComment extends Component {
                 message: 'نظر شما با موفقیت ثبت شد',
                 style:{fontFamily:"VazirD", textAlign:"right", float:"right", width:"max-content"},
                 duration:2,
+                closeIcon: " ",
               })
             setTimeout(() => {
                 this.setState({visible: false, loading:false})

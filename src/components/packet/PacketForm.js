@@ -35,7 +35,7 @@ class PackForm extends React.Component {
     subcategory: [],
     categotyPost: [],
     pic_id: 1,
-    buy: false,
+    buy: true,
     loading: false,
     loadingCity: false,
     radio_value: false,
@@ -51,40 +51,52 @@ class PackForm extends React.Component {
     infovisible7: false,
     infovisible8: false,
     destination_city_select: [],
-    selected: ""
+    selected: "",
   };
 
   componentDidMount() {
-    document.title = "ثبت آگهی ـ بیلیگ ";
-    window.scroll(0,0)
+    document.title = "ثبت آگهی-بیلیگ ";
+    window.scroll(0, 0);
     Axios.get(`${url}api/v1/account/countries/`).then((res) => {
-      this.setState({
-        countries: res.data,
-      }, () => {
-        this.sortCountries();
-    });
+      this.setState(
+        {
+          countries: res.data,
+        },
+        () => {
+          this.sortCountries();
+        }
+      );
     });
 
     Axios.get(`${url}api/v1/advertise/categoryList/`).then((res) => {
       this.setState({
         category: res.data,
-        categotyPost: res.data.filter(c => c.name === "کتاب و مجله" || c.name === "مدارک و مستندات")
+        categotyPost: res.data.filter(
+          (c) => c.name === "کتاب و مجله" || c.name === "مدارک و مستندات"
+        ),
       });
     });
-    this.setState({selected:this.state.cities_origin[0]})
-  }إ
- 
+    this.setState({ selected: this.state.cities_origin[0] });
+  }
+  إ;
+
   DIMENSION = [
-    { value: "0", label: "کوچک" },
-    { value: "1", label: "متوسط" },
-    { value: "2", label: "بزرگ" },
+    { value: 0, label: "کوچک" },
+    { value: 1, label: "متوسط" },
+    { value: 2, label: "بزرگ" },
   ];
 
   WEIGHT = [
-    { value: "0", label: "کمتر از ۱ کیلوگرم" },
-    { value: "1", label: "بین ۱ تا ۵ کیلوگرم" },
-    { value: "2", label: "بین ۵ تا ۱۰ کیلوگرم" },
-    { value: "3", label: "بیشتر از ۱۰ کیلوگرم" },
+    { value: 0, label: "کمتر از ۱ کیلوگرم" },
+    { value: 1, label: "بین ۱ تا ۵ کیلوگرم" },
+    { value: 2, label: "بین ۵ تا ۱۰ کیلوگرم" },
+    { value: 3, label: "بیشتر از ۱۰ کیلوگرم" },
+  ];
+
+  CURRENCY = [
+    { value: "تومان", label: "تومان" },
+    { value: "دلار", label: "دلار" },
+    { value: "یورو", label: "یورو" },
   ];
 
   radiochange = (e) => {
@@ -103,63 +115,63 @@ class PackForm extends React.Component {
       // infovisible6: false,
       infovisible7: false,
       infovisible8: false,
-    })
-  }
+    });
+  };
 
   showPopconfirm1 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible1: true
-    }) 
-  }
+      infovisible1: true,
+    });
+  };
   showPopconfirm2 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible2: true
-    }) 
-  }
+      infovisible2: true,
+    });
+  };
   showPopconfirm3 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible3: true
-    }) 
-  }
+      infovisible3: true,
+    });
+  };
   showPopconfirm3 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible3: true
-    }) 
-  }
+      infovisible3: true,
+    });
+  };
   showPopconfirm4 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible4: true
-    }) 
-  }
+      infovisible4: true,
+    });
+  };
   showPopconfirm5 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible5: true
-    }) 
-  }
+      infovisible5: true,
+    });
+  };
   // showPopconfirm6 = () => {
   //   this.handleOkinfo()
   //   this.setState({
   //     infovisible6: true
-  //   }) 
+  //   })
   // }
   showPopconfirm7 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible7: true
-    }) 
-  }
+      infovisible7: true,
+    });
+  };
   showPopconfirm8 = () => {
-    this.handleOkinfo()
+    this.handleOkinfo();
     this.setState({
-      infovisible8: true
-    }) 
-  }
+      infovisible8: true,
+    });
+  };
 
   onChangedimension = (value) => {
     this.setState({ dimension: value });
@@ -185,10 +197,9 @@ class PackForm extends React.Component {
       this.setState({
         cities_origin: res.data,
         city_origin_dis: false,
-        selected: res.data[0].name
+        selected: res.data[0].name,
       });
     });
-    console.log(this.state.selected);
   };
 
   get_city_destination = (e) => {
@@ -197,18 +208,18 @@ class PackForm extends React.Component {
         cities_destination: res.data,
         city_destination_dis: false,
       });
-      this.setState({loadingCity:false})
+      this.setState({ loadingCity: false });
     });
-    this.setState({loadingCity: true, destination_city_select:" "})
+    this.setState({ loadingCity: true, destination_city_select: " " });
   };
-  
+
   get_subcategory = (e) => {
     Axios.get(`${url}api/v1/advertise/subCategoryList/${e}`).then((res) => {
       this.setState({
         subcategory: res.data,
       });
     });
-  }
+  };
 
   handlebuy = () => {
     if (this.state.buy) {
@@ -227,15 +238,10 @@ class PackForm extends React.Component {
   };
 
   citychanged = (e) => {
-    console.log(e);
-    this.setState({selected:e})
-    console.log(this.state.selected);
-  }
+    this.setState({ selected: e });
+  };
 
-  // should fix due to new model 
   changecategory = (value) => {
-    console.log(this.state.cat);
-    console.log("cat",value);
     this.setState({ cat: value });
   };
 
@@ -259,6 +265,7 @@ class PackForm extends React.Component {
     const pic_id = this.state.pic_id && this.state.pic_id;
     const buy_link = this.state.buy && values.buy_link;
     const parcel_price = this.state.buy && values.parcel_price;
+    const price_currency = this.state.buy && values.currency;
     const category_other = this.state.category_other
       ? values.category_other
       : "";
@@ -278,6 +285,7 @@ class PackForm extends React.Component {
         buy: buy,
         picture: pic_id,
         price: parcel_price ? parcel_price : 0,
+        currency: price_currency ? price_currency : "تومان",
         link: buy_link,
         category_other: category_other,
         no_matter_origin: no_matter_origin,
@@ -287,7 +295,7 @@ class PackForm extends React.Component {
       .then(function (res) {
         setTimeout(() => {
           window.location = "/profile/mypacket";
-          this.setState({loading:false})
+          this.setState({ loading: false });
         }, 3000);
         setTimeout(() => {
           notification["success"]({
@@ -312,7 +320,8 @@ class PackForm extends React.Component {
             float: "right",
             width: "max-content",
           },
-          duration: 3,
+          closeIcon: " ",
+          duration: 5,
         });
         this.setState({
           loading: false,
@@ -326,7 +335,11 @@ class PackForm extends React.Component {
     const arr = this.state.countries;
     for (var i = 0; i < arr.length; i++) {
       if (
-        arr[i].name == "ایران"  || arr[i].name == "کانادا" || arr[i].name == "آلمان" || arr[i].name == "آمریکا") {
+        arr[i].name == "ایران" ||
+        arr[i].name == "کانادا" ||
+        arr[i].name == "آلمان" ||
+        arr[i].name == "آمریکا"
+      ) {
         result1.push(arr[i]);
       } else {
         result2.push(arr[i]);
@@ -356,19 +369,23 @@ class PackForm extends React.Component {
                 rules={[
                   {
                     required: true,
-                    message: 'عنوان آگهی را وارد نمایید',
+                    message: "عنوان آگهی را وارد نمایید",
                   },
                   {
-                    pattern:'^([a-zA-Z0-9 \u0600-\u06FF])+$',
-                    message:"عنوان آگهی باید از حروف و اعداد تشکیل شده باشد"
+                    pattern: "^([a-zA-Z0-9 \u0600-\u06FF])+$",
+                    message: "عنوان آگهی باید از حروف و اعداد تشکیل شده باشد",
                   },
                   {
-                    max:50,
-                    message:"عنوان کوتاه‌تری انتخاب کنید"
-                  }
+                    max: 50,
+                    message: "عنوان کوتاه‌تری انتخاب کنید",
+                  },
                 ]}
               >
-                <Input autoComplete="off" maxLength={50} style={{ textAlign: "right" }} />
+                <Input
+                  autoComplete="off"
+                  maxLength={50}
+                  style={{ textAlign: "right" }}
+                />
               </Form.Item>
               <Form.Item name="buy" style={{ textAlign: "center" }}>
                 <Space>
@@ -387,10 +404,18 @@ class PackForm extends React.Component {
                       </div>
                     }
                   >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm1}><InfoCircleOutlined /></Button>
+                    <Button
+                      style={{ border: "hidden", margin: "-5px" }}
+                      onClick={this.showPopconfirm1}
+                    >
+                      <InfoCircleOutlined />
+                    </Button>
                   </Popconfirm>
-                  <Checkbox onChange={this.handlebuy.bind(this)}>
-                    <span style={{ marginRight: "10px"}}>
+                  <Checkbox
+                    defaultChecked={this.state.buy}
+                    onChange={this.handlebuy.bind(this)}
+                  >
+                    <span style={{ marginRight: "10px" }}>
                       کالا باید توسط مسافر خریداری شود
                     </span>
                   </Checkbox>
@@ -421,7 +446,12 @@ class PackForm extends React.Component {
                           </div>
                         }
                       >
-                  <Button  style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm2}><InfoCircleOutlined /></Button>
+                        <Button
+                          style={{ border: "hidden", margin: "-5px" }}
+                          onClick={this.showPopconfirm2}
+                        >
+                          <InfoCircleOutlined />
+                        </Button>
                       </Popconfirm>
                       <Checkbox
                         onChange={this.handlenomattercountry.bind(this)}
@@ -445,17 +475,19 @@ class PackForm extends React.Component {
                       okText="متوجه شدم"
                       title={
                         this.state.buy ? (
-                          <span>
-                            مبدا محلی است که کالا از آنجا خریداری می‌شود
-                          </span>
+                          <span>محلی که کالا از آنجا خریداری می‌شود</span>
                         ) : (
-                          <span>
-                            مبدا محلی است که بسته در حال حاضر در‌ آنجا قرار دارد
-                          </span>
+                          <span>محلی که بسته در‌ آنجا قرار دارد</span>
                         )
                       }
                     >
-                  <Button className="info3" style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm3}><InfoCircleOutlined /></Button>
+                      <Button
+                        className="info3"
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm3}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
                     </Popconfirm>
                     <span style={{ marginRight: "10px" }}>
                       {this.state.buy ? (
@@ -479,15 +511,16 @@ class PackForm extends React.Component {
                   >
                     <Select
                       showSearch
+                      showArrow={false}
                       optionFilterProp="key"
                       disabled={this.state.no_matter_origin}
                       onChange={this.get_city_origin.bind()}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     >
                       {this.state.countries.map((e) => (
-                          <Option key={e.name} value={e.id}>
-                            {e.name}
-                          </Option>
+                        <Option key={e.name} value={e.id}>
+                          {e.name}
+                        </Option>
                       ))}
                     </Select>
                   </Form.Item>
@@ -514,6 +547,7 @@ class PackForm extends React.Component {
                   >
                     <Select
                       showSearch
+                      showArrow={false}
                       optionFilterProp="key"
                       disabled={this.state.city_origin_dis}
                       dropdownStyle={{ fontFamily: "VazirD" }}
@@ -522,9 +556,9 @@ class PackForm extends React.Component {
                       onChange={this.citychanged.bind(this)}
                     >
                       {this.state.cities_origin.map((e) => (
-                          <Option key={e.name} value={e.id}>
-                            {e.name}
-                          </Option>
+                        <Option key={e.name} value={e.id}>
+                          {e.name}
+                        </Option>
                       ))}
                     </Select>
                   </Form.Item>
@@ -542,18 +576,21 @@ class PackForm extends React.Component {
                       title={
                         this.state.buy ? (
                           <span style={{ marginRight: "10px" }}>
-                            محلی است که کالا قرار است در آنجا تحویل گیرنده داده
-                            شود 
+                            محلی که کالا تحویل شما می‌شود
                           </span>
                         ) : (
                           <span style={{ marginRight: "10px" }}>
-                            محلی است که بسته قرار است در آنجا تحویل گیرنده داده
-                            شود 
+                            محلی که بسته تحویل شما می‌شود
                           </span>
                         )
                       }
                     >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm4}><InfoCircleOutlined /></Button>
+                      <Button
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm4}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
                     </Popconfirm>
                     {this.state.buy ? (
                       <span style={{ marginRight: "10px" }}>
@@ -574,6 +611,7 @@ class PackForm extends React.Component {
                   >
                     <Select
                       showSearch
+                      showArrow={false}
                       optionFilterProp="key"
                       onChange={this.get_city_destination.bind()}
                       dropdownStyle={{ fontFamily: "VazirD" }}
@@ -609,6 +647,7 @@ class PackForm extends React.Component {
                   >
                     <Select
                       showSearch
+                      showArrow={false}
                       optionFilterProp="key"
                       value={this.state.destination_city_select}
                       onChange={this.changeCityDestination}
@@ -639,54 +678,44 @@ class PackForm extends React.Component {
                         <div>
                           <p>کوچک :‌ بسته‌هایی که در جیب جا بشوند.</p>
                           <p>متوسط :‌ بسته‌هایی که در کوله‌پشتی جا بشوند.</p>
-                          <p>بزرگ :‌ بسته‌هایی که به اندازه چمدان و یا بزرگتر هستند.</p>
+                          <p>
+                            بزرگ :‌ بسته‌هایی که به اندازه چمدان و یا بزرگتر
+                            هستند.
+                          </p>
                         </div>
                       }
                     >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm5}><InfoCircleOutlined /></Button>
+                      <Button
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm5}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
                     </Popconfirm>
-                    {this.state.buy ? (
-                      <span style={{ marginRight: "10px" }}> ابعاد کالا *</span>
-                    ) : (
-                      <span style={{ marginRight: "10px" }}> ابعاد بسته *</span>
-                    )}
+                    <span style={{ marginRight: "10px" }}> ابعاد *</span>
                   </Divider>
                   <Form.Item
                     name="dimension"
                     style={{ textAlign: "right" }}
                     rules={[
-                      { 
+                      {
                         required: true,
-                        message: this.state.buy ? "ابعاد کالا را انتخاب کنید" : "ابعاد بسته را انتخاب کنید" },
+                        message: this.state.buy
+                          ? "ابعاد کالا را انتخاب کنید"
+                          : "ابعاد بسته را انتخاب کنید",
+                      },
                     ]}
                   >
                     <Select
+                      showArrow={false}
                       options={this.DIMENSION}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     />
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                <Divider plain orientation="center">
-                    {/* <Popconfirm
-                      visible={this.state.infovisible6}
-                      onConfirm={this.handleOkinfo}
-                      overlayStyle={{ fontFamily: "VazirD" }}
-                      cancelButtonProps={{ hidden: "true" }}
-                      okText="متوجه شدم"
-                      title="وزن بسته باید عددی بین ۰.۱ تا ۳۰ کیلوگرم باشد"
-                    >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm6}><InfoCircleOutlined /></Button>
-                    </Popconfirm> */}
-                    {this.state.buy ? (
-                      <span style={{ marginRight: "10px" }}>
-                        وزن حدودی کالا *
-                      </span>
-                    ) : (
-                      <span style={{ marginRight: "10px" }}>
-                        وزن حدودی بسته *
-                      </span>
-                    )}
+                  <Divider plain orientation="center">
+                    <span style={{ marginRight: "10px" }}>وزن حدودی *</span>
                   </Divider>
                   <Form.Item
                     name="weight"
@@ -698,7 +727,8 @@ class PackForm extends React.Component {
                       },
                     ]}
                   >
-                     <Select
+                    <Select
+                      showArrow={false}
                       options={this.WEIGHT}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                     />
@@ -706,11 +736,7 @@ class PackForm extends React.Component {
                 </Col>
               </Row>
               <Divider plain orientation="center">
-                {this.state.buy ? (
-                  <span style={{ marginRight: "10px" }}> تصویر کالا</span>
-                ) : (
-                  <span style={{ marginRight: "10px" }}> تصویر بسته</span>
-                )}
+                <span style={{ marginRight: "10px" }}> تصویر</span>
               </Divider>
               <Form.Item
                 name="picture"
@@ -722,7 +748,7 @@ class PackForm extends React.Component {
               </Form.Item>
               <Row style={{ display: "flex", justifyContent: "center" }}>
                 <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
-                <Divider plain orientation="center">
+                  <Divider plain orientation="center">
                     دسته‌بندی *
                   </Divider>
                   <Form.Item
@@ -733,45 +759,29 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <Select
+                      showArrow={false}
                       dropdownStyle={{ fontFamily: "VazirD" }}
                       onChange={this.changecategory.bind()}
                       showSearch
                       optionFilterProp="key"
                     >
-                      {this.state.buy ?
-                      this.state.category.map((e) => {
-                        return (
-                          <Option key={e.name} value={e.id}>
-                            {e.name}
-                          </Option>
-                        );
-                      })
-                      :
-                      this.state.categotyPost.map((e, key) => {
-                        return (
-                          <Option key={key} value={e.id}>
-                            {e.name}
-                          </Option>
-                        );
-                      })
-                      }
+                      {this.state.buy
+                        ? this.state.category.map((e) => {
+                            return (
+                              <Option key={e.name} value={e.id}>
+                                {e.name}
+                              </Option>
+                            );
+                          })
+                        : this.state.categotyPost.map((e, key) => {
+                            return (
+                              <Option key={key} value={e.id}>
+                                {e.name}
+                              </Option>
+                            );
+                          })}
                     </Select>
                   </Form.Item>
-                  {/* <div
-                    style={{
-                      display: this.state.category_other ? "block" : "none",
-                    }}
-                  >
-                    <Divider plain orientation="center">
-                      دسته بندی آگهی خود را وارد کنید
-                    </Divider>
-                    <Form.Item
-                      name="category_other"
-                      style={{ textAlign: "right" }}
-                    >
-                      <Input maxLength={50} />
-                    </Form.Item>
-                  </div> */}
                 </Col>
               </Row>
               <Row style={{ display: "flex", justifyContent: "center" }}>
@@ -785,15 +795,19 @@ class PackForm extends React.Component {
                       okText="متوجه شدم"
                       title={
                         <p>
-                          مبلغی است که به عنوان دستمزد به
-                          مسافر پیشنهاد می‌شود.
+                          مبلغی که به عنوان دستمزد به مسافر پیشنهاد می‌دهید.
                         </p>
                       }
                     >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm7}><InfoCircleOutlined /></Button>
+                      <Button
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm7}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
                     </Popconfirm>
                     <span style={{ marginRight: "10px" }}>
-                       دستمزد پیشنهادی (تومان) *
+                      دستمزد پیشنهادی (تومان) *
                     </span>
                   </Divider>
                   <Form.Item
@@ -819,7 +833,7 @@ class PackForm extends React.Component {
                     ]}
                   >
                     <InputNumber
-                    type="tel"
+                      type="tel"
                       formatter={(value) =>
                         `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                       }
@@ -842,90 +856,108 @@ class PackForm extends React.Component {
                 <Divider plain orientation="center">
                   لینک کالا
                 </Divider>
-                <Form.Item 
-                // rules={[
-                //   {
-                //     required: this.state.buy ? true : false ,
-                //     message:
-                //       "لینک کالا را وارد نمایید",
-                //   },
-                // ]}
-                name="buy_link">
+                <Form.Item name="buy_link">
                   <TextArea
-                    style={{textAlign:"left"}}
+                    style={{ textAlign: "right" }}
                     rows={2}
                     placeholder="لینک کالا که در آن مشخصات کالا وجود دارد را وارد کنید"
                   />
                 </Form.Item>
-                <Divider plain orientation="center">
-                  <Popconfirm
-                    visible={this.state.infovisible8}
-                    onConfirm={this.handleOkinfo}
-                    overlayStyle={{ fontFamily: "VazirD" }}
-                    cancelButtonProps={{ hidden: "true" }}
-                    okText="متوجه شدم"
-                    title={
-                      <div>
-                        چنانچه قیمت کالا به صورت دقیق مشخص نیست،‌ مبلغ حدودی آن
-                        را وارد نمایید. <br />
-                        در مراحل بعدی مذاکره، قیمت دقیق کالا مشخص خواهد شد.
-                      </div>
-                    }
-                  >
-                  <Button style={{border:"hidden", margin:"-5px"}} onClick={this.showPopconfirm8}><InfoCircleOutlined /></Button>
-                  </Popconfirm>
-                  <span style={{ marginRight: "10px" }}>قیمت حدودی کالا (تومان)</span>
-                </Divider>
-                <Form.Item name="parcel_price"
-                validateTrigger="onFinish"
-                rules={[
-                  // {
-                  //   required: this.state.buy ? true : false ,
-                  //   message:"قیمت حدودی کالا را وارد نمایید"
-                  // },
-                  ({ getFieldValue }) => ({
-                    validator(rule, value) {
-                      if (value > 10000 || value == null ) {
-                        return Promise.resolve();
+                <Row style={{ display: "flex", justifyContent: "center" }}>
+                  <Divider plain orientation="center">
+                    <Popconfirm
+                      visible={this.state.infovisible8}
+                      onConfirm={this.handleOkinfo}
+                      overlayStyle={{ fontFamily: "VazirD" }}
+                      cancelButtonProps={{ hidden: "true" }}
+                      okText="متوجه شدم"
+                      title={
+                        <div>
+                          مبلغ حدودی کالا را وارد نمایید. <br />
+                          در مراحل بعدی مذاکره، قیمت دقیق کالا مشخص خواهد شد.
+                        </div>
                       }
-                      return Promise.reject(
-                        "مبلغ کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
-                      );
-                    },
-                  }),
-                ]}>
-                  <InputNumber
-                  type="tel"
-                    formatter={(value) =>
-                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    }
-                    parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-                    style={{ textAlign: "center", width: "200px" }}
-                    min={0}
-                  />
-                </Form.Item>
+                    >
+                      <Button
+                        style={{ border: "hidden", margin: "-5px" }}
+                        onClick={this.showPopconfirm8}
+                      >
+                        <InfoCircleOutlined />
+                      </Button>
+                    </Popconfirm>
+                    <span style={{ marginRight: "10px" }}>قیمت حدودی کالا</span>
+                  </Divider>
+                  <Col
+                    xs={14}
+                    sm={14}
+                    md={14}
+                    lg={12}
+                    xl={12}
+                    xxl={12}
+                    style={{ textAlign: "left" }}
+                  >
+                    <Form.Item name="parcel_price">
+                      <InputNumber
+                        type="tel"
+                        formatter={(value) =>
+                          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+                        style={{ textAlign: "center", width: "100px" }}
+                        min={0}
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col
+                    xs={10}
+                    sm={10}
+                    md={10}
+                    lg={12}
+                    xl={12}
+                    xxl={12}
+                    style={{ textAlign: "right" }}
+                  >
+                    <Form.Item
+                      name="currency"
+                      style={{ textAlign: "right", width: "60px" }}
+                    >
+                      <Select
+                        options={this.CURRENCY}
+                        dropdownStyle={{ fontFamily: "VazirD" }}
+                        defaultValue={this.CURRENCY[0].label}
+                        showArrow={false}
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
               </div>
               <Divider plain orientation="center">
                 توضیحات تکمیلی
               </Divider>
-              <Form.Item name="description" 
-              validateTrigger="onFinish"
-              rules={[
-                {
-                  required: true,
-                  message: "توضیحات لازم را وارد نمایید"
-                },
-                {
-                  max: 1000,
-                  message: "طول متن بیشتر از ۱۰۰۰ حرف است",
-                },
-                {
-                  min: 5,
-                  message: "مقداری بیشتر توضیح دهید"
-                }
-                ]}>
+              <Form.Item
+                name="description"
+                validateTrigger="onFinish"
+                rules={[
+                  {
+                    required: true,
+                    message: "توضیحات لازم را وارد نمایید",
+                  },
+                  {
+                    max: 1000,
+                    message: "طول متن بیشتر از ۱۰۰۰ حرف است",
+                  },
+                  {
+                    min: 5,
+                    message: "مقداری بیشتر توضیح دهید",
+                  },
+                ]}
+              >
                 <TextArea
-                  placeholder= {this.state.buy ? "در مورد کالایی که قصد خرید دارید توضیحات بیشتری دهید" : "در مورد بسته توضیحاتی دهید."}
+                  placeholder={
+                    this.state.buy
+                      ? "در مورد کالایی که قصد خرید دارید توضیحات بیشتری دهید"
+                      : "در مورد بسته توضیحاتی دهید."
+                  }
                   style={{ textAlign: "right", padding: "10px" }}
                   rows={5}
                 />

@@ -71,6 +71,7 @@ class ResetPassword extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 5,
         })
       });
@@ -96,6 +97,7 @@ class ResetPassword extends React.Component {
               float: "right",
               width: "max-content",
             },
+            closeIcon: " ",
             duration: 5,
           });
       });
@@ -169,7 +171,10 @@ class ResetPassword extends React.Component {
                 disableSearchIcon="true"
               />
             </Form.Item>
-            <Modal
+            
+          </Form>
+        </Modal>
+        <Modal
               visible={this.state.otp_visibile}
               onCancel={this.handleCancelotp}
               okButtonProps={{
@@ -216,12 +221,10 @@ class ResetPassword extends React.Component {
               borderRadius: "10px",
               overflow: "hidden",
               fontFamily: "VazirD",
-            }}
+            }}  
             >
               <NewPassword data={this.state.phone_number} parentcallback={this.closeAll} />
             </Modal>
-          </Form>
-        </Modal>
       </Form.Item>
       </div>
     );

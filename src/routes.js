@@ -32,7 +32,7 @@ class BaseRouter extends React.Component {
                 <Route exact path='/orders' component={OrderList}/>
                 <Route exact path='/orders/:country' component={OrderList}/>
                 <Route exact path='/orders/:country/:category' component={OrderList}/>
-                <Route exact path='/create-packet' render={(props) => token != null ? <PackForm {...this.props}/>:<Redirect to="/signup/"/>}/>
+                <Route exact path='/create-packet' render={(props) => token != null ? <PackForm {...this.props}/>:<Redirect to="/login/"/>}/>
                 <Route exact path='/users/:userID' component={UserProfile} />
                 <Route exact path='/packet/:orderID' component={OrderDetail} />
                 <Route exact path='/packet/:title/:orderID/' component={OrderDetail}/>

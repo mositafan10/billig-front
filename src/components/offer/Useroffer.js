@@ -36,7 +36,6 @@ class UserOffer extends React.Component {
     offer: [],
     loading: true,
     actionLoading: false,
-    // visible: false,
     adviceVisible: false
   };
 
@@ -114,7 +113,7 @@ class UserOffer extends React.Component {
       width: 150,
       align: "center",
       render: (dataIndex, row) =>
-        row.buy ? this.currency(dataIndex) : "ندارد",
+        row.buy ? (this.currency(dataIndex) != 0 ? this.currency(dataIndex) : "!" ) : "ندارد",
     },
     {
       title: " ",
@@ -311,6 +310,7 @@ class UserOffer extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 5,
         });
         socket.emit("offerChanged", slug);
@@ -343,6 +343,7 @@ class UserOffer extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 10,
         });
         socket.emit("offerChanged", slug);
@@ -364,6 +365,7 @@ class UserOffer extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 5,
         });
         this.props.update();

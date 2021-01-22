@@ -5,6 +5,7 @@ import { config } from "../Constant";
 import CommentUser from "../components/comment/CommentUser";
 import { Breakpoint } from "react-socks";
 import TimeDiff from "../components/utils/TimeDiff";
+import moment from "moment";
 import {
   InstagramOutlined,
   TwitterOutlined,
@@ -171,7 +172,7 @@ class UserProfile extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                        <h4>سابقه کاربر</h4>
+                        <h4>عضویت کاربر</h4>
                       </Col>
                       <Col
                         style={style_left}
@@ -181,7 +182,7 @@ class UserProfile extends React.Component {
                         lg={10}
                         xl={10}
                       >
-                        <TimeDiff data={this.state.user_profile.joined_at} />
+                        {moment(this.state.user_profile.joined_at).format("YYYY/MM/DD")}
                       </Col>
                     </Row>
                     <Row style={style_right}>
@@ -297,7 +298,7 @@ class UserProfile extends React.Component {
                       lg={14}
                       xl={14}
                     >
-                      <h4>سابقه کاربر</h4>
+                      <h4>عضویت کاربر</h4>
                     </Col>
                     <Col
                       style={style_left}
@@ -307,7 +308,7 @@ class UserProfile extends React.Component {
                       lg={10}
                       xl={10}
                     >
-                      <TimeDiff data={this.state.user_profile.joined_at} />
+                        {moment(this.state.user_profile.joined_at).format("YYYY/MM/DD")}
                     </Col>
                   </Row>
                   <Row style={style_right}>

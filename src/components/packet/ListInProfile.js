@@ -28,13 +28,13 @@ class PacketUserList extends React.Component {
     packet_user_completed: [],
     loading: true,
     removeReason: false,
-    value: 1,
+    value: 0,
     slug: "",
     text: "",
   };
 
   componentDidMount() {
-    document.title = "بیلیگ - لیست آگهی‌های من";
+    document.title = "بیلیگ-آگهی‌های من";
     this.getUserPacket();
     socket.on("shouldUpdateOffer", () => {
       this.getUserPacket();
@@ -71,6 +71,7 @@ class PacketUserList extends React.Component {
         width: "max-content",
         fontSizeAdjust: "0.5",
       },
+      closeIcon: " ",
       duration: 2,
     });
   }
@@ -103,40 +104,30 @@ class PacketUserList extends React.Component {
         headers: { Authorization: `Token ${token}` },
       }
     )
+      .then((res) => {})
+      .catch((error) => console.error(error));
+
+    Axios.delete(`${url}api/v1/advertise/packet/${slug}/`, {
+      headers: { Authorization: `Token ${token}` },
+    })
       .then((res) => {
         this.setState({
           packet_user: current_packet.filter(
             (packet_user) => packet_user.slug !== slug
           ),
         });
-        notification["success"]({
-          message: "از شما متشکریم",
-          style: {
-            fontFamily: "VazirD",
-            textAlign: "right",
-            float: "right",
-            width: "max-content",
-            fontSizeAdjust: "0.5",
-          },
-          duration: 2,
-        });
-      })
-      .catch((error) => console.error(error));
-    Axios.delete(`${url}api/v1/advertise/packet/${slug}/`, {
-      headers: { Authorization: `Token ${token}` },
-    })
-      .then((res) => {
-        notification["success"]({
-          message: "آگهی با موفقیت حذف شد",
-          style: {
-            fontFamily: "VazirD",
-            textAlign: "right",
-            float: "right",
-            width: "max-content",
-            fontSizeAdjust: "0.5",
-          },
-          duration: 2,
-        });
+          notification["success"]({
+            message: "آگهی با موفقیت حذف شد",
+            style: {
+              fontFamily: "VazirD",
+              textAlign: "right",
+              float: "right",
+              width: "max-content",
+              fontSizeAdjust: "0.5",
+            },
+            closeIcon: " ",
+            duration: 3,
+          }); 
       })
       .catch((error) => console.error(error));
     this.setState({ removeReason: false });
@@ -265,6 +256,7 @@ class PacketUserList extends React.Component {
                                 borderRadius: "15px",
                                 marginBottom:"10px"
                               }}
+                              disabled = {item.offer_count == 0 ? true : false}
                             >
                               پیشنهادهای دریافتی ( {item.offer_count} )
                             </Button>
@@ -307,7 +299,6 @@ class PacketUserList extends React.Component {
                               justifyContent: "center",
                             }}
                           >
-                            {item.status === "منتشر شده" ? (
                               <Popconfirm
                                 overlayStyle={{ fontFamily: "VazirD" }}
                                 title="آیا از حذف آگهی مطمئن هستید ؟"
@@ -329,7 +320,7 @@ class PacketUserList extends React.Component {
                                   </Button>
                                 </a>
                               </Popconfirm>
-                            ) : (
+                            {/* ) : (
                               <Tooltip
                                 overlayStyle={{ fontFamily: "VazirD" }}
                                 title="چنانچه آگهی پیشنهاد داشته باشد، امکان حذف آن وجود ندارد"
@@ -345,7 +336,7 @@ class PacketUserList extends React.Component {
                                   حذف
                                 </Button>
                               </Tooltip>
-                            )}
+                            )} */}
                           </Col>
                         </Row>
                       </Col>
@@ -356,8 +347,9 @@ class PacketUserList extends React.Component {
             />
             <Modal
               title="چرا می‌خواهید آگهی را حذف کنید؟"
+              visible={this.state.removeReason}
               onCancel={this.handleCancel}
-              onOk={this.sendReason.bind(this.state.slug)}
+              onOk={this.sendReason.bind()}
               cancelText="انصراف"
               okText="حذف"
               confirmLoading={this.state.loading}
@@ -366,7 +358,6 @@ class PacketUserList extends React.Component {
               //   key: "submit",
               //   htmlType: "submit",
               // }}
-              visible={this.state.removeReason}
               style={{ fontFamily: "VazirD" }}
             >
               <Radio.Group
@@ -375,10 +366,10 @@ class PacketUserList extends React.Component {
                 value={this.state.value}
               >
                 <Radio style={radioStyle} value={0}>
-                  بسته از طریق دیگری ارسال شد.
+                از طریق دیگری انجام شد.
                 </Radio>
                 <Radio style={radioStyle} value={1}>
-                  پیشنهادی دریافت نکردم
+                  پیشنهادی دریافت نشد
                 </Radio>
                 <Radio style={radioStyle} value={2}>
                   منصرف شدم
