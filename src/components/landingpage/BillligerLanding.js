@@ -76,7 +76,7 @@ const BillligerLanding = () => {
               >
                 <Col span={24}>
                   <h2 style={{ textAlign: "center", marginBottom: "20px",color: "#ff9a00", }}>
-                    می‌خواهم بسته‌ای را پست کنم.
+                    می‌خواهم کالایی بخرم.
                   </h2>
                 </Col>
               </Row>
@@ -106,7 +106,7 @@ const BillligerLanding = () => {
                       description={
                         <div style={travel_guide}>
                           اول باید در پلتفرم بیلیگ
-                          <Link to="/signup"> ثبت نام</Link> کنی و بعد درخواستت
+                          <Link to="/signup"> ثبت نام</Link> کنی و بعد خریدت
                           رو آگهی کنی.
                         </div>
                       }
@@ -130,7 +130,7 @@ const BillligerLanding = () => {
                       style={card_style_packet}
                       description={
                         <div style={travel_guide}>
-                          حالا باید صبر کنی تا مسافرهای هم‌مسیر روی آگهیت
+                          حالا باید صبر کنی تا مسافرها روی آگهیت
                           پیشنهاد بذارند.
                         </div>
                       }

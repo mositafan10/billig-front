@@ -137,7 +137,7 @@ class RateAndComment extends Component {
                                 message: "به مسافر امتیاز دهید"
                             }
                         ]}>
-                            <Rate defaultValue={2}/>
+                            <Rate defaultValue={0}/>
                         </Form.Item>
                         <Divider> ‌نظر خود را در مورد مسافر بیان کنید </Divider>
                         <Form.Item 

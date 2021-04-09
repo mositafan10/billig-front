@@ -225,7 +225,6 @@ const RulesCountry = () => {
                       />
                       </div>
                     }
-                    
                   ></Card>
                   </Link>
                 </List.Item>

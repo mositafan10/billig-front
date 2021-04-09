@@ -71,7 +71,8 @@ class CommentList extends Component {
                       <p style={{ textAlign: "center", marginTop: "20px" }}>
                         {item.text}
                       </p>
-                      <Rate                
+                      <Rate       
+                      disabled         
                       value={item.score}>
                       </Rate>
                     </Col>

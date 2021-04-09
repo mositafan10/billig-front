@@ -65,7 +65,7 @@ class OfferListModal extends React.Component {
         <Breakpoint medium up>
           <Modal
             visible={true}
-            title="پیشنهادهای دریافتی"
+            title="پیشنهاد‌های دریافت شده"
             onOk={this.handleCancel}
             onCancel={this.handleCancel}
             closable={false}
@@ -93,7 +93,7 @@ class OfferListModal extends React.Component {
         </Breakpoint>
         <Breakpoint small down>
           <Modal
-            title="پیشنهاد‌های آگهی"
+            title="پیشنهاد‌های دریافت شده"
             okText="بازگشت"
             cancelButtonProps={{ hidden: "true" }}
             onOk={this.handleCancel}

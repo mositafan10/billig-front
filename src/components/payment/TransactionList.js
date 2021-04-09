@@ -118,6 +118,7 @@ class TransactionList extends Component {
             style={{ padding: "40px 10px 30px 10px" }}
             columns={this.columns_payment}
             dataSource={this.state.transactions}
+            pagination={false}
           />
           </TabPane>
           <TabPane tab="برداشت‌" key="2">
@@ -126,6 +127,7 @@ class TransactionList extends Component {
             style={{ padding: "40px 10px 30px 10px" }}
             columns={this.columns_cashout}
             dataSource={this.state.cashoutList}
+            pagination={false}
           />
           </TabPane>
           </Tabs>

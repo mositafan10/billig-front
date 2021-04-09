@@ -2,8 +2,8 @@ import React from "react";
 import Axios from "axios";
 import { Spin, Modal, Row } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import { config } from "../../Constant";
 import { Breakpoint } from "react-socks";
+import { config } from "../../Constant";
 
 var url = config.url.API_URL;
 const antIcon = (
@@ -17,7 +17,7 @@ const antIcon = (
 class DownloadPic extends React.Component {
   state = {
     url: "",
-    loading: true,
+    loading: false,
     visible: false,
   };
 
@@ -31,19 +31,19 @@ class DownloadPic extends React.Component {
   d;
 
   componentDidMount() {
-    this.setState({ loading: true });
+    this.setState({ url: this.props.category.picture});
     if (this.props.data == 1) {
       this.setState({
-        url: this.props.category.picture,
         loading: false,
       });
     } else {
+      // this.setState({ loading: true})
       setTimeout(() => {
         Axios.get(`${url}api/v1/advertise/get_picture/${this.props.data}`).then(
           (res) =>
             this.setState({
               url: res.data.image_file,
-              loading: false,
+              // loading: false,
             })
         );
       }, 800);
@@ -53,7 +53,7 @@ class DownloadPic extends React.Component {
   render() {
     var alt = this.props.no_matter_origin
       ? `${this.props.title}|${this.props.category.name}|${this.props.destination_country}|${this.props.destination_city}`
-      : `${this.props.title}|${this.props.category}|${this.props.origin_country}|${this.props.origin_city}`;
+      : `${this.props.title}|${this.props.category.name}|${this.props.origin_country}|${this.props.origin_city}`;
 
     return (
       <div>
@@ -71,11 +71,10 @@ class DownloadPic extends React.Component {
           <img
             onClick={this.showmodal}
             loading="lazy"
-            src={`${url}dstatic/${
-              this.props.data == 1
-                ? this.props.category.picture
-                : this.state.url
-            }`}
+            src={`${url}dstatic/${this.state.url}`}
+              // this.props.data == 1
+              //   ? this.props.category.picture
+              //   : this.state.url
             alt={alt}
             style={{ borderRadius: "10px" }}
             width={this.props.size}

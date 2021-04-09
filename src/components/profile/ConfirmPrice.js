@@ -57,6 +57,7 @@ class ConfirmPrice extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 5,
         });
       })
@@ -69,6 +70,7 @@ class ConfirmPrice extends React.Component {
             float: "right",
             width: "max-content",
           },
+          closeIcon: " ",
           duration: 3,
         });
       });
@@ -115,7 +117,7 @@ class ConfirmPrice extends React.Component {
             bodyStyle={{ borderRadius: "20px" }}
             maskStyle={{ borderRadius: "20px" }}
           >
-            <p>مبلغ توافق فعلی: {this.currency(price1)} تومان</p>
+            <p> دستمزد فعلی : {this.currency(price1)} تومان</p>
             <Form
               size="middle"
               layout="vertical"
@@ -136,11 +138,11 @@ class ConfirmPrice extends React.Component {
                 rules={[
                   {
                     required: true,
-                    message: "مبلغ نهایی دستمزد را با صفحه کلید انگلیسی وارد کنید",
+                    message: "دستمزد نهایی را با صفحه کلید انگلیسی وارد کنید",
                   },
                   ({ getFieldValue }) => ({
                     validator(rule, value) {
-                      if (value >= 10000) {
+                      if (value >= 1000) {
                         return Promise.resolve();
                       }
                         return Promise.reject(
@@ -163,28 +165,29 @@ class ConfirmPrice extends React.Component {
               </Form.Item>
               {buy && (
                 <div>
-                  {/* <p>
-                    مبلغ فعلی کالا :
-                    {parcelPrice ? this.currency(parcelPrice) : 0} تومان
-                  </p> */}
                   <p>
-                    قیمت نهایی کالا را وارد نمایید
+                    قیمت فعلی کالا : {" "}
+                    {parcelPrice ? this.currency(parcelPrice) : 0} تومان
                   </p>
+                  <p>
+                   قیمت نهایی کالا را وارد نمایید
+                  </p>
+
                   <Form.Item
                     name="parcelPrice"
                     size="large"
                     rules={[
                       {
                         required: true,
-                        message: "مبلغ نهایی کالا را با کیبورد انگلیسی وارد کنید",
+                        message: "قیمت نهایی کالا را با کیبورد انگلیسی وارد کنید",
                       },
                       ({ getFieldValue }) => ({
                         validator(rule, value) {
-                          if (value >= 10000) {
+                          if (value >= 1000) {
                             return Promise.resolve();
                           }
                             return Promise.reject(
-                              "مبلغ کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
+                              "قیمت کالا نمی‌تواند از ۱۰٫۰۰۰ تومان کمتر باشد"
                             )
                         },
                       }),
@@ -208,7 +211,7 @@ class ConfirmPrice extends React.Component {
         </Breakpoint>
         <Breakpoint small down>
           <Modal
-            title="نهایی کردن مبلغ"
+            title=" نهایی کردن مبلغ توافقی"
             visible={this.state.price_visible}
             onCancel={this.handleCancel}
             okText="تایید و ارسال"
@@ -231,7 +234,7 @@ class ConfirmPrice extends React.Component {
             bodyStyle={{ borderRadius: "20px" }}
             maskStyle={{ borderRadius: "20px" }}
           >
-            <p>مبلغ توافق فعلی: {this.currency(price1)} تومان</p>
+            <p>دستمزد فعلی : {this.currency(price1)} تومان</p>
             <Form
               size="middle"
               layout="vertical"
@@ -252,7 +255,7 @@ class ConfirmPrice extends React.Component {
                 rules={[
                   {
                     required: true,
-                    message: "مبلغ نهایی دستمزد را وارد کنید",
+                    message: " دستمزد نهایی را با صفحه کلید انگلیسی وارد کنید",
                   },
                 ]}
               >
@@ -270,7 +273,7 @@ class ConfirmPrice extends React.Component {
               {buy && (
                 <div>
                   <p>
-                    مبلغ فعلی کالا :{" "}
+                    مبلغ فعلی کالا : {" "}
                     {parcelPrice ? this.currency(parcelPrice) : 0} تومان
                   </p>
                   <p>

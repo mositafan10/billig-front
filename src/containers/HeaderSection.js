@@ -116,6 +116,7 @@ class HeaderSection extends Component {
           float: "right",
           width: "max-content",
         },
+        closeIcon: " ",
         duration: 5,
       });
       this.props.logout();
