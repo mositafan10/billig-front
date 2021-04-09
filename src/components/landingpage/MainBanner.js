@@ -32,16 +32,13 @@ const MainBanner = () => {
         >
           <Row style={{ display: "flex", justifyContent: "center" }}>
               <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
+                <div>
+                <br/>
                 <h1 style={{ fontSize: "20px", textAlign: "center" }}>
-                  <span style={{ fontSize: "30px" }}>بیلیگ؛</span>
-                  <br />
-                  <span style={{ color: "#ff9a00" }}>
-                    {" "}
-                    خریدار یا صاحب‌بسته{" "}
-                  </span>
-                  را به
-                  <span style={{ color: "#067fc8" }}> مسافر </span>وصل می‌کند.
+                خرید سریع و ارزان از فروشگاه‌های دنیا
                 </h1>
+                <p style={{ fontSize: "15px", marginTop: "10px"}}>کالای خود را از هر فروشگاهی که می‌خواهید، توسط مسافر تهیه کنید.</p>
+                </div>
                 <Link to={"/how-billlig-work"}>
                   <Button
                     size="large"
@@ -49,7 +46,7 @@ const MainBanner = () => {
                       borderRadius: "25px",
                       backgroundColor: "#edf2f0",
                       borderColor: "white",
-                      fontSize: "13px",
+                      fontSize: "16px",
                     }}
                   >
                     راهنمای استفاده از بیلیگ
@@ -65,24 +62,18 @@ const MainBanner = () => {
                 xxl={24}
                 style={{ padding: "0 100px" }}
               >
-                <h1 style={{ fontSize: "24px", textAlign: "right" }}>
-                  <span style={{ fontSize: "30px" }}>بیلیگ؛</span>
-                  <br />
-                  <span style={{ color: "#ff9a00" }}>
-                    {" "}
-                    خریدار یا صاحب‌بسته{" "}
-                  </span>
-                  را به
-                  <span style={{ color: "#067fc8" }}> مسافر </span>وصل می‌کند.
-                  <br />
+                <h1 style={{ fontSize: "40px", textAlign: "right" }}>
+                    خرید سریع و ارزان از فروشگاه‌های دنیا
+                    <br/>
+                    <p style={{ fontSize: "18px", marginTop: "10px"}}>کالای خود را از هر فروشگاهی که می‌خواهید، توسط مسافر تهیه کنید.</p>
                   <Link to={"/how-billlig-work"}>
                     <Button
-                      size="large"
                       style={{
                         borderRadius: "25px",
+                        padding: "10px 40px 50px 40px",
                         backgroundColor: "#edf2f0",
                         borderColor: "white",
-                        fontSize: "14px",
+                        fontSize: "24px",
                       }}
                     >
                       راهنمای استفاده از بیلیگ
