@@ -172,7 +172,6 @@ class ConfirmPrice extends React.Component {
                   <p>
                    قیمت نهایی کالا را وارد نمایید
                   </p>
-
                   <Form.Item
                     name="parcelPrice"
                     size="large"

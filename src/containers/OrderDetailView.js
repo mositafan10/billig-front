@@ -9,6 +9,7 @@ import {
   Button,
   Tooltip,
   Popconfirm,
+  notification
 } from "antd";
 import { Link } from "react-router-dom";
 import Report from "../components/packet/Report";
@@ -57,7 +58,19 @@ class OrderDetail extends React.Component {
             "_بیلیگ";
       })
       .catch((error) => {
-        this.setState({ error: error.response.status });
+        if (error.response.status == 403 ){
+        notification["error"]({
+          message: error.response.data.detail,
+          style: {
+            fontFamily: "VazirD",
+            textAlign: "right",
+            float: "right",
+            width: "max-content",
+          },
+          closeIcon: " ",
+          duration: 5,
+        });}
+        this.setState({ error: error.response.status});
       });
   }
 
@@ -97,14 +110,15 @@ class OrderDetail extends React.Component {
     return (
       <div style={{ textAlign: "center" }}>
         <ConfigProvider direction="rtl">
-          <Breakpoint medium up>
-            {this.state.error == 404 ? (
+        {this.state.error == 404 ? (
               <PageNotFound />
             ) : this.state.loading ? (
               <div style={{ margin: "100px" }}>
                 <Spin size="large" />
               </div>
             ) : (
+            <div>
+          <Breakpoint medium up>
               <Row style={{ margin: "50px" }}>
                 <Col span={8}>
                   <Card
@@ -492,7 +506,6 @@ class OrderDetail extends React.Component {
                   <br />
                 </Col>
               </Row>
-            )}
           </Breakpoint>
           <Breakpoint small down>
             <Row
@@ -816,7 +829,7 @@ class OrderDetail extends React.Component {
                   )}
                   <hr style={{ color: "aliceblue" }} />
                   <br />
-                  <p style={{ textAlign: "right" }}>
+                  <p style={{ textAlign: "justify" }}>
                     {this.state.order.description}
                   </p>
                   <br />
@@ -893,6 +906,8 @@ class OrderDetail extends React.Component {
               </Col>
             </Row>
           </Breakpoint>
+          </div>
+           )}
         </ConfigProvider>
       </div>
     );
