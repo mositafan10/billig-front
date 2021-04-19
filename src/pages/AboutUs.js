@@ -4,13 +4,13 @@ import about from "../media/aboutus.svg";
 import about2 from "../media/about2.svg";
 import Favicon from "../media/FavIcon.png";
 
-const style_center = {display: "flex", justifyContent: "center"}
+const style_center = { display: "flex", justifyContent: "center" };
 
 const AboutUs = () => {
   window.scroll(0, 0);
   return (
     <div>
-      <Row style={style_center} >
+      <Row style={style_center}>
         <Col
           xs={22}
           sm={22}
@@ -49,20 +49,19 @@ const AboutUs = () => {
               lineHeight: "30px",
             }}
           >
-            <p style={{textAlign:"justify"}}>
+            <p style={{ textAlign: "justify" }}>
               <b>
-                بیلیگ در سال 1398 با هدف ارسال بسته توسط مسافران آغاز به کار کرد
-                و بعد از مدتی تصمیم بر ایجاد پلتفرمی یکپارچه برای ارسال بسته و
-                خرید از خارج کشور برای سهولت در این فرآیند پیچیده شد. حالا ما
-                قصد داریم با گسترش این شبکه به مدل جدیدی در خرید الکترونیک بر
-                پایه اقتصاد اشتراکی برسیم؛ مدلی که نفع همه در اون باشه
+                بیلیگ در سال 1398 با هدف خرید کالا از خارج توسط مسافران آغاز به
+                کار کرد حالا ما قصد داریم با گسترش این شبکه به مدل جدیدی در خرید
+                الکترونیک بر پایه اقتصاد اشتراکی برسیم؛ مدلی که نفع همه در اون
+                باشه
               </b>
             </p>
           </div>
         </Col>
-      </Row > 
+      </Row>
       <Divider style={{ opacity: "0" }} />
-      <Row style={style_center}>
+      {/* <Row style={style_center}>
         <Col
           xs={22}
           sm={22}
@@ -102,9 +101,15 @@ const AboutUs = () => {
             style={{ width: "80%", height: "auto" }}
           />
         </Col>
-      </Row>
-      <div >
-        <Row style={{direction:"ltr", display: "flex", justifyContent: "center"}}>
+      </Row> */}
+      <div>
+        <Row
+          style={{
+            direction: "ltr",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <Col
             xs={22}
             sm={22}
@@ -121,10 +126,10 @@ const AboutUs = () => {
             </h1>
             <hr />
             <p style={{ fontSize: "15px", padding: "40px 0" }}>
-              هدف دیگر ما اتصال به بازارهای جهانی‌ست تا بتوانیم تجربه خریدی با
-              کیفیت و مطمئن را بسیار ارزان‌تر از مدل‌های دیگر برای ایرانیان به
-              ارمغان بیاوریم. در این مدل هم خریداران از خرید خود راضی خواهند بود
-              و هم مسافرانی که از این طریق توانسته‌اند کسب درآمد کنند و بخشی از
+              هدف ما اتصال به بازارهای جهانی‌ست تا بتوانیم تجربه خریدی با کیفیت
+              و مطمئن را بسیار ارزان‌تر از مدل‌های دیگر برای ایرانیان به ارمغان
+              بیاوریم. در این مدل هم خریداران از خرید خود راضی خواهند بود و هم
+              مسافرانی که از این طریق توانسته‌اند کسب درآمد کنند و بخشی از
               هزینه‌های خود را پوشش دهند.
             </p>
           </Col>
