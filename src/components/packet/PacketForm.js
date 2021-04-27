@@ -387,7 +387,7 @@ class PackForm extends React.Component {
                   style={{ textAlign: "right" }}
                 />
               </Form.Item>
-              <Form.Item name="buy" style={{ textAlign: "center" }}>
+              {/* <Form.Item name="buy" style={{ textAlign: "center" }}>
                 <Space>
                   <Popconfirm
                     overlayStyle={{ fontFamily: "VazirD" }}
@@ -421,7 +421,7 @@ class PackForm extends React.Component {
                   </Checkbox>
                 </Space>
                 <br />
-              </Form.Item>
+              </Form.Item> */}
               {this.state.buy && (
                 <div>
                   <Form.Item
@@ -439,8 +439,8 @@ class PackForm extends React.Component {
                         title={
                           <div>
                             <p>
-                              زمانی که قصد خرید کالایی را دارید و برای شما فرقی
-                              نمی‌کند که از چه کشوری خریداری شود،‌ این گزینه را
+                              زمانی که برای شما فرقی
+                              نمی‌کند که کالا از چه کشوری خریداری شود،‌ این گزینه را
                               فعال نمایید
                             </p>
                           </div>

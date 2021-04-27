@@ -314,7 +314,7 @@ class PacketForEdit extends Component {
                   style={{ textAlign: "right" }}
                 />
               </Form.Item>
-              <Form.Item name="buy" style={{ textAlign: "center" }}>
+              {/* <Form.Item name="buy" style={{ textAlign: "center" }}>
                 <Checkbox
                   onChange={this.handlebuy.bind(this)}
                   defaultChecked={this.state.buy}
@@ -324,7 +324,7 @@ class PacketForEdit extends Component {
                   </span>
                 </Checkbox>
                 <br />
-              </Form.Item>
+              </Form.Item> */}
               {this.state.buy && (
                 <div>
                   <Form.Item
