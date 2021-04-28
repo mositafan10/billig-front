@@ -129,7 +129,7 @@ class ConfirmPrice extends React.Component {
               onFinishFailed={this.onFinishFailed}
             >
               <p>
-                دستمزدی را که پس از مذاکره با صاحب آگهی توافق کرده‌اید، وارد
+                دستمزدی را که پس از مذاکره با خریدار توافق کرده‌اید، وارد
                 نمایید.
               </p>
               <Form.Item
@@ -245,7 +245,7 @@ class ConfirmPrice extends React.Component {
               onFinishFailed={this.onFinishFailed}
             >
               <p>
-                دستمزدی را که پس از مذاکره با صاحب آگهی توافق کرده‌اید، وارد
+                دستمزدی را که پس از مذاکره با خریدار توافق کرده‌اید، وارد
                 نمایید.
               </p>
               <Form.Item

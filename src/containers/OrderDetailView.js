@@ -797,21 +797,21 @@ class OrderDetail extends React.Component {
                           <Row style={style_right}>
                             <Col
                               style={style_right}
-                              xs={6}
-                              sm={6}
-                              md={6}
-                              lg={6}
-                              xl={6}
+                              xs={14}
+                              sm={14}
+                              md={14}
+                              lg={14}
+                              xl={14}
                             >
                               <h4>لینک مشخصات</h4>
                             </Col>
                             <Col
                               style={style_left}
-                              xs={18}
-                              sm={18}
-                              md={18}
-                              lg={18}
-                              xl={18}
+                              xs={10}
+                              sm={10}
+                              md={10}
+                              lg={10}
+                              xl={10}
                             >
                               <br />
                               <a
@@ -898,7 +898,6 @@ class OrderDetail extends React.Component {
                 <br />
                 <Row style={style_center}>
                   <p>
-                    {" "}
                     خواندن و مرور<Link to="/advices"> این مطلب</Link> قبل از
                     انجام معامله توصیه می‌شود
                   </p>

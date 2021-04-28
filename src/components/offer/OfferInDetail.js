@@ -24,7 +24,7 @@ const { TextArea } = Input;
 
 class OfferDetail extends React.Component {
   defualt_description =
-    "سلام. من تمایل دارم بسته شما را به مقصد برسانم. اگر موافق باشید به مذاکره ادامه بدیم";
+    "سلام. من تمایل دارم کالای شما را خریداری کنم. اگر موافق باشید به مذاکره ادامه بدیم";
   state = {
     visible: false,
     slug: "",
@@ -257,8 +257,7 @@ class OfferDetail extends React.Component {
                           title={
                             <div>
                               <p>
-                                دستمزدی که در نظر دارید از خریدار دریافت
-                                کنید
+                                دستمزدی که در نظر دارید از خریدار دریافت کنید
                               </p>
                             </div>
                           }
@@ -407,7 +406,7 @@ class OfferDetail extends React.Component {
           ) : (
             <p style={{ textAlign: "center" }}>
               ابتدا وارد
-              <Link to={`/login/?next=${pathname}`}>حساب کاربری </Link>خود شوید
+              <Link to={`/login/?next=${pathname}`}> حساب کاربری </Link>خود شوید
             </p>
           )}
         </Modal>

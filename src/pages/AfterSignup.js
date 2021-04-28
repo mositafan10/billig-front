@@ -26,12 +26,10 @@ const AfterSignup = () => {
         }}
       >
         <p style={{ fontSize: "14px" }}>
-          {" "}
           می‌خواهید کالایی خریداری کنید و دنبال مسافری برای آن هستید
         </p>
         <p style={{ fontSize: "14px" }}>
-          {" "}
-          در این صورت باید آگهی خود را ثبت کنید
+          آگهی خود را ثبت کنید
         </p>
         <Link to={"/profile/mypacket"}>
           <Button
@@ -56,12 +54,10 @@ const AfterSignup = () => {
         }}
       >
         <p style={{ fontSize: "14px" }}>
-          {" "}
           می‌خواهید از سفر خود در‌امد کسب کنید و دنبال کالایی برای خرید هستید
         </p>
         <p style={{ fontSize: "14px" }}>
-          {" "}
-          در این صورت باید سفر خود را ثبت کنید
+          سفر خود را ثبت کنید
         </p>
         <Link to={"/profile/mytravel"}>
           <Button
