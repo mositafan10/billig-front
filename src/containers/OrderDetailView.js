@@ -134,7 +134,7 @@ class OrderDetail extends React.Component {
                         lg={14}
                         xl={14}
                       >
-                        <h4>بیلیگر</h4>
+                        <h4>خریدار</h4>
                       </Col>
                       <Col
                         style={style_left}
@@ -575,7 +575,7 @@ class OrderDetail extends React.Component {
                       lg={14}
                       xl={14}
                     >
-                      <h4>بیلیگر</h4>
+                      <h4>خریدار</h4>
                     </Col>
                     <Col
                       style={style_left}

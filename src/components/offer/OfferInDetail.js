@@ -257,7 +257,7 @@ class OfferDetail extends React.Component {
                           title={
                             <div>
                               <p>
-                                دستمزدی که در نظر دارید از بیلیگر دریافت
+                                دستمزدی که در نظر دارید از خریدار دریافت
                                 کنید
                               </p>
                             </div>

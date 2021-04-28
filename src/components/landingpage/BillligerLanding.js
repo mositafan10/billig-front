@@ -62,7 +62,7 @@ const BillligerLanding = () => {
                   // marginTop: "10px",
                 }}
               >
-                بیلیگر
+                خریدار
               </p>
             }
             key="1"
@@ -377,7 +377,7 @@ const BillligerLanding = () => {
                   marginTop: "20px",
                 }}
               >
-                بیلیگر
+                خریدار
               </h1>
               <hr style={{color:"white"}} />
             </Col>

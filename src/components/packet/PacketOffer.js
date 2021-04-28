@@ -182,7 +182,7 @@ class PacketOffer extends React.Component {
               </Button>
             </Popconfirm>
           );
-        } else if (row.status === "در انتظار تایید بیلیگر") {
+        } else if (row.status === "در انتظار تایید خریدار") {
           return (
             <Popconfirm
               overlayStyle={{ fontFamily: "VazirD" }}
@@ -492,7 +492,7 @@ class PacketOffer extends React.Component {
                               </Button>
                             </Popconfirm>
                           )}
-                          {item.status === "در انتظار تایید بیلیگر" && (
+                          {item.status === "در انتظار تایید خریدار" && (
                             <Popconfirm
                               overlayStyle={{ fontFamily: "VazirD" }}
                               title="آیا کالا را تحویل گرفته‌اید ؟"

@@ -345,11 +345,11 @@ class HeaderSection extends Component {
                   >
                     <div>
                       <h3 style={{ textAlign: "center" }}>
-                        قصد ارسال یا خرید کالا دارید؟
+                        قصد خرید کالا دارید؟
                       </h3>
                       <hr style={{ color: "#ff9a00" }} />
                       <p style={{ textAlign: "right" }}>
-                        ابتدا بسته یا کالای مورد نظر خود را در سایت ثبت کنید. پس
+                        ابتدا کالای مورد نظر خود را در سایت سفارش دهید. پس
                         از تایید، آگهی شما در سایت بیلیگ منتشر خواهد شد
                       </p>
                       <Row
@@ -366,7 +366,7 @@ class HeaderSection extends Component {
                                 borderColor: "#ff9a00",
                               }}
                             >
-                              راهنمای بیلیگر
+                              راهنمای خریدار
                             </Button>
                           </Link>
                           <Link to="/create-packet">

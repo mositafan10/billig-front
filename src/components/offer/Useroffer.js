@@ -303,7 +303,7 @@ class UserOffer extends React.Component {
       .then(() => {
         notification["success"]({
           message: "از شما متشکریم",
-          description: "حالا باید کالا را به بیلیگر تحویل دهید",
+          description: "حالا باید کالا را به خریدار تحویل دهید",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",
@@ -332,9 +332,9 @@ class UserOffer extends React.Component {
           message: "از شما متشکریم",
           description: (
             <div>
-              حالا از بیلیگر بخواهید که تحویل کالا را تایید کند.
+              حالا از خریدار بخواهید که تحویل کالا را تایید کند.
               <br />
-              تسویه حساب سفر شما بعد از تایید بیلیگر انجام می‌گیرد
+              تسویه حساب سفر شما بعد از تایید خریدار انجام می‌گیرد
             </div>
           ),
           style: {

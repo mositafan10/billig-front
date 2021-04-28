@@ -50,7 +50,7 @@ class ConfirmPrice extends React.Component {
         }, 300);
         notification["success"]({
           message: "مبلغ با موفقیت ثبت شد",
-          description: "منتظر تایید و پرداخت مبلغ از سوی بیلیگر باشید",
+          description: "منتظر تایید و پرداخت مبلغ از سوی خریدار باشید",
           style: {
             fontFamily: "VazirD",
             textAlign: "right",

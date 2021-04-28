@@ -130,7 +130,7 @@ class Bookmark extends Component {
         <div>
         <Radio.Group name="value" onChange={this.onChange} value={this.state.value}>
         <Radio style={radioStyle} value={0}>
-          عدم تطابق آگهی با صحبت‌های بیلیگر
+          عدم تطابق آگهی با صحبت‌های خریدار
         </Radio>
         <Radio style={radioStyle} value={1}>
           مغایرت محتویات بسته با قوانین
