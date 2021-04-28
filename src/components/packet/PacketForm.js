@@ -95,8 +95,8 @@ class PackForm extends React.Component {
 
   CURRENCY = [
     { value: "تومان", label: "تومان" },
-    { value: "دلار", label: "دلار" },
-    { value: "یورو", label: "یورو" },
+    // { value: "دلار", label: "دلار" },
+    // { value: "یورو", label: "یورو" },
   ];
 
   radiochange = (e) => {
