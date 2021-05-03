@@ -51,8 +51,8 @@ class PacketForEdit extends Component {
 
   CURRENCY = [
     { value: "تومان", label: "تومان" },
-    { value: "دلار", label: "دلار" },
-    { value: "یورو", label: "یورو" },
+    // { value: "دلار", label: "دلار" },
+    // { value: "یورو", label: "یورو" },
   ];
 
   search(nameKey, myArray) {
