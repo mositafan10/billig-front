@@ -232,10 +232,10 @@ class OfferDetail extends React.Component {
                           {this.state.travellist.map((e, key) => {
                             return (
                               <Option key={key} value={e.slug}>
-                                {e.destination.name} به {e.departure.name} در "
+                                {e.departure.name} به {e.destination.name} در "
                                 {moment(e.flight_date_start).format("D MMM")}"{" "}
                               </Option>
-                            );
+                            );  
                           })}
                         </Select>
                       </Form.Item>
