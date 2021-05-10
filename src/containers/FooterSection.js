@@ -134,7 +134,20 @@ class FooterSection extends Component {
             </Link>
           </Col>
           <br />
-          <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}></Col>
+          <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}>
+            <a
+              referrerpolicy="origin"
+              target="_blank"
+              href="https://trustseal.enamad.ir/?id=216475code=EZitQXIqYJiGFMO1Q0uP"
+            >
+              <img
+                referrerpolicy="origin"
+                src="https://Trustseal.eNamad.ir/logo.aspx?id=216475&amp;Code=EZitQXIqYJiGFMO1Q0uP"
+                alt=""
+                id="EZitQXIqYJiGFMO1Q0uP"
+              />
+            </a>
+          </Col>
         </Row>
         <Divider />
         <Row style={{ justifyContent: "center", display: "flex" }}>
