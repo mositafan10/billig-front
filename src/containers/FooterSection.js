@@ -74,7 +74,7 @@ class FooterSection extends Component {
                 rel="noopener noreferrer"
                 target="_blank"
                 style={{ color: "#edf2f0" }}
-                href="https://www.facebook.com/billligofficial"
+                href="https://www.facebook.com/billlig.co"
               >
                 <FacebookOutlined style={{ fontSize: "30px" }} />
               </a>
