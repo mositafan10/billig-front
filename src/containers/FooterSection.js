@@ -145,7 +145,7 @@ class FooterSection extends Component {
               backgroundColor: "#edf2f0",
               borderRadius: "10px",
               textAlign: "center",
-              marginTop: "5px"
+              alignItems: "center"
             }}
           >
             <a
