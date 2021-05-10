@@ -134,7 +134,20 @@ class FooterSection extends Component {
             </Link>
           </Col>
           <br />
-          <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2}>
+          <Col
+            xs={24}
+            sm={24}
+            md={24}
+            lg={2}
+            xl={2}
+            xxl={2}
+            style={{
+              backgroundColor: "#edf2f0",
+              borderRadius: "10px",
+              textAlign: "center",
+              marginTop: "5px"
+            }}
+          >
             <a
               referrerpolicy="origin"
               target="_blank"
