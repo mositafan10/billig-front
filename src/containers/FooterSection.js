@@ -145,13 +145,12 @@ class FooterSection extends Component {
               backgroundColor: "#edf2f0",
               borderRadius: "10px",
               textAlign: "center",
-              marginTop: "10px"
             }}
           >
             <a
               referrerpolicy="origin"
               target="_blank"
-              href="https://trustseal.enamad.ir/?id=216475code=EZitQXIqYJiGFMO1Q0uP"
+              href="https://trustseal.enamad.ir/?id=216475&amp;code=EZitQXIqYJiGFMO1Q0uP"
             >
               <img
                 referrerpolicy="origin"
